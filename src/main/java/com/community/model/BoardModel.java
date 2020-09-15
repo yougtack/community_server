@@ -12,6 +12,7 @@ public class BoardModel {
     private String b_type;
     private String b_title;
     private String b_date;
+    private int b_count;
     private String userId;
 
     private List<CommentModel> comments;

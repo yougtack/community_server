@@ -16,4 +16,18 @@
         WHERE
             userId = #{userId} and userPw = #{userPw}
     </select>
+
+    <select id="getMemberList" resultType="com.community.model.MemberModel">
+        SELECT
+            userId, userPw
+        FROM
+            community_member
+    </select>
+
+    <delete id="kickMember" parameterType="String">
+        DELETE FROM
+            community_member
+        WHERE
+            userId = #{userId}
+    </delete>
 </mapper>

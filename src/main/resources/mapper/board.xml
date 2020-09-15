@@ -6,6 +6,7 @@
         <result property="b_type" column="b_type"></result>
         <result property="b_title" column="b_title"></result>
         <result property="b_date" column="b_date"></result>
+        <result property="b_count" column="b_count"></result>
         <result property="userId" column="userId"></result>
 
         <collection property="comments" ofType="com.community.model.CheckCommentModel">
@@ -14,12 +15,21 @@
     </resultMap>
     <select id="getBoardList" resultMap="boardMap">
         SELECT
-            c.b_id, c.b_type, c.b_date, c.userId,
+            c.b_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId,
             cc.c_content
         FROM
             community AS c
         LEFT OUTER JOIN
             community_comment AS cc ON c.b_id = cc.b_id
+    </select>
+
+    <select id="getView" resultType="com.community.model.ViewModel">
+        SELECT
+            b_id, b_type, b_title, b_content, b_date, b_count, userId
+        FROM
+            community
+        WHERE
+            b_id = ${b_id}
     </select>
 
     <insert id="insert" parameterType="String">
@@ -38,20 +48,18 @@
             b_id = ${b_id}
     </update>
 
+    <update id="count" parameterType="String">
+        UPDATE
+            community AS c, (SELECT MAX(b_count)+1 AS result FROM community WHERE b_id = ${b_id}) AS a
+        SET
+            b_count = a.result
+        WHERE
+            b_id = ${b_id}
+    </update>
     <delete id="delete" parameterType="String">
         DELETE FROM
             community
         WHERE
             b_id = ${b_id}
     </delete>
-
-    <select id="getView" resultType="com.community.model.ViewModel">
-        SELECT
-            b_id, b_type, b_title, b_content, b_date, userId
-        FROM
-            community
-        WHERE
-            b_id = ${b_id}
-    </select>
-
 </mapper>

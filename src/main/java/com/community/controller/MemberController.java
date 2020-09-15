@@ -1,5 +1,6 @@
 package com.community.controller;
 
+import com.community.model.DeleteModel;
 import com.community.model.MemberModel;
 import com.community.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/member")
@@ -34,4 +36,15 @@ public class MemberController {
         response.addCookie(cookie);
         return "logout!!";
     }
+
+    @GetMapping(value = "memberList")
+    public List<MemberModel> memberList(){
+        return memberService.getMemberList();
+    }
+
+    @DeleteMapping
+    public Integer kickMember(@RequestBody DeleteModel model){
+        return memberService.kickMember(model);
+    }
+
 }

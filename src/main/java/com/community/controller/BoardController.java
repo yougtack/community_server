@@ -41,6 +41,7 @@ public class BoardController {
 
     @GetMapping(value = "/view/{b_id}")
     public ViewModel view(@PathVariable int b_id){
+        boardService.count(b_id);
         return boardService.getView(b_id);
     }
 }

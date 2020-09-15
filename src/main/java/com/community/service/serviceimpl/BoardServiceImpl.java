@@ -61,8 +61,7 @@ public class BoardServiceImpl implements BoardService {
     public Integer delete(int b_id, DeleteModel model, HttpServletResponse response, HttpServletRequest request){
         String loginUserId = LoginUtil.getCheckLogin(request);
         int result = 0;
-        System.out.println(loginUserId);
-        System.out.println(model.getUserId());
+
         if(loginUserId != null){
             if(loginUserId.equals(model.getUserId())){
                 result = dao.delete(b_id);
@@ -78,6 +77,11 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public ViewModel getView(int b_id){
         return dao.getView(b_id);
+    }
+
+    @Override
+    public Integer count(int b_id){
+        return dao.count(b_id);
     }
 
 
