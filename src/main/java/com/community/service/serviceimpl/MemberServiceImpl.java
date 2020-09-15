@@ -24,9 +24,8 @@ public class MemberServiceImpl implements MemberService {
            result =  dao.signUp(member.getUserId(), member.getUserPw());
         }catch(Exception e){
             response.setStatus(HttpStatus.FORBIDDEN.value());
-        }finally{
-            return result;
         }
+            return result;
     }
 
     @Override
