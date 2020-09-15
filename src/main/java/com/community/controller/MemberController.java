@@ -15,7 +15,6 @@ public class MemberController {
     @Autowired
     MemberService memberService;
 
-    @CrossOrigin("*")
     @PostMapping(value = "/signUp")
     public Integer SignUp(@RequestBody MemberModel member, HttpServletResponse response){
         return  memberService.signUp(member, response);

@@ -30,7 +30,6 @@ public class BoardController {
         return boardService.insert(model, response, request);
     }
 
-    @CrossOrigin("*")
     @PostMapping(value = "/community/{b_id}")
     public Integer update(@RequestBody ViewModel model, @PathVariable int b_id, HttpServletResponse response, HttpServletRequest request){
         return boardService.update(model, b_id, response, request);
