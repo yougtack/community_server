@@ -22,9 +22,20 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+	compile group: 'javax.inject', name: 'javax.inject', version: '1'
+	runtimeOnly 'mysql:mysql-connector-java'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
+
+	compile('org.springframework.boot:spring-boot-starter-jdbc')
+	compile('mysql:mysql-connector-java')
+
+	compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.0")
+	compile("org.mybatis:mybatis-spring")
+	compile("org.mybatis:mybatis")
+
+	compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.10.1'
 }
 
 test {

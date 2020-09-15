@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.community.dao.MemberDao">
+    <insert id="signUp" parameterType="String">
+        INSERT INTO
+            community_member
+        VALUES
+            (#{userId}, #{userPw})
+    </insert>
+
+    <select id="login" resultType="com.community.model.MemberModel">
+        SELECT
+            userId, userPw
+        FROM
+            community_member
+        WHERE
+            userId = #{userId} and userPw = #{userPw}
+    </select>
+</mapper>

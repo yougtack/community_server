@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.community.dao.BoardDao">
+    <select id="getBoardList" resultType="com.community.model.BoardModel">
+        SELECT
+            b_id, b_title, b_content, b_date, userId
+        FROM
+            community
+    </select>
+</mapper>
