@@ -11,12 +11,8 @@ public class LoginUtil {
 
         if(cookies != null){
             for(int i=0; i<cookies.length; i++){
-//                if(i==0){
-//                    cookieValue=null;
-//                }else{
                 cookieValue = cookies[i].getValue();
-//                }
-                ;            }
+            }
         }
         return cookieValue;
     }

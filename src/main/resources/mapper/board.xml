@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.community.dao.BoardDao">
-    <select id="getBoardList" resultType="com.community.model.BoardModel">
+    <resultMap id="boardMap" type="com.community.model.BoardModel">
+        <id property="b_id" column="b_id"/>
+        <result property="b_type" column="b_type"></result>
+        <result property="b_title" column="b_title"></result>
+        <result property="b_date" column="b_date"></result>
+        <result property="userId" column="userId"></result>
+
+        <collection property="comments" ofType="com.community.model.CheckCommentModel">
+            <result property="c_content" column="c_content"></result>
+        </collection>
+    </resultMap>
+    <select id="getBoardList" resultMap="boardMap">
         SELECT
-            b_id, b_type, b_title, b_date, userId
+            c.b_id, c.b_type, c.b_date, c.userId,
+            cc.c_content
         FROM
-            community
+            community AS c
+        LEFT OUTER JOIN
+            community_comment AS cc ON c.b_id = cc.b_id
     </select>
 
     <insert id="insert" parameterType="String">

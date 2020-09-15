@@ -4,7 +4,6 @@ import com.community.model.BoardModel;
 import com.community.model.DeleteModel;
 import com.community.model.ViewModel;
 import com.community.service.BoardService;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +29,7 @@ public class BoardController {
         return boardService.insert(model, response, request);
     }
 
-    @PostMapping(value = "/community/{b_id}")
+    @PutMapping(value = "/community/{b_id}")
     public Integer update(@RequestBody ViewModel model, @PathVariable int b_id, HttpServletResponse response, HttpServletRequest request){
         return boardService.update(model, b_id, response, request);
     }
