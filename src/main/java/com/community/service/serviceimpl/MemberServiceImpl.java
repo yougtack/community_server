@@ -25,7 +25,7 @@ public class MemberServiceImpl implements MemberService {
         }catch(Exception e){
             response.setStatus(HttpStatus.FORBIDDEN.value());
         }
-            return result;
+        return result;
     }
 
     @Override
