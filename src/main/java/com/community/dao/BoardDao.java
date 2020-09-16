@@ -6,8 +6,10 @@ import com.community.model.ViewModel;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface BoardDao {
+
     List<BoardModel> getBoardList();
 
     int insert(@Param("b_type") String b_type, @Param("b_title") String b_title, @Param("b_content") String b_content, @Param("user_id") String user_id);
@@ -20,6 +22,6 @@ public interface BoardDao {
 
     List<BoardModel> search(@Param("word") String word);
 
-    Integer image(@Param("image") ImageModel image);
+    Integer image(@Param("image") byte[] image, @Param("fileName") String fileName);
     List<ImageModel> getImage();
 }

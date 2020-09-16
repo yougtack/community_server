@@ -77,15 +77,16 @@
 
     <insert id="image" parameterType="com.community.model.ImageModel">
         INSERT INTO
-            image(image)
+            image
         VALUES
-            (#{image})
+            (#{image}, #{fileName})
     </insert>
 
     <select id="getImage" resultType="com.community.model.ImageModel">
         select
-            image
+            *
         from
             image
     </select>
+
 </mapper>
