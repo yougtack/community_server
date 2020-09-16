@@ -45,4 +45,12 @@ table {
 /* --------  */
 header {
     width: 100%;
+    background: lightblue;
+    height: 45px;
+}
+
+.header_icon{
+    width: 45px;
+    height: 45px;
+    margin: 0 0 0 100px;
 }

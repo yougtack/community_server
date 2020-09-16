@@ -3,17 +3,18 @@ const community = {
 };
 
 function printCommunity() {
-    const real_div = document.querySelector(".test"),
-        real_h1 = real_div.querySelector("h1");
+    console.log(community);
+    const body = document.querySelector("body");
+    const real_h1 = document.getElementById("hi");
 
-    real_h1.innerText = `${community.data[0].b_title}`;
+    // real_h1.innerText = `${community.data[0].b_title}`;
 
 }
 
 (function init() {
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
-    xhttp.open("GET", url + "/",false);
+    xhttp.open("GET", url + "/board/getTest",false);
 
     xhttp.onreadystatechange  = () => {
         

@@ -72,6 +72,7 @@ public class BoardController {
         return "ok";
     }
 
+    @CrossOrigin("*")
     @GetMapping(value = "getTest")
     public List<ImageModel> get(){
         return boardService.getImage();
