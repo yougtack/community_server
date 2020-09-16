@@ -6,16 +6,15 @@ import com.community.model.ImageModel;
 import com.community.model.ViewModel;
 import com.community.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.List;
 
 @RestController
@@ -73,7 +72,7 @@ public class BoardController {
         return "ok";
     }
 
-    @GetMapping(value = "getTest")
+    @GetMapping(value = "/getTest", produces = MediaType.IMAGE_JPEG_VALUE)
     public List<ImageModel> get(){
         return boardService.getImage();
     }

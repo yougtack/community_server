@@ -3,6 +3,8 @@ package com.community.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class ViewModel {
@@ -13,4 +15,6 @@ public class ViewModel {
     private String b_date;
     private int b_count;
     private String userId;
+
+    private List<CommentModel> comments;
 }

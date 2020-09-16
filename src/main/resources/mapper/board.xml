@@ -13,6 +13,22 @@
             <result property="c_content" column="c_content"></result>
         </collection>
     </resultMap>
+
+    <resultMap id="viewMap" type="com.community.model.ViewModel">
+        <id property="b_id" column="b_id"/>
+        <result property="b_type" column="b_type"></result>
+        <result property="b_title" column="b_title"></result>
+        <result property="b_content" column="b_content"></result>
+        <result property="b_date" column="b_date"></result>
+        <result property="b_count" column="b_count"></result>
+        <result property="userId" column="userId"></result>
+
+        <collection property="comments" ofType="com.community.model.ViewCommentModel">
+            <result property="c_id" column="c_id"></result>
+            <result property="b_id" column="b_id"></result>
+            <result property="c_content" column="c_content"></result>
+        </collection>
+    </resultMap>
     <select id="getBoardList" resultMap="boardMap">
         SELECT
             c.b_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId,
@@ -23,13 +39,15 @@
             community_comment AS cc ON c.b_id = cc.b_id
     </select>
 
-    <select id="getView" resultType="com.community.model.ViewModel">
+    <select id="getView" resultMap="viewMap">
         SELECT
-            b_id, b_type, b_title, b_content, b_date, b_count, userId
+            c.b_id, c.b_type, c.b_title, c.b_content, c.b_date, c.b_count, c.userId, cc.c_id, cc.b_id, cc.c_content
         FROM
-            community
+            community AS c
+        LEFT OUTER JOIN
+            community_comment AS cc ON c.b_id = cc.b_id
         WHERE
-            b_id = ${b_id}
+            c.b_id = ${b_id}
     </select>
 
     <insert id="insert" parameterType="String">
@@ -84,9 +102,8 @@
 
     <select id="getImage" resultType="com.community.model.ImageModel">
         select
-            *
+            image, fileName
         from
             image
     </select>
-
 </mapper>
