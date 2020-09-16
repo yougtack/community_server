@@ -47,6 +47,7 @@ public class BoardController {
         return boardService.delete(b_id, model, response, request);
     }
 
+    @CrossOrigin("*")
     @GetMapping(value = "/view/{b_id}")
     public ViewModel view(@PathVariable int b_id){
         boardService.count(b_id);
@@ -76,7 +77,7 @@ public class BoardController {
     }
 
     @CrossOrigin("*")
-    @GetMapping(value = "getTest")
+    @GetMapping(value = "/getTest")
     public List<ImageModel> get(){
         return boardService.getImage();
     }

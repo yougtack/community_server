@@ -57,7 +57,7 @@ header {
 
 section {
     text-align: center;
-    margin: 30px 30px 0 30px;
+    margin: 0 30px 0 30px;
 }
 
 .header_icon{
@@ -72,15 +72,15 @@ section {
     font-weight: bold;
     font-size: 25px;
     text-align: left;
+    margin: 30px 0 30px 0;
 }
 
 .community_table {
-    margin: 25px 0 0 0 ;
+    margin: 0;
     text-align: center;
 }
-
 .b_id {
-    width: 10%;
+    width: 6%;
 }
 
 .b_title {
@@ -89,13 +89,49 @@ section {
 }
 
 .b_date {
-    width: 10%;
+    width: 20%;
 }
 
 .userId {
-    width: 10%;
+    width: 20%;
 }
 
 .b_count {
-    width: 10%;
+    width: 1%;
+}
+
+.user_community {
+    border: 1px solid black;
+    text-align: left;
+    font-size: 14px;
+    padding: 15px 0 10px 25px;
+    margin: 0 0 30px 0;
+}
+
+.user_community_title {
+    font-size: 15px;
+    font-weight: bold;
+    width: 100%;
+}
+
+.txt {
+    font-weight: lighter;
+    padding: 0 5px 0 0 ;
+    margin-right: 5px;
+    border-width: 1px;
+    border-right-style: groove;
+}
+
+.end_txt {
+    border-right-style: none;
+}
+
+.p_txt {
+    margin: 45px 0 20px 0;
+}
+
+.user_content{
+    font-size: 18px;
+    text-align: left;
+    margin: 15px 0 0 25px;
 }
