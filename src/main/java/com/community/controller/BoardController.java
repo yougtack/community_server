@@ -57,6 +57,7 @@ public class BoardController {
         return boardService.search(word);
     }
 
+    @CrossOrigin("*")
     @PostMapping("/test")
     @ResponseBody
     public String upload(MultipartHttpServletRequest multipartHttpServletRequest) throws IOException {
