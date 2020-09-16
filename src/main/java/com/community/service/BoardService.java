@@ -22,6 +22,6 @@ public interface BoardService {
 
     List<BoardModel> search(String word);
 
-    Integer image(String image);
+    Integer image(ImageModel image);
     List<ImageModel> getImage();
 }

@@ -20,6 +20,6 @@ public interface BoardDao {
 
     List<BoardModel> search(@Param("word") String word);
 
-    Integer image(@Param("image") String image);
+    Integer image(@Param("image") ImageModel image);
     List<ImageModel> getImage();
 }

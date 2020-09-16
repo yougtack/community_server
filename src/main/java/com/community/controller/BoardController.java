@@ -8,6 +8,7 @@ import com.community.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -57,17 +58,17 @@ public class BoardController {
 
     @PostMapping("/test")
     @ResponseBody
-    public String upload(@RequestPart MultipartFile img) throws IOException {
-        String imgName = img.getOriginalFilename();
+    public String upload(MultipartHttpServletRequest multipartHttpServletRequest) throws IOException {
+
         ImageModel image = new ImageModel();
-        image.setImage(imgName);
-        String imageName = image.getImage();
-        boardService.image(imageName);
-//        File upl = new File("/Users/kim-youngtack/desktop/image/" + imgName);
-//        upl.createNewFile();
-//        FileOutputStream fout = new FileOutputStream(upl);
-//        fout.write(img.getBytes());
-//        fout.close();
+
+        List<MultipartFile>multipartFiles = multipartHttpServletRequest.getFiles("fileN[]");
+        if(!multipartFiles.isEmpty()){
+            for(MultipartFile filePart : multipartFiles){
+                image.setImage(filePart.getBytes());
+                boardService.image(image);
+            }
+        }
         return "ok";
     }
 
