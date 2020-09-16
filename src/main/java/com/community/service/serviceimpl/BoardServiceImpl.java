@@ -92,7 +92,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public Integer image(ImageModel image){
-        return dao.image(image);
+        return dao.image(image.getImage(), image.getFileName());
     }
 
     @Override

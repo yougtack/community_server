@@ -6,6 +6,7 @@ import com.community.model.ImageModel;
 import com.community.model.ViewModel;
 import com.community.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -58,17 +59,17 @@ public class BoardController {
 
     @PostMapping("/test")
     @ResponseBody
-    public String upload(MultipartHttpServletRequest multipartHttpServletRequest) throws IOException {
-
+    public String upload(MultipartHttpServletRequest multipartHttpServletRequest) throws Exception {
         ImageModel image = new ImageModel();
-
         List<MultipartFile>multipartFiles = multipartHttpServletRequest.getFiles("fileN[]");
         if(!multipartFiles.isEmpty()){
             for(MultipartFile filePart : multipartFiles){
+                image.setFileName(filePart.getOriginalFilename());
                 image.setImage(filePart.getBytes());
                 boardService.image(image);
             }
         }
+
         return "ok";
     }
 
