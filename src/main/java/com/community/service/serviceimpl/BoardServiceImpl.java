@@ -91,7 +91,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public Integer image(String image){
+    public Integer image(ImageModel image){
         return dao.image(image);
     }
 
