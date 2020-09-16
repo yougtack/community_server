@@ -1,6 +1,7 @@
 package com.community.dao;
 
 import com.community.model.BoardModel;
+import com.community.model.ImageModel;
 import com.community.model.ViewModel;
 import org.apache.ibatis.annotations.Param;
 
@@ -14,6 +15,11 @@ public interface BoardDao {
     int delete(@Param("b_id") int b_id);
 
     ViewModel getView(@Param("b_id") int b_id);
+
     Integer count(@Param("b_id") int b_id);
 
+    List<BoardModel> search(@Param("word") String word);
+
+    Integer image(@Param("image") String image);
+    List<ImageModel> getImage();
 }

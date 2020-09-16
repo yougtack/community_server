@@ -2,6 +2,7 @@ package com.community.service;
 
 import com.community.model.BoardModel;
 import com.community.model.DeleteModel;
+import com.community.model.ImageModel;
 import com.community.model.ViewModel;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,4 +19,9 @@ public interface BoardService {
     ViewModel getView(int b_id);
 
     Integer count(int b_id);
+
+    List<BoardModel> search(String word);
+
+    Integer image(String image);
+    List<ImageModel> getImage();
 }

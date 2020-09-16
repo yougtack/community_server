@@ -37,7 +37,7 @@ public class MemberController {
         return "logout!!";
     }
 
-    @GetMapping(value = "memberList")
+    @GetMapping(value = "/memberList")
     public List<MemberModel> memberList(){
         return memberService.getMemberList();
     }
@@ -45,6 +45,11 @@ public class MemberController {
     @DeleteMapping
     public Integer kickMember(@RequestBody DeleteModel model){
         return memberService.kickMember(model);
+    }
+
+    @PutMapping
+    public Integer update(@RequestBody MemberModel model){
+        return memberService.update(model);
     }
 
 }
