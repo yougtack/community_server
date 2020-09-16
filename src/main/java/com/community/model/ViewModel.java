@@ -11,5 +11,6 @@ public class ViewModel {
     private String b_title;
     private String b_content;
     private String b_date;
+    private int b_count;
     private String userId;
 }

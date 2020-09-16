@@ -14,5 +14,6 @@ public interface BoardDao {
     int delete(@Param("b_id") int b_id);
 
     ViewModel getView(@Param("b_id") int b_id);
+    Integer count(@Param("b_id") int b_id);
 
 }

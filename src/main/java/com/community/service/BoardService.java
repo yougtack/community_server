@@ -16,4 +16,6 @@ public interface BoardService {
     Integer delete(int b_id, DeleteModel model, HttpServletResponse response, HttpServletRequest request);
 
     ViewModel getView(int b_id);
+
+    Integer count(int b_id);
 }

@@ -13,13 +13,10 @@ function printCommunity() {
 (function init() {
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
-    xhttp.open("GET", url + "/board/boardList", false);
+    xhttp.open("GET", url + "/",false);
 
-    xhttp.onload = () => {
-        if (xhttp.readyState !== 4) {
-            return;
-        }
-
+    xhttp.onreadystatechange  = () => {
+        
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
         }

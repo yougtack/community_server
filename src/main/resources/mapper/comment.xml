@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.community.dao.CommentDao">
+    <select id="getComment" resultType="com.community.model.CommentModel">
+        SELECT
+            c_id, b_id, c_content, userId
+        FROM
+            community_comment
+        WHERE
+            b_id = ${b_id}
+    </select>
+
+    <update id="update" parameterType="String">
+        UPDATE
+            community_comment
+        SET
+            c_content = #{c_content}
+        WHERE
+            c_id = ${c_id}
+    </update>
+
+    <insert id="insert" parameterType="String">
+        INSERT INTO
+            community_comment(b_id, c_content, userId)
+        VALUES
+            (${b_id}, #{c_content}, #{userId})
+    </insert>
+
+    <delete id="delete" parameterType="String">
+        DELETE FROM
+            community_comment
+        WHERE
+            c_id = ${c_id}
+    </delete>
+</mapper>

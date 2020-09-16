@@ -1,10 +1,10 @@
 package com.community.service.serviceimpl;
 
-import com.community.dao.BoardDao;
-import com.community.model.BoardModel;
+import com.community.dao.CommentDao;
+import com.community.model.CommentModel;
 import com.community.model.DeleteModel;
 import com.community.model.ViewModel;
-import com.community.service.BoardService;
+import com.community.service.CommentService;
 import com.community.util.LoginUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,23 +15,24 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Service
-public class BoardServiceImpl implements BoardService {
+public class CommentServiceImpl implements CommentService {
 
     @Autowired
-    BoardDao dao;
+    CommentDao dao;
 
     @Override
-    public List<BoardModel> getBoardList(){
-        return dao.getBoardList();
+    public List<CommentModel> getComment(int b_id){
+        return dao.getComment(b_id);
     }
 
     @Override
-    public Integer insert(ViewModel model, HttpServletResponse response, HttpServletRequest request){
+    public Integer update(CommentModel model, HttpServletResponse response, HttpServletRequest request){
         String loginUserId = LoginUtil.getCheckLogin(request);
         int result = 0;
+
         if(loginUserId != null){
             if(loginUserId.equals(model.getUserId())){
-                result = dao.insert(model.getB_type(), model.getB_title(), model.getB_content(), model.getUserId());
+                result =  dao.update(model.getC_id(), model.getC_content());
             }else{
                 response.setStatus(HttpStatus.FORBIDDEN.value());
             }
@@ -42,12 +43,13 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public Integer update(ViewModel model, int b_id, HttpServletResponse response, HttpServletRequest request){
+    public Integer insert(CommentModel model, HttpServletResponse response, HttpServletRequest request){
         String loginUserId = LoginUtil.getCheckLogin(request);
         int result = 0;
+
         if(loginUserId != null){
             if(loginUserId.equals(model.getUserId())){
-                result = dao.update(model.getB_type(), model.getB_title(), model.getB_content(), b_id);
+                result =  dao.insert(model.getB_id(), model.getC_content(), model.getUserId());
             }else{
                 response.setStatus(HttpStatus.FORBIDDEN.value());
             }
@@ -58,13 +60,15 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public Integer delete(int b_id, DeleteModel model, HttpServletResponse response, HttpServletRequest request){
+    public Integer delete(int c_id, DeleteModel model, HttpServletResponse response, HttpServletRequest request) {
         String loginUserId = LoginUtil.getCheckLogin(request);
         int result = 0;
 
+        System.out.println(loginUserId);
+        System.out.println(model.getUserId());
         if(loginUserId != null){
             if(loginUserId.equals(model.getUserId())){
-                result = dao.delete(b_id);
+                result = dao.delete(c_id);
             }else{
                 response.setStatus(HttpStatus.FORBIDDEN.value());
             }
@@ -73,16 +77,4 @@ public class BoardServiceImpl implements BoardService {
         }
         return result;
     }
-
-    @Override
-    public ViewModel getView(int b_id){
-        return dao.getView(b_id);
-    }
-
-    @Override
-    public Integer count(int b_id){
-        return dao.count(b_id);
-    }
-
-
 }

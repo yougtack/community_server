@@ -1,6 +1,7 @@
 package com.community.service.serviceimpl;
 
 import com.community.dao.MemberDao;
+import com.community.model.DeleteModel;
 import com.community.model.MemberModel;
 import com.community.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Member;
+import java.util.List;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -41,5 +43,15 @@ public class MemberServiceImpl implements MemberService {
             response.setStatus(HttpStatus.FORBIDDEN.value());
         }
         return userInfo;
+    }
+
+    @Override
+    public List<MemberModel> getMemberList(){
+        return dao.getMemberList();
+    }
+
+    @Override
+    public Integer kickMember(DeleteModel model){
+        return dao.kickMember(model.getUserId());
     }
 }
