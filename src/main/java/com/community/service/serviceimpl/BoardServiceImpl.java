@@ -3,6 +3,7 @@ package com.community.service.serviceimpl;
 import com.community.dao.BoardDao;
 import com.community.model.BoardModel;
 import com.community.model.DeleteModel;
+import com.community.model.ImageModel;
 import com.community.model.ViewModel;
 import com.community.service.BoardService;
 import com.community.util.LoginUtil;
@@ -84,5 +85,18 @@ public class BoardServiceImpl implements BoardService {
         return dao.count(b_id);
     }
 
+    @Override
+    public List<BoardModel> search(String word){
+        return dao.search(word);
+    }
 
+    @Override
+    public Integer image(String image){
+        return dao.image(image);
+    }
+
+    @Override
+    public List<ImageModel> getImage(){
+        return dao.getImage();
+    }
 }

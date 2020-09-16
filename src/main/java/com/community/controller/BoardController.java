@@ -2,13 +2,18 @@ package com.community.controller;
 
 import com.community.model.BoardModel;
 import com.community.model.DeleteModel;
+import com.community.model.ImageModel;
 import com.community.model.ViewModel;
 import com.community.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -44,5 +49,31 @@ public class BoardController {
     public ViewModel view(@PathVariable int b_id){
         boardService.count(b_id);
         return boardService.getView(b_id);
+    }
+
+    @GetMapping(value = "/search")
+    public List<BoardModel> search(@RequestParam("word") String word){
+        return boardService.search(word);
+    }
+
+    @PostMapping("/test")
+    @ResponseBody
+    public String upload(@RequestPart MultipartFile img) throws IOException {
+        String imgName = img.getOriginalFilename();
+        ImageModel image = new ImageModel();
+        image.setImage(imgName);
+        String imageName = image.getImage();
+        boardService.image(imageName);
+//        File upl = new File("/Users/kim-youngtack/desktop/image/" + imgName);
+//        upl.createNewFile();
+//        FileOutputStream fout = new FileOutputStream(upl);
+//        fout.write(img.getBytes());
+//        fout.close();
+        return "ok";
+    }
+
+    @GetMapping(value = "getTest")
+    public List<ImageModel> get(){
+        return boardService.getImage();
     }
 }

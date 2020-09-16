@@ -30,4 +30,13 @@
         WHERE
             userId = #{userId}
     </delete>
+
+    <update id="update" parameterType="String">
+        UPDATE
+            community_member
+        SET
+            userPw = #{userPw}
+        WHERE
+            userId = #{userId}
+    </update>
 </mapper>

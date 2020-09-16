@@ -15,4 +15,6 @@ public interface MemberService {
     List<MemberModel> getMemberList();
 
     Integer kickMember(DeleteModel model);
+
+    Integer update(MemberModel model);
 }

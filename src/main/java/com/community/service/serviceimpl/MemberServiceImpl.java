@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-import java.lang.reflect.Member;
 import java.util.List;
 
 @Service
@@ -53,5 +52,10 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Integer kickMember(DeleteModel model){
         return dao.kickMember(model.getUserId());
+    }
+
+    @Override
+    public Integer update(MemberModel model){
+        return dao.update(model.getUserId(), model.getUserPw());
     }
 }
