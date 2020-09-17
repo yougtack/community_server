@@ -95,7 +95,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public Integer imageUpload(ImageModel image, int b_id, HttpServletResponse response, HttpServletRequest request){
+    public Integer imageUpload(ImageModel image, CheckUserModel checkUserModel, int b_id, HttpServletResponse response, HttpServletRequest request){
         if(image.getFileName().equals("")){
             return 0;
         }
@@ -103,7 +103,7 @@ public class BoardServiceImpl implements BoardService {
         int result = 0;
         if(loginUserId != null){
             if(loginUserId.equals(image.getUserId())){
-                result = dao.imageUpload(image.getImage(), image.getFileName(), image.getUserId(), b_id);
+                result = dao.imageUpload(image.getImage(), image.getFileName(), checkUserModel.getUserId(), b_id);
             }else{
                 response.setStatus(HttpStatus.FORBIDDEN.value());
             }

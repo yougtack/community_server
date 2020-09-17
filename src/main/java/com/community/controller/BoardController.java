@@ -77,7 +77,7 @@ public class BoardController {
     @CrossOrigin("*")
     @PostMapping("/upload")
     @ResponseBody
-    public Integer upload(MultipartHttpServletRequest multipartHttpServletRequest, HttpServletResponse response, HttpServletRequest request) throws Exception {
+    public Integer upload(@RequestBody CheckUserModel checkUserModel, MultipartHttpServletRequest multipartHttpServletRequest, HttpServletResponse response, HttpServletRequest request) throws Exception {
         int result = 0;
         int b_id = boardService.getB_id();
         ImageModel image = new ImageModel();
@@ -86,7 +86,7 @@ public class BoardController {
             for(MultipartFile filePart : multipartFiles){
                 image.setFileName(filePart.getOriginalFilename());
                 image.setImage(filePart.getBytes());
-                result = boardService.imageUpload(image, b_id, response, request);
+                result = boardService.imageUpload(image, checkUserModel, b_id, response, request);
             }
         }
         return result;
