@@ -25,7 +25,6 @@
 
         <collection property="comments" ofType="com.community.model.ViewCommentModel">
             <result property="c_id" column="c_id"></result>
-            <result property="b_id" column="b_id"></result>
             <result property="c_content" column="c_content"></result>
         </collection>
     </resultMap>
