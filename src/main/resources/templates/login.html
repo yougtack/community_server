@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../static/css.css"/>
+    <title>게시판</title>
+</head>
+<body>
+    <header>
+        <script src="js/header.js"></script>
+    </header>
+    <section>
+        <p class="type_text">로그인</p>
+        <input type="text" class="login_box" id="userId" placeholder="아이디" onkeyup="enter()" />
+        <br>
+        <input type="password" class="login_box" id="userPw" placeholder="비밀번호" onkeyup="enter()" />
+        <br>
+        <br>
+        <input type="button" value="로그인" class="login_button" onclick="loginCheck()" />
+        <a href="signUp.html"><input type="button" value="회원가입" class="login_button" /></a>
+    </section>
+    <script src="../templates/js/login.js"></script>
+</body>
+</html>

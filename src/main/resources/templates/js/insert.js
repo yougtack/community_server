@@ -22,7 +22,7 @@ function insert(type,title,content) {
     console.log(data);
 }
 
-function check() {
+function valueCheck() {
     const title = document.getElementById("title"),
         type = document.getElementById("type"),
         content = document.getElementById("content");

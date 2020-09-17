@@ -71,11 +71,6 @@ section {
     margin: 0 0 0 100px;
 }
 
-.login_icon {
-    width: 100px;
-    margin: 10px;
-}
-
 /* community */
 
 .type_text{
@@ -160,4 +155,17 @@ section {
     height: 100%;
     min-height: 500px;
     border: 1px solid black;
+}
+
+/* login */
+
+.login_box {
+    margin: 10px;
+    width: 250px;
+    height: 40px;
+}
+
+.login_button {
+    width: 100px;
+    height: 30px;
 }

@@ -1,10 +1,9 @@
 package com.community.service;
 
-import com.community.model.DeleteModel;
+import com.community.model.CheckUserModel;
 import com.community.model.MemberModel;
 
 import javax.servlet.http.HttpServletResponse;
-import java.lang.reflect.Member;
 import java.util.List;
 
 public interface MemberService {
@@ -14,7 +13,7 @@ public interface MemberService {
 
     List<MemberModel> getMemberList();
 
-    Integer kickMember(DeleteModel model);
+    Integer kickMember(CheckUserModel model);
 
     Integer update(MemberModel model);
 }

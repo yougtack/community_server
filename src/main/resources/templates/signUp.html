@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../static/css.css"/>
+    <title>게시판</title>
+</head>
+<body>
+<header>
+    <script src="js/header.js"></script>
+</header>
+<section>
+    <p class="type_text">회원가입</p>
+    <input type="text" id="userId" class="login_box" placeholder="아이디" onkeyup="enter()" />
+    <br>
+    <input type="password" id="userPw" class="login_box" placeholder="비밀번호" onkeyup="enter()" />
+    <br>
+    <br>
+    <input type="button" value="회원가입" class="login_button" onclick="signUpCheck()"/>
+</section>
+<script src="../templates/js/signUp.js"></script>
+</body>
+</html>

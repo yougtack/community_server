@@ -21,6 +21,6 @@ public interface BoardDao {
 
     List<BoardModel> search(@Param("word") String word);
 
-    Integer image(@Param("image") byte[] image, @Param("fileName") String fileName);
-    List<ImageModel> getImage();
+    Integer imageUpload(@Param("image") byte[] image, @Param("fileName") String fileName, @Param("b_id") int b_id);
+    List<ImageModel> getImage(@Param("b_id") int b_id);
 }

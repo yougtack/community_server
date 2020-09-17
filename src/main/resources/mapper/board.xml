@@ -37,6 +37,8 @@
             community AS c
         LEFT OUTER JOIN
             community_comment AS cc ON c.b_id = cc.b_id
+        ORDER BY
+            c.b_id
     </select>
 
     <select id="getView" resultMap="viewMap">
@@ -93,17 +95,19 @@
             c.b_title LIKE CONCAT('%',#{word} ,'%')
     </select>
 
-    <insert id="image" parameterType="com.community.model.ImageModel">
+    <insert id="imageUpload" parameterType="com.community.model.ImageModel">
         INSERT INTO
-            image
+            community_image(b_id, image, fileName)
         VALUES
-            (#{image}, #{fileName})
+            (${b_id}, #{image}, #{fileName})
     </insert>
 
     <select id="getImage" resultType="com.community.model.ImageModel">
-        select
-            image, fileName
-        from
-            image
+        SELECT
+            i_id, b_id, image, fileName
+        FROM
+            community_image
+        WHERE
+            b_id = ${b_id}
     </select>
 </mapper>

@@ -1,7 +1,7 @@
 package com.community.service;
 
 import com.community.model.BoardModel;
-import com.community.model.DeleteModel;
+import com.community.model.CheckUserModel;
 import com.community.model.ImageModel;
 import com.community.model.ViewModel;
 
@@ -12,9 +12,9 @@ import java.util.List;
 public interface BoardService {
     List<BoardModel> getBoardList();
 
-    Integer insert(ViewModel model, HttpServletResponse response, HttpServletRequest request);
+    Integer insert(ViewModel viewModel, HttpServletResponse response, HttpServletRequest request);
     Integer update(ViewModel model, int b_id, HttpServletResponse response, HttpServletRequest request);
-    Integer delete(int b_id, DeleteModel model, HttpServletResponse response, HttpServletRequest request);
+    Integer delete(int b_id, CheckUserModel model, HttpServletResponse response, HttpServletRequest request);
 
     ViewModel getView(int b_id);
 
@@ -22,6 +22,7 @@ public interface BoardService {
 
     List<BoardModel> search(String word);
 
-    Integer image(ImageModel image);
-    List<ImageModel>getImage();
+    Integer imageUpload(ImageModel image, int b_id, HttpServletResponse response, HttpServletRequest request);
+
+    List<ImageModel>getImage(int b_id);
 }
