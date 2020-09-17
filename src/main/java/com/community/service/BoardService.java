@@ -22,7 +22,7 @@ public interface BoardService {
 
     List<BoardModel> search(String word);
 
-    Integer imageUpload(ImageModel image, CheckUserModel checkUserModel, int b_id, HttpServletResponse response, HttpServletRequest request);
+    Integer imageUpload(ImageModel image, int b_id, HttpServletResponse response, HttpServletRequest request);
     Integer imageUpdate(ImageModel image, int b_id, HttpServletResponse response, HttpServletRequest request);
 
 

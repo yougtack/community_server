@@ -96,17 +96,17 @@
 
     <insert id="imageUpdate" parameterType="com.community.model.ImageModel">
         INSERT INTO
-            community_image(b_id, image, fileName, userId)
+            community_image(b_id, image, fileName)
         VALUES
-            (${b_id}, #{image}, #{fileName}, #{userId})
+            (${b_id}, #{image}, #{fileName})
     </insert>
 
 
     <insert id="imageUpload" parameterType="com.community.model.ImageModel">
         INSERT INTO
-            community_image(b_id, image, fileName, userId)
+            community_image(b_id, image, fileName)
         VALUES
-            (${b_id}, #{image}, #{fileName}, #{userId})
+            (${b_id}, #{image}, #{fileName})
     </insert>
     <select id="getImage" resultType="com.community.model.ImageModel">
         SELECT

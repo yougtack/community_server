@@ -3,6 +3,7 @@ package com.community.controller;
 import com.community.model.CheckUserModel;
 import com.community.model.MemberModel;
 import com.community.service.MemberService;
+import com.community.util.LoginUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -30,14 +31,17 @@ public class MemberController {
     //로그인
     @CrossOrigin("*")
     @PostMapping(value = "/login")
-    public MemberModel Login(@RequestBody MemberModel member, HttpServletResponse response){
+    public MemberModel Login(@RequestBody MemberModel member, HttpServletResponse response, HttpServletRequest request){
+        boolean isApp = LoginUtil.isApp( request );
         MemberModel userInfo = memberService.login(member);
         if(userInfo != null){
-            Cookie cookie = new Cookie("userId", userInfo.getUserId());
-            cookie.setMaxAge(-1);
-            cookie.setPath("/");
+            if(!isApp){
+                Cookie cookie = new Cookie("userId", userInfo.getUserId());
+                cookie.setMaxAge(-1);
+                cookie.setPath("/");
 
-            response.addCookie(cookie);
+                response.addCookie(cookie);
+            }
         }else {
             response.setStatus(HttpStatus.FORBIDDEN.value());
         }

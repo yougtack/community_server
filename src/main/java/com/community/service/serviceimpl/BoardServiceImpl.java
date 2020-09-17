@@ -31,7 +31,7 @@ public class BoardServiceImpl implements BoardService {
         String loginUserId = LoginUtil.getCheckLogin(request);
         int result = 0;
         if(loginUserId != null){
-            if(loginUserId.equals(viewModel.getUserId())){
+            if(loginUserId.equals(viewModel.getUserId()) || LoginUtil.isApp(request)){ // <- 이런식으로 바꿔야함
                 result = dao.insert(viewModel.getB_type(), viewModel.getB_title(), viewModel.getB_content(), viewModel.getUserId());
             }else{
                 response.setStatus(HttpStatus.FORBIDDEN.value());
@@ -91,18 +91,14 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public Integer imageUpload(ImageModel image, CheckUserModel checkUserModel, int b_id, HttpServletResponse response, HttpServletRequest request){
+    public Integer imageUpload(ImageModel image, int b_id, HttpServletResponse response, HttpServletRequest request){
         if(image.getFileName().equals("")){
             return 0;
         }
         String loginUserId = LoginUtil.getCheckLogin(request);
         int result = 0;
         if(loginUserId != null){
-            if(loginUserId.equals(image.getUserId())){
-                result = dao.imageUpload(image.getImage(), image.getFileName(), checkUserModel.getUserId(), b_id);
-            }else{
-                response.setStatus(HttpStatus.FORBIDDEN.value());
-            }
+                result = dao.imageUpload(image.getImage(), image.getFileName(), b_id);
         }else{
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
         }
@@ -117,11 +113,7 @@ public class BoardServiceImpl implements BoardService {
         String loginUserId = LoginUtil.getCheckLogin(request);
         int result = 0;
         if(loginUserId != null){
-            if(loginUserId.equals(image.getUserId())){
-                result = dao.imageUpdate(image.getImage(), image.getFileName(), image.getUserId(), b_id);
-            }else{
-                response.setStatus(HttpStatus.FORBIDDEN.value());
-            }
+            result = dao.imageUpdate(image.getImage(), image.getFileName(), b_id);
         }else{
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
         }
