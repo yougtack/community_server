@@ -6,12 +6,21 @@ import com.community.model.ImageModel;
 import com.community.model.ViewModel;
 import com.community.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @RestController
@@ -66,9 +75,29 @@ public class BoardController {
 
     //사진 업로드
     @CrossOrigin("*")
+    @PostMapping("/upload")
+    @ResponseBody
+    public Integer upload(MultipartHttpServletRequest multipartHttpServletRequest, HttpServletResponse response, HttpServletRequest request) throws Exception {
+        int result = 0;
+        ViewModel viewModel = boardService.getB_id();
+
+        ImageModel image = new ImageModel();
+        List<MultipartFile>multipartFiles = multipartHttpServletRequest.getFiles("fileN[]");
+        if(!multipartFiles.isEmpty()){
+            for(MultipartFile filePart : multipartFiles){
+                image.setFileName(filePart.getOriginalFilename());
+                image.setImage(filePart.getBytes());
+                result = boardService.imageUpload(image, viewModel.getB_id(), response, request);
+            }
+        }
+        return result;
+    }
+
+    //게시글 수정시 사진 업로드
+    @CrossOrigin("*")
     @PostMapping("/upload/{b_id}")
     @ResponseBody
-    public Integer upload(MultipartHttpServletRequest multipartHttpServletRequest, @PathVariable int b_id, HttpServletResponse response, HttpServletRequest request) throws Exception {
+    public Integer updateUpload(MultipartHttpServletRequest multipartHttpServletRequest, @PathVariable int b_id, HttpServletResponse response, HttpServletRequest request) throws Exception {
         int result = 0;
         ImageModel image = new ImageModel();
         List<MultipartFile>multipartFiles = multipartHttpServletRequest.getFiles("fileN[]");
@@ -76,14 +105,13 @@ public class BoardController {
             for(MultipartFile filePart : multipartFiles){
                 image.setFileName(filePart.getOriginalFilename());
                 image.setImage(filePart.getBytes());
-                result = boardService.imageUpload(image, b_id, response, request);
+                result = boardService.imageUpdate(image, b_id, response, request);
             }
         }
-
         return result;
     }
 
-    //상세번호로 사진가져오기
+    //상세번호로 사가져오기
     @CrossOrigin("*")
     @GetMapping(value = "/getImage/{b_id}")
     public List<ImageModel> get(@PathVariable int b_id){

@@ -8,11 +8,15 @@ import com.community.model.ViewModel;
 import com.community.service.BoardService;
 import com.community.util.LoginUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.net.MalformedURLException;
+import java.nio.file.Path;
 import java.util.List;
 
 @Service
@@ -110,7 +114,30 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    public Integer imageUpdate(ImageModel image, int b_id, HttpServletResponse response, HttpServletRequest request){
+        if(image.getFileName().equals("")){
+            return 0;
+        }
+        String loginUserId = LoginUtil.getCheckLogin(request);
+        int result = 0;
+        if(loginUserId != null){
+            if(loginUserId.equals(image.getUserId())){
+                result = dao.imageUpdate(image.getImage(), image.getFileName(), image.getUserId(), b_id);
+            }else{
+                response.setStatus(HttpStatus.FORBIDDEN.value());
+            }
+        }else{
+            response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        }
+        return result;
+    }
+    @Override
     public List<ImageModel> getImage(int b_id){
         return dao.getImage(b_id);
+    }
+
+    @Override
+    public ViewModel getB_id(){
+        return dao.getB_id();
     }
 }

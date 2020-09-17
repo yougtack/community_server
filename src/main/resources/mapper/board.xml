@@ -94,13 +94,20 @@
             c.b_title LIKE CONCAT('%',#{word} ,'%')
     </select>
 
-    <insert id="imageUpload" parameterType="com.community.model.ImageModel">
+    <insert id="imageUpdate" parameterType="com.community.model.ImageModel">
         INSERT INTO
             community_image(b_id, image, fileName, userId)
         VALUES
             (${b_id}, #{image}, #{fileName}, #{userId})
     </insert>
 
+
+    <insert id="imageUpload" parameterType="com.community.model.ImageModel">
+        INSERT INTO
+            community_image(b_id, image, fileName, userId)
+        VALUES
+            (${b_id}, #{image}, #{fileName}, #{userId})
+    </insert>
     <select id="getImage" resultType="com.community.model.ImageModel">
         SELECT
             i_id, b_id, image, fileName
@@ -108,5 +115,12 @@
             community_image
         WHERE
             b_id = ${b_id}
+    </select>
+
+    <select id="getB_id" resultType="com.community.model.ViewModel">
+        SELECT
+            MAX(b_id)+1
+        FROM
+            community
     </select>
 </mapper>

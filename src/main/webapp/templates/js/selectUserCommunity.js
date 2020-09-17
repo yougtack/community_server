@@ -21,7 +21,8 @@ function printCommunity() {
     real_div += `<br>`;
     real_div += `<span class="txt">${community.data.userId}</span>`;
     real_div += `<span class="txt">${community.data.b_date}</span>`;
-    real_div += `<span class="txt end_txt">${community.data.b_count}</span></div>`;
+    real_div += `<span class="txt end_txt">${community.data.b_count}</span>` ;
+    real_div += `<span class="txt"><img style="width: 500px;" src="../static/delete.png" alt="delete_img" /></span></div>`;
     real_div += `<div class="user_content">${community.data.b_content}</div>`;
     real_div += `<br><br><hr>`;
     real_div += `<a href="community.html?b_type=${community.data.b_type}"><input type="button" value="목록" style="float: right; width: 80px; height: 70px" /></a>`;
