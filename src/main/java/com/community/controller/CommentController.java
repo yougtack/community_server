@@ -18,24 +18,28 @@ public class CommentController {
     @Autowired
     CommentService commentService;
 
+    //댓글 보기
     @CrossOrigin("*")
     @GetMapping(value = "/{b_id}")
     public List<CommentModel> getComment(@PathVariable int b_id){
         return commentService.getComment(b_id);
     }
 
+    //댓글 입력
     @CrossOrigin("*")
     @PostMapping
     public Integer insert(@RequestBody CommentModel model, HttpServletResponse response, HttpServletRequest request){
         return commentService.insert(model ,response, request);
     }
 
+    //댓글 수정
     @CrossOrigin("*")
     @PutMapping
     public Integer update(@RequestBody CommentModel model, HttpServletResponse response, HttpServletRequest request){
         return commentService.update(model ,response, request);
     }
 
+    //댓글 삭제
     @CrossOrigin("*")
     @DeleteMapping(value = "/{c_id}")
     public Integer delete(@PathVariable int c_id, @RequestBody CheckUserModel model, HttpServletResponse response, HttpServletRequest request){

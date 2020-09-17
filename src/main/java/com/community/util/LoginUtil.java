@@ -18,8 +18,6 @@ public class LoginUtil {
     }
 
     public static String getCheckLogin(HttpServletRequest request){
-        String userId = "";
-        userId = getCookieUserId(request);
-        return userId;
+        return getCookieUserId(request);
     }
 }

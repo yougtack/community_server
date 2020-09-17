@@ -95,7 +95,18 @@ public class BoardServiceImpl implements BoardService {
         if(image.getFileName().equals("")){
             return 0;
         }
-        return dao.imageUpload(image.getImage(), image.getFileName(), b_id);
+        String loginUserId = LoginUtil.getCheckLogin(request);
+        int result = 0;
+        if(loginUserId != null){
+            if(loginUserId.equals(image.getUserId())){
+                result = dao.imageUpload(image.getImage(), image.getFileName(), image.getUserId(), b_id);
+            }else{
+                response.setStatus(HttpStatus.FORBIDDEN.value());
+            }
+        }else{
+            response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        }
+        return result;
     }
 
     @Override

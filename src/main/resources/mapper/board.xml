@@ -97,9 +97,9 @@
 
     <insert id="imageUpload" parameterType="com.community.model.ImageModel">
         INSERT INTO
-            community_image(b_id, image, fileName)
+            community_image(b_id, image, fileName, userId)
         VALUES
-            (${b_id}, #{image}, #{fileName})
+            (${b_id}, #{image}, #{fileName}, #{userId})
     </insert>
 
     <select id="getImage" resultType="com.community.model.ImageModel">

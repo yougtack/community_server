@@ -1,12 +1,12 @@
 function login(userId,userPw) {
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
-    const data = {
+    let data = {
         userId: userId.value,
         userPw: userPw.value,
     };
 
-    xhttp.open("GET", url + `/member/login`, false);
+    xhttp.open("POST", url + `/member/login`, false);
 
     xhttp.onreadystatechange = () => {
 
@@ -17,8 +17,6 @@ function login(userId,userPw) {
 
     xhttp.setRequestHeader("Content-Type","application/json");
     xhttp.send(JSON.stringify(data));
-
-    location.href = "index.html";
 }
 
 function loginCheck() {
@@ -26,7 +24,7 @@ function loginCheck() {
         userPw = document.getElementById("userPw");
 
     if (userId.value.trim().length <= 0) {
-        alert("아이디을 입해주세요.");
+        alert("아이디을 입력해주세요.");
         userId.focus();
         return false;
     } else if (userPw.value.trim().length <= 0) {

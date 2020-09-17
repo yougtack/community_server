@@ -26,7 +26,7 @@ function signUpCheck() {
         userPw = document.getElementById("userPw");
 
     if (userId.value.trim().length <= 0) {
-        alert("아이디을 입해주세요.");
+        alert("아이디을 입력해주세요.");
         userId.focus();
         return false;
     } else if (userPw.value.trim().length <= 0) {
