@@ -32,27 +32,32 @@ public class BoardController {
         return boardService.insert(model, response, request);
     }
 
+    @CrossOrigin("*")
     @PutMapping(value = "/community/{b_id}")
     public Integer update(@RequestBody ViewModel viewModel, @PathVariable int b_id, HttpServletResponse response, HttpServletRequest request){
         return boardService.update(viewModel, b_id, response, request);
     }
 
+    @CrossOrigin("*")
     @DeleteMapping(value = "/community/{b_id}")
     public Integer delete(@PathVariable int b_id, @RequestBody CheckUserModel model, HttpServletResponse response, HttpServletRequest request){
         return boardService.delete(b_id, model, response, request);
     }
 
+    @CrossOrigin("*")
     @GetMapping(value = "/view/{b_id}")
     public ViewModel view(@PathVariable int b_id){
         boardService.count(b_id);
         return boardService.getView(b_id);
     }
 
+    @CrossOrigin("*")
     @GetMapping(value = "/search")
     public List<BoardModel> search(@RequestParam("word") String word){
         return boardService.search(word);
     }
 
+    @CrossOrigin("*")
     @PostMapping("/upload/{b_id}")
     @ResponseBody
     public Integer upload(MultipartHttpServletRequest multipartHttpServletRequest, @PathVariable int b_id, HttpServletResponse response, HttpServletRequest request) throws Exception {
@@ -70,6 +75,7 @@ public class BoardController {
         return result;
     }
 
+    @CrossOrigin("*")
     @GetMapping(value = "/getImage/{b_id}")
     public List<ImageModel> get(@PathVariable int b_id){
         return boardService.getImage(b_id);

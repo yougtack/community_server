@@ -17,16 +17,19 @@ public class MemberController {
     @Autowired
     MemberService memberService;
 
+    @CrossOrigin("*")
     @PostMapping(value = "/signUp")
     public Integer SignUp(@RequestBody MemberModel member, HttpServletResponse response){
         return  memberService.signUp(member, response);
     }
 
+    @CrossOrigin("*")
     @GetMapping(value = "/login")
     public MemberModel Login(@RequestBody MemberModel member, HttpServletResponse response){
         return memberService.login(member, response);
     }
 
+    @CrossOrigin("*")
     @GetMapping(value = "/logout")
     public String logout(HttpServletResponse response){
         Cookie cookie = new Cookie("userId", "tmp");
@@ -37,16 +40,19 @@ public class MemberController {
         return "logout!!";
     }
 
+    @CrossOrigin("*")
     @GetMapping(value = "/memberList")
     public List<MemberModel> memberList(){
         return memberService.getMemberList();
     }
 
+    @CrossOrigin("*")
     @DeleteMapping
     public Integer kickMember(@RequestBody CheckUserModel model){
         return memberService.kickMember(model);
     }
 
+    @CrossOrigin("*")
     @PutMapping
     public Integer update(@RequestBody MemberModel model){
         return memberService.update(model);
