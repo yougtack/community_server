@@ -22,6 +22,7 @@ public class BoardController {
     BoardService boardService;
 
     //게시글 전부 가져오기
+    @CrossOrigin("*")
     @GetMapping(value = "/boardList")
     public List<BoardModel> boardList(){
         return boardService.getBoardList();
