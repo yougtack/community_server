@@ -5,8 +5,17 @@ function insert(type,title,content) {
         b_type: type.value,
         b_title: title.value,
         b_content: content.value,
-        userId: "babo"
+        userId: document.cookie.substr(7,)
     };
+
+    // const body = document.querySelector("body");
+    // const img = new Image();
+    //
+    // console.log(community.data);
+    //
+    // img.src = "data:image/jpg;base64," + community.data[0].image;
+    // img.id = "profileImage";
+    // body.prepend(img);
 
     xhttp.open("POST", url + `/board/community`, false);
 
@@ -19,7 +28,11 @@ function insert(type,title,content) {
 
     xhttp.setRequestHeader("Content-Type","application/json");
     xhttp.send(JSON.stringify(data));
-    console.log(data);
+
+    // xhttp.open("POST", url + `/board/upload${data.}`)
+
+    location.href = `community.html?b_type=${data.b_type}`
+
 }
 
 function valueCheck() {

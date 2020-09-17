@@ -17,6 +17,8 @@ function login(userId,userPw) {
 
     xhttp.setRequestHeader("Content-Type","application/json");
     xhttp.send(JSON.stringify(data));
+
+    location.href = "index.html";
 }
 
 function loginCheck() {

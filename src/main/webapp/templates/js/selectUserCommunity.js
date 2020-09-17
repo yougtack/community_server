@@ -48,7 +48,7 @@ function printCommunity() {
     };
 
     xhttp.send();
-    console.log(community);
+
     printCommunity();
 
 })();

@@ -3,17 +3,8 @@ const community = {
 };
 
 function printCommunity() {
-    // const body = document.querySelector("body");
     const type = location.search.substr(location.search.indexOf("=") + 1);
     const type_text = document.querySelector(".type_text");
-    // const img = new Image();
-    //
-    // console.log(community.data);
-    //
-    // img.src = "data:image/jpg;base64," + community.data[0].image;
-    // img.id = "profileImage";
-    // body.prepend(img);
-
 
     if (type === "1") {
         type_text.innerText = "자유게시판";
