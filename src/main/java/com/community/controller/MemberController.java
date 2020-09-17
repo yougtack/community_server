@@ -1,6 +1,6 @@
 package com.community.controller;
 
-import com.community.model.DeleteModel;
+import com.community.model.CheckUserModel;
 import com.community.model.MemberModel;
 import com.community.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +43,7 @@ public class MemberController {
     }
 
     @DeleteMapping
-    public Integer kickMember(@RequestBody DeleteModel model){
+    public Integer kickMember(@RequestBody CheckUserModel model){
         return memberService.kickMember(model);
     }
 

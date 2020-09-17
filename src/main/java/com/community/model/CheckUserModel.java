@@ -5,6 +5,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class DeleteModel {
+public class CheckUserModel {
     private String userId;
 }

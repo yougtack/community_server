@@ -1,7 +1,7 @@
 package com.community.service;
 
 import com.community.model.CommentModel;
-import com.community.model.DeleteModel;
+import com.community.model.CheckUserModel;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,5 +14,5 @@ public interface CommentService {
 
     Integer insert(CommentModel model, HttpServletResponse response, HttpServletRequest request);
 
-    Integer delete(int c_id, DeleteModel model, HttpServletResponse response, HttpServletRequest request);
+    Integer delete(int c_id, CheckUserModel model, HttpServletResponse response, HttpServletRequest request);
 }

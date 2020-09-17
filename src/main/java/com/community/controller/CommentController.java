@@ -2,7 +2,7 @@ package com.community.controller;
 
 
 import com.community.model.CommentModel;
-import com.community.model.DeleteModel;
+import com.community.model.CheckUserModel;
 import com.community.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +34,7 @@ public class CommentController {
     }
 
     @DeleteMapping(value = "/{c_id}")
-    public Integer delete(@PathVariable int c_id, @RequestBody DeleteModel model, HttpServletResponse response, HttpServletRequest request){
+    public Integer delete(@PathVariable int c_id, @RequestBody CheckUserModel model, HttpServletResponse response, HttpServletRequest request){
         return commentService.delete(c_id, model, response, request);
     }
 }

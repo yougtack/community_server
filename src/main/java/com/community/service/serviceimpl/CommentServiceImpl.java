@@ -2,8 +2,7 @@ package com.community.service.serviceimpl;
 
 import com.community.dao.CommentDao;
 import com.community.model.CommentModel;
-import com.community.model.DeleteModel;
-import com.community.model.ViewModel;
+import com.community.model.CheckUserModel;
 import com.community.service.CommentService;
 import com.community.util.LoginUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +59,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Integer delete(int c_id, DeleteModel model, HttpServletResponse response, HttpServletRequest request) {
+    public Integer delete(int c_id, CheckUserModel model, HttpServletResponse response, HttpServletRequest request) {
         String loginUserId = LoginUtil.getCheckLogin(request);
         int result = 0;
 

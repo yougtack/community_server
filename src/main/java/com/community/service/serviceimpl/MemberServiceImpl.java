@@ -1,7 +1,7 @@
 package com.community.service.serviceimpl;
 
 import com.community.dao.MemberDao;
-import com.community.model.DeleteModel;
+import com.community.model.CheckUserModel;
 import com.community.model.MemberModel;
 import com.community.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +50,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Integer kickMember(DeleteModel model){
+    public Integer kickMember(CheckUserModel model){
         return dao.kickMember(model.getUserId());
     }
 
