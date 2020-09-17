@@ -1,4 +1,4 @@
-function insert(type,title,content) {
+function insert(type, title, content) {
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
     const data = {
@@ -17,21 +17,17 @@ function insert(type,title,content) {
         }
     };
 
-    xhttp.setRequestHeader("Content-Type","application/json");
+    xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.send(JSON.stringify(data));
 
-    // xhttp.open("POST", url + `/board/upload${data.}`)
-
-
+    location.href = `community.html?b_type=${data.b_type}`;
 
 }
 
-function imgInsert(fileN){
+function imgInsert(fileN) {
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
-    const userId = document.cookie.substr(7,);
-    let formData = new FormData;
-    formData.append('fileN',fileN);
+    const userId = JSON.stringify(document.cookie.substr(7,));
 
     xhttp.open("POST", url + `/board/upload`, false);
 
@@ -42,16 +38,16 @@ function imgInsert(fileN){
         }
     };
 
-    xhttp.send(formData);
-
-    console.log(formData);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send(fileN.files[0].name);
+    console.log(data);
 }
 
 function valueCheck() {
     const title = document.getElementById("title"),
         type = document.getElementById("type"),
         content = document.getElementById("content"),
-        img = document.getElementById("upload");
+        fileN = document.getElementById("fileN");
 
     if (title.value.trim().length <= 0) {
         alert("제목을 작성해주세요.");
@@ -67,7 +63,7 @@ function valueCheck() {
         return false;
     }
 
-    insert(type,title,content);
-    imgInsert(img);
+    insert(type, title, content);
+    imgInsert(fileN);
 
 }

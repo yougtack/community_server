@@ -1,6 +1,7 @@
-function login(userId,userPw) {
+function login(userId, userPw) {
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
+    let c;
     let data = {
         userId: userId.value,
         userPw: userPw.value,
@@ -12,13 +13,21 @@ function login(userId,userPw) {
 
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
+            alert("아이디 또는 비밀번호가 틀렸거나, 해당 아이디가 존재하지 않습니다.");
+            c = false;
+            return false;
+        } else {
+            c = true;
         }
     };
 
-    xhttp.setRequestHeader("Content-Type","application/json");
+    xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.send(JSON.stringify(data));
 
-    location.href = "index.html";
+    if(c){
+        location.href = "index.html";
+    }
+
 }
 
 function loginCheck() {
@@ -41,7 +50,7 @@ function loginCheck() {
 
 
 function enter() {
-    if(window.event.keyCode === 13){
+    if (window.event.keyCode === 13) {
         loginCheck();
     }
 }
