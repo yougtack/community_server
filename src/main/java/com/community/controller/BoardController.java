@@ -78,6 +78,7 @@ public class BoardController {
     @PostMapping("/upload")
     @ResponseBody
     public Integer upload(MultipartHttpServletRequest multipartHttpServletRequest, HttpServletResponse response, HttpServletRequest request) throws Exception {
+        System.out.println("ㅁㅁㅇㅇㅁ");
         int result = 0;
         int b_id = boardService.getB_id();
         ImageModel image = new ImageModel();
