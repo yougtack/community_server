@@ -34,7 +34,7 @@ public class LoginUtil {
     public static String getCheckLogin(HttpServletRequest request){
         String userId = null;
         boolean app = isApp(request);  //웹이면 false
-        if ( app ) {
+        if (app) {
             userId = getAuthorization(request);
         }
         else {
