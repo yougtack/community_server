@@ -79,15 +79,14 @@ public class BoardController {
     @ResponseBody
     public Integer upload(MultipartHttpServletRequest multipartHttpServletRequest, HttpServletResponse response, HttpServletRequest request) throws Exception {
         int result = 0;
-        ViewModel viewModel = boardService.getB_id();
-
+        int b_id = boardService.getB_id();
         ImageModel image = new ImageModel();
         List<MultipartFile>multipartFiles = multipartHttpServletRequest.getFiles("fileN[]");
         if(!multipartFiles.isEmpty()){
             for(MultipartFile filePart : multipartFiles){
                 image.setFileName(filePart.getOriginalFilename());
                 image.setImage(filePart.getBytes());
-                result = boardService.imageUpload(image, viewModel.getB_id(), response, request);
+                result = boardService.imageUpload(image, b_id, response, request);
             }
         }
         return result;

@@ -137,7 +137,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public ViewModel getB_id(){
+    public int getB_id(){
         return dao.getB_id();
     }
 }

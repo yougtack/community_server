@@ -117,9 +117,9 @@
             b_id = ${b_id}
     </select>
 
-    <select id="getB_id" resultType="com.community.model.ViewModel">
+    <select id="getB_id" resultType="int">
         SELECT
-            MAX(b_id)+1
+            MAX(b_id)
         FROM
             community
     </select>
