@@ -10,4 +10,5 @@ public class ImageModel {
     private Integer b_id;
     private byte[] image;
     private String fileName;
+    private String userId;
 }
