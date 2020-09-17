@@ -28,7 +28,7 @@ function printCommunity() {
         if (type === index.b_type) {
             let real_tr = `<tr>`;
             real_tr += `<td class="b_id">${index.b_id}</td>`;
-            real_tr += `<td class="b_title"><a href="user_community.html?b_id=${index.b_id}">${index.b_title}</a></td>`;
+            real_tr += `<td class="b_title"><a class="community_a" href="userCommunity.html?b_id=${index.b_id}">${index.b_title}</a></td>`;
             real_tr += `<td class="b_date">${index.b_date}</td>`;
             real_tr += `<td class="userId">${index.userId}</td>`;
             real_tr += `<td class="b_count">${index.b_count}</td>`;

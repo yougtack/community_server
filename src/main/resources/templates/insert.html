@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../static/css.css"/>
+    <title>게시판</title>
+</head>
+<body>
+    <header>
+        <script src="js/header.js"></script>
+    </header>
+    <section>
+        <p class="type_text">게시글 작성</p>
+        <form>
+            <input type="text" id="title" />
+            <select id="type">
+                <option value="">게시판선택</option>
+                <option value="1">자유게시판</option>
+                <option value="2">게임게시판</option>
+                <option value="3">사진게시판</option>
+                <option value="4">영상게시판</option>
+            </select>
+            <input type="text" id="content" />
+            <input type="button" value="등록" onclick="check()" />
+        </form>
+    </section>
+    <script src="../templates/js/insert.js"></script>
+</body>
+</html>
