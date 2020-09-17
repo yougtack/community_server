@@ -14,7 +14,6 @@ function logout() {
     xhttp.setRequestHeader("Content-Type","application/json");
     xhttp.send();
 
-    // location.href = "index.html";
 }
 
 let real_header = '';

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="#">
+    <link rel="stylesheet" type="text/css" href="../static/css.css"/>
+    <title>게시판</title>
+</head>
+<body>
+<header>
+    <script src="js/header.js"></script>
+</header>
+<section>
+    <p class="type_text">게시글 수정</p>
+    <select id="type" style="float: left;">
+        <option value="">게시판선택</option>
+        <option value="1">자유게시판</option>
+        <option value="2">게임게시판</option>
+        <option value="3">사진게시판</option>
+        <option value="4">영상게시판</option>
+    </select>
+    <input type="file" id="fileN" name="fileN[]" formenctype="multipart/form-data"/>
+    <br>
+    <br>
+    <input type="text" id="title" style="width: 500px; height: 25px;"/>
+    <br>
+    <br>
+    <input type="text" id="content" style="width: 500px; height: 400px;"/>
+    <br>
+    <br>
+    <input type="button" value="수정" onclick="communityModify()"/>
+    <input type="button" value="취소" onclick=""/>
+</section>
+<script src="js/modify.js"></script>
+</body>
+</html>

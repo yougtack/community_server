@@ -24,24 +24,24 @@ function insert(type, title, content) {
 
 }
 
-function imgInsert(fileN) {
-    let xhttp = new XMLHttpRequest();
-    const url = "http://localhost:8080";
-    const userId = JSON.stringify(document.cookie.substr(7,));
-
-    xhttp.open("POST", url + `/board/upload`, false);
-
-    xhttp.onreadystatechange = () => {
-
-        if (xhttp.status !== 200) {
-            console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
-        }
-    };
-
-    xhttp.setRequestHeader("Content-Type", "application/json");
-    xhttp.send(fileN.files[0].name);
-    console.log(data);
-}
+// function imgInsert(fileN) {
+//     let xhttp = new XMLHttpRequest();
+//     const url = "http://localhost:8080";
+//     const userId = JSON.stringify(document.cookie.substr(7,));
+//
+//     xhttp.open("POST", url + `/board/upload`, false);
+//
+//     xhttp.onreadystatechange = () => {
+//
+//         if (xhttp.status !== 200) {
+//             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
+//         }
+//     };
+//
+//     xhttp.setRequestHeader("Content-Type", "application/json");
+//     xhttp.send(fileN.files[0].name);
+//     console.log(data);
+// }
 
 function valueCheck() {
     const title = document.getElementById("title"),
@@ -64,6 +64,6 @@ function valueCheck() {
     }
 
     insert(type, title, content);
-    imgInsert(fileN);
+    // imgInsert(fileN);
 
 }

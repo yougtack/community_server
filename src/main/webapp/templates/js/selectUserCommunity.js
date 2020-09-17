@@ -3,12 +3,12 @@ const community = {
 };
 
 const b_id = location.search.substr(location.search.indexOf("=") + 1);
+const userId = document.cookie.substr(7,);
 
 function communityDelete() {
     if (confirm("해당 게시글을 삭제하시겠습니까?")) {
         let xhttp = new XMLHttpRequest();
         const url = "http://localhost:8080";
-        const userId = document.cookie.substr(7,);
         const deleteData = {
             userId: userId,
             b_id: community.data.b_id
@@ -51,7 +51,11 @@ function printCommunity() {
     real_div += `<span class="txt">${community.data.userId}</span>`;
     real_div += `<span class="txt">${community.data.b_date}</span>`;
     real_div += `<span class="txt end_txt">${community.data.b_count}</span>`;
-    real_div += `<span><img class="delete_icon"  src="../static/delete.png" alt="deleteImg" onclick="communityDelete()" /></span></div>`;
+    if(userId === community.data.userId) {
+        real_div += `<span><img class="delete_icon"  src="../static/delete.png" alt="deleteImg" onclick="communityDelete()" /></span>`;
+        real_div += `<span><a href="modify.html?b_id=${b_id}"><img class="delete_icon"  src="../static/modify.png" alt="deleteImg" /></a></span>`;
+    }
+    real_div += `</div>`;
     real_div += `<div class="user_content">${community.data.b_content}</div>`;
     real_div += `<br><br><hr>`;
     real_div += `<a href="community.html?b_type=${community.data.b_type}"><input type="button" value="목록" style="float: right; width: 80px; height: 70px" /></a>`;
