@@ -30,8 +30,6 @@ public class MemberController {
     @CrossOrigin("*")
     @PostMapping(value = "/login")
     public MemberModel Login(@RequestBody MemberModel member, HttpServletResponse response){
-        System.out.println(member.getUserId());
-        System.out.println(member.getUserPw());
         return memberService.login(member, response);
     }
 
