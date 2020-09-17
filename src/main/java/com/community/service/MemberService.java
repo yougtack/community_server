@@ -10,7 +10,7 @@ import java.util.List;
 public interface MemberService {
     Integer signUp(MemberModel member, HttpServletResponse response);
 
-    MemberModel login(MemberModel member, HttpServletResponse response);
+    MemberModel login(MemberModel member);
 
     List<MemberModel> getMemberList();
 

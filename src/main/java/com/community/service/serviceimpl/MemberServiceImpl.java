@@ -32,18 +32,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public MemberModel login(MemberModel member, HttpServletResponse response){
-        MemberModel userInfo = dao.login(member.getUserId(), member.getUserPw());
-        if(userInfo != null){
-            Cookie cookie = new Cookie("userId", userInfo.getUserId());
-            cookie.setMaxAge(-1);
-            cookie.setPath("/");
-
-            response.addCookie(cookie);
-        }else {
-            response.setStatus(HttpStatus.FORBIDDEN.value());
-        }
-        return userInfo;
+    public MemberModel login(MemberModel member){
+        return dao.login(member.getUserId(), member.getUserPw());
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.community.model.CheckUserModel;
 import com.community.model.MemberModel;
 import com.community.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
@@ -30,7 +31,17 @@ public class MemberController {
     @CrossOrigin("*")
     @PostMapping(value = "/login")
     public MemberModel Login(@RequestBody MemberModel member, HttpServletResponse response){
-        return memberService.login(member, response);
+        MemberModel userInfo = memberService.login(member);
+        if(userInfo != null){
+            Cookie cookie = new Cookie("userId", userInfo.getUserId());
+            cookie.setMaxAge(-1);
+            cookie.setPath("/");
+
+            response.addCookie(cookie);
+        }else {
+            response.setStatus(HttpStatus.FORBIDDEN.value());
+        }
+        return userInfo;
     }
 
     //로그아웃
