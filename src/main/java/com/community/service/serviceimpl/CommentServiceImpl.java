@@ -63,8 +63,6 @@ public class CommentServiceImpl implements CommentService {
         String loginUserId = LoginUtil.getCheckLogin(request);
         int result = 0;
 
-        System.out.println(loginUserId);
-        System.out.println(model.getUserId());
         if(loginUserId != null){
             if(loginUserId.equals(model.getUserId())){
                 result = dao.delete(c_id);

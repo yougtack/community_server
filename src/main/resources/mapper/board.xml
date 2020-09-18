@@ -26,7 +26,7 @@
         <collection property="comments" ofType="com.community.model.ViewCommentModel">
             <result property="c_id" column="c_id"></result>
             <result property="c_content" column="c_content"></result>
-            <result property="userId" column="userId"></result>
+            <result property="userId" column="cc.userId"></result>
         </collection>
     </resultMap>
     <select id="getBoardList" resultMap="boardMap">
@@ -43,7 +43,7 @@
 
     <select id="getView" resultMap="viewMap">
         SELECT
-            c.b_id, c.b_type, c.b_title, c.b_content, c.b_date, c.b_count, c.userId, cc.c_id, cc.b_id, cc.c_content
+            c.b_id, c.b_type, c.b_title, c.b_content, c.b_date, c.b_count, c.userId, cc.c_id, cc.b_id, cc.c_content, cc.userId
         FROM
             community AS c
         LEFT OUTER JOIN
