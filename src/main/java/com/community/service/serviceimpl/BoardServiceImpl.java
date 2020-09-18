@@ -120,7 +120,7 @@ public class BoardServiceImpl implements BoardService {
         return result;
     }
     @Override
-    public ImageModel getImage(int b_id){
+    public List<ImageModel> getImage(int b_id){
         return dao.getImage(b_id);
     }
 
