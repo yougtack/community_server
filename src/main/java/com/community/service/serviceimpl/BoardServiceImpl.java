@@ -125,12 +125,22 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    public ImageModel getViewImage(int i_id){
+        return dao.getViewImage(i_id);
+    }
+
+    @Override
     public int getB_id(){
         return dao.getB_id();
     }
 
     @Override
-    public ImageModel getViewImage(int i_id){
-        return dao.getViewImage(i_id);
+    public String findFile(String fileName){
+        return dao.findFile(fileName);
+    }
+
+    @Override
+    public byte[] inputFile(String fileName){
+        return dao.inputFile(fileName);
     }
 }

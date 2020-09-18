@@ -26,7 +26,11 @@ public interface BoardDao {
 
     List<ImageModel> getImage(@Param("b_id") int b_id);
 
+    ImageModel getViewImage(@Param("i_id") int i_id);
+
     int getB_id();
 
-    ImageModel getViewImage(@Param("i_id") int i_id);
+    String findFile(@Param("fileName") String fileName);
+    byte[] inputFile(@Param("fileName") String fileName);
+
 }

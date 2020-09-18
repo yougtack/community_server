@@ -27,8 +27,11 @@ public interface BoardService {
 
 
     List<ImageModel>getImage(int b_id);
+    ImageModel getViewImage(int i_id);
+
+    String findFile(String fileName);
+    byte[] inputFile(String fileName);
 
     int getB_id();
 
-    ImageModel getViewImage(int i_id);
 }
