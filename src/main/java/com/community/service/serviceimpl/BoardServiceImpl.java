@@ -128,4 +128,9 @@ public class BoardServiceImpl implements BoardService {
     public int getB_id(){
         return dao.getB_id();
     }
+
+    @Override
+    public ImageModel getViewImage(int i_id){
+        return dao.getViewImage(i_id);
+    }
 }

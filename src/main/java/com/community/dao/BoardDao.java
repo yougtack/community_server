@@ -27,4 +27,6 @@ public interface BoardDao {
     List<ImageModel> getImage(@Param("b_id") int b_id);
 
     int getB_id();
+
+    ImageModel getViewImage(@Param("i_id") int i_id);
 }
