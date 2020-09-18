@@ -20,9 +20,9 @@ function printCommunity() {
     } else if (type === "2") {
         type_text.innerText = "게임게시판";
     } else if (type === "3") {
-        type_text.innerText = "사진게시판";
+        type_text.innerText = "음식게시판";
     } else {
-        type_text.innerText = "영상게시판";
+        type_text.innerText = "코딩게시판";
     }
 
     for (let index of community.data) {
