@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -116,21 +117,43 @@ public class BoardController {
         return boardService.getImage(b_id);
     }
 
-    //아랫쪽 짐(download)
+//    //아랫쪽 짐(download)
+//    @GetMapping("download/{i_id}")
+//    public ResponseEntity<InputStreamResource> download(@PathVariable int i_id, HttpServletRequest request) throws IOException {
+//        ImageModel imageModel = boardService.getViewImage(i_id);
+//        String tmp = new String(imageModel.getImage());
+//        System.out.println(tmp);
+//
+//        Path path = Paths.get("/Users/kim-youngtack/desktop/google.png");
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + path.getFileName().toString());
+//
+//        InputStreamResource resource = new InputStreamResource(Files.newInputStream(path));
+//        return new ResponseEntity<>(resource, headers, HttpStatus.OK);
+//    }
+
+    //다운로드
     @GetMapping("download/{i_id}")
-    public ResponseEntity<InputStreamResource> download(@PathVariable int i_id, HttpServletRequest request) throws IOException {
-        request.setCharacterEncoding("UTF-8");
+    public String download(@PathVariable int i_id, HttpServletResponse response) throws IOException {
         ImageModel imageModel = boardService.getViewImage(i_id);
-        String tmp = new String(imageModel.getImage());
-        System.out.println(tmp);
+        String result = boardService.findFile(imageModel.getFileName());
+        result = URLEncoder.encode(result, "UTF-8");
+        result = result.replaceAll("\\+", "%20");
+        byte[] input = boardService.inputFile(imageModel.getFileName());
+        try{
+            response.setContentType("application/octet-stream");
+            response.setContentLength(input.length);
+            response.setHeader("Content-Disposition", "attachment; fileName=" + result + "\";");
+            response.setHeader("Content-Transfer-Encoding", "binary");
+            response.getOutputStream().write(input);
+            response.getOutputStream().flush();
+            response.getOutputStream().close();
 
-        Path path = Paths.get("/Users/kim-youngtack/desktop/google.png");
+        }catch(Exception e){
+            e.printStackTrace();
+        }
 
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + path.getFileName().toString());
-
-        InputStreamResource resource = new InputStreamResource(Files.newInputStream(path));
-        return new ResponseEntity<>(resource, headers, HttpStatus.OK);
+        return "asd";
     }
 }

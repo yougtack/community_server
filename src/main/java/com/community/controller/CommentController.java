@@ -43,6 +43,7 @@ public class CommentController {
     @CrossOrigin("*")
     @DeleteMapping(value = "/{c_id}")
     public Integer delete(@PathVariable int c_id, @RequestBody CheckUserModel model, HttpServletResponse response, HttpServletRequest request){
-        return commentService.delete(c_id, model, response, request);
+        int result = commentService.delete(c_id, model, response, request);
+        return result;
     }
 }

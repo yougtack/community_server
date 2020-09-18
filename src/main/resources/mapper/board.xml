@@ -134,4 +134,22 @@
         FROM
             community
     </select>
+
+    <select id="findFile" resultType="String">
+        SELECT
+            fileName
+        FROM
+            community_image
+        WHERE
+            fileName = #{fileName}
+    </select>
+
+<!--    <select id="inputFile" resultType="_byte[]">-->
+<!--        SELECT-->
+<!--            image-->
+<!--        FROM-->
+<!--            community_image-->
+<!--        WHERE-->
+<!--            fileName = #{fileName}-->
+<!--    </select>-->
 </mapper>
