@@ -120,7 +120,7 @@ public class BoardServiceImpl implements BoardService {
         return result;
     }
     @Override
-    public List<ImageModel> getImage(int b_id){
+    public ImageModel getImage(int b_id){
         return dao.getImage(b_id);
     }
 
@@ -134,13 +134,4 @@ public class BoardServiceImpl implements BoardService {
         return dao.getB_id();
     }
 
-    @Override
-    public String findFile(String fileName){
-        return dao.findFile(fileName);
-    }
-
-    @Override
-    public byte[] inputFile(String fileName){
-        return dao.inputFile(fileName);
-    }
 }

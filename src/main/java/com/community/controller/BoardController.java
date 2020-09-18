@@ -7,8 +7,10 @@ import com.community.model.ViewModel;
 import com.community.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -110,41 +112,52 @@ public class BoardController {
         return result;
     }
 
-    //상세번호로 사가져오기
-    @CrossOrigin("*")
-    @GetMapping(value = "/getImage/{b_id}")
-    public List<ImageModel> get(@PathVariable int b_id){
-        return boardService.getImage(b_id);
-    }
-
-//    //아랫쪽 짐(download)
-//    @GetMapping("download/{i_id}")
-//    public ResponseEntity<InputStreamResource> download(@PathVariable int i_id, HttpServletRequest request) throws IOException {
-//        ImageModel imageModel = boardService.getViewImage(i_id);
-//        String tmp = new String(imageModel.getImage());
-//        System.out.println(tmp);
-//
-//        Path path = Paths.get("/Users/kim-youngtack/desktop/google.png");
-//
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + path.getFileName().toString());
-//
-//        InputStreamResource resource = new InputStreamResource(Files.newInputStream(path));
-//        return new ResponseEntity<>(resource, headers, HttpStatus.OK);
+//    //상세번호로 사가져오기 (바이너리 상태)
+//    @CrossOrigin("*")
+//    @GetMapping(value = "/getImage/{b_id}")
+//    public List<ImageModel> get(@PathVariable int b_id){
+//        return boardService.getImage(b_id);
 //    }
 
-    //다운로드
-    @GetMapping("download/{i_id}")
-    public String download(@PathVariable int i_id, HttpServletResponse response) throws IOException {
-        ImageModel imageModel = boardService.getViewImage(i_id);
-        String result = boardService.findFile(imageModel.getFileName());
+    //상세번호로 사가져오기 (사진 상태)
+    @CrossOrigin("*")
+    @GetMapping(value = "/getImage/{b_id}",  produces = MediaType.IMAGE_JPEG_VALUE)
+    public String get(@PathVariable int b_id, HttpServletResponse response) throws IOException{
+        ImageModel imageModel = boardService.getImage(b_id);
+
+        String result = imageModel.getFileName();
+
+
         result = URLEncoder.encode(result, "UTF-8");
         result = result.replaceAll("\\+", "%20");
-        byte[] input = boardService.inputFile(imageModel.getFileName());
+
+        byte[] input = imageModel.getImage();
+        try{
+            response.setHeader("Content-Disposition", "inline; fileName=\"" + result + "\";");
+            response.getOutputStream().write(input);
+            response.getOutputStream().flush();
+            response.getOutputStream().close();
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return "가져왓음";
+    }
+
+    //다운로드
+    @GetMapping(value = "download/{i_id}")
+    public String download(@PathVariable int i_id, HttpServletResponse response) throws IOException {
+        ImageModel imageModel = boardService.getViewImage(i_id);
+        String result = imageModel.getFileName();
+
+        result = URLEncoder.encode(result, "UTF-8");
+        result = result.replaceAll("\\+", "%20");
+
+        byte[] input = imageModel.getImage();
         try{
             response.setContentType("application/octet-stream");
             response.setContentLength(input.length);
-            response.setHeader("Content-Disposition", "attachment; fileName=" + result + "\";");
+            response.setHeader("Content-Disposition", "attachment; fileName=\"" + result + "\";");
             response.setHeader("Content-Transfer-Encoding", "binary");
             response.getOutputStream().write(input);
             response.getOutputStream().flush();
@@ -154,6 +167,6 @@ public class BoardController {
             e.printStackTrace();
         }
 
-        return "asd";
+        return "야호!";
     }
 }

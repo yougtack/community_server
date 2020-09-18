@@ -26,11 +26,8 @@ public interface BoardService {
     Integer imageUpdate(ImageModel image, int b_id, HttpServletResponse response, HttpServletRequest request);
 
 
-    List<ImageModel>getImage(int b_id);
+    ImageModel getImage(int b_id);
     ImageModel getViewImage(int i_id);
-
-    String findFile(String fileName);
-    byte[] inputFile(String fileName);
 
     int getB_id();
 
