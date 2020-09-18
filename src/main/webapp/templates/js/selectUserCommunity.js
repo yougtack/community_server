@@ -32,6 +32,34 @@ function communityDelete() {
     }
 }
 
+function commentDelete(c_id) {
+    if (confirm("해당 댓글을 삭제하시겠습니까?")) {
+        let xhttp = new XMLHttpRequest();
+        const url = "http://localhost:8080";
+        const deleteData = {
+            c_id: c_id,
+            userId: userId
+        };
+
+        xhttp.open("DELETE", url + `/comment/${deleteData.c_id}`, false);
+
+        xhttp.onreadystatechange = () => {
+
+            if (xhttp.status !== 200) {
+                console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
+            }
+
+        };
+
+        xhttp.setRequestHeader("Content-Type", "application/json");
+        xhttp.send(JSON.stringify(deleteData));
+
+        alert("삭제하였습니다.");
+
+        location.href = `userCommunity.html?b_id=${b_id}`;
+    }
+}
+
 function printCommunity() {
     const type_text = document.querySelector(".type_text");
 
@@ -52,26 +80,29 @@ function printCommunity() {
     real_div += `<span class="txt">${community.data.b_date}</span>`;
     real_div += `<span class="txt end_txt">${community.data.b_count}</span>`;
     if (userId === community.data.userId) {
-        real_div += `<span><img class="delete_icon"  src="../static/delete.png" alt="deleteImg" onclick="communityDelete()" /></span>`;
-        real_div += `<span><a href="modify.html?b_id=${b_id}"><img class="delete_icon"  src="../static/modify.png" alt="deleteImg" /></a></span>`;
+        real_div += `<span><img class="icon"  src="../static/delete.png" alt="deleteImg" onclick="communityDelete()" /></span>`;
+        real_div += `<span><a href="modify.html?b_id=${b_id}"><img class="icon"  src="../static/modify.png" alt="modifyImg" /></a></span>`;
     }
     real_div += `</div>`;
     real_div += `<div class="user_content">${community.data.b_content}</div>`;
     real_div += `<br><br><hr>`;
-    real_div += `<a href="community.html?b_type=${community.data.b_type}"><input type="button" value="목록" style="float: right; width: 80px; height: 70px" /></a>`;
+    real_div += `<div style="width: auto; height: 80px;"><p class="comment_title">댓글</p><a href="community.html?b_type=${community.data.b_type}"><input type="button" value="목록" style="width: 50px; height: 20px" /></a></div><br><br>`;
     document.write(real_div);
 
 }
 
 function printComment() {
-    let real_comment = `<div class="comment">`;
-    real_comment += `<p class="comment_title">댓글</p></div>`;
+    let real_comment = ``;
     for (let value of community.data.comments) {
-        real_comment += `<div>${value.c_content}`;
+        real_comment += `<div class="comment">${value.userId}님 댓글`;
+        if (userId === value.userId) {
+            real_comment += `<span><img class="icon" src="../static/delete.png" alt="deleteImg" onclick="commentDelete(${value.c_id})" /></span>`;
+            real_comment += `<span><img class="icon" src="../static/modify.png" alt="modifyImg" onclick="" /></span>`;
+        }
+        real_comment += `<br>`;
+        real_comment += `${value.c_content}`;
+        real_comment += `</div>`;
     }
-    real_comment += `</div>`;
-
-    console.log(community.data);
     document.write(real_comment);
 }
 
@@ -94,6 +125,8 @@ function printComment() {
     };
 
     xhttp.send();
+
+    console.log(community.data);
 
     printCommunity();
     printComment();

@@ -155,7 +155,7 @@ section {
     margin: 15px 0 0 25px;
 }
 
-.delete_icon {
+.icon {
     width: 20px;
     height: 20px;
     float: right;
@@ -166,7 +166,15 @@ section {
     float: left;
     font-size: 20px;
     font-weight: bold;
-    margin: 40px 0 0 0;
+    margin: 40px 0 50px 0;
+}
+
+.comment {
+    text-align: left;
+    margin: 10px 10px 20px 10px;
+    padding-bottom: 20px;
+    border-width: 1px;
+    border-bottom-style: solid;
 }
 
 /* insert */
