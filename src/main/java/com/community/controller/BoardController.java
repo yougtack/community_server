@@ -6,12 +6,26 @@ import com.community.model.ImageModel;
 import com.community.model.ViewModel;
 import com.community.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import sun.misc.BASE64Decoder;
 
+import javax.annotation.Resource;
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @RestController
@@ -106,5 +120,23 @@ public class BoardController {
     @GetMapping(value = "/getImage/{b_id}")
     public List<ImageModel> get(@PathVariable int b_id){
         return boardService.getImage(b_id);
+    }
+
+    //아랫쪽 짐(download)
+    @GetMapping("download/{i_id}")
+    public ResponseEntity<InputStreamResource> download(@PathVariable int i_id, HttpServletRequest request) throws IOException {
+        request.setCharacterEncoding("UTF-8");
+        ImageModel imageModel = boardService.getViewImage(i_id);
+        String tmp = new String(imageModel.getImage());
+        System.out.println(tmp);
+
+        Path path = Paths.get("/Users/kim-youngtack/desktop/google.png");
+
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + path.getFileName().toString());
+
+        InputStreamResource resource = new InputStreamResource(Files.newInputStream(path));
+        return new ResponseEntity<>(resource, headers, HttpStatus.OK);
     }
 }

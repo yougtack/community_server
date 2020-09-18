@@ -29,4 +29,6 @@ public interface BoardService {
     List<ImageModel>getImage(int b_id);
 
     int getB_id();
+
+    ImageModel getViewImage(int i_id);
 }
