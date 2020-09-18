@@ -134,7 +134,7 @@ public class BoardController {
 //    }
 
     //다운로드
-    @GetMapping("download/{i_id}")
+    @GetMapping("/download/{i_id}")
     public String download(@PathVariable int i_id, HttpServletResponse response) throws IOException {
         ImageModel imageModel = boardService.getViewImage(i_id);
         String result = boardService.findFile(imageModel.getFileName());

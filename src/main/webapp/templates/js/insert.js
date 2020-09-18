@@ -1,11 +1,11 @@
-function insert(type, title, content) {
+function insert(type, title, content, userId) {
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
     const data = {
         b_type: type.value,
         b_title: title.value,
         b_content: content.value,
-        userId: document.cookie.substr(7,)
+        userId: userId
     };
 
     xhttp.open("POST", url + `/board/community`, false);
@@ -49,7 +49,10 @@ function valueCheck() {
         content = document.getElementById("content"),
         fileN = document.getElementById("fileN");
 
-    if (title.value.trim().length <= 0) {
+    if (document.cookie.substr(7,).value === undefined) {
+        alert("로그인이 필요합니다.");
+        return false;
+    } else if (title.value.trim().length <= 0) {
         alert("제목을 작성해주세요.");
         title.focus();
         return false;
@@ -63,7 +66,7 @@ function valueCheck() {
         return false;
     }
 
-    insert(type, title, content);
+    insert(type, title, content, userId);
     // imgInsert(fileN);
 
 }

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="#">
+    <link rel="stylesheet" type="text/css" href="../static/css.css"/>
+    <title>게시판</title>
+</head>
+<body>
+<header>
+    <script src="js/header.js"></script>
+</header>
+    <section>
+        <p class="type_text">댓글 수정</p>
+        <textarea rows="5" cols="50" id="c_content" style="width: 500px; height: 400px;"></textarea>
+        <br>
+        <br>
+        <input type="button" value="수정" onclick="commentModify()"/>
+        <input type="button" value="취소" onclick="cancel()">
+    </section>
+<script src="js/commentModify.js"></script>
+</body>
+</html>

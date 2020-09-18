@@ -7,14 +7,39 @@
     <title>게시판</title>
 </head>
 <body>
-    <header>
-        <script src="js/header.js"></script>
-    </header>
+<header>
+    <script src="js/header.js"></script>
+</header>
     <section>
-        <a href="community.html?b_type=1">자유게시판</a>
-        <a href="community.html?b_type=2">게임게시판</a>
-        <a href="community.html?b_type=3">사진게시판</a>
-        <a href="community.html?b_type=4">영상게시판</a>
+        <a href="community.html?b_type=1">
+            <div class="index_div">
+                <img src="../static/people.png" alt="img" class="index_img"/>
+                <p class="index_txt">자유게시판</p>
+            </div>
+        </a>
+        <a href="community.html?b_type=2">
+            <div class="index_div">
+                <img src="../static/game.png" alt="img" class="index_img"/>
+                <p class="index_txt">게임게시판</p>
+            </div>
+        </a>
+        <a href="community.html?b_type=3">
+            <div class="index_div">
+                <img src="../static/collections.png" alt="img" class="index_img"/>
+                <p class="index_txt">사진게시판</p>
+            </div>
+        </a>
+        <a href="community.html?b_type=4">
+            <div class="index_div">
+                <img src="../static/movie.png" alt="img" class="index_img"/>
+                <p class="index_txt">영상게시판</p>
+            </div>
+        </a>
+        <div>
+            <input type="text" id="word" style="width: 10%;"/>
+            <input type="button" value="검색" onclick="search()" style="width: 5%" />
+        </div>
     </section>
+    <script src="js/word.js"></script>
 </body>
 </html>
