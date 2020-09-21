@@ -6,7 +6,7 @@ const b_id = location.search.substr(location.search.indexOf("=") + 1);
 const userId = document.cookie.substr(7,);
 
 function commentInsert() {
-    if (userId.value === undefined) {
+    if (userId === "") {
         alert("로그인이 필요합니다.");
         return false;
     } else if (document.getElementById("c_content").value.trim().length <= 0) {
@@ -116,7 +116,7 @@ function printCommunity() {
     real_div += `<span class="txt">${community.data.b_date}</span>`;
     real_div += `<span class="txt end_txt">${community.data.b_count}</span>`;
     if (userId === community.data.userId) {
-        real_div += `<span><img class="icon"  src="../static/delete.png" alt="deleteImg" onclick="communityDelete()" /></span>`;
+        real_div += `<span><img class="icon" src="../static/delete.png" alt="deleteImg" onclick="communityDelete()" /></span>`;
         real_div += `<span><a href="modify.html?b_id=${b_id}"><img class="icon"  src="../static/modify.png" alt="modifyImg" /></a></span>`;
     }
     real_div += `</div>`;

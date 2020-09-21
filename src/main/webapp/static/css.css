@@ -95,6 +95,13 @@ section {
     margin: 0 0 0 100px;
 }
 
+.info {
+    float: right;
+    background-color: lightblue;
+    border: none;
+    margin: 10px;
+}
+
 /* community */
 
 .type_text {
