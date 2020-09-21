@@ -1,6 +1,8 @@
+
+let xhttp = new XMLHttpRequest();
+const url = "http://localhost:8080";
+
 function insert(type, title, content) {
-    let xhttp = new XMLHttpRequest();
-    const url = "http://localhost:8080";
     const data = {
         b_type: type.value,
         b_title: title.value,
@@ -20,36 +22,39 @@ function insert(type, title, content) {
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.send(JSON.stringify(data));
 
-    location.href = `community.html?b_type=${data.b_type}`;
+    // location.href = `community.html?b_type=${data.b_type}`;
 
 }
 
 function imgInsert() {
-    let xhttp = new XMLHttpRequest();
-    const url = "http://localhost:8080";
+    const img = document.getElementById("files");
+    let files;
+    let reader = new FileReader();
+    console.log(img.files);
+    reader.readAsDataURL(img.files[0]);
+    reader.onload = function () {
+        files = reader.result;
+        console.log(JSON.stringify(files));
+        xhttp.open("POST", url + `/board/upload`, false);
 
-    const img = {
-        fileN: null
+        xhttp.onreadystatechange = () => {
+
+            if (xhttp.status !== 200) {
+                console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
+            }
+        };
+
+        xhttp.setRequestHeader("Content-Type", "application/json");
+        xhttp.send(JSON.stringify(files));
     };
 
-    xhttp.open("POST", url + `/board/upload`, false);
-
-    xhttp.onreadystatechange = () => {
-
-        if (xhttp.status !== 200) {
-            console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
-        }
-    };
-
-    xhttp.setRequestHeader("Content-Type", "application/json");
-    xhttp.send(fileN.files[0].name);
-    console.log(data);
 }
 
 function valueCheck() {
     const title = document.getElementById("title"),
         type = document.getElementById("type"),
-        content = document.getElementById("content");
+        content = document.getElementById("content"),
+        files = document.getElementById("files").value;
 
 
     if (document.cookie.substr(7,) === "") {
@@ -70,5 +75,8 @@ function valueCheck() {
     }
 
     insert(type, title, content);
-    imgInsert();
+
+    if (files !== "") {
+        imgInsert();
+    }
 }

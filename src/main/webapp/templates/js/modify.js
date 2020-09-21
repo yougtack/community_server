@@ -2,13 +2,14 @@ const community = {
     data: []
 };
 
+let xhttp = new XMLHttpRequest();
+const url = "http://localhost:8080";
+
 const userId = document.cookie.substr(7,);
 const b_id = location.search.substr(location.search.indexOf("=") + 1);
 
 function communityModify() {
     if (confirm("게시글을 수정합니다.")) {
-        let xhttp = new XMLHttpRequest();
-        const url = "http://localhost:8080";
         if (document.getElementById("type").value.trim().length <= 0 ){
             alert("타입을 선택해주세요.");
             document.getElementById("type").focus();
@@ -55,8 +56,6 @@ function cancel() {
 }
 
 (function init() {
-    let xhttp = new XMLHttpRequest();
-    const url = "http://localhost:8080";
 
     xhttp.open("GET", url + `/board/view/${b_id}`, false);
 

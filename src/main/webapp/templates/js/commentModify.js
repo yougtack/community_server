@@ -2,14 +2,15 @@ const community = {
     data: []
 };
 
+let xhttp = new XMLHttpRequest();
+const url = "http://localhost:8080";
+
 const c_id = location.search.substr(6, 1);
 const b_id = location.search.substr(location.search.indexOf("b_id=") + 5);
 const userId = document.cookie.substr(7,);
 
 function commentModify() {
     if (confirm("댓글을 수정합니다.")) {
-        let xhttp = new XMLHttpRequest();
-        const url = "http://localhost:8080";
         if (document.getElementById("c_content").value.trim().length <= 0) {
             alert("댓글을 작성해주세요.");
             document.getElementById("c_content").focus();
@@ -57,8 +58,6 @@ function commentValue() {
 }
 
 (function init() {
-    let xhttp = new XMLHttpRequest();
-    const url = "http://localhost:8080";
 
     xhttp.open("GET", url + `/board/view/${b_id}`, false);
 

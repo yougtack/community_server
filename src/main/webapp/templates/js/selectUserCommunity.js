@@ -1,9 +1,17 @@
 const community = {
-    data: []
+    data: [],
+    image: []
 };
 
 const b_id = location.search.substr(location.search.indexOf("=") + 1);
 const userId = document.cookie.substr(7,);
+
+function imageDownload(i_id) {
+    const url = "http://localhost:8080";
+
+    location.href = url + `/board/download/${i_id}`;
+
+}
 
 function commentInsert() {
     if (userId === "") {
@@ -117,10 +125,18 @@ function printCommunity() {
     real_div += `<span class="txt end_txt">${community.data.b_count}</span>`;
     if (userId === community.data.userId) {
         real_div += `<span><img class="icon" src="../static/delete.png" alt="deleteImg" onclick="communityDelete()" /></span>`;
-        real_div += `<span><a href="modify.html?b_id=${b_id}"><img class="icon"  src="../static/modify.png" alt="modifyImg" /></a></span>`;
+        real_div += `<span><a href="modify.html?b_id=${b_id}"><img class="icon" src="../static/modify.png" alt="modifyImg" /></a></span>`;
     }
     real_div += `</div>`;
     real_div += `<div class="user_content">${community.data.b_content}</div>`;
+    if (community.image.length > 0) {
+        for (let index of community.image) {
+            real_div += `<div style="float: right;">${index.fileName}<img src="../static/download.png" alt="Image"  onclick="imageDownload(${index.i_id})"></div>`;
+            real_div += `<div><img src="data:image/jpg;base64, ${index.image}" alt="Image" /></div>`;
+        }
+    }
+
+    /* 댓글  */
     real_div += `<br><br><hr>`;
     real_div += `<div style="width: auto; height: 70px;"><p class="comment_title">댓글</p><a href="community.html?b_type=${community.data.b_type}"><input type="button" value="목록" style="width: 50px; height: 20px" /></a></div><br><br>`;
     document.write(real_div);
@@ -143,6 +159,26 @@ function printComment() {
     document.write(real_comment);
 }
 
+function image() {
+    let xhttp = new XMLHttpRequest();
+    const url = "http://localhost:8080";
+    xhttp.open("GET", url + `/board/getImage/${b_id}`, false);
+
+    xhttp.onreadystatechange = () => {
+
+        if (xhttp.status !== 200) {
+            console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
+        }
+
+        const arrayImage = JSON.parse(xhttp.responseText);
+
+        community.image = arrayImage;
+
+    };
+
+    xhttp.send();
+}
+
 (function init() {
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
@@ -163,6 +199,7 @@ function printComment() {
 
     xhttp.send();
 
+    image();
     printCommunity();
     printComment();
 

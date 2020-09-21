@@ -3,6 +3,7 @@ const userInfo = {
 };
 
 (function init() {
+
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
 
@@ -27,6 +28,7 @@ const userInfo = {
 })();
 
 function logout() {
+
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
 
