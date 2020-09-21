@@ -1,4 +1,3 @@
-
 let xhttp = new XMLHttpRequest();
 const url = "http://localhost:8080";
 
@@ -28,25 +27,24 @@ function insert(type, title, content) {
 
 function imgInsert() {
     const img = document.getElementById("files");
-    let files;
-    let reader = new FileReader();
-    console.log(img.files);
-    reader.readAsDataURL(img.files[0]);
-    reader.onload = function () {
-        files = reader.result;
-        console.log(JSON.stringify(files));
-        xhttp.open("POST", url + `/board/upload`, false);
+    let files = img;
+    // let reader = new FileReader();
+    console.log(files.files[0]);
+    // reader.readAsDataURL(img.files[0]);
+    // reader.onload = function () {
+    // files = reader.result;
+    xhttp.open("POST", url + `/board/upload`, false);
 
-        xhttp.onreadystatechange = () => {
+    xhttp.onreadystatechange = () => {
 
-            if (xhttp.status !== 200) {
-                console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
-            }
-        };
-
-        xhttp.setRequestHeader("Content-Type", "application/json");
-        xhttp.send(JSON.stringify(files));
+        if (xhttp.status !== 200) {
+            console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
+        }
     };
+
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send(files.files[0]);
+    // };
 
 }
 
@@ -74,7 +72,7 @@ function valueCheck() {
         return false;
     }
 
-    insert(type, title, content);
+    // insert(type, title, content);
 
     if (files !== "") {
         imgInsert();

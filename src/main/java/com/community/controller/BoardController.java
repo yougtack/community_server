@@ -74,7 +74,7 @@ public class BoardController {
         int result = 0;
         int b_id = boardService.getB_id();
         ImageModel image = new ImageModel();
-        List<MultipartFile>multipartFiles = multipartHttpServletRequest.getFiles("files");
+        List<MultipartFile>multipartFiles = multipartHttpServletRequest.getFiles("Files");
         if(!multipartFiles.isEmpty()){
             for(MultipartFile filePart : multipartFiles){
                 image.setFileName(filePart.getOriginalFilename());
@@ -93,7 +93,7 @@ public class BoardController {
     public Integer updateUpload(MultipartHttpServletRequest multipartHttpServletRequest, @PathVariable int b_id, HttpServletResponse response, HttpServletRequest request) throws Exception {
         int result = 0;
         ImageModel image = new ImageModel();
-        List<MultipartFile>multipartFiles = multipartHttpServletRequest.getFiles("fileN[]");
+        List<MultipartFile>multipartFiles = multipartHttpServletRequest.getFiles("Files");
         if(!multipartFiles.isEmpty()){
             for(MultipartFile filePart : multipartFiles){
                 image.setFileName(filePart.getOriginalFilename());
