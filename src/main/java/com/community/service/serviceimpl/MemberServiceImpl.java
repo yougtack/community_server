@@ -3,6 +3,7 @@ package com.community.service.serviceimpl;
 import com.community.dao.MemberDao;
 import com.community.model.CheckUserModel;
 import com.community.model.MemberModel;
+import com.community.model.TestModel;
 import com.community.service.MemberService;
 import com.community.util.LoginUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,11 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public TestModel getUserInfo(TestModel testModel){
+        return dao.getUserInfo(testModel.getUserId());
+    }
+
+    @Override
     public Integer kickMember(CheckUserModel model, HttpServletResponse response, HttpServletRequest request){
         String loginUserId = LoginUtil.getCheckLogin(request);
         int result = 0;
@@ -57,22 +63,5 @@ public class MemberServiceImpl implements MemberService {
         }
         return result;
 
-    }
-
-    @Override
-    public Integer update(MemberModel model, HttpServletResponse response, HttpServletRequest request){
-        String loginUserId = LoginUtil.getCheckLogin(request);
-        int result = 0;
-
-        if(loginUserId != null){
-            if(loginUserId.equals("admin")){
-                result =  dao.update(model.getUserId(), model.getUserPw());
-            }else{
-                response.setStatus(HttpStatus.FORBIDDEN.value());
-            }
-        }else{
-            response.setStatus(HttpStatus.UNAUTHORIZED.value());
-        }
-        return result;
     }
 }

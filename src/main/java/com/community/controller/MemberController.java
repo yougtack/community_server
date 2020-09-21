@@ -2,6 +2,7 @@ package com.community.controller;
 
 import com.community.model.CheckUserModel;
 import com.community.model.MemberModel;
+import com.community.model.TestModel;
 import com.community.service.MemberService;
 import com.community.util.LoginUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +61,11 @@ public class MemberController {
         return "logout!!";
     }
 
+    //계정정보 가져오기
+    @GetMapping(value = "/userInfo")
+    public TestModel getUserInfo(@RequestBody TestModel testModel){
+        return memberService.getUserInfo(testModel);
+    }
 
     //회원리스트가져오기
     @CrossOrigin("*")
@@ -73,12 +79,5 @@ public class MemberController {
     @DeleteMapping
     public Integer kickMember(@RequestBody CheckUserModel model, HttpServletResponse response, HttpServletRequest request){
         return memberService.kickMember(model, response, request);
-    }
-
-    //회원비밀번호 수정
-    @CrossOrigin("*")
-    @PutMapping
-    public Integer update(@RequestBody MemberModel model, HttpServletResponse response, HttpServletRequest request){
-        return memberService.update(model, response, request);
     }
 }

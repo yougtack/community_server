@@ -26,7 +26,7 @@ public interface BoardService {
     Integer imageUpdate(ImageModel image, int b_id, HttpServletResponse response, HttpServletRequest request);
 
 
-    ImageModel getImage(int b_id);
+    List<ImageModel> getImage(int b_id);
     ImageModel getViewImage(int i_id);
 
     int getB_id();

@@ -1,3 +1,31 @@
+const userInfo = {
+    data: []
+};
+
+(function init() {
+    let xhttp = new XMLHttpRequest();
+    const url = "http://localhost:8080";
+
+    xhttp.open("GET", url + "/member/memberList", false);
+
+    xhttp.onreadystatechange = () => {
+
+        if (xhttp.status !== 200) {
+            console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
+        }
+
+        const array = JSON.parse(xhttp.responseText);
+
+        for (let index of array) {
+            userInfo.data = array;
+        }
+
+    };
+
+    xhttp.send();
+
+})();
+
 function logout() {
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
@@ -25,7 +53,20 @@ if (document.cookie.substr(7,) === "admin") {
 }
 if (!!document.cookie) {
     real_header += `<a href="" style="float: right;"><img class="header_icon" src="../static/logout.png" alt="HomeIcon" onclick="logout()" /></a>`;
-    real_header += `<p class="header_icon info">${document.cookie.substr(7,)}</p>`;
+    real_header += `<p class="info">${document.cookie.substr(7,)}님</p>`;
+    for (let index of userInfo.data) {
+        if (index.userId === document.cookie.substr(7,)) {
+            if (index.count <= 0) {
+                real_header += `<p class="info">씨앗 등급</p>`;
+            } else if (index.count >= 10) {
+                real_header += `<p class="info">새싹 등급</p>`;
+            } else if (index.count >= 20) {
+                real_header += `<p class="info">가지 등급</p>`;
+            } else if (index.count >= 30) {
+                real_header += `<p class="info">나무 등급</p>`;
+            }
+        }
+    }
 } else {
     real_header += `<a href="../templates/login.html" style="float: right;"><img class="header_icon" src="../static/login.png" alt="HomeIcon" /></a>`;
 }

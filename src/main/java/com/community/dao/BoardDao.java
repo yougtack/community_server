@@ -24,7 +24,7 @@ public interface BoardDao {
     Integer imageUpload(@Param("image") byte[] image, @Param("fileName") String fileName, @Param("b_id") int b_id);
     Integer imageUpdate(@Param("image") byte[] image, @Param("fileName") String fileName, @Param("b_id") int b_id);
 
-    ImageModel getImage(@Param("b_id") int b_id);
+    List<ImageModel> getImage(@Param("b_id") int b_id);
 
     ImageModel getViewImage(@Param("i_id") int i_id);
 

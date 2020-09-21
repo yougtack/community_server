@@ -18,11 +18,25 @@
     </select>
 
     <select id="getMemberList" resultType="com.community.model.MemberModel">
-        SELECT
-            userId, userPw
-        FROM
-            community_member
+    SELECT
+        m.userId, m.userPw, ifnull(count(c.userId), 0) AS count
+    FROM
+        community_member AS m
+    LEFT OUTER JOIN
+        community AS c ON m.userId = c.userId
+    GROUP BY
+        m.userId, m.userPw
     </select>
+    <select id="getUserInfo" resultType="com.community.model.TestModel">
+        SELECT
+            m.userId, m.userPw, cnt.count
+        FROM
+            community_member AS m,
+            (SELECT count(*) AS count FROM community WHERE userId = #{userId}) AS cnt
+        WHERE
+            userId = #{userId}
+    </select>
+
 
     <delete id="kickMember" parameterType="String">
         DELETE FROM
@@ -31,12 +45,4 @@
             userId = #{userId}
     </delete>
 
-    <update id="update" parameterType="String">
-        UPDATE
-            community_member
-        SET
-            userPw = #{userPw}
-        WHERE
-            userId = #{userId}
-    </update>
 </mapper>

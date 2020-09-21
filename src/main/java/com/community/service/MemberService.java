@@ -2,6 +2,7 @@ package com.community.service;
 
 import com.community.model.CheckUserModel;
 import com.community.model.MemberModel;
+import com.community.model.TestModel;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +15,7 @@ public interface MemberService {
 
     List<MemberModel> getMemberList();
 
-    Integer kickMember(CheckUserModel model, HttpServletResponse response, HttpServletRequest request);
+    TestModel getUserInfo(TestModel testModel);
 
-    Integer update(MemberModel model, HttpServletResponse response, HttpServletRequest request);
+    Integer kickMember(CheckUserModel model, HttpServletResponse response, HttpServletRequest request);
 }
