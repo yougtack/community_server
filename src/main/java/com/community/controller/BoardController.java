@@ -80,7 +80,6 @@ public class BoardController {
                 image.setFileName(filePart.getOriginalFilename());
                 image.setImage(filePart.getBytes());
                 result = boardService.imageUpload(image, b_id, response, request);
-                break;
             }
         }
         return result;
