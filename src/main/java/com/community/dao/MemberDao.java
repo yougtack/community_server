@@ -1,6 +1,7 @@
 package com.community.dao;
 
 import com.community.model.MemberModel;
+import com.community.model.TestModel;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -12,8 +13,8 @@ public interface MemberDao {
 
     List<MemberModel> getMemberList();
 
-    Integer kickMember(@Param("userId") String userId);
+    TestModel getUserInfo(@Param("userId") String userId);
 
-    Integer update(@Param("userId") String userId, @Param("userPw") String userPw);
+    Integer kickMember(@Param("userId") String userId);
 
 }
