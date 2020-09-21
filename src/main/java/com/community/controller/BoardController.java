@@ -74,7 +74,7 @@ public class BoardController {
         int result = 0;
         int b_id = boardService.getB_id();
         ImageModel image = new ImageModel();
-        List<MultipartFile>multipartFiles = multipartHttpServletRequest.getFiles("fileN[]");
+        List<MultipartFile>multipartFiles = multipartHttpServletRequest.getFiles("files");
         if(!multipartFiles.isEmpty()){
             for(MultipartFile filePart : multipartFiles){
                 image.setFileName(filePart.getOriginalFilename());
