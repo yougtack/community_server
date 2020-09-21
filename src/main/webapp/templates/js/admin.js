@@ -41,18 +41,18 @@ function printUser() {
             continue;
         }
         real_table += `<tr>`;
-        if (index.count <= 0) {
-            real_table += `<td>씨앗 등급</td>`;
-        } else if (index.count >= 10) {
-            real_table += `<td>새싹 등급</td>`;
+        if (index.count >= 30) {
+            real_table += `<td>나무 등급</td>`;
         } else if (index.count >= 20) {
             real_table += `<td>가지 등급</td>`;
-        } else if (index.count >= 30) {
-            real_table += `<td>나무 등급</td>`;
+        } else if (index.count >= 10) {
+            real_table += `<td>새싹 등급</td>`;
+        } else if (index.count <= 0) {
+            real_table += `<td>씨앗 등급</td>`;
         }
         real_table += `<td>${index.userId}</td>`;
         real_table += `<td>${index.userPw}</td>`;
-        real_table += `<td><img style="width: 20px; height: 20px;" src="../static/delete.png" alt="icon" onclick="deleteUser('${index.userId}')"/></td>`;
+        real_table += `<td><img style="width: 20px; height: 20px;" src="../static/x.png" alt="icon" onclick="deleteUser('${index.userId}')"/></td>`;
         real_table += `</tr>`;
     }
     real_table += `</table>`;
