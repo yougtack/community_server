@@ -27,6 +27,7 @@
     GROUP BY
         m.userId, m.userPw
     </select>
+
     <select id="getUserInfo" resultType="com.community.model.TestModel">
         SELECT
             m.userId, m.userPw, cnt.count
