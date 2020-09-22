@@ -1,11 +1,11 @@
-let xhttp = new XMLHttpRequest();
-const url = "http://localhost:8080";
-
 function deleteUser(userId) {
     if (confirm("해당유저를 삭제시키겠습니까?")) {
         const deleteUser = {
             userId: userId
         };
+
+        let xhttp = new XMLHttpRequest();
+        const url = "http://localhost:8080";
 
         xhttp.open("DELETE", url + `/member`, false);
 
@@ -59,6 +59,9 @@ function printUser() {
 }
 
 (function init() {
+    let xhttp = new XMLHttpRequest();
+    const url = "http://localhost:8080";
+
     xhttp.open("GET", url + "/member/memberList", false);
 
     xhttp.onreadystatechange = () => {
