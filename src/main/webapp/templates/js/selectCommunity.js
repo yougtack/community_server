@@ -26,10 +26,14 @@ function printCommunity() {
     }
 
     for (let index of community.data) {
+        let cnt = 0;
         if (type === index.b_type) {
             real_tr = `<tr>`;
             real_tr += `<td >${index.b_id}</td>`;
-            real_tr += `<td><a class="community_a" href="userCommunity.html?b_id=${index.b_id}">${index.b_title}</a></td>`;
+            for(let count of index.comments){
+                ++cnt;
+            }
+            real_tr += `<td><a class="community_a" href="userCommunity.html?b_id=${index.b_id}">${index.b_title}</a>[${cnt}]</td>`;
             real_tr += `<td>${index.b_date}</td>`;
             real_tr += `<td>${index.userId}</td>`;
             real_tr += `<td>${index.b_count}</td>`;
