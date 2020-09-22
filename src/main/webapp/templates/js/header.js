@@ -58,14 +58,14 @@ if (!!document.cookie) {
     real_header += `<p class="info">${document.cookie.substr(7,)}님</p>`;
     for (let index of userInfo.data) {
         if (index.userId === document.cookie.substr(7,)) {
-            if (index.count <= 0) {
-                real_header += `<p class="info">씨앗 등급</p>`;
-            } else if (index.count >= 10) {
-                real_header += `<p class="info">새싹 등급</p>`;
+            if (index.count >= 30) {
+                real_header += `<p class="info">나무 등급</p>`;
             } else if (index.count >= 20) {
                 real_header += `<p class="info">가지 등급</p>`;
-            } else if (index.count >= 30) {
-                real_header += `<p class="info">나무 등급</p>`;
+            } else if (index.count >= 10) {
+                real_header += `<p class="info">새싹 등급</p>`;
+            } else if (index.count <= 0) {
+                real_header += `<p class="info">씨앗 등급</p>`;
             }
         }
     }
