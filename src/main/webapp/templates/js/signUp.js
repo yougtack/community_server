@@ -9,7 +9,6 @@ function signUp(userId,userPw) {
     xhttp.open("POST", url + `/member/signUp`, false);
 
     xhttp.onreadystatechange = () => {
-
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
         }
@@ -36,7 +35,6 @@ function signUpCheck() {
     }
 
     signUp(userId, userPw);
-
 }
 
 function enter() {

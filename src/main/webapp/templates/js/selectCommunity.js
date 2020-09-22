@@ -46,7 +46,6 @@ function printCommunity() {
     xhttp.open("GET", url + "/board/boardList", false);
 
     xhttp.onreadystatechange = () => {
-
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
         }
@@ -56,12 +55,10 @@ function printCommunity() {
         for (let index of array) {
             community.data = array;
         }
-
     };
 
     xhttp.send();
 
     printCommunity();
-
 })();
 

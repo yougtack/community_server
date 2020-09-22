@@ -35,18 +35,15 @@ function commentInsert() {
     xhttp.open("POST", url + `/comment`, false);
 
     xhttp.onreadystatechange = () => {
-
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
         }
-
     };
 
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.send(JSON.stringify(commentData));
 
     location.href = `userCommunity.html?b_id=${b_id}`;
-
 }
 
 function communityDelete() {
@@ -61,11 +58,9 @@ function communityDelete() {
         xhttp.open("DELETE", url + `/board/community/${b_id}`, false);
 
         xhttp.onreadystatechange = () => {
-
             if (xhttp.status !== 200) {
                 console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
             }
-
         };
 
         xhttp.setRequestHeader("Content-Type", "application/json");
@@ -88,7 +83,6 @@ function commentDelete(c_id) {
         xhttp.open("DELETE", url + `/comment/${deleteData.c_id}`, false);
 
         xhttp.onreadystatechange = () => {
-
             if (xhttp.status !== 200) {
                 console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
             }
@@ -165,7 +159,6 @@ function image() {
     xhttp.open("GET", url + `/board/getImage/${b_id}`, false);
 
     xhttp.onreadystatechange = () => {
-
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
         }
@@ -173,7 +166,6 @@ function image() {
         const arrayImage = JSON.parse(xhttp.responseText);
 
         community.image = arrayImage;
-
     };
 
     xhttp.send();
@@ -186,7 +178,6 @@ function image() {
     xhttp.open("GET", url + `/board/view/${b_id}`, false);
 
     xhttp.onreadystatechange = () => {
-
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
         }
@@ -194,7 +185,6 @@ function image() {
         const array = JSON.parse(xhttp.responseText);
 
         community.data = array;
-
     };
 
     xhttp.send();
@@ -202,6 +192,5 @@ function image() {
     image();
     printCommunity();
     printComment();
-
 })();
 

@@ -16,7 +16,6 @@ function printCommunity() {
     real_tr += `</tr>`;
     document.write(real_tr);
 
-
     type_text.innerText = "검색결과";
 
     for (let index of community.data) {
@@ -38,7 +37,6 @@ function printCommunity() {
     xhttp.open("GET", url + `/board/search?word=${word}`, false);
 
     xhttp.onreadystatechange = () => {
-
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
         }
@@ -48,11 +46,9 @@ function printCommunity() {
         for (let index of array) {
             community.data = array;
         }
-
     };
 
     xhttp.send();
 
     printCommunity();
-
 })();

@@ -34,11 +34,9 @@ function communityModify() {
         xhttp.open("PUT", url + `/board/community/${b_id}`, false);
 
         xhttp.onreadystatechange = () => {
-
             if (xhttp.status !== 200) {
                 console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
             }
-
         };
 
         xhttp.setRequestHeader("Content-Type", "application/json");
@@ -56,11 +54,9 @@ function cancel() {
 }
 
 (function init() {
-
     xhttp.open("GET", url + `/board/view/${b_id}`, false);
 
     xhttp.onreadystatechange = () => {
-
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
         }
@@ -68,12 +64,10 @@ function cancel() {
         const array = JSON.parse(xhttp.responseText);
 
         community.data = array;
-
     };
 
     xhttp.send();
 
     document.getElementById("title").value = community.data.b_title;
     document.getElementById("content").value = community.data.b_content;
-
 })();

@@ -29,14 +29,12 @@ function commentModify() {
             if (xhttp.status !== 200) {
                 console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
             }
-
         };
 
         xhttp.setRequestHeader("Content-Type", "application/json");
         xhttp.send(JSON.stringify(modifyData));
 
         location.href = `userCommunity.html?b_id=${b_id}`;
-
     }
 }
 
@@ -58,11 +56,9 @@ function commentValue() {
 }
 
 (function init() {
-
     xhttp.open("GET", url + `/board/view/${b_id}`, false);
 
     xhttp.onreadystatechange = () => {
-
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
         }
@@ -70,7 +66,6 @@ function commentValue() {
         const array = JSON.parse(xhttp.responseText);
 
         community.data = array;
-
     };
 
     xhttp.send();

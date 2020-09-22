@@ -12,7 +12,6 @@ function insert(type, title, content) {
     xhttp.open("POST", url + `/board/community`, false);
 
     xhttp.onreadystatechange = () => {
-
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
         }
@@ -22,7 +21,6 @@ function insert(type, title, content) {
     xhttp.send(JSON.stringify(data));
 
     // location.href = `community.html?b_type=${data.b_type}`;
-
 }
 
 function imgInsert() {
@@ -36,7 +34,6 @@ function imgInsert() {
     xhttp.open("POST", url + `/board/upload`, false);
 
     xhttp.onreadystatechange = () => {
-
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
         }
@@ -45,7 +42,6 @@ function imgInsert() {
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.send(files.files[0]);
     // };
-
 }
 
 function valueCheck() {

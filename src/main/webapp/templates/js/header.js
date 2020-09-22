@@ -3,14 +3,12 @@ const userInfo = {
 };
 
 (function init() {
-
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
 
     xhttp.open("GET", url + "/member/memberList", false);
 
     xhttp.onreadystatechange = () => {
-
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
         }
@@ -20,22 +18,18 @@ const userInfo = {
         for (let index of array) {
             userInfo.data = array;
         }
-
     };
 
     xhttp.send();
-
 })();
 
 function logout() {
-
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
 
     xhttp.open("GET", url + `/member/logout`, false);
 
     xhttp.onreadystatechange = () => {
-
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
         }
@@ -43,7 +37,6 @@ function logout() {
 
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.send();
-
 }
 
 let real_header = '';

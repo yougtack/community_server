@@ -10,7 +10,6 @@ function login(userId, userPw) {
     xhttp.open("POST", url + `/member/login`, false);
 
     xhttp.onreadystatechange = () => {
-
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
             alert("아이디 또는 비밀번호가 틀렸거나, 해당 아이디가 존재하지 않습니다.");
@@ -27,7 +26,6 @@ function login(userId, userPw) {
     if(c){
         location.href = "index.html";
     }
-
 }
 
 function loginCheck() {
@@ -45,7 +43,6 @@ function loginCheck() {
     }
 
     login(userId, userPw);
-
 }
 
 

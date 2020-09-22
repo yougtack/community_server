@@ -10,11 +10,9 @@ function deleteUser(userId) {
         xhttp.open("DELETE", url + `/member`, false);
 
         xhttp.onreadystatechange = () => {
-
             if (xhttp.status !== 200) {
                 console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
             }
-
         };
 
         xhttp.setRequestHeader("Content-Type", "application/json");
@@ -61,11 +59,9 @@ function printUser() {
 }
 
 (function init() {
-
     xhttp.open("GET", url + "/member/memberList", false);
 
     xhttp.onreadystatechange = () => {
-
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
         }
@@ -75,11 +71,9 @@ function printUser() {
         for (let index of array) {
             userInfo.data = array;
         }
-
     };
 
     xhttp.send();
 
     printUser();
-
 })();
