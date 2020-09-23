@@ -3,17 +3,30 @@ const community = {
     image: []
 };
 
-let xhttp = new XMLHttpRequest();
-const url = "http://localhost:8080";
+
 
 const userId = document.cookie.substr(7,);
 const b_id = location.search.substr(location.search.indexOf("=") + 1);
 
-function imgDelete() {
-    console.log("HIHIH");
+function imgDelete(i_id) {
+    let xhttp = new XMLHttpRequest();
+    const url = "http://localhost:8080";
+    xhttp.open("DELETE", url + `/board/${i_id}`, false);
+
+    xhttp.onreadystatechange = () => {
+        if (xhttp.status !== 200) {
+            console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
+        }
+    };
+
+    xhttp.send();
+    image();
 }
 
 function imgInsert() {
+    let xhttp = new XMLHttpRequest();
+    const url = "http://localhost:8080";
+
     const img = document.getElementById("files");
 
     let files = img;
@@ -33,6 +46,9 @@ function imgInsert() {
 }
 
 function communityModify() {
+    let xhttp = new XMLHttpRequest();
+    const url = "http://localhost:8080";
+
     const files = document.getElementById("files").value;
     if (confirm("게시글을 수정합니다.")) {
         if (document.getElementById("type").value.trim().length <= 0) {
@@ -85,6 +101,10 @@ function cancel() {
 function image() {
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
+
+    let real_delBtn = document.getElementById("delBtn");
+    real_delBtn.innerHTML = "";
+
     xhttp.open("GET", url + `/board/getImage/${b_id}`, false);
 
     xhttp.onreadystatechange = () => {
@@ -92,16 +112,24 @@ function image() {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
         }
 
-        const arrayImage = JSON.parse(xhttp.responseText);
-
-        community.image = arrayImage;
+        community.image = JSON.parse(xhttp.response);
     };
 
+    xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.send();
+
+    if (community.image.length > 0) {
+        for (let index of community.image) {
+            real_delBtn.innerHTML += `${index.fileName}<img class="home_icon header_icon" src="../static/delete.png" alt="HomeIcon" style="width: 20px; height: 20px;" onclick="imgDelete(${index.i_id})" />`;
+        }
+    }
+
 }
 
 (function init() {
-    let real_delBtn = document.getElementById("delBtn");
+    let xhttp = new XMLHttpRequest();
+    const url = "http://localhost:8080";
+
     xhttp.open("GET", url + `/board/view/${b_id}`, false);
 
     xhttp.onreadystatechange = () => {
@@ -114,16 +142,10 @@ function image() {
         community.data = array;
     };
 
+    xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.send();
+
     image();
-
-    if (community.image.length > 0) {
-        for(let index of community.image){
-            real_delBtn.innerHTML += `${index.fileName}<img class="home_icon header_icon" src="../static/delete.png" alt="HomeIcon" style="width: 20px; height: 20px;" onclick="imgDelete()" />`;
-        }
-    }
-
-    console.log(community);
 
     document.getElementById("title").value = community.data.b_title;
     document.getElementById("content").value = community.data.b_content;
