@@ -8,17 +8,37 @@ const url = "http://localhost:8080";
 const userId = document.cookie.substr(7,);
 const b_id = location.search.substr(location.search.indexOf("=") + 1);
 
+function imgInsert() {
+    const img = document.getElementById("files");
+    console.log("HI");
+    let files = img;
+    let formData = new FormData();
+
+    formData.append('Files', files.files[0]);
+
+    xhttp.open("POST", url + `/board/upload/${b_id}`, false);
+
+    xhttp.onreadystatechange = () => {
+        if (xhttp.status !== 200) {
+            console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
+        }
+    };
+
+    xhttp.send(formData);
+}
+
 function communityModify() {
+    const files = document.getElementById("files").value;
     if (confirm("게시글을 수정합니다.")) {
-        if (document.getElementById("type").value.trim().length <= 0 ){
+        if (document.getElementById("type").value.trim().length <= 0) {
             alert("타입을 선택해주세요.");
             document.getElementById("type").focus();
             return false;
-        } else if (document.getElementById("title").value.trim().length <= 0 ){
+        } else if (document.getElementById("title").value.trim().length <= 0) {
             alert("제목을 작성해주세요.");
             document.getElementById("title").focus();
             return false;
-        } else if (document.getElementById("content").value.trim().length <= 0 ){
+        } else if (document.getElementById("content").value.trim().length <= 0) {
             alert("내용을 작성해주세요.");
             document.getElementById("content").focus();
             return false;
@@ -41,6 +61,10 @@ function communityModify() {
 
         xhttp.setRequestHeader("Content-Type", "application/json");
         xhttp.send(JSON.stringify(modifyData));
+
+        if (files !== "") {
+            imgInsert();
+        }
 
         location.href = `userCommunity.html?b_id=${b_id}`;
 
