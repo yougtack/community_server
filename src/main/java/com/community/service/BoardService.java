@@ -29,6 +29,8 @@ public interface BoardService {
     List<ImageModel> getImage(int b_id);
     ImageModel getViewImage(int i_id);
 
+    Integer deleteImage(int i_id, HttpServletResponse response, HttpServletRequest request);
+
     int getB_id();
 
 }

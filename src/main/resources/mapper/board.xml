@@ -135,6 +135,13 @@
             i_id = ${i_id}
     </select>
 
+    <delete id="deleteImage" parameterType="Integer">
+        DELETE FROM
+            community_image
+        WHERE
+            i_id = ${i_id}
+    </delete>
+
     <select id="getB_id" resultType="int">
         SELECT
             MAX(b_id)

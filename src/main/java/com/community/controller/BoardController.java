@@ -159,4 +159,11 @@ public class BoardController {
         }
         return "야호!";
     }
+
+
+    @CrossOrigin("*")
+    @DeleteMapping(value = "/{i_id}")
+    public Integer deleteImage(@PathVariable("i_id") int i_id, HttpServletResponse response, HttpServletRequest request){
+        return boardService.deleteImage(i_id, response, request);
+    }
 }

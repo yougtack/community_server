@@ -28,5 +28,6 @@ public interface BoardDao {
 
     ImageModel getViewImage(@Param("i_id") int i_id);
 
+    Integer deleteImage(@Param("i_id") int i_id);
     int getB_id();
 }
