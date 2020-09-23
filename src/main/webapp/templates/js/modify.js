@@ -1,5 +1,6 @@
 const community = {
-    data: []
+    data: [],
+    image: []
 };
 
 let xhttp = new XMLHttpRequest();
@@ -8,9 +9,13 @@ const url = "http://localhost:8080";
 const userId = document.cookie.substr(7,);
 const b_id = location.search.substr(location.search.indexOf("=") + 1);
 
+function imgDelete() {
+    console.log("HIHIH");
+}
+
 function imgInsert() {
     const img = document.getElementById("files");
-    console.log("HI");
+
     let files = img;
     let formData = new FormData();
 
@@ -77,7 +82,26 @@ function cancel() {
     }
 }
 
+function image() {
+    let xhttp = new XMLHttpRequest();
+    const url = "http://localhost:8080";
+    xhttp.open("GET", url + `/board/getImage/${b_id}`, false);
+
+    xhttp.onreadystatechange = () => {
+        if (xhttp.status !== 200) {
+            console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
+        }
+
+        const arrayImage = JSON.parse(xhttp.responseText);
+
+        community.image = arrayImage;
+    };
+
+    xhttp.send();
+}
+
 (function init() {
+    let real_delBtn = document.getElementById("delBtn");
     xhttp.open("GET", url + `/board/view/${b_id}`, false);
 
     xhttp.onreadystatechange = () => {
@@ -91,6 +115,15 @@ function cancel() {
     };
 
     xhttp.send();
+    image();
+
+    if (community.image.length > 0) {
+        for(let index of community.image){
+            real_delBtn.innerHTML += `${index.fileName}<img class="home_icon header_icon" src="../static/delete.png" alt="HomeIcon" style="width: 20px; height: 20px;" onclick="imgDelete()" />`;
+        }
+    }
+
+    console.log(community);
 
     document.getElementById("title").value = community.data.b_title;
     document.getElementById("content").value = community.data.b_content;
