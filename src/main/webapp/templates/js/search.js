@@ -1,4 +1,4 @@
-const community = {
+const txt = {
     data: []
 };
 
@@ -18,7 +18,7 @@ function printCommunity() {
 
     type_text.innerText = "검색결과";
 
-    for (let index of community.data) {
+    for (let index of txt.data) {
         real_tr = `<tr>`;
         real_tr += `<td >${index.b_id}</td>`;
         real_tr += `<td><a class="community_a" href="userCommunity.html?b_id=${index.b_id}">${index.b_title}</a></td>`;
@@ -44,11 +44,13 @@ function printCommunity() {
         const array = JSON.parse(xhttp.responseText);
 
         for (let index of array) {
-            community.data = array;
+            txt.data = array;
         }
     };
 
     xhttp.send();
+
+    document.getElementById("word").value = word;
 
     printCommunity();
 })();

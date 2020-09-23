@@ -5,7 +5,7 @@ const community = {
 let xhttp = new XMLHttpRequest();
 const url = "http://localhost:8080";
 
-const c_id = location.search.substr(6, 1);
+const c_id = location.search.substr(6, 2);
 const b_id = location.search.substr(location.search.indexOf("b_id=") + 5);
 const userId = document.cookie.substr(7,);
 
@@ -45,9 +45,11 @@ function cancel() {
 function commentValue() {
     let c_comment;
 
-    for (let i = 0; i < community.data.comments.length; i++) {
-        if (c_id == community.data.comments[i].c_id) {
-            c_comment = community.data.comments[i].c_content;
+    for (let index of community.data.comments) {
+        let value_id = "" + index.c_id;
+        if (c_id === value_id) {
+            c_comment = index.c_content;
+            break;
         }
     }
 

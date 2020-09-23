@@ -7,14 +7,19 @@
     <title>게시판</title>
 </head>
 <body>
-<header>
-    <script src="js/header.js"></script>
-</header>
-<section>
-    <p class="type_text"></p>
-    <table class="community_table">
-        <script src="js/search.js"></script>
-    </table>
-</section>
+    <header>
+        <script src="js/header.js"></script>
+    </header>
+    <section>
+        <p class="type_text"></p>
+        <div>
+            <input type="text" id="word" style="width: 10%;"/>
+            <input type="button" value="검색" onclick="search()" style="width: 5%" />
+        </div>
+        <table class="community_table">
+            <script src="js/search.js"></script>
+        </table>
+    </section>
+    <script src="js/word.js"></script>
 </body>
 </html>
