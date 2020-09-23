@@ -95,14 +95,12 @@
             c.b_title LIKE CONCAT('%',#{word} ,'%')
     </select>
 
-    <update id="imageUpdate" parameterType="com.community.model.ImageModel">
-        UPDATE
-            community_image
-        SET
-            image = #{image}, fileName = {fileName}
-        WHERE
-            b_id = ${b_id}
-    </update>
+    <insert id="imageUpdate" parameterType="com.community.model.ImageModel">
+        INSERT INTO
+            community_image(b_id, image, fileName)
+        VALUES
+            (${b_id}, #{image}, #{fileName})
+    </insert>
 
 
     <insert id="imageUpload" parameterType="com.community.model.ImageModel">
