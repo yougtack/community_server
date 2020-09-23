@@ -130,6 +130,18 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    public Integer deleteImage(int i_id, HttpServletResponse response, HttpServletRequest request){
+        String loginUserId = LoginUtil.getCheckLogin(request);
+        int result = 0;
+        if(loginUserId != null){
+            result = dao.deleteImage(i_id);
+        }else{
+            response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        }
+        return result;
+    }
+
+    @Override
     public int getB_id(){
         return dao.getB_id();
     }
