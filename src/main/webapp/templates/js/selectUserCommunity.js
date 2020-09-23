@@ -126,7 +126,7 @@ function printCommunity() {
     if (community.image.length > 0) {
         for (let index of community.image) {
             real_div += `<div style="float: right;">${index.fileName}<img src="../static/download.png" alt="Image"  onclick="imageDownload(${index.i_id})"></div>`;
-            real_div += `<div><img src="data:image/jpg;base64, ${index.image}" alt="Image" /></div>`;
+            real_div += `<div><img src="data:image/jpg;base64, ${index.image}" class="content_img" alt="Image" /></div>`;
         }
     }
 
@@ -139,7 +139,7 @@ function printCommunity() {
 
 function printComment() {
     let real_comment = ``;
-    real_comment += `<div style="text-align: left;"><input type="text" id="c_content" style=" width: 70%; height: 40px;"/><button style=" width: 50px; height: 45px;" onclick="commentInsert()">등록</button></div>`;
+    real_comment += `<div style="text-align: left;"><input type="text" id="c_content" style=" width: 70%; height: 40px;"/><button style=" width: 50px; height: 45px;" onclick="commentInsert()">등록</button></div><br><hr><br>`;
     for (let value of community.data.comments) {
         real_comment += `<div class="comment">${value.userId}님 댓글`;
         if (userId === value.userId) {

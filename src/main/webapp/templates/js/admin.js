@@ -45,7 +45,7 @@ function printUser() {
             real_table += `<td>가지 등급</td>`;
         } else if (index.count >= 10) {
             real_table += `<td>새싹 등급</td>`;
-        } else if (index.count <= 0) {
+        } else if (index.count >= 0) {
             real_table += `<td>씨앗 등급</td>`;
         }
         real_table += `<td>${index.userId}</td>`;
