@@ -39,6 +39,7 @@
             community_comment AS cc ON c.b_id = cc.b_id
         ORDER BY
             c.b_id
+        DESC
     </select>
 
     <select id="getView" resultMap="viewMap">
@@ -50,6 +51,9 @@
             community_comment AS cc ON c.b_id = cc.b_id
         WHERE
             c.b_id = ${b_id}
+        ORDER BY
+            cc.c_id
+        DESC
     </select>
 
     <insert id="insert" parameterType="String">
