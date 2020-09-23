@@ -65,7 +65,7 @@ function signUpCheck() {
 
     signUp(userId, userPw);
 
-    alert("회원가입을 성공하셨습니다.")
+    alert("회원가입을 성공하셨습니다.");
 }
 
 function enter() {
