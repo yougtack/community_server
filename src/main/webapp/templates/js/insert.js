@@ -20,17 +20,16 @@ function insert(type, title, content) {
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.send(JSON.stringify(data));
 
-    // location.href = `community.html?b_type=${data.b_type}`;
+    location.href = `community.html?b_type=${data.b_type}`;
 }
 
 function imgInsert() {
     const img = document.getElementById("files");
     let files = img;
-    // let reader = new FileReader();
-    console.log(files.files[0]);
-    // reader.readAsDataURL(img.files[0]);
-    // reader.onload = function () {
-    // files = reader.result;
+    let formData = new FormData();
+
+    formData.append('Files',files.files[0]);
+
     xhttp.open("POST", url + `/board/upload`, false);
 
     xhttp.onreadystatechange = () => {
@@ -39,9 +38,7 @@ function imgInsert() {
         }
     };
 
-    xhttp.setRequestHeader("Content-Type", "application/json");
-    xhttp.send(files.files[0]);
-    // };
+    xhttp.send(formData);
 }
 
 function valueCheck() {
@@ -68,7 +65,7 @@ function valueCheck() {
         return false;
     }
 
-    // insert(type, title, content);
+    insert(type, title, content);
 
     if (files !== "") {
         imgInsert();
