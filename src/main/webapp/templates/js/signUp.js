@@ -26,7 +26,8 @@ function signUp(userId, userPw) {
 
 function signUpCheck() {
     const userId = document.getElementById("userId"),
-        userPw = document.getElementById("userPw");
+        userPw = document.getElementById("userPw"),
+        userPwCheck = document.getElementById("userPwCheck");
 
     const idPattern = /^.{4,10}$/;
     const pwPattern = /^(?=.*[A-Z])(?=.*[!@#$%^&*+=-]).{4,10}$/;
@@ -41,7 +42,7 @@ function signUpCheck() {
         return false;
     }
     for (let index of user.data) {
-        if(index.userId === userId.value){
+        if (index.userId === userId.value) {
             alert("이미 존재하는 아이디입니다.");
             userId.focus();
             return false;
@@ -56,9 +57,15 @@ function signUpCheck() {
             "대문자 1개 이상 포함 특수문자 1개 이상 포함시켜주세요.");
         userPw.focus();
         return false;
+    } else if (userPw.value !== userPwCheck.value) {
+        alert("비밀번호가 일치하지않습니다.");
+        userPw.focus();
+        return false;
     }
 
     signUp(userId, userPw);
+
+    alert("회원가입을 성공하셨습니다.")
 }
 
 function enter() {
