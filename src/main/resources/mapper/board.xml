@@ -97,6 +97,9 @@
             community_comment AS cc ON c.b_id = cc.b_id
         WHERE
             c.b_title LIKE CONCAT('%',#{word} ,'%')
+        ORDER BY
+            c.b_id
+        DESC
     </select>
 
     <insert id="imageUpdate" parameterType="com.community.model.ImageModel">
