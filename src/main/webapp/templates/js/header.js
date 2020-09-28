@@ -49,6 +49,7 @@ if (document.cookie.substr(7,) === "admin") {
 if (!!document.cookie) {
     real_header += `<a href="" style="float: right;"><img class="header_icon" src="../static/logout.png" alt="HomeIcon" onclick="logout()" /></a>`;
     real_header += `<p class="info">${document.cookie.substr(7,)}님</p>`;
+    // console.log(document.cookie.substr(0,6));
     for (let index of userInfo.data) {
         if (index.userId === document.cookie.substr(7,)) {
             if (index.count >= 30) {
