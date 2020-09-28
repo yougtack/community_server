@@ -47,7 +47,7 @@ public class BoardServiceImpl implements BoardService {
         String loginUserId = LoginUtil.getCheckLogin(request);
         int result = 0;
         if(loginUserId != null){
-            if(loginUserId.equals(model.getUserId())){
+            if(loginUserId.equals(model.getUserId()) || LoginUtil.isApp(request)){
                 result = dao.update(model.getB_type(), model.getB_title(), model.getB_content(), b_id);
             }else{
                 response.setStatus(HttpStatus.FORBIDDEN.value());
@@ -64,7 +64,7 @@ public class BoardServiceImpl implements BoardService {
         int result = 0;
 
         if(loginUserId != null){
-            if(loginUserId.equals(model.getUserId())){
+            if(loginUserId.equals(model.getUserId()) || LoginUtil.isApp(request)){
                 result = dao.delete(b_id);
             }else{
                 response.setStatus(HttpStatus.FORBIDDEN.value());

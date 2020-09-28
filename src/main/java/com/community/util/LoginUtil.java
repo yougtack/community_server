@@ -10,7 +10,7 @@ public class LoginUtil {
 
     public static boolean isApp( HttpServletRequest request ) {
         String userAgent = request.getHeader(HttpHeaders.USER_AGENT );
-        boolean isApp = userAgent.indexOf(AGENT_NAME) >= 0; //포함되어 있으면 참짓, 포함되어 있지 않으면 거
+//        boolean isApp = userAgent.indexOf(AGENT_NAME) >= 0; //포함되어 있으면 참짓, 포함되어 있지 않으면 거
         return userAgent.indexOf(AGENT_NAME) >= 0; //포함되어 있으면 참짓, 포함되어 있지 않으면 거
     }
 
