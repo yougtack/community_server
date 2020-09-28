@@ -30,7 +30,7 @@ public class CommentServiceImpl implements CommentService {
         int result = 0;
 
         if(loginUserId != null){
-            if(loginUserId.equals(model.getUserId())){
+            if(loginUserId.equals(model.getUserId()) || LoginUtil.isApp(request)){
                 result =  dao.update(model.getC_id(), model.getC_content());
             }else{
                 response.setStatus(HttpStatus.FORBIDDEN.value());
@@ -47,7 +47,7 @@ public class CommentServiceImpl implements CommentService {
         int result = 0;
 
         if(loginUserId != null){
-            if(loginUserId.equals(model.getUserId())){
+            if(loginUserId.equals(model.getUserId()) || LoginUtil.isApp(request)){
                 result =  dao.insert(model.getB_id(), model.getC_content(), model.getUserId());
             }else{
                 response.setStatus(HttpStatus.FORBIDDEN.value());
@@ -64,7 +64,7 @@ public class CommentServiceImpl implements CommentService {
         int result = 0;
 
         if(loginUserId != null){
-            if(loginUserId.equals(model.getUserId())){
+            if(loginUserId.equals(model.getUserId()) || LoginUtil.isApp(request)){
                 result = dao.delete(c_id);
             }else{
                 response.setStatus(HttpStatus.FORBIDDEN.value());
