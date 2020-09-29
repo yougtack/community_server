@@ -170,6 +170,18 @@ function printComment() {
         real_comment += `<br>`;
         real_comment += `<div class="c_content">${value.c_content}`;
         real_comment += `</div>`;
+        for(let value2 of value.secondComment) {
+            real_comment += `<hr><img style="width: 40px; height: 40px; float:left;" src="../static/arrows.png" alt="img"/><span>` +
+                                `<div class="userId">${value2.userId}님</div>` +
+                                `<div class="info">${value2.c_date}</div>`;
+            if (userId === value2.userId) {
+                real_comment += `<span><img class="icon" src="../static/delete.png" alt="deleteImg" onclick="commentDelete(${value2.c_id})" /></span>`;
+                real_comment += `<span><a href="commentModify.html?c_id=${value2.c_id}&b_id=${b_id}"><img class="icon" src="../static/modify.png" alt="modifyImg" /></a></span>`;
+            }
+            real_comment += `<br>`+
+                            `<div class="c_content_second">${value2.c_content}</div>` +
+                        `</span>`;
+        }
     }
     document.write(real_comment);
 }
@@ -209,6 +221,8 @@ function image() {
     };
 
     xhttp.send();
+
+    console.log(community.data);
 
     image();
     printCommunity();
