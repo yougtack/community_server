@@ -41,18 +41,24 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public ViewModel getView(int b_id){
-        return dao.getView(b_id);
-    }
-
-    @Override
     public Integer count(int b_id){
         return dao.count(b_id);
     }
 
     @Override
+    public ViewModel getView(int b_id){
+        return dao.getView(b_id);
+    }
+
+
+    @Override
     public List<BoardModel> search(String word){
         return dao.search(word);
+    }
+
+    @Override
+    public List<BoardModel> getRank(){
+        return dao.getRank();
     }
 
     @Override

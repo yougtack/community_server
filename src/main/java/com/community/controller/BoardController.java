@@ -76,6 +76,13 @@ public class BoardController {
         return boardService.search(word);
     }
 
+    //조회수가 가장많은 것을 기준으로 출력하기
+    @CrossOrigin("*")
+    @GetMapping(value = "/rank")
+    public List<BoardModel> rank(){
+        return boardService.getRank();
+    }
+
     //사진 업로드
     @CrossOrigin("*")
     @PostMapping("/upload")
@@ -156,7 +163,6 @@ public class BoardController {
         }
         return "야호!";
     }
-
 
     @CrossOrigin("*")
     @DeleteMapping(value = "/{i_id}")
