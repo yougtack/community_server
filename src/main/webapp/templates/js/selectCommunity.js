@@ -5,14 +5,16 @@ const community = {
 function printCommunity() {
     const type = location.search.substr(location.search.indexOf("=") + 1);
     const type_text = document.querySelector(".type_text");
-    let real_tr;
-    real_tr = `<tr class="community_table">`;
-    real_tr += `<td class="b_id">번호</td>`;
-    real_tr += `<td class="b_title">이름</td>`;
-    real_tr += `<td class="b_date">날짜</td>`;
-    real_tr += `<td class="userId">작성자</td>`;
-    real_tr += `<td class="b_count">조회수</td>`;
-    real_tr += `</tr>`;
+    let real_tr = '';
+
+    real_tr += `<tr>` +
+                    `<td style="width: 5%;">번호</td>` +
+                    `<td style="width: 30%;">제목</td>` +
+                    `<td style="width: 35%;">날짜</td>` +
+                    `<td style="width: 25%;">작성자</td>` +
+                    `<td style="width: 5%;">조회수</td>` +
+                `</tr>`;
+
     document.write(real_tr);
 
     if (type === "1") {
@@ -24,20 +26,21 @@ function printCommunity() {
     } else {
         type_text.innerText = "코딩게시판";
     }
+    type_text.innerHTML += '<a href="../templates/insert.html" style="margin-left: 80%;"><img src="../static/create.png" alt="HomeIcon" /></a>';
 
     for (let index of community.data) {
         let cnt = 0;
         if (type === index.b_type) {
             real_tr = `<tr>`;
             real_tr += `<td >${index.b_id}</td>`;
-            for(let count of index.comments){
+            for (let count of index.comments) {
                 ++cnt;
             }
-            real_tr += `<td><a class="community_a" href="userCommunity.html?b_id=${index.b_id}">${index.b_title}</a>[${cnt}]</td>`;
-            real_tr += `<td>${index.b_date}</td>`;
-            real_tr += `<td>${index.userId}</td>`;
-            real_tr += `<td>${index.b_count}</td>`;
-            real_tr += `</tr>`;
+            real_tr += `<td><a href="userCommunity.html?b_id=${index.b_id}">${index.b_title}</a>[${cnt}]</td>` +
+                        `<td>${index.b_date}</td>` +
+                        `<td>${index.userId}</td>` +
+                        `<td>${index.b_count}</td>` +
+                    `</tr>`;
             document.write(real_tr);
         }
     }

@@ -47,11 +47,7 @@ function valueCheck() {
         content = document.getElementById("content"),
         files = document.getElementById("files").value;
 
-
-    if (document.cookie.substr(7,) === "") {
-        alert("로그인이 필요합니다.");
-        return false;
-    } else if (title.value.trim().length <= 0) {
+    if (title.value.trim().length <= 0) {
         alert("제목을 작성해주세요.");
         title.focus();
         return false;
@@ -71,3 +67,10 @@ function valueCheck() {
         imgInsert();
     }
 }
+
+(function loginCheck(){
+    if (document.cookie.substr(7,) === "") {
+        alert("로그인이 필요합니다.");
+        location.href = "login.html";
+    }
+})();

@@ -72,7 +72,12 @@ function communityModify() {
             b_content: document.getElementById("content").value
         };
 
-        xhttp.open("PUT", url + `/board/community/${b_id}`, false);
+        if (xhttp.status !== 200) {
+            console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
+            alert(".......");
+        }else {
+            xhttp.open("PUT", url + `/board/community/${b_id}`, false);
+        }
 
         xhttp.onreadystatechange = () => {
             if (xhttp.status !== 200) {

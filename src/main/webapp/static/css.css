@@ -19,6 +19,11 @@ time, mark, audio, video {
     vertical-align: baseline;
 }
 
+a {
+    text-decoration: none;
+    color: black;
+}
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
@@ -54,177 +59,47 @@ th, td {
     padding: 20px 5px 15px 5px;
 }
 
-/* --------  */
-header {
-    width: 100%;
-    background: lightblue;
-    height: 45px;
+/* --------------------- */
+
+
+/* sidebar */
+.main_sidebar {
+    position: fixed;
+    display: block;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background-color: #0059ab;
+    width: 200px;
+    height: auto;
 }
 
+.main_sidebar_icon {
+    width: 20px;
+    height: 20px;
+}
+
+.main_category {
+    margin: 0 0 20px 40px;
+}
+
+/* section */
 section {
-    text-align: center;
-    margin: 0 30px 150px 30px;
-}
-
-/* index */
-
-.index_div {
-    width: 20%;
-    float: left;
-    border: 1px solid black;
-}
-
-.index_img {
-    width: 100px;
-    height: 100px;
-}
-
-.index_txt {
-    font-weight: lighter;
-    color: black;
-}
-
-/* header */
-
-.header_icon {
-    width: 45px;
-    margin: 0 30px 0 0;
-}
-
-.icon_a {
-    margin: 0 0 0 100px;
-}
-
-.info {
-    float: right;
-    background-color: lightblue;
-    border: none;
-    margin: 10px;
-}
-
-/* community */
-
-.type_text {
-    font-weight: bold;
-    font-size: 25px;
-    text-align: left;
-    margin: 30px 0 30px 0;
-}
-
-.community_table {
-    width: 100%;
-    margin: 0 0 0 0;
-    text-align: center;
-}
-
-.community_a {
-    color: black;
-    text-decoration: none;
-}
-
-.b_id {
-    width: 5%;
-}
-
-.b_title {
-    width: 45%;
-}
-
-.b_date {
-    width: 25%;
-}
-
-.userId {
-    width: 20%;
-}
-
-.b_count {
-    width: 5%;
-}
-
-/* userCommunity */
-
-.user_community {
-    border: 1px solid black;
-    text-align: left;
-    font-size: 14px;
-    padding: 15px 0 10px 25px;
-    margin: 0 0 30px 0;
-}
-
-.user_community_title {
-    font-size: 15px;
-    font-weight: bold;
-    width: 100%;
+    margin: 50px 0 0 300px;
 }
 
 .txt {
-    font-weight: lighter;
-    padding: 0 5px 0 0;
-    margin-right: 5px;
-    border-width: 1px;
-    border-right-style: groove;
-}
-
-.end_txt {
-    border-right-style: none;
-}
-
-.p_txt {
-    margin: 45px 0 20px 0;
-}
-
-.user_content {
-    font-size: 18px;
-    text-align: left;
-    margin: 15px 0 0 25px;
-    word-break: break-word;
-}
-
-.icon {
-    width: 20px;
-    height: 20px;
-    float: right;
-    margin: 0 20px 0 0;
-}
-
-.comment_title {
-    float: left;
     font-size: 20px;
-    font-weight: bold;
-    margin: 40px 0 50px 0;
+    margin: 0 0 5px 0;
+    padding: 0;
 }
 
-.comment {
-    text-align: left;
-    margin: 10px 10px 20px 10px;
-    padding-bottom: 20px;
-    border-width: 1px;
-    border-bottom-style: solid;
-}
-
-.content_img {
-    width: 100px;
-    height: 100px;
-}
-
-/* insert */
-
-.insert_community {
-    height: 100%;
-    min-height: 500px;
-    border: 1px solid black;
-}
-
-/* login */
-
-.login_box {
-    margin: 10px;
-    width: 250px;
-    height: 40px;
-}
-
-.login_button {
-    width: 100px;
+.input_box {
+    width: 24%;
     height: 30px;
+    margin: 10px 0 10px 0;
+}
+
+.input_button {
+    width: 25%;
 }

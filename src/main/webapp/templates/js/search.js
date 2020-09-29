@@ -50,7 +50,7 @@ function printCommunity() {
 
     xhttp.send();
 
-    document.getElementById("word").value = word;
+    document.getElementById("search_word").value = word;
 
     printCommunity();
 })();
