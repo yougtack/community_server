@@ -59,16 +59,16 @@ public class CommentController {
         }
         return commentService.update(commentModel);
     }
-//    //2번째 댓글 수정
-//    @CrossOrigin("*")
-//    @PutMapping(value = "/second")
-//    public Integer secondUpdate(@RequestBody SecondCommentModel secondCommentModel, HttpServletResponse response, HttpServletRequest request){
-//        String loginUserId = LoginUtil.getCheckLogin(request);
-//        if(CheckUtil.loginCheck(loginUserId, secondCommentModel.getUserId(), response, request) >= 1){
-//            return 0;
-//        }
-//        return commentService.secondUpdate(secondCommentModel);
-//    }
+    //2번째 댓글 수정
+    @CrossOrigin("*")
+    @PutMapping(value = "/second")
+    public Integer secondUpdate(@RequestBody SecondCommentModel secondCommentModel, HttpServletResponse response, HttpServletRequest request){
+        String loginUserId = LoginUtil.getCheckLogin(request);
+        if(CheckUtil.loginCheck(loginUserId, secondCommentModel.getUserId(), response, request) >= 1){
+            return 0;
+        }
+        return commentService.secondUpdate(secondCommentModel);
+    }
 
 
     //댓글 삭제
@@ -80,5 +80,16 @@ public class CommentController {
             return 0;
         }
         return commentService.delete(c_id);
+    }
+
+    //2번째 댓글 삭제
+    @CrossOrigin("*")
+    @DeleteMapping(value = "/second/{second_id}")
+    public Integer secondDelete(@PathVariable int second_id, @RequestBody CheckUserModel checkUserModel, HttpServletResponse response, HttpServletRequest request){
+        String loginUserId = LoginUtil.getCheckLogin(request);
+        if(CheckUtil.loginCheck(loginUserId, checkUserModel.getUserId(), response, request) >= 1){
+            return 0;
+        }
+        return commentService.secondDelete(second_id);
     }
 }
