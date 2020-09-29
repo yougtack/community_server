@@ -4,6 +4,7 @@ import com.community.model.CheckUserModel;
 import com.community.model.MemberModel;
 import com.community.model.TestModel;
 import com.community.service.MemberService;
+import com.community.util.CheckUtil;
 import com.community.util.LoginUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -77,7 +78,11 @@ public class MemberController {
     //회원탈퇴시키기
     @CrossOrigin("*")
     @DeleteMapping
-    public Integer kickMember(@RequestBody CheckUserModel model, HttpServletResponse response, HttpServletRequest request){
-        return memberService.kickMember(model, response, request);
+    public Integer kickMember(@RequestBody CheckUserModel checkUserModel, HttpServletResponse response, HttpServletRequest request){
+        String loginUserId = LoginUtil.getCheckLogin(request);
+        if(CheckUtil.memberCheck(loginUserId, response) >= 1){
+            return 0;
+        }
+        return memberService.kickMember(checkUserModel);
     }
 }

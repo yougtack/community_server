@@ -1,13 +1,11 @@
 package com.community.controller;
 
-import com.community.model.BoardModel;
-import com.community.model.CheckUserModel;
-import com.community.model.ImageModel;
-import com.community.model.ViewModel;
+import com.community.model.*;
 import com.community.service.BoardService;
+import com.community.util.CheckUtil;
+import com.community.util.LoginUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,22 +31,34 @@ public class BoardController {
     //게시글 작성 하기
     @CrossOrigin("*")
     @PostMapping(value = "/community")
-    public Integer insert(@RequestBody ViewModel model, HttpServletResponse response, HttpServletRequest request){
-        return boardService.insert(model, response, request);
+    public Integer insert(@RequestBody ViewModel viewModel, HttpServletResponse response, HttpServletRequest request){
+        String loginUserId = LoginUtil.getCheckLogin(request);
+        if(CheckUtil.loginCheck(loginUserId, viewModel.getUserId(), response, request) >= 1){
+            return 0;
+        }
+        return  boardService.insert(viewModel);
     }
 
     //게시글 수정하기
     @CrossOrigin("*")
     @PutMapping(value = "/community/{b_id}")
     public Integer update(@RequestBody ViewModel viewModel, @PathVariable int b_id, HttpServletResponse response, HttpServletRequest request){
-        return boardService.update(viewModel, b_id, response, request);
+        String loginUserId = LoginUtil.getCheckLogin(request);
+        if(CheckUtil.loginCheck(loginUserId, viewModel.getUserId(), response, request) >= 1){
+            return 0;
+        }
+        return  boardService.update(viewModel, b_id);
     }
 
     //게시글 삭제하기
     @CrossOrigin("*")
     @DeleteMapping(value = "/community/{b_id}")
-    public Integer delete(@PathVariable int b_id, @RequestBody CheckUserModel model, HttpServletResponse response, HttpServletRequest request){
-        return boardService.delete(b_id, model, response, request);
+    public Integer delete(@PathVariable int b_id, @RequestBody CheckUserModel checkUserModel, HttpServletResponse response, HttpServletRequest request){
+        String loginUserId = LoginUtil.getCheckLogin(request);
+        if(CheckUtil.loginCheck(loginUserId, checkUserModel.getUserId(), response, request) >= 1){
+            return 0;
+        }
+        return boardService.delete(b_id);
     }
 
     //게시글 상세보기
@@ -70,37 +80,24 @@ public class BoardController {
     @CrossOrigin("*")
     @PostMapping("/upload")
     @ResponseBody
-    public Integer upload(MultipartHttpServletRequest multipartHttpServletRequest, HttpServletResponse response, HttpServletRequest request) throws Exception {
-        int result = 0;
-        int b_id = boardService.getB_id();
-        ImageModel image = new ImageModel();
-        List<MultipartFile>multipartFiles = multipartHttpServletRequest.getFiles("Files");
-        if(!multipartFiles.isEmpty()){
-            for(MultipartFile filePart : multipartFiles){
-                image.setFileName(filePart.getOriginalFilename());
-                image.setImage(filePart.getBytes());
-                result = boardService.imageUpload(image, b_id, response, request);
-            }
+    public Integer upload(MultipartHttpServletRequest multipartHttpServletRequest, HttpServletResponse response, HttpServletRequest request) throws IOException {
+        String loginUserId = LoginUtil.getCheckLogin(request);
+        if(CheckUtil.imageCheck(loginUserId, response, request) >= 1){
+            return 0;
         }
-        return result;
+        return boardService.imageUpload(multipartHttpServletRequest);
     }
 
     //게시글 수정시 사진 업로드
     @CrossOrigin("*")
     @PostMapping("/upload/{b_id}")
     @ResponseBody
-    public Integer updateUpload(MultipartHttpServletRequest multipartHttpServletRequest, @PathVariable int b_id, HttpServletResponse response, HttpServletRequest request) throws Exception {
-        int result = 0;
-        ImageModel image = new ImageModel();
-        List<MultipartFile>multipartFiles = multipartHttpServletRequest.getFiles("Files");
-        if(!multipartFiles.isEmpty()){
-            for(MultipartFile filePart : multipartFiles){
-                image.setFileName(filePart.getOriginalFilename());
-                image.setImage(filePart.getBytes());
-                result = boardService.imageUpdate(image, b_id, response, request);
-            }
+    public Integer updateUpload(MultipartHttpServletRequest multipartHttpServletRequest, @PathVariable int b_id, HttpServletResponse response, HttpServletRequest request) throws IOException {
+        String loginUserId = LoginUtil.getCheckLogin(request);
+        if(CheckUtil.imageCheck(loginUserId, response, request) >= 1){
+            return 0;
         }
-        return result;
+        return boardService.imageUpdate(multipartHttpServletRequest, b_id);
     }
 
     //상세번호로 사가져오기 (바이너리 상태)
@@ -164,6 +161,15 @@ public class BoardController {
     @CrossOrigin("*")
     @DeleteMapping(value = "/{i_id}")
     public Integer deleteImage(@PathVariable("i_id") int i_id, HttpServletResponse response, HttpServletRequest request){
-        return boardService.deleteImage(i_id, response, request);
+        String loginUserId = LoginUtil.getCheckLogin(request);
+        if(CheckUtil.imageCheck(loginUserId, response, request) >= 1){
+            return 0;
+        }
+        return boardService.deleteImage(i_id);
     }
+
+//    @GetMapping(value = "/test")
+//    public List<CommentModel> test(){
+//        return boardService.test();
+//    }
 }
