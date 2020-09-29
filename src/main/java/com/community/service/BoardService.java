@@ -13,11 +13,11 @@ public interface BoardService {
     Integer update(ViewModel model, int b_id);
     Integer delete(int b_id);
 
+    Integer count(int b_id);
     ViewModel getView(int b_id);
 
-    Integer count(int b_id);
-
     List<BoardModel> search(String word);
+    List<BoardModel> getRank();
 
     Integer imageUpload(MultipartHttpServletRequest multipartHttpServletRequest) throws IOException;
     Integer imageUpdate(MultipartHttpServletRequest multipartHttpServletRequest, int b_id) throws IOException;
