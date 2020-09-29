@@ -111,9 +111,4 @@ public class BoardServiceImpl implements BoardService {
         return dao.getB_id();
     }
 
-//    @Override
-//    public List<CommentModel> test(){
-//        return dao.test();
-//    }
-
 }

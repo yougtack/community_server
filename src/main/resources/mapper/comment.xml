@@ -1,14 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.community.dao.CommentDao">
-    <select id="getComment" resultType="com.community.model.CommentModel">
-        SELECT
-            c_id, b_id, c_content, userId
-        FROM
-            community_comment
-        WHERE
-            b_id = ${b_id}
-    </select>
+<!--    <select id="getComment" resultType="com.community.model.CommentModel">-->
+<!--        SELECT-->
+<!--            c_id, b_id, c_content, userId-->
+<!--        FROM-->
+<!--            community_comment-->
+<!--        WHERE-->
+<!--            b_id = ${b_id}-->
+<!--    </select>-->
+
+    <insert id="insert" parameterType="String">
+        INSERT INTO
+            community_comment(b_id, c_content, userId, c_date)
+        VALUES
+            (${b_id}, #{c_content}, #{userId}, now())
+    </insert>
+
+    <insert id="secondInsert" parameterType="String">
+        INSERT INTO
+            community_comment_1(c_id, c_content, c_date, userId)
+        VALUES
+            (${c_id}, #{c_content}, now(), #{userId})
+    </insert>
+
+    <insert id="thirdInsert" parameterType="String">
+        INSERT INTO
+            community_comment_1(c_id, c_content, c_date, userId)
+        VALUES
+            (${c_id}, #{c_content}, now(), #{userId})
+    </insert>
 
     <update id="update" parameterType="String">
         UPDATE
@@ -18,13 +39,6 @@
         WHERE
             c_id = ${c_id}
     </update>
-
-    <insert id="insert" parameterType="String">
-        INSERT INTO
-            community_comment(b_id, c_content, userId, c_date)
-        VALUES
-            (${b_id}, #{c_content}, #{userId}, now())
-    </insert>
 
     <delete id="delete" parameterType="String">
         DELETE FROM

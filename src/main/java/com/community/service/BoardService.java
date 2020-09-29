@@ -30,5 +30,4 @@ public interface BoardService {
 
     int getB_id();
 
-//    List<CommentModel> test();
 }

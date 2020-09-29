@@ -3,6 +3,8 @@ package com.community.controller;
 
 import com.community.model.CommentModel;
 import com.community.model.CheckUserModel;
+import com.community.model.SecondCommentModel;
+import com.community.model.ThirdModel;
 import com.community.service.CommentService;
 import com.community.util.CheckUtil;
 import com.community.util.LoginUtil;
@@ -20,12 +22,12 @@ public class CommentController {
     @Autowired
     CommentService commentService;
 
-    //댓글 보기
-    @CrossOrigin("*")
-    @GetMapping(value = "/{b_id}")
-    public List<CommentModel> getComment(@PathVariable int b_id){
-        return commentService.getComment(b_id);
-    }
+//    //댓글 보기
+//    @CrossOrigin("*")
+//    @GetMapping(value = "/{b_id}")
+//    public List<CommentModel> getComment(@PathVariable int b_id){
+//        return commentService.getComment(b_id);
+//    }
 
     //댓글 입력
     @CrossOrigin("*")
@@ -36,6 +38,28 @@ public class CommentController {
             return 0;
         }
         return commentService.insert(commentModel);
+    }
+
+    //2번째 댓글 입력
+    @CrossOrigin("*")
+    @PostMapping(value = "/second")
+    public Integer secondInsert(@RequestBody SecondCommentModel secondCommentModel, HttpServletResponse response, HttpServletRequest request){
+        String loginUserId = LoginUtil.getCheckLogin(request);
+        if(CheckUtil.loginCheck(loginUserId, secondCommentModel.getUserId(), response, request) >= 1){
+            return 0;
+        }
+        return commentService.secondInsert(secondCommentModel);
+    }
+
+    //3번째 댓글 입력
+    @CrossOrigin("*")
+    @PostMapping(value = "/second")
+    public Integer thirdInsert(@RequestBody ThirdModel thirdModel, HttpServletResponse response, HttpServletRequest request){
+        String loginUserId = LoginUtil.getCheckLogin(request);
+        if(CheckUtil.loginCheck(loginUserId, thirdModel.getUserId(), response, request) >= 1){
+            return 0;
+        }
+        return commentService.thirdInsert(thirdModel);
     }
 
     //댓글 수정

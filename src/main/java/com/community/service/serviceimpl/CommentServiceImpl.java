@@ -2,6 +2,8 @@ package com.community.service.serviceimpl;
 
 import com.community.dao.CommentDao;
 import com.community.model.CommentModel;
+import com.community.model.SecondCommentModel;
+import com.community.model.ThirdModel;
 import com.community.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,14 +16,24 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     CommentDao dao;
 
-    @Override
-    public List<CommentModel> getComment(int b_id){
-        return dao.getComment(b_id);
-    }
+//    @Override
+//    public List<CommentModel> getComment(int b_id){
+//        return dao.getComment(b_id);
+//    }
 
     @Override
     public Integer insert(CommentModel commentModel){
         return dao.insert(commentModel.getB_id(), commentModel.getC_content(), commentModel.getUserId());
+    }
+
+    @Override
+    public Integer secondInsert(SecondCommentModel secondCommentModel){
+        return dao.secondInsert(secondCommentModel.getC_id(), secondCommentModel.getC_content(), secondCommentModel.getUserId());
+    }
+
+    @Override
+    public Integer thirdInsert(ThirdModel thirdModel){
+        return dao.secondInsert(thirdModel.getC_id(), thirdModel.getC_content(), thirdModel.getUserId());
     }
 
     @Override
