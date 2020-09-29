@@ -23,13 +23,29 @@
         <result property="b_count" column="b_count"></result>
         <result property="userId" column="userId"></result>
 
-        <collection property="comments" ofType="com.community.model.ViewCommentModel">
-            <result property="c_id" column="c_id"></result>
-            <result property="c_content" column="c_content"></result>
-            <result property="c_date" column="c_date"></result>
-            <result property="userId" column="c_userId"></result>
+        <collection property="comments" ofType="com.community.model.CommentModel">
+            <id property="c_id" column="first_c_id"></id>
+            <result property="b_id" column="first_b_id"></result>
+            <result property="c_content" column="first_c_content"></result>
+            <result property="c_date" column="first_c_date"></result>
+            <result property="userId" column="first_c_userId"></result>
+            <collection property="secondComment" ofType="com.community.model.SecondCommentModel">
+                <id property="second_id" column="second_id"></id>
+                <result property="c_id" column="second_c_id"></result>
+                <result property="c_content" column="second_c_content"></result>
+                <result property="c_date" column="second_c_date"></result>
+                <result property="userId" column="second_c_userId"></result>
+                <collection property="thirdComment" ofType="com.community.model.ThirdModel">
+                    <id property="third_id" column="third_id"></id>
+                    <result property="c_id" column="third_c_id"></result>
+                    <result property="c_content" column="third_c_content"></result>
+                    <result property="c_date" column="third_c_date"></result>
+                    <result property="userId" column="third_c_userId"></result>
+                </collection>
+            </collection>
         </collection>
     </resultMap>
+
     <select id="getBoardList" resultMap="boardMap">
         SELECT
             c.b_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId,
@@ -45,16 +61,22 @@
 
     <select id="getView" resultMap="viewMap">
         SELECT
-            c.b_id, c.b_type, c.b_title, c.b_content, c.b_date, c.b_count, c.userId
-            ,cc.c_id, cc.b_id, cc.c_content, cc.c_date, cc.userId AS c_userId
+            c.b_id, c.b_type, c.b_title, c.b_content, c.b_date, c.b_count, c.userId,
+            fc.c_id AS first_c_id, fc.b_id AS first_b_id, fc.c_content AS first_c_content, fc.c_date AS first_c_date, fc.userId AS first_c_userId,
+            sc.second_id AS second_id, sc.c_id AS second_c_id, sc.c_content AS second_c_content, sc.c_date AS second_c_date, sc.userId AS second_c_userId,
+            tc.third_id AS third_id, tc.c_id AS thrid_c_id, tc.c_content AS third_c_content, tc.c_date AS third_c_date, tc.userId AS third_c_userId
         FROM
             community AS c
         LEFT OUTER JOIN
-            community_comment AS cc ON c.b_id = cc.b_id
+            community_comment AS fc ON c.b_id = fc.b_id
+        LEFT OUTER JOIN
+            community_comment_1 AS sc ON fc.c_id = sc.c_id
+        LEFT OUTER JOIN
+            community_comment_2 AS tc ON sc.c_id = tc.c_id
         WHERE
             c.b_id = ${b_id}
         ORDER BY
-            cc.c_id
+            fc.c_id
         DESC
     </select>
 
@@ -163,19 +185,4 @@
         FROM
             community
     </select>
-
-<!--    <select id="test" resultMap="commentMap">-->
-<!--        select-->
-<!--            a.b_id, a.c_id, a.c_content, a.c_date, a.userId,-->
-<!--            b.t_id as t_id, b.c_content as a, b.c_date as b, b.userId as c,-->
-<!--            c.c_content as d, c.userId as e, c.userId as f-->
-<!--        from-->
-<!--            community_comment AS a-->
-<!--            LEFT OUTER JOIN community_comment_1 AS b-->
-<!--            ON a.c_id = b.c_id-->
-<!--            LEFT OUTER JOIN community_comment_2 AS c-->
-<!--            ON b.c_id = c.c_id-->
-<!--        order by 1-->
-
-<!--    </select>-->
 </mapper>

@@ -17,4 +17,5 @@ public class ViewModel {
     private String userId;
 
     private List<CommentModel> comments;
+
 }

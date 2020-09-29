@@ -173,9 +173,4 @@ public class BoardController {
         }
         return boardService.deleteImage(i_id);
     }
-
-//    @GetMapping(value = "/test")
-//    public List<CommentModel> test(){
-//        return boardService.test();
-//    }
 }

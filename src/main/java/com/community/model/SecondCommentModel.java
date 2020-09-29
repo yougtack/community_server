@@ -7,13 +7,12 @@ import java.util.List;
 
 @Getter
 @Setter
-public class CommentModel {
-    private Integer c_id;
-    private Integer b_id;
+public class SecondCommentModel {
+    private int second_id;
+    private int c_id;
     private String c_content;
     private String c_date;
     private String userId;
 
-    private List<SecondCommentModel> secondComment;
-
+    private List<ThirdModel> thirdComment;
 }

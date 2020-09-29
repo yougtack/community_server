@@ -6,11 +6,15 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface CommentDao {
-    List<CommentModel> getComment(@Param("b_id") int b_id);
-
-    Integer update(@Param("c_id") int c_id, @Param("c_content") String c_content);
+//    List<CommentModel> getComment(@Param("b_id") int b_id);
 
     Integer insert(@Param("b_id") int b_id, @Param("c_content") String c_content, @Param("userId") String userId);
+
+    Integer secondInsert(@Param("c_id") int c_id, @Param("c_content") String c_content, @Param("userId") String userId);
+
+    Integer thirdInsert(@Param("c_id") int c_id, @Param("c_content") String c_content, @Param("userId") String userId);
+
+    Integer update(@Param("c_id") int c_id, @Param("c_content") String c_content);
 
     Integer delete(@Param("c_id") int c_id);
 }
