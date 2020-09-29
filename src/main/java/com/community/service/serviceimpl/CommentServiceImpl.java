@@ -32,15 +32,19 @@ public class CommentServiceImpl implements CommentService {
     public Integer update(CommentModel commentModel){
         return dao.update(commentModel.getC_id(), commentModel.getC_content());
     }
-//
-//    @Override
-//    public Integer update(CommentModel commentModel){
-//        return dao.update(commentModel.getC_id(), commentModel.getC_content());
-//    }
 
+    @Override
+    public Integer secondUpdate(SecondCommentModel secondCommentModel){
+        return dao.secondUpdate(secondCommentModel.getSecond_id(), secondCommentModel.getC_content());
+    }
 
     @Override
     public Integer delete(int c_id) {
         return  dao.delete(c_id);
+    }
+
+    @Override
+    public Integer secondDelete(int second_id) {
+        return  dao.secondDelete(second_id);
     }
 }
