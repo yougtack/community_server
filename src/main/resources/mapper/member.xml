@@ -19,21 +19,16 @@
 
     <select id="getMemberList" resultType="com.community.model.MemberModel">
     SELECT
-        m.userId, m.userPw, ifnull(count(c.userId), 0) AS count
+        userId, userPw
     FROM
-        community_member AS m
-    LEFT OUTER JOIN
-        community AS c ON m.userId = c.userId
-    GROUP BY
-        m.userId, m.userPw
+        community_member
     </select>
 
     <select id="getUserInfo" resultType="com.community.model.TestModel">
         SELECT
-            m.userId, m.userPw, cnt.count
+            userId, userPw
         FROM
-            community_member AS m,
-            (SELECT count(*) AS count FROM community WHERE userId = #{userId}) AS cnt
+            community_member
         WHERE
             userId = #{userId}
     </select>

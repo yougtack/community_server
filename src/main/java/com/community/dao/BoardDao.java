@@ -1,6 +1,7 @@
 package com.community.dao;
 
 import com.community.model.BoardModel;
+import com.community.model.CommentModel;
 import com.community.model.ImageModel;
 import com.community.model.ViewModel;
 import org.apache.ibatis.annotations.Param;
@@ -30,4 +31,6 @@ public interface BoardDao {
 
     Integer deleteImage(@Param("i_id") int i_id);
     int getB_id();
+
+//    List<CommentModel> test();
 }

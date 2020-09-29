@@ -1,20 +1,17 @@
 package com.community.service;
 
-import com.community.model.BoardModel;
-import com.community.model.CheckUserModel;
-import com.community.model.ImageModel;
-import com.community.model.ViewModel;
+import com.community.model.*;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 public interface BoardService {
     List<BoardModel> getBoardList();
 
-    Integer insert(ViewModel viewModel, HttpServletResponse response, HttpServletRequest request);
-    Integer update(ViewModel model, int b_id, HttpServletResponse response, HttpServletRequest request);
-    Integer delete(int b_id, CheckUserModel model, HttpServletResponse response, HttpServletRequest request);
+    Integer insert(ViewModel viewModel);
+    Integer update(ViewModel model, int b_id);
+    Integer delete(int b_id);
 
     ViewModel getView(int b_id);
 
@@ -22,15 +19,16 @@ public interface BoardService {
 
     List<BoardModel> search(String word);
 
-    Integer imageUpload(ImageModel image, int b_id, HttpServletResponse response, HttpServletRequest request);
-    Integer imageUpdate(ImageModel image, int b_id, HttpServletResponse response, HttpServletRequest request);
+    Integer imageUpload(MultipartHttpServletRequest multipartHttpServletRequest) throws IOException;
+    Integer imageUpdate(MultipartHttpServletRequest multipartHttpServletRequest, int b_id) throws IOException;
 
 
     List<ImageModel> getImage(int b_id);
     ImageModel getViewImage(int i_id);
 
-    Integer deleteImage(int i_id, HttpServletResponse response, HttpServletRequest request);
+    Integer deleteImage(int i_id);
 
     int getB_id();
 
+//    List<CommentModel> test();
 }

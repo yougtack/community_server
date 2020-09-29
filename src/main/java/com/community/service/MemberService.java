@@ -17,5 +17,5 @@ public interface MemberService {
 
     TestModel getUserInfo(TestModel testModel);
 
-    Integer kickMember(CheckUserModel model, HttpServletResponse response, HttpServletRequest request);
+    Integer kickMember(CheckUserModel checkUserModel);
 }

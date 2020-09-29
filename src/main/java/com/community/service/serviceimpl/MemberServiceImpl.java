@@ -5,13 +5,10 @@ import com.community.model.CheckUserModel;
 import com.community.model.MemberModel;
 import com.community.model.TestModel;
 import com.community.service.MemberService;
-import com.community.util.LoginUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
@@ -48,20 +45,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Integer kickMember(CheckUserModel model, HttpServletResponse response, HttpServletRequest request){
-        String loginUserId = LoginUtil.getCheckLogin(request);
-        int result = 0;
-
-        if(loginUserId != null){
-            if(loginUserId.equals("admin")){
-                result =  dao.kickMember(model.getUserId());
-            }else{
-                response.setStatus(HttpStatus.FORBIDDEN.value());
-            }
-        }else{
-            response.setStatus(HttpStatus.UNAUTHORIZED.value());
-        }
-        return result;
+    public Integer kickMember(CheckUserModel checkUserModel){
+        return dao.kickMember(checkUserModel.getUserId());
 
     }
 }

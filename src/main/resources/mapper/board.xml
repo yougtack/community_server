@@ -26,6 +26,7 @@
         <collection property="comments" ofType="com.community.model.ViewCommentModel">
             <result property="c_id" column="c_id"></result>
             <result property="c_content" column="c_content"></result>
+            <result property="c_date" column="c_date"></result>
             <result property="userId" column="c_userId"></result>
         </collection>
     </resultMap>
@@ -44,7 +45,8 @@
 
     <select id="getView" resultMap="viewMap">
         SELECT
-            c.b_id, c.b_type, c.b_title, c.b_content, c.b_date, c.b_count, c.userId, cc.c_id, cc.b_id, cc.c_content, cc.userId AS c_userId
+            c.b_id, c.b_type, c.b_title, c.b_content, c.b_date, c.b_count, c.userId
+            ,cc.c_id, cc.b_id, cc.c_content, cc.c_date, cc.userId AS c_userId
         FROM
             community AS c
         LEFT OUTER JOIN
@@ -149,4 +151,18 @@
             community
     </select>
 
+<!--    <select id="test" resultMap="commentMap">-->
+<!--        select-->
+<!--            a.b_id, a.c_id, a.c_content, a.c_date, a.userId,-->
+<!--            b.t_id as t_id, b.c_content as a, b.c_date as b, b.userId as c,-->
+<!--            c.c_content as d, c.userId as e, c.userId as f-->
+<!--        from-->
+<!--            community_comment AS a-->
+<!--            LEFT OUTER JOIN community_comment_1 AS b-->
+<!--            ON a.c_id = b.c_id-->
+<!--            LEFT OUTER JOIN community_comment_2 AS c-->
+<!--            ON b.c_id = c.c_id-->
+<!--        order by 1-->
+
+<!--    </select>-->
 </mapper>

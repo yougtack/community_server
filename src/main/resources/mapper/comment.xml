@@ -21,9 +21,9 @@
 
     <insert id="insert" parameterType="String">
         INSERT INTO
-            community_comment(b_id, c_content, userId)
+            community_comment(b_id, c_content, userId, c_date)
         VALUES
-            (${b_id}, #{c_content}, #{userId})
+            (${b_id}, #{c_content}, #{userId}, now())
     </insert>
 
     <delete id="delete" parameterType="String">

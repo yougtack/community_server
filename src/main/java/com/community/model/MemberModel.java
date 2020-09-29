@@ -8,5 +8,4 @@ import lombok.Setter;
 public class MemberModel {
     private String userId;
     private String userPw;
-    private Integer count;
 }
