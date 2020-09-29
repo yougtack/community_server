@@ -72,6 +72,10 @@ function communityDelete() {
     }
 }
 
+function secondeDelete(second_id) {
+    console.log(second_id);
+}
+
 function commentDelete(c_id) {
     if (confirm("해당 댓글을 삭제하시겠습니까?")) {
         let xhttp = new XMLHttpRequest();
@@ -175,8 +179,8 @@ function printComment() {
                                 `<div class="userId">${value2.userId}님</div>` +
                                 `<div class="info">${value2.c_date}</div>`;
             if (userId === value2.userId) {
-                real_comment += `<span><img class="icon" src="../static/delete.png" alt="deleteImg" onclick="commentDelete(${value2.c_id})" /></span>`;
-                real_comment += `<span><a href="commentModify.html?c_id=${value2.c_id}&b_id=${b_id}"><img class="icon" src="../static/modify.png" alt="modifyImg" /></a></span>`;
+                real_comment += `<span><img class="icon" src="../static/delete.png" alt="deleteImg" onclick="secondeDelete(${value2.second_id})" /></span>`;
+                real_comment += `<span><a href="commentModify.html?c_id=${value2.second_id}&b_id=${b_id}"><img class="icon" src="../static/modify.png" alt="modifyImg" /></a></span>`;
             }
             real_comment += `<br>`+
                             `<div class="c_content_second">${value2.c_content}</div>` +
