@@ -24,13 +24,6 @@
             (${c_id}, #{c_content}, now(), #{userId})
     </insert>
 
-    <insert id="thirdInsert" parameterType="String">
-        INSERT INTO
-            community_comment_1(c_id, c_content, c_date, userId)
-        VALUES
-            (${c_id}, #{c_content}, now(), #{userId})
-    </insert>
-
     <update id="update" parameterType="String">
         UPDATE
             community_comment
