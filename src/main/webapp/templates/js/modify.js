@@ -4,7 +4,6 @@ const community = {
 };
 
 
-
 const userId = document.cookie.substr(7,);
 const b_id = location.search.substr(location.search.indexOf("=") + 1);
 
@@ -72,16 +71,12 @@ function communityModify() {
             b_content: document.getElementById("content").value
         };
 
-        if (xhttp.status !== 200) {
-            console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
-            alert(".......");
-        }else {
-            xhttp.open("PUT", url + `/board/community/${b_id}`, false);
-        }
+        xhttp.open("PUT", url + `/board/community/${b_id}`, false);
 
         xhttp.onreadystatechange = () => {
             if (xhttp.status !== 200) {
                 console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
+                alert(".......");
             }
         };
 

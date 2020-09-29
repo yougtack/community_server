@@ -7,26 +7,32 @@ const word = location.search.substr(location.search.indexOf("=") + 1);
 function printCommunity() {
     const type_text = document.querySelector(".type_text");
     let real_tr;
-    real_tr = `<tr class="community_table">`;
-    real_tr += `<td class="b_id">번호</td>`;
-    real_tr += `<td class="b_title">이름</td>`;
-    real_tr += `<td class="b_date">날짜</td>`;
-    real_tr += `<td class="userId">작성자</td>`;
-    real_tr += `<td class="b_count">조회수</td>`;
-    real_tr += `</tr>`;
+    real_tr = `<tr>` +
+                    `<td style="width: 5%;">번호</td>` +
+                    `<td style="width: 30%;">이름</td>` +
+                    `<td style="width: 35%;">날짜</td>` +
+                    `<td style="width: 25%;">작성자</td>` +
+                    `<td style="width: 5%;">조회수</td>` +
+                `</tr>`;
     document.write(real_tr);
 
     type_text.innerText = "검색결과";
+    type_text.innerHTML += '<a href="../templates/insert.html" style="margin-left: 80%;"><img src="../static/create.png" alt="HomeIcon" /></a>';
 
-    for (let index of txt.data) {
-        real_tr = `<tr>`;
-        real_tr += `<td >${index.b_id}</td>`;
-        real_tr += `<td><a class="community_a" href="userCommunity.html?b_id=${index.b_id}">${index.b_title}</a></td>`;
-        real_tr += `<td>${index.b_date}</td>`;
-        real_tr += `<td>${index.userId}</td>`;
-        real_tr += `<td>${index.b_count}</td>`;
-        real_tr += `</tr>`;
+    if(txt.data.length === 0) {
+        real_tr = "<div style='margin-top: 20px;'>검색하신 내용이 존재하지 않습니다.</div>";
         document.write(real_tr);
+    }else {
+        for (let index of txt.data) {
+            real_tr = `<tr>` +
+                `<td >${index.b_id}</td>` +
+                `<td><a class="community_a" href="userCommunity.html?b_id=${index.b_id}">${index.b_title}</a></td>` +
+                `<td>${index.b_date}</td>` +
+                `<td>${index.userId}</td>` +
+                `<td>${index.b_count}</td>` +
+                `</tr>`;
+            document.write(real_tr);
+        }
     }
 }
 
@@ -50,7 +56,7 @@ function printCommunity() {
 
     xhttp.send();
 
-    document.getElementById("search_word").value = word;
+    document.getElementById("search_word").value = decodeURI(word);
 
     printCommunity();
 })();

@@ -90,7 +90,7 @@ section {
 
 .txt {
     font-size: 20px;
-    margin: 0 0 5px 0;
+    margin: 0 0 10px 0;
     padding: 0;
 }
 
@@ -102,4 +102,72 @@ section {
 
 .input_button {
     width: 25%;
+}
+
+.community {
+    margin: 10px 0 0 0;
+}
+
+/* userCommunity */
+
+.userCommunity {
+    width: 80%;
+}
+
+.info_div {
+    border: 1px solid black;
+    height: 90px;
+}
+
+.title {
+    margin: 10px 0 0 10px;
+    font-size: 22px;
+}
+
+.userId {
+    margin: 20px 10px 0 15px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.info {
+    margin: 0 10px 0 15px;
+    font-size: 12px;
+}
+
+.icon {
+    width: 25px;
+    height: 25px;
+    float: right;
+    margin: 0 10px 0 0;
+}
+
+.content {
+    margin: 30px 0 0 10px;
+    word-break: break-word;
+}
+
+.list_btn {
+    width: 60px;
+    height: 30px;
+}
+
+.comment_box {
+    width: 70%;
+    height: 40px;
+}
+
+.comment_btn {
+    width: 50px;
+    height: 45px;
+}
+
+.c_content {
+    margin-left: 30px;
+}
+
+/* insert - modify */
+
+.btn {
+    text-align: center;
 }
