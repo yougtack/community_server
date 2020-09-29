@@ -3,12 +3,9 @@ package com.community.service.serviceimpl;
 import com.community.dao.CommentDao;
 import com.community.model.CommentModel;
 import com.community.model.SecondCommentModel;
-import com.community.model.ThirdModel;
 import com.community.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -32,14 +29,15 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Integer thirdInsert(ThirdModel thirdModel){
-        return dao.secondInsert(thirdModel.getC_id(), thirdModel.getC_content(), thirdModel.getUserId());
-    }
-
-    @Override
     public Integer update(CommentModel commentModel){
         return dao.update(commentModel.getC_id(), commentModel.getC_content());
     }
+//
+//    @Override
+//    public Integer update(CommentModel commentModel){
+//        return dao.update(commentModel.getC_id(), commentModel.getC_content());
+//    }
+
 
     @Override
     public Integer delete(int c_id) {

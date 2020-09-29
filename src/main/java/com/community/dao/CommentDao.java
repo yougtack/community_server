@@ -12,8 +12,6 @@ public interface CommentDao {
 
     Integer secondInsert(@Param("c_id") int c_id, @Param("c_content") String c_content, @Param("userId") String userId);
 
-    Integer thirdInsert(@Param("c_id") int c_id, @Param("c_content") String c_content, @Param("userId") String userId);
-
     Integer update(@Param("c_id") int c_id, @Param("c_content") String c_content);
 
     Integer delete(@Param("c_id") int c_id);

@@ -15,5 +15,4 @@ public class CommentModel {
     private String userId;
 
     private List<SecondCommentModel> secondComment;
-
 }
