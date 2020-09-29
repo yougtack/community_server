@@ -53,7 +53,7 @@ public class CommentController {
 
     //3번째 댓글 입력
     @CrossOrigin("*")
-    @PostMapping(value = "/second")
+    @PostMapping(value = "/third")
     public Integer thirdInsert(@RequestBody ThirdModel thirdModel, HttpServletResponse response, HttpServletRequest request){
         String loginUserId = LoginUtil.getCheckLogin(request);
         if(CheckUtil.loginCheck(loginUserId, thirdModel.getUserId(), response, request) >= 1){
