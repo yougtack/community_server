@@ -23,12 +23,12 @@ public class MemberController {
     @Autowired
     MemberService memberService;
 
-    static String userId;
+    static String userId = "";
 
     //회원가입
     @CrossOrigin("*")
     @PostMapping(value = "/signUp")
-    public Integer SignUp(MemberModel memberModel){
+    public Integer SignUp(@RequestBody MemberModel memberModel){
         userId = memberModel.getUserId();
         return  memberService.signUp(memberModel);
     }
@@ -37,8 +37,10 @@ public class MemberController {
     @CrossOrigin("*")
     @PutMapping(value = "/signUpProfile")
     public Integer SignUpProfile(MultipartHttpServletRequest multipartHttpServletRequest) throws IOException {
-        System.out.println("HI");
-        return  memberService.signUpProfile(multipartHttpServletRequest, userId);
+        int result = 0;
+        result = memberService.signUpProfile(multipartHttpServletRequest, userId);
+        userId = "";
+        return result;
     }
 
 
