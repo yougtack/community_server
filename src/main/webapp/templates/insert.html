@@ -41,7 +41,7 @@
     function titleCount(){
         title_length.innerText = document.getElementById("title").value.length + "/20";
     }
-    titleKey.addEventListener("keydown",titleCount);
+    titleKey.addEventListener("keyup",titleCount);
 
     /* content */
     let content_length = document.getElementById("content_length");
@@ -50,7 +50,7 @@
     function contentCount(){
         content_length.innerText = document.getElementById("content").value.length + "/200";
     }
-    contentKey.addEventListener("keydown",contentCount);
+    contentKey.addEventListener("keyup",contentCount);
 </script>
 </body>
 </html>

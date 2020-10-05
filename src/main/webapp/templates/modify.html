@@ -26,7 +26,7 @@
     <br>
     <br>
     <p id="title_length"></p>
-    <input type="text" id="title" style="width: 700px; height: 25px;"/>
+    <input type="text" id="title" style="width: 700px; height: 25px;" onkeypress="titleCount()"/>
     <br>
     <div id="delBtn">
     </div>
@@ -40,12 +40,12 @@
 <script>
     /* title */
     let title_length = document.getElementById("title_length");
-    title_length.innerText = document.getElementById("title").value.length + "/20"
+    title_length.innerText = document.getElementById("title").value.length + "/20";
     const titleKey = document.getElementById("title");
     function titleCount(){
         title_length.innerText = document.getElementById("title").value.length + "/20";
     }
-    titleKey.addEventListener("keydown",titleCount);
+    titleKey.addEventListener("keyup",titleCount);
 
     /* content */
     let content_length = document.getElementById("content_length");
@@ -54,7 +54,7 @@
     function contentCount(){
         content_length.innerText = document.getElementById("content").value.length + "/200";
     }
-    contentKey.addEventListener("keydown",contentCount);
+    contentKey.addEventListener("keyup",contentCount);
 </script>
 </body>
 </html>
