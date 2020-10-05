@@ -62,6 +62,14 @@ function communityModify() {
             alert("내용을 작성해주세요.");
             document.getElementById("content").focus();
             return false;
+        } else if (document.getElementById("title").value.length > 20) {
+            alert("글자 제한 수를 초과하였습니다.");
+            document.getElementById("title").focus();
+            return false;
+        } else if (document.getElementById("content").value.length > 200) {
+            alert("글자 제한 수를 초과하였습니다.");
+            document.getElementById("content").focus();
+            return false;
         }
         const modifyData = {
             userId: userId,

@@ -39,7 +39,6 @@ function logout() {
     xhttp.send();
 }
 
-
 let real_header = ``;
 
 real_header += '<div class="main_sidebar">' +
