@@ -23,7 +23,7 @@ public class MemberController {
     @Autowired
     MemberService memberService;
 
-    static String userId = "";
+    static String userId = "rladudxor";
 
     //회원가입
     @CrossOrigin("*")
@@ -37,9 +37,7 @@ public class MemberController {
     @CrossOrigin("*")
     @PutMapping(value = "/signUpProfile")
     public Integer SignUpProfile(MultipartHttpServletRequest multipartHttpServletRequest) throws IOException {
-       int result = memberService.signUpProfile(multipartHttpServletRequest, userId);
-        userId = "";
-        return result;
+        return memberService.signUpProfile(multipartHttpServletRequest, userId);
     }
 
 
