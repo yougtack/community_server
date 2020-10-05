@@ -87,7 +87,6 @@ function communityModify() {
         }
 
         location.href = `userCommunity.html?b_id=${b_id}`;
-
     }
 }
 
@@ -128,9 +127,6 @@ function image() {
 (function init() {
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
-
-    let content_length = document.getElementById("content_length");
-    content_length.innerText = document.getElementById("content").value.length + "/200";
 
     xhttp.open("GET", url + `/board/view/${b_id}`, false);
 

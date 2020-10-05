@@ -62,6 +62,19 @@ th, td {
 /* --------------------- */
 
 
+.profile {
+    width: 25px;
+    height: 25px;
+    margin: 0 10px 0 10px;
+}
+
+.second_profile {
+    width: 20px;
+    height: 20px;
+    float: left;
+    margin: 10px 5px 0 10px;
+}
+
 /* sidebar */
 .main_sidebar {
     position: fixed;
@@ -116,7 +129,7 @@ section {
 
 .info_div {
     border: 1px solid black;
-    height: 90px;
+    height: 110px;
 }
 
 .title {
@@ -125,7 +138,7 @@ section {
 }
 
 .userId {
-    margin: 20px 10px 0 15px;
+    margin: 20px 10px 0 0;
     font-weight: bold;
     font-size: 16px;
 }

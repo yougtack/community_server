@@ -53,7 +53,7 @@ if (!!document.cookie) {
     }
     for(let value of userInfo.data) {
         if(value.userId === document.cookie.substr(7,)) {
-            real_header += `<img style="width: 25px; height: 25px; margin: 0 10px 0 10px;" src="data:image/jpg;base64, ${value.profile}" alt="profile" />`;
+            real_header += `<img class="profile" src="data:image/jpg;base64, ${value.profile}" alt="profile" />`;
         }
     }
     real_header += `${document.cookie.substr(7,)}님`;
