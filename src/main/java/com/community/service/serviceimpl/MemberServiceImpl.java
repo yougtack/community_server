@@ -22,9 +22,13 @@ public class MemberServiceImpl implements MemberService {
     MemberDao dao;
 
     @Override
-    public Integer signUp(MultipartHttpServletRequest multipartHttpServletRequest, MemberModel member) throws IOException {
-        int result = 0;
+    public Integer signUp(MemberModel memberModel){
+        return dao.signUp(memberModel.getUserId(), memberModel.getUserPw());
+    }
 
+    @Override
+    public Integer signUpProfile(MultipartHttpServletRequest multipartHttpServletRequest, String userId) throws IOException{
+        int result = 0;
         File file = new File("./src/main/webapp/static/default.png");
         FileInputStream in = new FileInputStream(file);
         ByteArrayOutputStream bout = new ByteArrayOutputStream();
@@ -44,15 +48,14 @@ public class MemberServiceImpl implements MemberService {
         if(!multipartFiles.isEmpty()) {
             for (MultipartFile filePart : multipartFiles) {
                 if (filePart.getOriginalFilename().equals("")) {
-                    result = dao.signUp(member.getUserId(), member.getUserPw(), imgbuf);
+                    result = dao.signUpProfile(userId, imgbuf);
                 }else{
-                    result = dao.signUp(member.getUserId(), member.getUserPw(), filePart.getBytes());
+                    result = dao.signUpProfile(userId, filePart.getBytes());
                 }
             }
         }
-        return result;
+        return 0;
     }
-
 
     @Override
     public MemberModel login(MemberModel member){

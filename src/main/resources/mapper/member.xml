@@ -3,10 +3,20 @@
 <mapper namespace="com.community.dao.MemberDao">
     <insert id="signUp" parameterType="com.community.model.MemberModel">
         INSERT INTO
-            community_member
+            community_member(userId, userPw)
         VALUES
-            (#{userId}, #{userPw}, #{profile})
+            (#{userId}, #{userPw})
     </insert>
+
+
+    <update id="signUpProfile" parameterType="com.community.model.MemberModel">
+        UPDATE
+            community_member
+        SET
+            profile = #{profile}
+        WHERE
+            userId = #{userId}
+    </update>
 
     <select id="login" resultType="com.community.model.MemberModel">
         SELECT

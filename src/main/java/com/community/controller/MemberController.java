@@ -23,13 +23,23 @@ public class MemberController {
     @Autowired
     MemberService memberService;
 
+    static String userId;
 
     //회원가입
     @CrossOrigin("*")
     @PostMapping(value = "/signUp")
-    public Integer SignUp(MultipartHttpServletRequest multipartHttpServletRequest, @RequestBody MemberModel member) throws IOException {
-        return  memberService.signUp(multipartHttpServletRequest, member);
+    public Integer SignUp(MemberModel memberModel){
+        userId = memberModel.getUserId();
+        return  memberService.signUp(memberModel);
     }
+
+    //회원가입
+    @CrossOrigin("*")
+    @PutMapping(value = "/signUpProfile")
+    public Integer SignUpProfile(MultipartHttpServletRequest multipartHttpServletRequest) throws IOException {
+        return  memberService.signUpProfile(multipartHttpServletRequest, userId);
+    }
+
 
     //로그인
     @CrossOrigin("*")

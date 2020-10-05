@@ -17,4 +17,6 @@ public interface CommentDao {
     Integer delete(@Param("c_id") int c_id);
     Integer secondDelete(@Param("second_id") int second_id);
 
+    List<CommentModel> getComment(@Param("b_id") int b_id);
+
 }
