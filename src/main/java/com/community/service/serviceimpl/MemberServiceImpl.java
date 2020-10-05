@@ -43,6 +43,8 @@ public class MemberServiceImpl implements MemberService {
         bout.close();
         in.close();
 
+        System.out.println("userId:"+userId);
+
 
         List<MultipartFile>multipartFiles = multipartHttpServletRequest.getFiles("profile");
         if(!multipartFiles.isEmpty()) {
