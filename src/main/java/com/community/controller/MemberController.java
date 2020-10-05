@@ -2,17 +2,18 @@ package com.community.controller;
 
 import com.community.model.CheckUserModel;
 import com.community.model.MemberModel;
-import com.community.model.TestModel;
 import com.community.service.MemberService;
 import com.community.util.CheckUtil;
 import com.community.util.LoginUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -26,8 +27,8 @@ public class MemberController {
     //회원가입
     @CrossOrigin("*")
     @PostMapping(value = "/signUp")
-    public Integer SignUp(@RequestBody MemberModel member, HttpServletResponse response){
-        return  memberService.signUp(member, response);
+    public Integer SignUp(MultipartHttpServletRequest multipartHttpServletRequest, @RequestBody MemberModel member) throws IOException {
+        return  memberService.signUp(multipartHttpServletRequest, member);
     }
 
     //로그인
@@ -60,12 +61,6 @@ public class MemberController {
 
         response.addCookie(cookie);
         return "logout!!";
-    }
-
-    //계정정보 가져오기
-    @GetMapping(value = "/userInfo")
-    public TestModel getUserInfo(@RequestBody TestModel testModel){
-        return memberService.getUserInfo(testModel);
     }
 
     //회원리스트가져오기
