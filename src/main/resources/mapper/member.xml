@@ -8,7 +8,6 @@
             (#{userId}, #{userPw})
     </insert>
 
-
     <update id="signUpProfile" parameterType="com.community.model.MemberModel">
         UPDATE
             community_member

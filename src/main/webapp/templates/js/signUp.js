@@ -44,7 +44,7 @@ function signUp(userId, userPw) {
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.send(JSON.stringify(data));
 
-    // location.href = "login.html";
+    location.href = "login.html";
 }
 
 
