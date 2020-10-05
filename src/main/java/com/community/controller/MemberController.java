@@ -37,6 +37,7 @@ public class MemberController {
     @CrossOrigin("*")
     @PutMapping(value = "/signUpProfile")
     public Integer SignUpProfile(MultipartHttpServletRequest multipartHttpServletRequest) throws IOException {
+        System.out.println("HI");
         return  memberService.signUpProfile(multipartHttpServletRequest, userId);
     }
 
