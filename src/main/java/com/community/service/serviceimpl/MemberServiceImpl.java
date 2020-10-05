@@ -3,13 +3,16 @@ package com.community.service.serviceimpl;
 import com.community.dao.MemberDao;
 import com.community.model.CheckUserModel;
 import com.community.model.MemberModel;
-import com.community.model.TestModel;
 import com.community.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -19,15 +22,37 @@ public class MemberServiceImpl implements MemberService {
     MemberDao dao;
 
     @Override
-    public Integer signUp(MemberModel member, HttpServletResponse response) {
+    public Integer signUp(MultipartHttpServletRequest multipartHttpServletRequest, MemberModel member) throws IOException {
         int result = 0;
-        try{
-           result =  dao.signUp(member.getUserId(), member.getUserPw());
-        }catch(Exception e){
-            response.setStatus(HttpStatus.FORBIDDEN.value());
+
+        File file = new File("./src/main/webapp/static/default.jpeg");
+        FileInputStream in = new FileInputStream(file);
+        ByteArrayOutputStream bout = new ByteArrayOutputStream();
+
+        byte[] by = new byte[(int)file.length()];
+        int len = 0;
+
+        while((len=in.read(by)) != -1)
+            bout.write(by, 0, len);
+
+        byte[] imgbuf = bout.toByteArray();
+        bout.close();
+        in.close();
+
+
+        List<MultipartFile>multipartFiles = multipartHttpServletRequest.getFiles("profile");
+        if(!multipartFiles.isEmpty()) {
+            for (MultipartFile filePart : multipartFiles) {
+                if (filePart.getOriginalFilename().equals("")) {
+                    result = dao.signUp(member.getUserId(), member.getUserPw(), imgbuf);
+                }else{
+                    result = dao.signUp(member.getUserId(), member.getUserPw(), filePart.getBytes());
+                }
+            }
         }
         return result;
     }
+
 
     @Override
     public MemberModel login(MemberModel member){
@@ -37,11 +62,6 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public List<MemberModel> getMemberList(){
         return dao.getMemberList();
-    }
-
-    @Override
-    public TestModel getUserInfo(TestModel testModel){
-        return dao.getUserInfo(testModel.getUserId());
     }
 
     @Override

@@ -14,6 +14,7 @@ public class BoardModel {
     private String b_date;
     private int b_count;
     private String userId;
+    private byte[] profile;
 
     private List<CommentModel> comments;
 }
