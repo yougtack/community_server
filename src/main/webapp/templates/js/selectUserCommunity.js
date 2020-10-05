@@ -10,7 +10,6 @@ function imageDownload(i_id) {
     const url = "http://localhost:8080";
 
     location.href = url + `/board/download/${i_id}`;
-
 }
 
 function commentInsert() {
@@ -172,6 +171,7 @@ function printCommunity() {
     real_div += `<div class="info_div">`+
                     `<p class="title">${community.data.b_title}</p>` +
                     `<br>` +
+                    `<span><img class="profile" src="data:image/jpg;base64, ${community.data.profile}" alt="Image" /></span>` +
                     `<span class="userId">${community.data.userId}</span><br>` +
                     `<span class="info">${community.data.b_date}</span>` +
                     `<span class="info">조회수 : ${community.data.b_count}</span>`;
@@ -230,7 +230,7 @@ function printComment() {
     real_comment += `<div style="text-align: center;"><input type="text" id="c_content" class="comment_box" onkeyup="enter()"/>` +
                     `<button class="comment_btn" onclick="commentInsert()">등록</button></div><br><br>`;
     for (let value of community.data.comments) {
-        real_comment += `<hr><div class="userId">${value.userId}님 <button class="comment_txt" onclick="secondBox(${value.c_id})">댓글쓰기</button></div>`;
+        real_comment += `<hr><img class="second_profile" src="data:image/jpg;base64, ${value.profile}" alt="Image" /><div class="userId">${value.userId}님 <button class="comment_txt" onclick="secondBox(${value.c_id})">댓글쓰기</button></div>`;
         real_comment += `<div class="info">${value.c_date}</div>`;
         if (userId === value.userId) {
             real_comment += `<span><img class="icon" src="../static/delete.png" alt="deleteImg" onclick="commentDelete(${value.c_id})" /></span>`;
@@ -249,7 +249,7 @@ function printComment() {
         /* 대댓글 */
         for(let value2 of value.secondComment) {
             real_comment += `<hr style="width: 90%;"><img class="arrow_icon" src="../static/arrows.png" alt="img"/><span>` +
-                                `<div class="userId">${value2.userId}님<button class="comment_txt" onclick="secondBox(${value.c_id})">댓글쓰기</button></div>` +
+                                `<img class="second_profile" src="data:image/jpg;base64, ${value.profile}" alt="Image" /><div class="userId">${value2.userId}님<button class="comment_txt" onclick="secondBox(${value.c_id})">댓글쓰기</button></div>` +
                                 `<div class="info">${value2.c_date}</div>`;
             if (userId === value2.userId) {
                 real_comment += `<span><img class="icon" src="../static/delete.png" alt="deleteImg" onclick="secondeDelete(${value2.second_id})" /></span>`;

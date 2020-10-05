@@ -62,6 +62,14 @@ function communityModify() {
             alert("내용을 작성해주세요.");
             document.getElementById("content").focus();
             return false;
+        } else if (document.getElementById("title").value.length > 20) {
+            alert("글자 제한 수를 초과하였습니다.");
+            document.getElementById("title").focus();
+            return false;
+        } else if (document.getElementById("content").value.length > 200) {
+            alert("글자 제한 수를 초과하였습니다.");
+            document.getElementById("content").focus();
+            return false;
         }
         const modifyData = {
             userId: userId,
@@ -87,7 +95,6 @@ function communityModify() {
         }
 
         location.href = `userCommunity.html?b_id=${b_id}`;
-
     }
 }
 
@@ -128,9 +135,6 @@ function image() {
 (function init() {
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
-
-    let content_length = document.getElementById("content_length");
-    content_length.innerText = document.getElementById("content").value.length + "/200";
 
     xhttp.open("GET", url + `/board/view/${b_id}`, false);
 

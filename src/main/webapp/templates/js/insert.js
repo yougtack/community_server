@@ -64,6 +64,14 @@ function valueCheck() {
         alert("내용을 작성해주세요.");
         content.focus();
         return false;
+    } else if (document.getElementById("title").value.length > 20) {
+        alert("글자 제한 수를 초과하였습니다.");
+        title.focus();
+        return false;
+    } else if (document.getElementById("content").value.length > 200) {
+        alert("글자 제한 수를 초과하였습니다.");
+        content.focus();
+        return false;
     }
 
     insert(type, title, content);

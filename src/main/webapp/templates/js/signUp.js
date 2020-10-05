@@ -12,7 +12,7 @@ function profile() {
 
     const url = "http://localhost:8080";
 
-    xhttp.open("POST", url + `/member/signUpProfile`, false);
+    xhttp.open("PUT", url + `/member/signUpProfile`, false);
 
     xhttp.onreadystatechange = () => {
         if (xhttp.status !== 200) {
@@ -43,6 +43,8 @@ function signUp(userId, userPw) {
 
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.send(JSON.stringify(data));
+
+    profile();
 
     location.href = "login.html";
 }

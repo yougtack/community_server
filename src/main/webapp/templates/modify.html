@@ -25,6 +25,7 @@
     <input type="button" value="취소" onclick="cancel()"/>
     <br>
     <br>
+    <p id="title_length"></p>
     <input type="text" id="title" style="width: 700px; height: 25px;"/>
     <br>
     <div id="delBtn">
@@ -37,17 +38,23 @@
 </section>
 <script src="js/modify.js"></script>
 <script>
-    let content_length = document.getElementById("content_length");
-    const c = document.getElementById("content");
-    function HI(){
-        console.log("HIL")
+    /* title */
+    let title_length = document.getElementById("title_length");
+    title_length.innerText = document.getElementById("title").value.length + "/20"
+    const titleKey = document.getElementById("title");
+    function titleCount(){
+        title_length.innerText = document.getElementById("title").value.length + "/20";
     }
-    c.addEventListener("keydown",HI);
+    titleKey.addEventListener("keydown",titleCount);
 
-    function c_length() {
-        content_length = document.getElementById("content").value.length;
-        content_length.innerText += "/200";
+    /* content */
+    let content_length = document.getElementById("content_length");
+    content_length.innerText = document.getElementById("content").value.length + "/200"
+    const contentKey = document.getElementById("content");
+    function contentCount(){
+        content_length.innerText = document.getElementById("content").value.length + "/200";
     }
+    contentKey.addEventListener("keydown",contentCount);
 </script>
 </body>
 </html>

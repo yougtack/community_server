@@ -23,14 +23,34 @@
         <input type="button" value="등록" class="btn" onclick="valueCheck()"/>
         <br>
         <br>
+        <p id="title_length"></p>
         <input type="text" id="title" style="width: 700px; height: 25px;"/>
         <br>
         <br>
-        <p id="content_length" onload="c_length()"></p>
-        <textarea rows="5" cols="50" id="content" style="width: 700px; height: 400px;" onchange="c_length()"></textarea>
+        <p id="content_length"></p>
+        <textarea rows="5" cols="50" id="content" style="width: 700px; height: 400px;"></textarea>
         <br>
         <br>
     </section>
 <script src="js/insert.js"></script>
+<script>
+    /* title */
+    let title_length = document.getElementById("title_length");
+    title_length.innerText = document.getElementById("title").value.length + "/20"
+    const titleKey = document.getElementById("title");
+    function titleCount(){
+        title_length.innerText = document.getElementById("title").value.length + "/20";
+    }
+    titleKey.addEventListener("keydown",titleCount);
+
+    /* content */
+    let content_length = document.getElementById("content_length");
+    content_length.innerText = document.getElementById("content").value.length + "/200"
+    const contentKey = document.getElementById("content");
+    function contentCount(){
+        content_length.innerText = document.getElementById("content").value.length + "/200";
+    }
+    contentKey.addEventListener("keydown",contentCount);
+</script>
 </body>
 </html>
