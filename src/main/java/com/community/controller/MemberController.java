@@ -27,8 +27,8 @@ public class MemberController {
     //회원가입
     @CrossOrigin("*")
     @PostMapping(value = "/signUp")
-    public Integer SignUp(MultipartHttpServletRequest multipartHttpServletRequest, @RequestBody MemberModel member) throws IOException {
-        return  memberService.signUp(multipartHttpServletRequest, member);
+    public Integer SignUp(MultipartHttpServletRequest multipartHttpServletRequest, @RequestParam("userId") String userId, @RequestParam("userPw") String userPw) throws IOException {
+        return  memberService.signUp(multipartHttpServletRequest, userId, userPw);
     }
 
     //로그인

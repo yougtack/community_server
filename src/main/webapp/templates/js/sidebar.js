@@ -47,11 +47,16 @@ real_header += '<div class="main_sidebar">' +
                 '<div>';
 if (!!document.cookie) {
     real_header += `<div style="margin: 20px 0 20px 10px;">` +
-        `<a href=""><img class="main_sidebar_icon" src="../static/logout.png" alt="HomeIcon" onclick="logout()" /></a>` +
-        `${document.cookie.substr(7,)}님`;
+        `<a href=""><img class="main_sidebar_icon" src="../static/logout.png" alt="HomeIcon" onclick="logout()" />로그아웃</a>`;
     if (document.cookie.substr(7,) === "admin") {
-        real_header += `<a href="admin.html"><img class="main_sidebar_icon" src="../static/admin.png" alt="Img" />회원관리</a>`;
+        real_header += ` <a href="admin.html"><img class="main_sidebar_icon" src="../static/admin.png" alt="Img" />회원관리</a>`;
     }
+    for(let value of userInfo.data) {
+        if(value.userId === document.cookie.substr(7,)) {
+            real_header += `<img style="width: 25px; height: 25px; margin: 0 10px 0 10px;" src="data:image/jpg;base64, ${value.profile}" alt="profile" />`;
+        }
+    }
+    real_header += `${document.cookie.substr(7,)}님`;
     real_header += `</div>`;
 } else {
     real_header += `<div style="margin: 20px 0 20px 10px;">` +

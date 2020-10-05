@@ -26,7 +26,8 @@
         <input type="text" id="title" style="width: 700px; height: 25px;"/>
         <br>
         <br>
-        <textarea rows="5" cols="50" id="content" style="width: 700px; height: 400px;"></textarea>
+        <p id="content_length" onload="c_length()"></p>
+        <textarea rows="5" cols="50" id="content" style="width: 700px; height: 400px;" onchange="c_length()"></textarea>
         <br>
         <br>
     </section>

@@ -76,7 +76,6 @@ function communityModify() {
         xhttp.onreadystatechange = () => {
             if (xhttp.status !== 200) {
                 console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
-                alert(".......");
             }
         };
 
@@ -129,6 +128,9 @@ function image() {
 (function init() {
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
+
+    let content_length = document.getElementById("content_length");
+    content_length.innerText = document.getElementById("content").value.length + "/200";
 
     xhttp.open("GET", url + `/board/view/${b_id}`, false);
 

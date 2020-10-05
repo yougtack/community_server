@@ -1,6 +1,11 @@
 let xhttp = new XMLHttpRequest();
 const url = "http://localhost:8080";
 
+function c_length() {
+    let content_length = document.getElementById("content_length");
+    content_length.innerText = document.getElementById("content").value.length + "/200";
+}
+
 function insert(type, title, content) {
     const data = {
         b_type: type.value,
@@ -69,6 +74,7 @@ function valueCheck() {
 }
 
 (function loginCheck(){
+    c_length();
     if (document.cookie.substr(7,) === "") {
         alert("로그인이 필요합니다.");
         location.href = "login.html";

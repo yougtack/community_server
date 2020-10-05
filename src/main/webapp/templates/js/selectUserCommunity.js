@@ -214,21 +214,14 @@ function second_enter(c_id) {
     }
 }
 
-let of = false;
-
 function secondBox(c_id){
-    console.log("event : ", c_id);
-    of = !of;
-    console.log(of);
     let second = document.getElementsByClassName(`second_${c_id}`);
-    console.log(second);
+
     for (let i = 0; i < second.length; i++){
         if(second[i].style.display === 'none'){
             second[i].style.display = 'block';
-            console.log("block");
         }else{
             second[i].style.display = 'none';
-            console.log("none");
         }
     }
 }
@@ -247,7 +240,7 @@ function printComment() {
         real_comment += `<pre class="c_content">${value.c_content}`;
         real_comment += `</pre>`;
 
-
+        /* second_content_box */
         real_comment += `<br><div class="second_${value.c_id}" style="display:none; text-align: center;">` +
                         `<input id="second_content_${value.c_id}" type="text" class="comment_box" onkeyup="second_enter(${value.c_id})"/>` +
                         `<button class="comment_btn" onclick="secondInsert(${value.c_id})">등록</button></div>`;
@@ -256,7 +249,7 @@ function printComment() {
         /* 대댓글 */
         for(let value2 of value.secondComment) {
             real_comment += `<hr style="width: 90%;"><img class="arrow_icon" src="../static/arrows.png" alt="img"/><span>` +
-                                `<div class="userId">${value2.userId}님<button class="comment_txt" onclick="test(${value.c_id})">댓글쓰기</button></div>` +
+                                `<div class="userId">${value2.userId}님<button class="comment_txt" onclick="secondBox(${value.c_id})">댓글쓰기</button></div>` +
                                 `<div class="info">${value2.c_date}</div>`;
             if (userId === value2.userId) {
                 real_comment += `<span><img class="icon" src="../static/delete.png" alt="deleteImg" onclick="secondeDelete(${value2.second_id})" /></span>`;

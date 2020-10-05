@@ -2,27 +2,40 @@ const user = {
     data: []
 };
 
+const img = document.getElementById("profile");
+
 function signUp(userId, userPw) {
     let xhttp = new XMLHttpRequest();
+
+    let files = img;
+    let formData = new FormData();
+    formData.append('profile', files.files[0]);
+
     const url = "http://localhost:8080";
     const data = {
         userId: userId.value,
         userPw: userPw.value,
+        profile: files.files[0]
     };
+
+    const profile = files.files[0];
 
     xhttp.open("POST", url + `/member/signUp`, false);
 
     xhttp.onreadystatechange = () => {
+        console.log("hi");
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
         }
     };
 
     xhttp.setRequestHeader("Content-Type", "application/json");
-    xhttp.send(JSON.stringify(data));
-
-    location.href = "login.html";
+    xhttp.send(data);
+    console.log(data);
+    console.log(JSON.stringify(data));
+    // location.href = "login.html";
 }
+
 
 function signUpCheck() {
     const userId = document.getElementById("userId"),

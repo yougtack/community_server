@@ -30,10 +30,24 @@
     <div id="delBtn">
     </div>
     <br>
+    <p id="content_length"></p>
     <textarea rows="5" cols="50" id="content" style="width: 700px; height: 400px;"></textarea>
     <br>
     <br>
 </section>
 <script src="js/modify.js"></script>
+<script>
+    let content_length = document.getElementById("content_length");
+    const c = document.getElementById("content");
+    function HI(){
+        console.log("HIL")
+    }
+    c.addEventListener("keydown",HI);
+
+    function c_length() {
+        content_length = document.getElementById("content").value.length;
+        content_length.innerText += "/200";
+    }
+</script>
 </body>
 </html>
