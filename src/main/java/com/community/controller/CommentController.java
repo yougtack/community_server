@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/comment")
@@ -20,12 +21,12 @@ public class CommentController {
     @Autowired
     CommentService commentService;
 
-//    //댓글 보기
-//    @CrossOrigin("*")
-//    @GetMapping(value = "/{b_id}")
-//    public List<CommentModel> getComment(@PathVariable int b_id){
-//        return commentService.getComment(b_id);
-//    }
+    //댓글 보기
+    @CrossOrigin("*")
+    @GetMapping(value = "/{b_id}")
+    public List<CommentModel> getComment(@PathVariable int b_id){
+        return commentService.getComment(b_id);
+    }
 
     //댓글 입력
     @CrossOrigin("*")

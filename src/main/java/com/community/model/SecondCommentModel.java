@@ -11,4 +11,5 @@ public class SecondCommentModel {
     private String c_content;
     private String c_date;
     private String userId;
+    private byte[] profile;
 }

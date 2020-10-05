@@ -13,6 +13,7 @@ public class CommentModel {
     private String c_content;
     private String c_date;
     private String userId;
+    private byte[] profile;
 
     private List<SecondCommentModel> secondComment;
 }

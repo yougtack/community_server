@@ -7,6 +7,8 @@ import com.community.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CommentServiceImpl implements CommentService {
 
@@ -46,5 +48,10 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Integer secondDelete(int second_id) {
         return  dao.secondDelete(second_id);
+    }
+
+    @Override
+    public List<CommentModel> getComment(int b_id){
+        return dao.getComment(b_id);
     }
 }

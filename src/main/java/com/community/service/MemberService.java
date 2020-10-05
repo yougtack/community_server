@@ -8,7 +8,9 @@ import java.io.IOException;
 import java.util.List;
 
 public interface MemberService {
-    Integer signUp(MultipartHttpServletRequest multipartHttpServletRequest, String userId, String userPw) throws IOException;
+    Integer signUp(MemberModel memberModel);
+
+    Integer signUpProfile(MultipartHttpServletRequest multipartHttpServletRequest, String userId) throws IOException;
 
     MemberModel login(MemberModel member);
 

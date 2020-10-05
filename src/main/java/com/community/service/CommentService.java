@@ -3,6 +3,8 @@ package com.community.service;
 import com.community.model.CommentModel;
 import com.community.model.SecondCommentModel;
 
+import java.util.List;
+
 public interface CommentService {
 //    List<CommentModel> getComment(int b_id);
 
@@ -15,4 +17,5 @@ public interface CommentService {
     Integer delete(int c_id);
     Integer secondDelete(int second_id);
 
+    List<CommentModel> getComment(int b_id);
 }
