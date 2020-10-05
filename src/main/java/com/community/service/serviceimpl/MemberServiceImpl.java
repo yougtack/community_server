@@ -25,7 +25,7 @@ public class MemberServiceImpl implements MemberService {
     public Integer signUp(MultipartHttpServletRequest multipartHttpServletRequest, MemberModel member) throws IOException {
         int result = 0;
 
-        File file = new File("./src/main/webapp/static/default.jpeg");
+        File file = new File("./src/main/webapp/static/default.png");
         FileInputStream in = new FileInputStream(file);
         ByteArrayOutputStream bout = new ByteArrayOutputStream();
 
