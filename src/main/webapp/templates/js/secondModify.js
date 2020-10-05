@@ -1,28 +1,29 @@
-const community = {
+const second = {
     data: []
 };
 
 const c_id = location.search.substr(6, 2).split("&");
 const b_id = location.search.substr(location.search.indexOf("b_id=") + 5);
+const second_id = location.search.substr( 18,2).split("&");
 const userId = document.cookie.substr(7,);
 
-function commentModify() {
+function secondModify() {
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
 
     if (confirm("댓글을 수정합니다.")) {
-        if (document.getElementById("c_content").value.trim().length <= 0) {
+        if (document.getElementById("second_content").value.trim().length <= 0) {
             alert("댓글을 작성해주세요.");
-            document.getElementById("c_content").focus();
+            document.getElementById("second_content").focus();
             return false;
         }
-        const modifyData = {
-            c_id: c_id[0],
-            c_content: document.getElementById("c_content").value,
+        const secondData = {
+            second_id: second_id[0],
+            c_content: document.getElementById("second_content").value,
             userId: userId
         };
 
-        xhttp.open("PUT", url + `/comment`, false);
+        xhttp.open("PUT", url + `/comment/second`, false);
 
         xhttp.onreadystatechange = () => {
 
@@ -32,7 +33,7 @@ function commentModify() {
         };
 
         xhttp.setRequestHeader("Content-Type", "application/json");
-        xhttp.send(JSON.stringify(modifyData));
+        xhttp.send(JSON.stringify(secondData));
 
         location.href = `userCommunity.html?b_id=${b_id}`;
     }
@@ -45,15 +46,20 @@ function cancel() {
 function commentValue() {
     let c_comment;
 
-    for (let index of community.data.comments) {
+    for (let index of second.data.comments) {
         let value_id = "" + index.c_id;
         if (c_id[0] === value_id) {
-            c_comment = index.c_content;
-            break;
+            for(let second of index.secondComment){
+                let secondValueId = "" + second.second_id;
+                if(second_id[0] === secondValueId){
+                    c_comment = second.c_content;
+                    break;
+                }
+            }
         }
     }
 
-    document.getElementById("c_content").value = c_comment;
+    document.getElementById("second_content").value = c_comment;
 
 }
 
@@ -70,7 +76,7 @@ function commentValue() {
 
         const array = JSON.parse(xhttp.responseText);
 
-        community.data = array;
+        second.data = array;
     };
 
     xhttp.send();

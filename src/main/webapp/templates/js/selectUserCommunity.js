@@ -73,7 +73,29 @@ function communityDelete() {
 }
 
 function secondeDelete(second_id) {
-    console.log(second_id);
+    if (confirm("해당 댓글을 삭제하시겠습니까?")) {
+        let xhttp = new XMLHttpRequest();
+        const url = "http://localhost:8080";
+        const deleteData = {
+            second_i: second_id,
+            userId: userId
+        };
+
+        xhttp.open("DELETE", url + `/comment/second/${second_id}`, false);
+
+        xhttp.onreadystatechange = () => {
+            if (xhttp.status !== 200) {
+                console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
+            }
+        };
+
+        xhttp.setRequestHeader("Content-Type", "application/json");
+        xhttp.send(JSON.stringify(deleteData));
+
+        alert("삭제하였습니다.");
+
+        location.href = `userCommunity.html?b_id=${b_id}`;
+    }
 }
 
 function commentDelete(c_id) {
@@ -101,6 +123,32 @@ function commentDelete(c_id) {
 
         location.href = `userCommunity.html?b_id=${b_id}`;
     }
+}
+
+function secondInsert(c_id) {
+    console.log(document.getElementById(`second_content_${c_id}`).value);
+
+    let xhttp = new XMLHttpRequest();
+    const url = "http://localhost:8080";
+    const secondData = {
+        c_id: c_id,
+        userId: userId,
+        c_content: document.getElementById(`second_content_${c_id}`).value
+    };
+
+    xhttp.open("POST", url + `/comment/second`, false);
+
+    xhttp.onreadystatechange = () => {
+        if (xhttp.status !== 200) {
+            console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
+        }
+
+    };
+
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send(JSON.stringify(secondData));
+
+    location.href = `userCommunity.html?b_id=${b_id}`;
 }
 
 function printCommunity() {
@@ -160,30 +208,63 @@ function enter() {
     }
 }
 
+function second_enter(c_id) {
+    if (window.event.keyCode === 13) {
+        secondInsert(c_id);
+    }
+}
+
+let of = false;
+
+function secondBox(c_id){
+    console.log("event : ", c_id);
+    of = !of;
+    console.log(of);
+    let second = document.getElementsByClassName(`second_${c_id}`);
+    console.log(second);
+    for (let i = 0; i < second.length; i++){
+        if(second[i].style.display === 'none'){
+            second[i].style.display = 'block';
+            console.log("block");
+        }else{
+            second[i].style.display = 'none';
+            console.log("none");
+        }
+    }
+}
 function printComment() {
     let real_comment = ``;
     real_comment += `<div style="text-align: center;"><input type="text" id="c_content" class="comment_box" onkeyup="enter()"/>` +
                     `<button class="comment_btn" onclick="commentInsert()">등록</button></div><br><br>`;
     for (let value of community.data.comments) {
-        real_comment += `<hr><div class="userId">${value.userId}님</div>`;
+        real_comment += `<hr><div class="userId">${value.userId}님 <button class="comment_txt" onclick="secondBox(${value.c_id})">댓글쓰기</button></div>`;
         real_comment += `<div class="info">${value.c_date}</div>`;
         if (userId === value.userId) {
             real_comment += `<span><img class="icon" src="../static/delete.png" alt="deleteImg" onclick="commentDelete(${value.c_id})" /></span>`;
             real_comment += `<span><a href="commentModify.html?c_id=${value.c_id}&b_id=${b_id}"><img class="icon" src="../static/modify.png" alt="modifyImg" /></a></span>`;
         }
         real_comment += `<br>`;
-        real_comment += `<div class="c_content">${value.c_content}`;
-        real_comment += `</div>`;
+        real_comment += `<pre class="c_content">${value.c_content}`;
+        real_comment += `</pre>`;
+
+
+        real_comment += `<br><div class="second_${value.c_id}" style="display:none; text-align: center;">` +
+                        `<input id="second_content_${value.c_id}" type="text" class="comment_box" onkeyup="second_enter(${value.c_id})"/>` +
+                        `<button class="comment_btn" onclick="secondInsert(${value.c_id})">등록</button></div>`;
+
+
+        /* 대댓글 */
         for(let value2 of value.secondComment) {
-            real_comment += `<hr><img style="width: 40px; height: 40px; float:left;" src="../static/arrows.png" alt="img"/><span>` +
-                                `<div class="userId">${value2.userId}님</div>` +
+            real_comment += `<hr style="width: 90%;"><img class="arrow_icon" src="../static/arrows.png" alt="img"/><span>` +
+                                `<div class="userId">${value2.userId}님<button class="comment_txt" onclick="test(${value.c_id})">댓글쓰기</button></div>` +
                                 `<div class="info">${value2.c_date}</div>`;
             if (userId === value2.userId) {
                 real_comment += `<span><img class="icon" src="../static/delete.png" alt="deleteImg" onclick="secondeDelete(${value2.second_id})" /></span>`;
-                real_comment += `<span><a href="commentModify.html?c_id=${value2.second_id}&b_id=${b_id}"><img class="icon" src="../static/modify.png" alt="modifyImg" /></a></span>`;
+                real_comment += `<span><a href="secondModify.html?c_id=${value2.c_id}&second_id=${value2.second_id}&b_id=${b_id}">` +
+                                `<img class="icon" src="../static/modify.png" alt="modifyImg" /></a></span>`;
             }
             real_comment += `<br>`+
-                            `<div class="c_content_second">${value2.c_content}</div>` +
+                            `<pre class="c_content_second">${value2.c_content}</pre>` +
                         `</span>`;
         }
     }
@@ -225,8 +306,6 @@ function image() {
     };
 
     xhttp.send();
-
-    console.log(community.data);
 
     image();
     printCommunity();
