@@ -6,8 +6,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 public class LoginUtil {
-//    public static final String AGENT_NAME = "iPhone"; //상수로 agent_name을 선언
-    public static final String AGENT_NAME = "smc"; //상수로 agent_name을 선언
+    public static final String AGENT_NAME = "iPhone"; //상수로 agent_name을 선언
+//    public static final String AGENT_NAME = "smc"; //상수로 agent_name을 선언
 
     public static boolean isApp( HttpServletRequest request ) {
         String userAgent = request.getHeader(HttpHeaders.USER_AGENT );
