@@ -251,7 +251,7 @@ console.log(txt);
 
     if (community.image.length > 0) {
         for (let index of community.image) {
-            real_div += `<img src="data:image/jpg;base64, ${index.image}" alt="Image" />`;
+            real_div += `<img class="content_image" src="data:image/jpg;base64, ${index.image}" alt="Image" />`;
         }
     }
     real_div += '</div>';

@@ -166,6 +166,11 @@ section {
     height: 30px;
 }
 
+.content_image {
+    width: 100px;
+    height: 100px;
+}
+
 .comment_box {
     width: 70%;
     height: 40px;
