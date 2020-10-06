@@ -3,6 +3,7 @@ const user = {
 };
 
 function profile() {
+    console.log("HI");
     const img = document.getElementById("profile");
     let files = img;
     let formData = new FormData();

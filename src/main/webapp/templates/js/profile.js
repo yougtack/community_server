@@ -19,7 +19,7 @@ function profileChange() {
     };
 
     xhttp.send(formData);
-    
+
     alert("프로필 사진이 변경되었습니다.");
     location.href = `index.html`;
 }
@@ -29,7 +29,7 @@ function profileChange() {
 
     for (let profile of userInfo.data) {
         if(profile.userId === userId) {
-            user_profile.innerHTML = `<img class="profile" src="data:image/jpg;base64, ${profile.profile}" alt="profile" />`;
+            user_profile.innerHTML = `<img class="u_profile" src="data:image/jpg;base64, ${profile.profile}" alt="profile" />`;
         }
     }
 })();
