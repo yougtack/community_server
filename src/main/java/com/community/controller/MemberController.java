@@ -23,7 +23,7 @@ public class MemberController {
     @Autowired
     MemberService memberService;
 
-    static String userId = "rladudxor";
+    static String userId = "";
 
     //회원가입
     @CrossOrigin("*")
@@ -45,7 +45,7 @@ public class MemberController {
     @CrossOrigin("*")
     @PostMapping(value = "/login")
     public MemberModel Login(@RequestBody MemberModel member, HttpServletResponse response, HttpServletRequest request){
-        boolean isApp = LoginUtil.isApp( request );
+        boolean isApp = LoginUtil.isApp(request);
         MemberModel userInfo = memberService.login(member);
         if(userInfo != null){
             if(!isApp){
@@ -54,6 +54,8 @@ public class MemberController {
                 cookie.setPath("/");
 
                 response.addCookie(cookie);
+            }else{
+                System.out.println("this is app!!");
             }
         }else {
             response.setStatus(HttpStatus.FORBIDDEN.value());

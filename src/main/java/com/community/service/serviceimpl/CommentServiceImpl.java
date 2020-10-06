@@ -15,11 +15,6 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     CommentDao dao;
 
-//    @Override
-//    public List<CommentModel> getComment(int b_id){
-//        return dao.getComment(b_id);
-//    }
-
     @Override
     public Integer insert(CommentModel commentModel){
         return dao.insert(commentModel.getB_id(), commentModel.getC_content(), commentModel.getUserId());
@@ -48,10 +43,5 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Integer secondDelete(int second_id) {
         return  dao.secondDelete(second_id);
-    }
-
-    @Override
-    public List<CommentModel> getComment(int b_id){
-        return dao.getComment(b_id);
     }
 }
