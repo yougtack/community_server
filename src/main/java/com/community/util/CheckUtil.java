@@ -38,14 +38,18 @@ public class CheckUtil {
     }
 
     //member영역
-   public static Integer memberCheck(String loginUserId, HttpServletResponse response){
+   public static Integer memberCheck(String loginUserId, HttpServletResponse response, HttpServletRequest request){
         int count = 0;
-        if(loginUserId == null){
-            response.setStatus(HttpStatus.UNAUTHORIZED.value());
-            count++;
-        }else if(!loginUserId.equals("admin")){
-            response.setStatus(HttpStatus.FORBIDDEN.value());
-            count++;
+        if(!LoginUtil.isApp(request)){
+            if(loginUserId == null){
+                response.setStatus(HttpStatus.UNAUTHORIZED.value());
+                count++;
+            }else if(!loginUserId.equals("admin")){
+                response.setStatus(HttpStatus.FORBIDDEN.value());
+                count++;
+            }
+        }else{
+
         }
         return count;
     }

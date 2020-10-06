@@ -18,4 +18,7 @@ public interface MemberDao {
 
     Integer updateProfile(@Param("userId") String userId, @Param("profile") byte[] profile);
 
+    Integer updateUser(@Param("userId") String userId, @Param("userPw") String userPw);
+
 }
+
