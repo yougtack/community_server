@@ -55,14 +55,4 @@
         WHERE
             second_id = ${second_id}
     </delete>
-
-    <select id="getComment" resultType="com.community.model.CommentModel">
-        SELECT
-            *
-        FROM
-            community_comment
-        WHERE
-            b_id = {b_id}
-    </select>
-
 </mapper>

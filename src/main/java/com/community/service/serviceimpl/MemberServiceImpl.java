@@ -43,20 +43,21 @@ public class MemberServiceImpl implements MemberService {
         bout.close();
         in.close();
 
-        System.out.println("userId:"+userId);
-
+        byte[] profile;
 
         List<MultipartFile>multipartFiles = multipartHttpServletRequest.getFiles("profile");
         if(!multipartFiles.isEmpty()) {
             for (MultipartFile filePart : multipartFiles) {
                 if (filePart.getOriginalFilename().equals("")) {
-                    result = dao.signUpProfile(userId, imgbuf);
+                    profile = imgbuf;
+                    result = dao.signUpProfile(userId, profile);
                 }else{
-                    result = dao.signUpProfile(userId, filePart.getBytes());
+                    profile = filePart.getBytes();
+                    result = dao.signUpProfile(userId, profile);
                 }
             }
         }
-        return 0;
+        return result;
     }
 
     @Override
@@ -73,5 +74,22 @@ public class MemberServiceImpl implements MemberService {
     public Integer kickMember(CheckUserModel checkUserModel){
         return dao.kickMember(checkUserModel.getUserId());
 
+    }
+
+    @Override
+    public Integer updateProfile(MultipartHttpServletRequest multipartHttpServletRequest, String userId) throws IOException{
+        int result = 0;
+
+        List<MultipartFile>multipartFiles = multipartHttpServletRequest.getFiles("profile");
+        if(!multipartFiles.isEmpty()) {
+            for (MultipartFile filePart : multipartFiles) {
+                if (filePart.getOriginalFilename().equals("")) {
+                    return result;
+                }else{
+                    result = dao.updateProfile(userId, filePart.getBytes());
+                }
+            }
+        }
+        return result;
     }
 }

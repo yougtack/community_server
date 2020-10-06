@@ -17,5 +17,4 @@ public interface CommentService {
     Integer delete(int c_id);
     Integer secondDelete(int second_id);
 
-    List<CommentModel> getComment(int b_id);
 }

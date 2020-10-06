@@ -1,13 +1,8 @@
 package com.community.dao;
 
-import com.community.model.CommentModel;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
-
 public interface CommentDao {
-//    List<CommentModel> getComment(@Param("b_id") int b_id);
-
     Integer insert(@Param("b_id") int b_id, @Param("c_content") String c_content, @Param("userId") String userId);
     Integer secondInsert(@Param("c_id") int c_id, @Param("c_content") String c_content, @Param("userId") String userId);
 
@@ -16,7 +11,5 @@ public interface CommentDao {
 
     Integer delete(@Param("c_id") int c_id);
     Integer secondDelete(@Param("second_id") int second_id);
-
-    List<CommentModel> getComment(@Param("b_id") int b_id);
 
 }
