@@ -43,21 +43,17 @@ public class MemberServiceImpl implements MemberService {
         bout.close();
         in.close();
 
-        byte[] profile;
+        byte[] profile = new byte[0];
 
         List<MultipartFile>multipartFiles = multipartHttpServletRequest.getFiles("profile");
         if(!multipartFiles.isEmpty()) {
             for (MultipartFile filePart : multipartFiles) {
-                if (filePart.getOriginalFilename().equals("")) {
-                    profile = imgbuf;
-                    result = dao.signUpProfile(userId, profile);
-                }else{
-                    profile = filePart.getBytes();
-                    result = dao.signUpProfile(userId, profile);
-                }
+                profile = filePart.getBytes();
             }
+        }else{
+            profile = imgbuf;
         }
-        return result;
+        return dao.signUpProfile(userId, profile);
     }
 
     @Override
