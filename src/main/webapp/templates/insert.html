@@ -7,50 +7,50 @@
     <title>게시판</title>
 </head>
 <body>
-<div>
-    <script src="js/sidebar.js"></script>
-</div>
-    <section>
-        <p class="type_text txt">게시글 작성</p>
-        <select id="type" style="float: left;">
-            <option value="">게시판선택</option>
-            <option value="1">자유게시판</option>
-            <option value="2">게임게시판</option>
-            <option value="3">음식게시판</option>
-            <option value="4">코딩게시판</option>
-        </select>
-        <input type="file" id="files" name="files" style="margin-left: 20px;" accept="image/*" />
-        <input type="button" value="등록" class="btn" onclick="valueCheck()"/>
-        <br>
-        <br>
-        <p id="title_length"></p>
-        <input type="text" id="title" style="width: 700px; height: 25px;"/>
-        <br>
-        <br>
-        <p id="content_length"></p>
-        <textarea rows="5" cols="50" id="content" style="width: 700px; height: 400px;"></textarea>
-        <br>
-        <br>
-    </section>
-<script src="js/insert.js"></script>
-<script>
-    /* title */
-    let title_length = document.getElementById("title_length");
-    title_length.innerText = document.getElementById("title").value.length + "/20"
-    const titleKey = document.getElementById("title");
-    function titleCount(){
-        title_length.innerText = document.getElementById("title").value.length + "/20";
-    }
-    titleKey.addEventListener("keyup",titleCount);
+    <div>
+        <script src="js/sidebar.js"></script>
+    </div>
+        <section>
+            <p class="type_text txt">게시글 작성</p>
+            <select id="type" style="float: left;">
+                <option value="">게시판선택</option>
+                <option value="1">자유게시판</option>
+                <option value="2">게임게시판</option>
+                <option value="3">음식게시판</option>
+                <option value="4">코딩게시판</option>
+            </select>
+            <input type="file" id="files" name="files" style="margin-left: 20px;" accept="image/*" />
+            <input type="button" value="등록" class="btn" onclick="valueCheck()"/>
+            <br>
+            <br>
+            <p id="title_length"></p>
+            <input type="text" id="title" style="width: 700px; height: 25px;"/>
+            <br>
+            <br>
+            <p id="content_length"></p>
+            <textarea rows="5" cols="50" id="content" style="width: 700px; height: 400px;"></textarea>
+            <br>
+            <br>
+        </section>
+    <script src="js/insert.js"></script>
+    <script>
+        /* title */
+        let title_length = document.getElementById("title_length");
+        title_length.innerText = document.getElementById("title").value.length + "/20"
+        const titleKey = document.getElementById("title");
+        function titleCount(){
+            title_length.innerText = document.getElementById("title").value.length + "/20";
+        }
+        titleKey.addEventListener("keyup",titleCount);
 
-    /* content */
-    let content_length = document.getElementById("content_length");
-    content_length.innerText = document.getElementById("content").value.length + "/200"
-    const contentKey = document.getElementById("content");
-    function contentCount(){
-        content_length.innerText = document.getElementById("content").value.length + "/200";
-    }
-    contentKey.addEventListener("keyup",contentCount);
-</script>
+        /* content */
+        let content_length = document.getElementById("content_length");
+        content_length.innerText = document.getElementById("content").value.length + "/200"
+        const contentKey = document.getElementById("content");
+        function contentCount(){
+            content_length.innerText = document.getElementById("content").value.length + "/200";
+        }
+        contentKey.addEventListener("keyup",contentCount);
+    </script>
 </body>
 </html>

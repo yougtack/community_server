@@ -266,7 +266,9 @@ function secondBox(c_id){
 (function printComment() {
     /* 댓글 */
     let real_comment = ``;
+
     real_comment +=
+            `<p id="comment_length" style="margin: 0 0 0 50px;"></p>` +
             `<div style="text-align: center;"><input type="text" id="c_content" class="comment_box" onkeyup="enter()"/>` +
                 `<button class="comment_btn" onclick="commentInsert()">등록</button>` +
             `</div>`+
