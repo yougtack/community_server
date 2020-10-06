@@ -1,4 +1,4 @@
-const txt = {
+const searchList = {
     data: []
 };
 
@@ -18,7 +18,7 @@ const word = location.search.substr(location.search.indexOf("=") + 1);
         const array = JSON.parse(xhttp.responseText);
 
         for (let index of array) {
-            txt.data = array;
+            searchList.data = array;
         }
     };
 
@@ -28,7 +28,7 @@ const word = location.search.substr(location.search.indexOf("=") + 1);
 })();
 
 (function printCommunity() {
-    const type_text = document.querySelector(".type_text");
+    const txt = document.querySelector(".txt");
     let real_tr;
     real_tr =
         `<tr>` +
@@ -40,11 +40,11 @@ const word = location.search.substr(location.search.indexOf("=") + 1);
         `</tr>`;
     document.write(real_tr);
 
-    type_text.innerText = "검색결과";
-    type_text.innerHTML +=
+    txt.innerText = "검색결과";
+    txt.innerHTML +=
         '<a href="../templates/insert.html" style="margin-left: 80%;"><img src="../static/create.png" alt="HomeIcon" /></a>';
 
-    if(txt.data.length === 0) {
+    if(searchList.data.length === 0) {
         real_tr =
             "<div style='margin-top: 20px;'>검색하신 내용이 존재하지 않습니다.</div>";
         document.write(real_tr);

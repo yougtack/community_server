@@ -35,11 +35,6 @@ function deleteUser(userId) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
         }
 
-        const array = JSON.parse(xhttp.responseText);
-
-        for (let index of array) {
-            userInfo.data = array;
-        }
     };
 
     xhttp.send();

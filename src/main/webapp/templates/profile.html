@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="#">
+    <link rel="stylesheet" type="text/css" href="../static/css.css"/>
+    <title>게시판</title>
+</head>
+<body>
+    <div>
+        <script src="js/sidebar.js"></script>
+    </div>
+    <section>
+        <p class="txt">프로필 변경</p>
+        <br>
+        <br>
+        <p>적용 중인 프로필</p>
+        <br>
+        <div id="user_profile_view"></div>
+        <br>
+        <br>
+        <input type="file" id="user_profile" accept="image/*" />
+        <div style="margin: 20px 0 0 0; text-align: center;">
+            <input type="button" value="변경" onclick="profileChange()" />
+        </div>
+    </section>
+    <script src="js/profile.js"></script>
+    <script src="js/word.js"></script>
+</body>
+</html>

@@ -44,7 +44,7 @@ public class MemberController {
 
     //회원프로핆 변경
     @CrossOrigin("*")
-    @PutMapping(value = "/updateProfile/{userId}")
+    @PutMapping(value = "/profile/{userId}")
     public Integer updateProfile(MultipartHttpServletRequest multipartHttpServletRequest, @PathVariable String userId) throws IOException {
         return  memberService.updateProfile(multipartHttpServletRequest, userId);
     }

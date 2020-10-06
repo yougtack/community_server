@@ -65,7 +65,7 @@ th, td {
 .profile {
     width: 25px;
     height: 25px;
-    margin: 0 10px 0 10px;
+    margin: 0 5px 0 10px;
 }
 
 .second_profile {
@@ -202,4 +202,17 @@ section {
 
 .btn {
     text-align: center;
+}
+
+.info_box {
+    width: 105px;
+    position: absolute;
+    padding: 7px;
+    font-size: 14px;
+    text-align: left;
+    background-color: white;
+    border-radius: 3px;
+    display: none;
+    top: 30px;
+    left: 180px;
 }

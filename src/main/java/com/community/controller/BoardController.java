@@ -22,14 +22,12 @@ public class BoardController {
     BoardService boardService;
 
     //게시글 전부 가져오기
-    @CrossOrigin("*")
     @GetMapping(value = "/boardList")
     public List<BoardModel> boardList(){
         return boardService.getBoardList();
     }
 
     //게시글 작성 하기
-    @CrossOrigin("*")
     @PostMapping(value = "/community")
     public Integer insert(@RequestBody ViewModel viewModel, HttpServletResponse response, HttpServletRequest request){
         String loginUserId = LoginUtil.getCheckLogin(request);
