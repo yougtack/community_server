@@ -40,4 +40,13 @@
             userId = #{userId}
     </delete>
 
+    <update id="updateProfile" parameterType="com.community.model.MemberModel">
+        UPDATE
+            community_member
+        SET
+            profile = #{profile}
+        WHERE
+            userId = #{userId}
+    </update>
+
 </mapper>

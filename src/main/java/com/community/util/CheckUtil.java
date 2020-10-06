@@ -10,21 +10,29 @@ public class CheckUtil {
     //board, comment 영역
     public static Integer loginCheck(String loginUserId, String userId, HttpServletResponse response, HttpServletRequest request){
         int count = 0;
-        if(loginUserId == null){
-            response.setStatus(HttpStatus.UNAUTHORIZED.value());
-            count++;
-        }else if(!loginUserId.equals(userId) || LoginUtil.isApp(request)) {
-            response.setStatus(HttpStatus.FORBIDDEN.value());
-            count++;
+        if(!LoginUtil.isApp(request)){ //web일때 false
+            if(loginUserId == null){
+                response.setStatus(HttpStatus.UNAUTHORIZED.value());
+                count++;
+            }else if(!loginUserId.equals(userId)) {
+                response.setStatus(HttpStatus.FORBIDDEN.value());
+                count++;
+            }
+        }else{//app일때 true
+
         }
         return count;
     }
 
     public static Integer imageCheck(String loginUserId, HttpServletResponse response, HttpServletRequest request){
         int count = 0;
-        if(loginUserId == null){
-            response.setStatus(HttpStatus.UNAUTHORIZED.value());
-            count++;
+        if(!LoginUtil.isApp(request)) { //web일때 false
+            if (loginUserId == null) {
+                response.setStatus(HttpStatus.UNAUTHORIZED.value());
+                count++;
+            }
+        }else{//app일때 true
+
         }
         return count;
     }

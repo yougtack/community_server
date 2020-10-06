@@ -75,4 +75,21 @@ public class MemberServiceImpl implements MemberService {
         return dao.kickMember(checkUserModel.getUserId());
 
     }
+
+    @Override
+    public Integer updateProfile(MultipartHttpServletRequest multipartHttpServletRequest, String userId) throws IOException{
+        int result = 0;
+
+        List<MultipartFile>multipartFiles = multipartHttpServletRequest.getFiles("profile");
+        if(!multipartFiles.isEmpty()) {
+            for (MultipartFile filePart : multipartFiles) {
+                if (filePart.getOriginalFilename().equals("")) {
+                    return result;
+                }else{
+                    result = dao.updateProfile(userId, filePart.getBytes());
+                }
+            }
+        }
+        return result;
+    }
 }

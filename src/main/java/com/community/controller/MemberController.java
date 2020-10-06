@@ -33,13 +33,21 @@ public class MemberController {
         return  memberService.signUp(memberModel);
     }
 
-    //회원가입
+    //회원프로핆
     @CrossOrigin("*")
     @PutMapping(value = "/signUpProfile")
     public Integer SignUpProfile(MultipartHttpServletRequest multipartHttpServletRequest) throws IOException {
-        return memberService.signUpProfile(multipartHttpServletRequest, userId);
+        int result =  memberService.signUpProfile(multipartHttpServletRequest, userId);
+        userId = "";
+        return result;
     }
 
+    //회원프로핆 변경
+    @CrossOrigin("*")
+    @PutMapping(value = "/updateProfile/{userId}")
+    public Integer updateProfile(MultipartHttpServletRequest multipartHttpServletRequest, @PathVariable String userId) throws IOException {
+        return  memberService.updateProfile(multipartHttpServletRequest, userId);
+    }
 
     //로그인
     @CrossOrigin("*")
@@ -55,7 +63,7 @@ public class MemberController {
 
                 response.addCookie(cookie);
             }else{
-                System.out.println("this is app!!");
+//                System.out.println(LoginUtil.getAuthorization(request));
             }
         }else {
             response.setStatus(HttpStatus.FORBIDDEN.value());
