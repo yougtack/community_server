@@ -21,6 +21,8 @@ function profile() {
     };
 
     xhttp.send(formData);
+
+    alert("회원가입을 성공하셨습니다.");
 }
 
 function signUp(userId, userPw) {
@@ -47,8 +49,6 @@ function signUp(userId, userPw) {
 
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.send(JSON.stringify(data));
-
-    profile();
 
     if(check) {
         location.href = "login.html";
@@ -96,8 +96,7 @@ function signUpCheck() {
     }
 
     signUp(userId, userPw);
-
-    alert("회원가입을 성공하셨습니다.");
+    profile();
 }
 
 function enter() {

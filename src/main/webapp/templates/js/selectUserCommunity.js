@@ -212,21 +212,21 @@ function secondBox(c_id){
 })();
 
 (function printCommunity() {
-    const type_text = document.querySelector(".type_text");
+    const txt = document.querySelector(".txt");
 
     /* 본문  */
-
-    if (community.data.b_type === "1") {
-        type_text.innerText = "자유게시판";
+console.log(txt);
+    if (community.data.b_type === "1") {``
+        txt.innerText = "자유게시판";
     } else if (community.data.b_type === "2") {
-        type_text.innerText = "게임게시판";
+        txt.innerText = "게임게시판";
     } else if (community.data.b_type === "3") {
-        type_text.innerText = "음식게시판";
+        txt.innerText = "음식게시판";
     } else {
-        type_text.innerText = "코딩게시판";
+        txt.innerText = "코딩게시판";
     }
 
-    type_text.innerHTML += `<div style="text-align: right;"><a href="community.html?b_type=${community.data.b_type}"><input type="button" value="목록" class="list_btn" /></a></div>`;
+    txt.innerHTML += `<div style="text-align: right;"><a href="community.html?b_type=${community.data.b_type}"><input type="button" value="목록" class="list_btn" /></a></div>`;
 
     let real_div = `<div>`;
     real_div += `<div class="info_div">`+
@@ -251,7 +251,7 @@ function secondBox(c_id){
 
     if (community.image.length > 0) {
         for (let index of community.image) {
-            real_div += `<img src="data:image/jpg;base64, ${index.image}" alt="Image" />`;
+            real_div += `<img class="content_image" src="data:image/jpg;base64, ${index.image}" alt="Image" />`;
         }
     }
     real_div += '</div>';
@@ -296,7 +296,6 @@ function secondBox(c_id){
                     `<input id="second_content_${value.c_id}" type="text" class="comment_box" onkeyup="second_enter(${value.c_id})"/>` +
                     `<button class="comment_btn" onclick="secondInsert(${value.c_id})">등록</button>` +
                 `</div>`;
-
 
         /* 대댓글 */
         for(let value2 of value.secondComment) {
