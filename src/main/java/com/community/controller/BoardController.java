@@ -38,7 +38,6 @@ public class BoardController {
     }
 
     //게시글 수정하기
-    @CrossOrigin("*")
     @PutMapping(value = "/community/{b_id}")
     public Integer update(@RequestBody ViewModel viewModel, @PathVariable int b_id, HttpServletResponse response, HttpServletRequest request){
         String loginUserId = LoginUtil.getCheckLogin(request);
@@ -49,7 +48,6 @@ public class BoardController {
     }
 
     //게시글 삭제하기
-    @CrossOrigin("*")
     @DeleteMapping(value = "/community/{b_id}")
     public Integer delete(@PathVariable int b_id, @RequestBody CheckUserModel checkUserModel, HttpServletResponse response, HttpServletRequest request){
         String loginUserId = LoginUtil.getCheckLogin(request);
@@ -60,7 +58,6 @@ public class BoardController {
     }
 
     //게시글 상세보기
-    @CrossOrigin("*")
     @GetMapping(value = "/view/{b_id}")
     public ViewModel view(@PathVariable int b_id){
         boardService.count(b_id);
@@ -68,21 +65,18 @@ public class BoardController {
     }
 
     //검색단어로 게시글 리스트 가져오기
-    @CrossOrigin("*")
     @GetMapping(value = "/search")
     public List<BoardModel> search(@RequestParam("word") String word){
         return boardService.search(word);
     }
 
     //조회수가 가장많은 것을 기준으로 출력하기
-    @CrossOrigin("*")
     @GetMapping(value = "/rank")
     public List<BoardModel> rank(){
         return boardService.getRank();
     }
 
     //사진 업로드
-    @CrossOrigin("*")
     @PostMapping("/upload")
     @ResponseBody
     public Integer upload(MultipartHttpServletRequest multipartHttpServletRequest, HttpServletResponse response, HttpServletRequest request) throws IOException {
@@ -94,7 +88,6 @@ public class BoardController {
     }
 
     //게시글 수정시 사진 업로드
-    @CrossOrigin("*")
     @PostMapping("/upload/{b_id}")
     @ResponseBody
     public Integer updateUpload(MultipartHttpServletRequest multipartHttpServletRequest, @PathVariable int b_id, HttpServletResponse response, HttpServletRequest request) throws IOException {
@@ -106,7 +99,6 @@ public class BoardController {
     }
 
     //상세번호로 사가져오기 (바이너리 상태)
-    @CrossOrigin("*")
     @GetMapping(value = "/getImage/{b_id}")
     public List<ImageModel> get(@PathVariable int b_id){
         return boardService.getImage(b_id);
@@ -137,7 +129,6 @@ public class BoardController {
 //    }
 
     //다운로드
-    @CrossOrigin("*")
     @GetMapping(value = "/download/{i_id}")
     public String download(@PathVariable int i_id, HttpServletResponse response) throws IOException {
         ImageModel imageModel = boardService.getViewImage(i_id);
@@ -162,7 +153,6 @@ public class BoardController {
         return "야호!";
     }
 
-    @CrossOrigin("*")
     @DeleteMapping(value = "/{i_id}")
     public Integer deleteImage(@PathVariable("i_id") int i_id, HttpServletResponse response, HttpServletRequest request){
         String loginUserId = LoginUtil.getCheckLogin(request);
