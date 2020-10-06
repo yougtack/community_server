@@ -90,6 +90,7 @@ th, td {
 .main_sidebar_icon {
     width: 20px;
     height: 20px;
+    margin: 0 0 0 10px;
 }
 
 .main_category {

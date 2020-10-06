@@ -23,26 +23,6 @@ function deleteUser(userId) {
     }
 }
 
-function printUser() {
-    let real_table;
-    real_table = `<p style="font-size: 24px; margin: 60px 0 0 0;">유저명단</p>`;
-    real_table += `<br>`;
-    real_table += `<table style="margin: auto;">`;
-    real_table += `<tr>`;
-    real_table += `<td style="width: 20%">userId</td>`;
-    real_table += `<td style="width: 20%">userPw</td>`;
-    real_table += `<td style="width: 10%">삭제</td>`;
-    real_table += `</tr>`;
-    for (let index of userInfo.data) {
-        real_table += `<td>${index.userId}</td>`;
-        real_table += `<td>${index.userPw}</td>`;
-        real_table += `<td><img style="width: 20px; height: 20px;" src="../static/x.png" alt="icon" onclick="deleteUser('${index.userId}')"/></td>`;
-        real_table += `</tr>`;
-    }
-    real_table += `</table>`;
-
-    document.write(real_table);
-}
 
 (function init() {
     let xhttp = new XMLHttpRequest();
@@ -63,6 +43,30 @@ function printUser() {
     };
 
     xhttp.send();
+})();
 
-    printUser();
+(function printUser() {
+    let real_table;
+    real_table =
+        `<p style="font-size: 24px; margin: 60px 0 0 0;">유저명단</p>` +
+        `<br>` +
+        `<table style="margin: auto;">` +
+            `<tr>`+
+                `<td style="width: 20%">userId</td>` +
+                `<td style="width: 20%">userPw</td>` +
+                `<td style="width: 10%">삭제</td>`+
+            `</tr>`;
+    for (let index of userInfo.data) {
+        if(index.userId !== "admin"){
+            real_table +=
+                '<tr>' +
+                    `<td>${index.userId}</td>` +
+                    `<td>${index.userPw}</td>` +
+                    `<td><img style="width: 20px; height: 20px;" src="../static/x.png" alt="icon" onclick="deleteUser('${index.userId}')"/></td>` +
+                `</tr>`;
+        }
+    }
+    real_table += `</table>`;
+
+    document.write(real_table);
 })();

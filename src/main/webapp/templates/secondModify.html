@@ -12,6 +12,7 @@
 </div>
 <section>
     <p class="type_text">댓글 수정</p>
+    <p id="second_length"></p>
     <textarea rows="5" cols="50" id="second_content" style="width: 500px; height: 400px;"></textarea>
     <br>
     <br>
@@ -19,5 +20,14 @@
     <input type="button" value="취소" onclick="cancel()">
 </section>
 <script src="js/secondModify.js"></script>
+<script>
+    let second_length = document.getElementById("second_length");
+    second_length.innerText = document.getElementById("second_content").value.length + "/50"
+    const secondKey = document.getElementById("second_content");
+    function secondCount(){
+        second_length.innerText = document.getElementById("second_content").value.length + "/50";
+    }
+    secondKey.addEventListener("keyup",secondCount);
+</script>
 </body>
 </html>

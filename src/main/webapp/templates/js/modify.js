@@ -3,7 +3,6 @@ const community = {
     image: []
 };
 
-
 const userId = document.cookie.substr(7,);
 const b_id = location.search.substr(location.search.indexOf("=") + 1);
 
@@ -126,7 +125,8 @@ function image() {
 
     if (community.image.length > 0) {
         for (let index of community.image) {
-            real_delBtn.innerHTML += `${index.fileName}<img class="home_icon header_icon" src="../static/delete.png" alt="HomeIcon" style="width: 20px; height: 20px;" onclick="imgDelete(${index.i_id})" />`;
+            real_delBtn.innerHTML +=
+                `${index.fileName}<img src="../static/delete.png" alt="delIcon" style="width: 20px; height: 20px;" onclick="imgDelete(${index.i_id})" />`;
         }
     }
 

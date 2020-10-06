@@ -15,6 +15,10 @@ function commentModify() {
             alert("댓글을 작성해주세요.");
             document.getElementById("c_content").focus();
             return false;
+        } else if (document.getElementById("c_content").value.length > 50) {
+            alert("글자 제한 수를 초과하였습니다.");
+            document.getElementById("c_content").focus();
+            return false;
         }
         const modifyData = {
             c_id: c_id[0],
@@ -42,21 +46,6 @@ function cancel() {
     location.href = `userCommunity.html?b_id=${b_id}`;
 }
 
-function commentValue() {
-    let c_comment;
-
-    for (let index of community.data.comments) {
-        let value_id = "" + index.c_id;
-        if (c_id[0] === value_id) {
-            c_comment = index.c_content;
-            break;
-        }
-    }
-
-    document.getElementById("c_content").value = c_comment;
-
-}
-
 (function init() {
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
@@ -74,7 +63,18 @@ function commentValue() {
     };
 
     xhttp.send();
+})();
 
-    commentValue();
+(function commentValue() {
+    let c_comment;
 
+    for (let index of community.data.comments) {
+        let value_id = "" + index.c_id;
+        if (c_id[0] === value_id) {
+            c_comment = index.c_content;
+            break;
+        }
+    }
+
+    document.getElementById("c_content").value = c_comment;
 })();
