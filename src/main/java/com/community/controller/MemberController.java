@@ -94,10 +94,11 @@ public class MemberController {
     @CrossOrigin("*")
     @DeleteMapping
     public Integer kickMember(@RequestBody CheckUserModel checkUserModel, HttpServletResponse response, HttpServletRequest request){
-        String loginUserId = LoginUtil.getCheckLogin(request);
-        if(CheckUtil.memberCheck(loginUserId, response) >= 1){
+        String loginUserId = LoginUtil.getCheckLogin(request);//현재 로그인되어있는 값
+        if(CheckUtil.memberCheck(loginUserId, response, request) >= 1){
             return 0;
         }
+        //checkUserModel.userId는 강퇴시킬 아이디가 들어있음
         return memberService.kickMember(checkUserModel);
     }
 }

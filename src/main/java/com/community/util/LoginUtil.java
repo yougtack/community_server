@@ -16,8 +16,6 @@ public class LoginUtil {
 
     public static String getAuthorization( HttpServletRequest request ) {
         String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
-        System.out.println("getAuthorization:"+request.getHeader(HttpHeaders.USER_AGENT));
-        System.out.println("getAuthorization:"+request.getHeader(HttpHeaders.AUTHORIZATION));
         return authorization;
     }
 
