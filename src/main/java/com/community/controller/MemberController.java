@@ -26,7 +26,6 @@ public class MemberController {
     static String userId = "";
 
     //회원가입
-    @CrossOrigin("*")
     @PostMapping(value = "/signUp")
     public Integer SignUp(@RequestBody MemberModel memberModel){
         userId = memberModel.getUserId();
@@ -34,7 +33,6 @@ public class MemberController {
     }
 
     //회원프로핆
-    @CrossOrigin("*")
     @PutMapping(value = "/signUpProfile")
     public Integer SignUpProfile(MultipartHttpServletRequest multipartHttpServletRequest) throws IOException {
         int result =  memberService.signUpProfile(multipartHttpServletRequest, userId);
@@ -43,14 +41,12 @@ public class MemberController {
     }
 
     //회원프로핆 변경
-    @CrossOrigin("*")
     @PutMapping(value = "/profile/{userId}")
     public Integer updateProfile(MultipartHttpServletRequest multipartHttpServletRequest, @PathVariable String userId) throws IOException {
         return  memberService.updateProfile(multipartHttpServletRequest, userId);
     }
 
     //로그인
-    @CrossOrigin("*")
     @PostMapping(value = "/login")
     public MemberModel Login(@RequestBody MemberModel member, HttpServletResponse response, HttpServletRequest request){
         boolean isApp = LoginUtil.isApp(request);
@@ -72,7 +68,6 @@ public class MemberController {
     }
 
     //로그아웃
-    @CrossOrigin("*")
     @GetMapping(value = "/logout")
     public String logout(HttpServletResponse response){
         Cookie cookie = new Cookie("userId", "tmp");
@@ -84,14 +79,12 @@ public class MemberController {
     }
 
     //회원리스트가져오기
-    @CrossOrigin("*")
     @GetMapping(value = "/memberList")
     public List<MemberModel> memberList(){
         return memberService.getMemberList();
     }
 
     //회원탈퇴시키기
-    @CrossOrigin("*")
     @DeleteMapping
     public Integer kickMember(@RequestBody CheckUserModel checkUserModel, HttpServletResponse response, HttpServletRequest request){
         String loginUserId = LoginUtil.getCheckLogin(request);//현재 로그인되어있는 값
@@ -103,7 +96,6 @@ public class MemberController {
     }
 
     //멤버 정보수정
-    @CrossOrigin("*")
     @PutMapping
     public Integer updateUser(@RequestBody MemberModel memberModel, HttpServletResponse response, HttpServletRequest request){
         String loginUserId = LoginUtil.getCheckLogin(request);

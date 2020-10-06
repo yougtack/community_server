@@ -21,7 +21,6 @@ public class CommentController {
     CommentService commentService;
 
     //댓글 입력
-    @CrossOrigin("*")
     @PostMapping
     public Integer insert(@RequestBody CommentModel commentModel, HttpServletResponse response, HttpServletRequest request){
         String loginUserId = LoginUtil.getCheckLogin(request);
@@ -32,7 +31,6 @@ public class CommentController {
     }
 
     //2번째 댓글 입력
-    @CrossOrigin("*")
     @PostMapping(value = "/second")
     public Integer secondInsert(@RequestBody SecondCommentModel secondCommentModel, HttpServletResponse response, HttpServletRequest request){
         String loginUserId = LoginUtil.getCheckLogin(request);
@@ -43,7 +41,6 @@ public class CommentController {
     }
 
     //댓글 수정
-    @CrossOrigin("*")
     @PutMapping
     public Integer update(@RequestBody CommentModel commentModel, HttpServletResponse response, HttpServletRequest request){
         String loginUserId = LoginUtil.getCheckLogin(request);
@@ -53,7 +50,6 @@ public class CommentController {
         return commentService.update(commentModel);
     }
     //2번째 댓글 수정
-    @CrossOrigin("*")
     @PutMapping(value = "/second")
     public Integer secondUpdate(@RequestBody SecondCommentModel secondCommentModel, HttpServletResponse response, HttpServletRequest request){
         String loginUserId = LoginUtil.getCheckLogin(request);
@@ -65,7 +61,6 @@ public class CommentController {
 
 
     //댓글 삭제
-    @CrossOrigin("*")
     @DeleteMapping(value = "/{c_id}")
     public Integer delete(@PathVariable int c_id, @RequestBody CheckUserModel checkUserModel, HttpServletResponse response, HttpServletRequest request){
         String loginUserId = LoginUtil.getCheckLogin(request);
@@ -76,7 +71,6 @@ public class CommentController {
     }
 
     //2번째 댓글 삭제
-    @CrossOrigin("*")
     @DeleteMapping(value = "/second/{second_id}")
     public Integer secondDelete(@PathVariable int second_id, @RequestBody CheckUserModel checkUserModel, HttpServletResponse response, HttpServletRequest request){
         String loginUserId = LoginUtil.getCheckLogin(request);
