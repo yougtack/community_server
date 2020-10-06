@@ -17,5 +17,14 @@
         </div>
     </section>
     <script src="js/word.js"></script>
+    <script>
+        let comment_length = document.getElementById("comment_length");
+        comment_length.innerText = document.getElementById("c_content").value.length + "/50";
+        const commentKey = document.getElementById("c_content");
+        function commentCount() {
+            comment_length.innerText = document.getElementById("c_content").value.length + "/50";
+        }
+        commentKey.addEventListener("keyup", commentCount);
+    </script>
 </body>
 </html>

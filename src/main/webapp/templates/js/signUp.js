@@ -25,6 +25,7 @@ function profile() {
 
 function signUp(userId, userPw) {
     let xhttp = new XMLHttpRequest();
+    let check;
 
     const url = "http://localhost:8080";
     const data = {
@@ -35,9 +36,12 @@ function signUp(userId, userPw) {
     xhttp.open("POST", url + `/member/signUp`, false);
 
     xhttp.onreadystatechange = () => {
-        console.log("hi");
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
+            check = false;
+            return false;
+        }else {
+            check = true;
         }
     };
 
@@ -46,7 +50,9 @@ function signUp(userId, userPw) {
 
     profile();
 
-    location.href = "login.html";
+    if(check) {
+        location.href = "login.html";
+    }
 }
 
 

@@ -7,17 +7,27 @@
     <title>게시판</title>
 </head>
 <body>
-<div>
-    <script src="js/sidebar.js"></script>
-</div>
-    <section>
-        <p class="type_text">댓글 수정</p>
-        <textarea rows="5" cols="50" id="c_content" style="width: 500px; height: 400px;"></textarea>
-        <br>
-        <br>
-        <input type="button" value="수정" onclick="commentModify()"/>
-        <input type="button" value="취소" onclick="cancel()">
-    </section>
-<script src="js/commentModify.js"></script>
+    <div>
+        <script src="js/sidebar.js"></script>
+    </div>
+        <section>
+            <p class="type_text">댓글 수정</p>
+            <p id="comment_length"></p>
+            <textarea rows="5" cols="50" id="c_content" style="width: 500px; height: 400px;"></textarea>
+            <br>
+            <br>
+            <input type="button" value="수정" onclick="commentModify()"/>
+            <input type="button" value="취소" onclick="cancel()">
+        </section>
+    <script src="js/commentModify.js"></script>
+    <script>
+        let comment_length = document.getElementById("comment_length");
+        comment_length.innerText = document.getElementById("c_content").value.length + "/50"
+        const commentKey = document.getElementById("c_content");
+        function commentCount(){
+            comment_length.innerText = document.getElementById("c_content").value.length + "/50";
+        }
+        commentKey.addEventListener("keyup",commentCount);
+    </script>
 </body>
 </html>

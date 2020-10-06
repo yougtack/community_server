@@ -4,7 +4,7 @@ const second = {
 
 const c_id = location.search.substr(6, 2).split("&");
 const b_id = location.search.substr(location.search.indexOf("b_id=") + 5);
-const second_id = location.search.substr( 18,2).split("&");
+const second_id = location.search.substr( 19,3).split("&");
 const userId = document.cookie.substr(7,);
 
 function secondModify() {
@@ -14,6 +14,10 @@ function secondModify() {
     if (confirm("댓글을 수정합니다.")) {
         if (document.getElementById("second_content").value.trim().length <= 0) {
             alert("댓글을 작성해주세요.");
+            document.getElementById("second_content").focus();
+            return false;
+        } else if (document.getElementById("second_content").value.length  > 50) {
+            alert("글자 제한 수를 초과하였습니다.");
             document.getElementById("second_content").focus();
             return false;
         }
@@ -43,26 +47,6 @@ function cancel() {
     location.href = `userCommunity.html?b_id=${b_id}`;
 }
 
-function commentValue() {
-    let c_comment;
-
-    for (let index of second.data.comments) {
-        let value_id = "" + index.c_id;
-        if (c_id[0] === value_id) {
-            for(let second of index.secondComment){
-                let secondValueId = "" + second.second_id;
-                if(second_id[0] === secondValueId){
-                    c_comment = second.c_content;
-                    break;
-                }
-            }
-        }
-    }
-
-    document.getElementById("second_content").value = c_comment;
-
-}
-
 (function init() {
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
@@ -80,7 +64,21 @@ function commentValue() {
     };
 
     xhttp.send();
+})();
 
-    commentValue();
+(function commentValue() {
+    let c_comment;
+
+    for (let index of second.data.comments) {
+        if (index.c_id === parseInt(c_id)) {
+            for (let value of index.secondComment) {
+                if (value.second_id === parseInt(second_id[0])) {
+                    c_comment = value.c_content;
+                }
+            }
+        }
+    }
+
+    document.getElementById("second_content").value = c_comment;
 
 })();
