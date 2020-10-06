@@ -92,4 +92,9 @@ public class MemberServiceImpl implements MemberService {
         }
         return result;
     }
+
+    @Override
+    public Integer updateUser(MemberModel memberModel){
+        return dao.updateUser(memberModel.getUserId(), memberModel.getUserPw());
+    }
 }

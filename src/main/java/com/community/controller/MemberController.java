@@ -44,7 +44,7 @@ public class MemberController {
 
     //회원프로핆 변경
     @CrossOrigin("*")
-    @PutMapping(value = "/updateProfile/{userId}")
+    @PutMapping(value = "/profile/{userId}")
     public Integer updateProfile(MultipartHttpServletRequest multipartHttpServletRequest, @PathVariable String userId) throws IOException {
         return  memberService.updateProfile(multipartHttpServletRequest, userId);
     }
@@ -100,5 +100,16 @@ public class MemberController {
         }
         //checkUserModel.userId는 강퇴시킬 아이디가 들어있음
         return memberService.kickMember(checkUserModel);
+    }
+
+    //멤버 정보수정
+    @CrossOrigin("*")
+    @PutMapping
+    public Integer updateUser(@RequestBody MemberModel memberModel, HttpServletResponse response, HttpServletRequest request){
+        String loginUserId = LoginUtil.getCheckLogin(request);
+        if(CheckUtil.loginCheck(loginUserId, memberModel.getUserId(), response, request) >= 1){
+            return 0;
+        }
+        return memberService.updateUser(memberModel);
     }
 }
