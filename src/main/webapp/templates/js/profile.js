@@ -19,6 +19,9 @@ function profileChange() {
     };
 
     xhttp.send(formData);
+    
+    alert("프로필 사진이 변경되었습니다.");
+    location.href = `index.html`;
 }
 
 (function init() {
