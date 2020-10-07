@@ -125,8 +125,6 @@ function commentDelete(c_id) {
 }
 
 function secondInsert(c_id) {
-    console.log(document.getElementById(`second_content_${c_id}`).value);
-
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
     const secondData = {
@@ -215,7 +213,6 @@ function secondBox(c_id){
     const txt = document.querySelector(".txt");
 
     /* 본문  */
-console.log(txt);
     if (community.data.b_type === "1") {``
         txt.innerText = "자유게시판";
     } else if (community.data.b_type === "2") {

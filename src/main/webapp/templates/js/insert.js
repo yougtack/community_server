@@ -38,7 +38,9 @@ function imgInsert() {
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
 
-    formData.append('Files', files.files[0]);
+    for (let value of files.files){
+        formData.append('Files', value);
+    }
 
     xhttp.open("POST", url + `/board/upload`, false);
 

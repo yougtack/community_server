@@ -26,11 +26,12 @@ function imgInsert() {
     const url = "http://localhost:8080";
 
     const img = document.getElementById("files");
-
     let files = img;
     let formData = new FormData();
 
-    formData.append('Files', files.files[0]);
+    for (let value of files.files){
+        formData.append('Files', value);
+    }
 
     xhttp.open("POST", url + `/board/upload/${b_id}`, false);
 
