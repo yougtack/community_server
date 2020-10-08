@@ -227,3 +227,44 @@ section {
     top: 30px;
     left: 180px;
 }
+
+/* index */
+.index_div {
+    width: 30%;
+    display: inline-grid;
+    margin: 20px 30px 0 0;
+}
+
+.index_box {
+    border: 1px solid #ddd;
+    border-left: 5px solid #0059ab;
+}
+
+.index_item {
+    margin: 10px 0 0 10px;
+}
+
+.index_title {
+    font-weight: bold;
+}
+
+.index_date {
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+.index_userId {
+    font-size: 15px;
+    text-align: right;
+    margin: 10px 0 0 0;
+}
+
+.index_img {
+    font-size: 12px;
+    margin: 0 0 0 10px;
+}
+
+.index_img_size {
+    width: 12px;
+    height: 12px;
+}
