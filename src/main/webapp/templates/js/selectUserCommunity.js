@@ -293,10 +293,14 @@ function download(){
             // `<div style="border: 1px solid black; width: 400px; height: 300px;">` ;
                 // `<span style="position: absolute"><button onclick="imgHI()"><</button></span><div style="display: flex;">`;
         for (let index of community.image) {
-            real_div +=
-                // `<div class="imgDiv" style="border: 1px solid red;">` +
-                    `<img class="content_image" src="data:image/jpg;base64, ${index.image}" alt="Image" />` ;
+            let c = index.fileName.split(".");
+            c = c[1];
+            if(c === "png" || c === "jpg") {
+                real_div +=
+                    // `<div class="imgDiv" style="border: 1px solid red;">` +
+                    `<img class="content_image" src="data:image/jpg;base64, ${index.image}" alt="Image" />`;
                 // '</div>';
+            }
         }
         // real_div += '</div><span style="position: absolute"><button onclick="imgBye()">></button></span></div>';
     }
