@@ -42,7 +42,6 @@ dependencies {
 	compile('javax.servlet:jstl')
 
 	compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.10.1'
-
 }
 
 test {

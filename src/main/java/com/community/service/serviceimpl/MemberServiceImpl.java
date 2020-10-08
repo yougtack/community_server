@@ -36,8 +36,9 @@ public class MemberServiceImpl implements MemberService {
         byte[] by = new byte[(int)file.length()];
         int len = 0;
 
-        while((len=in.read(by)) != -1)
+        while((len=in.read(by)) != -1) {
             bout.write(by, 0, len);
+        }
 
         byte[] imgbuf = bout.toByteArray();
         bout.close();
