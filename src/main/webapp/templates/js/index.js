@@ -3,6 +3,8 @@ const indexData = {
     data:[]
 };
 
+let c_length = 0;
+
 (function init() {
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
@@ -41,16 +43,15 @@ const indexData = {
     };
 
     xhttp.send();
-    console.log(indexData.data);
 })();
 
 (function rankPrint() {
     let rank_length = 0;
     let rank_div =
-            '<div class="index_div">' +
+            '<div style="width: 70%;">' +
                 '<p class="txt">인기게시글</p>';
     for (let value of indexData.rankData) {
-        if (rank_length >= 5) {
+        if (rank_length >= 10) {
             break;
         } else {
             let cnt = 0;
@@ -76,13 +77,12 @@ const indexData = {
 })();
 
 (function freePrint() {
-    let free_length = 0;
     let free_div =
         '<div class="index_div">' +
             '<p class="txt">자유게시판</p>';
     for (let value of indexData.data) {
         if(value.b_type === "1") {
-            if (free_length >= 5) {
+            if (c_length >= 5) {
                 break;
             } else {
                 let cnt = 0;
@@ -100,22 +100,22 @@ const indexData = {
                         '</div>' +
                     '</div>';
             }
-            ++free_length;
+            ++c_length;
         }
     }
     free_div += '</div>';
 
+    c_length = 0;
     document.write(free_div);
 })();
 
 (function gamePrint() {
-    let game_length = 0;
     let game_div =
         '<div class="index_div">' +
             '<p class="txt">게임게시판</p>';
     for (let value of indexData.data) {
         if(value.b_type === "2") {
-            if (game_length >= 5) {
+            if (c_length >= 5) {
                 break;
             } else {
                 let cnt = 0;
@@ -133,22 +133,22 @@ const indexData = {
                         '</div>' +
                     '</div>';
             }
-            ++game_length;
+            ++c_length;
         }
     }
     game_div += '</div>';
 
+    c_length = 0;
     document.write(game_div);
 })();
 
 (function foodPrint() {
-    let food_length = 0;
     let food_div =
         '<div class="index_div">' +
             '<p class="txt">음식게시판</p>';
     for (let value of indexData.data) {
         if(value.b_type === "3") {
-            if (food_length >= 5) {
+            if (c_length >= 5) {
                 break;
             } else {
                 let cnt = 0;
@@ -166,22 +166,22 @@ const indexData = {
                         '</div>' +
                     '</div>';
             }
-            ++food_length;
+            ++c_length;
         }
     }
     food_div += '</div>';
 
+    c_length = 0;
     document.write(food_div);
 })();
 
 (function codingPrint() {
-    let coding_length = 0;
     let coding_div =
         '<div class="index_div">' +
             '<p class="txt">코딩게시판</p>';
     for (let value of indexData.data) {
         if(value.b_type === "4") {
-            if (coding_length >= 5) {
+            if (c_length >= 5) {
                 break;
             } else {
                 let cnt = 0;
@@ -199,10 +199,11 @@ const indexData = {
                         '</div>' +
                     '</div>';
             }
-            ++coding_length;
+            ++c_length;
         }
     }
     coding_div += '</div>';
 
+    c_length = 0;
     document.write(coding_div);
 })();
