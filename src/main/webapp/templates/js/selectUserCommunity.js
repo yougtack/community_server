@@ -209,11 +209,30 @@ function secondBox(c_id){
     xhttp.send();
 })();
 
+let imgCnt = 0;
+
+function imgHI() {
+    const imgDiv = document.getElementsByClassName("imgDiv");
+
+    imgDiv[imgCnt++].style.display = "none";
+}
+function imgBye() {
+    const imgDiv = document.getElementsByClassName("imgDiv");
+    if(imgCnt > 4){
+        imgCnt = 0;
+        imgDiv[imgCnt].style.display = "block";
+    }else {
+        imgDiv[imgCnt].style.display = "none";
+        imgDiv[++imgCnt].style.display = "block";
+    }
+}
+
+
 (function printCommunity() {
     const txt = document.querySelector(".txt");
 
     /* 본문  */
-    if (community.data.b_type === "1") {``
+    if (community.data.b_type === "1") {
         txt.innerText = "자유게시판";
     } else if (community.data.b_type === "2") {
         txt.innerText = "게임게시판";
@@ -223,16 +242,20 @@ function secondBox(c_id){
         txt.innerText = "코딩게시판";
     }
 
-    txt.innerHTML += `<div style="text-align: right;"><a href="community.html?b_type=${community.data.b_type}"><input type="button" value="목록" class="list_btn" /></a></div>`;
+    txt.innerHTML +=
+        `<div style="text-align: right;">` +
+            `<a href="community.html?b_type=${community.data.b_type}"><input type="button" value="목록" class="list_btn" /></a>` +
+        `</div>`;
 
     let real_div = `<div>`;
-    real_div += `<div class="info_div">`+
-        `<p class="title">${community.data.b_title}</p>` +
-        `<br>` +
-        `<span><img class="profile" src="data:image/jpg;base64, ${community.data.profile}" alt="Image" /></span>` +
-        `<span class="userId">${community.data.userId}</span><br>` +
-        `<span class="info">${community.data.b_date}</span>` +
-        `<span class="info">조회수 : ${community.data.b_count}</span>`;
+    real_div +=
+        `<div class="info_div">`+
+            `<p class="title">${community.data.b_title}</p>` +
+            `<br>` +
+            `<span><img class="profile" src="data:image/jpg;base64, ${community.data.profile}" alt="Image" /></span>` +
+            `<span class="userId">${community.data.userId}</span><br>` +
+            `<span class="info">${community.data.b_date}</span>` +
+            `<span class="info">조회수 : ${community.data.b_count}</span>`;
     if (userId === community.data.userId) {
         real_div += `<span><img class="icon" src="../static/delete.png" alt="deleteImg" onclick="communityDelete()" /></span>`;
         real_div += `<span><a href="modify.html?b_id=${b_id}"><img class="icon" src="../static/modify.png" alt="modifyImg" /></a></span>`;
@@ -243,13 +266,21 @@ function secondBox(c_id){
             real_div += `<span>${index.fileName}<img style="width: 20px; height: 20px;" src="../static/download.png" alt="Image" onclick="imageDownload(${index.i_id})"></span>`;
         }
     }
-    real_div += `<pre class="content">${community.data.b_content}</pre>` +
+    real_div +=
+        `<pre class="content">${community.data.b_content}</pre>` +
         '<br>';
 
     if (community.image.length > 0) {
+        // real_div +=
+            // `<div style="border: 1px solid black; width: 400px; height: 300px;">` ;
+                // `<span style="position: absolute"><button onclick="imgHI()"><</button></span><div style="display: flex;">`;
         for (let index of community.image) {
-            real_div += `<img class="content_image" src="data:image/jpg;base64, ${index.image}" alt="Image" />`;
+            real_div +=
+                // `<div class="imgDiv" style="border: 1px solid red;">` +
+                    `<img class="content_image" src="data:image/jpg;base64, ${index.image}" alt="Image" />` ;
+                // '</div>';
         }
+        // real_div += '</div><span style="position: absolute"><button onclick="imgBye()">></button></span></div>';
     }
     real_div += '</div>';
 
