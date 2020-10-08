@@ -222,6 +222,7 @@ section {
     font-size: 14px;
     text-align: left;
     background-color: white;
+    border: 1px solid black;
     border-radius: 5px;
     display: none;
     top: 30px;
@@ -267,4 +268,18 @@ section {
 .index_img_size {
     width: 12px;
     height: 12px;
+}
+
+.download_box {
+    width: 125px;
+    position: absolute;
+    padding: 7px;
+    font-size: 14px;
+    text-align: left;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    display: none;
+    top: 260px;
+    left: 760px;
 }

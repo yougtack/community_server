@@ -1,3 +1,5 @@
+document.getElementById("type").value = location.search.substr(location.search.indexOf("=") + 1);
+
 function insert(type, title, content) {
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
@@ -55,8 +57,8 @@ function imgInsert() {
 
 function valueCheck() {
     const title = document.getElementById("title"),
-        type = document.getElementById("type"),
         content = document.getElementById("content"),
+        type = document.getElementById("type"),
         files = document.getElementById("files").value;
 
     if (title.value.trim().length <= 0) {

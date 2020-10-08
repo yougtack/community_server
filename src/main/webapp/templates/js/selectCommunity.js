@@ -48,7 +48,7 @@ const community = {
     } else {
         txt.innerText = "코딩게시판";
     }
-    txt.innerHTML += '<a href="../templates/insert.html" style="margin-left: 80%;"><img src="../static/create.png" alt="HomeIcon" /></a>';
+    txt.innerHTML += `<a href="../templates/insert.html?type=${type}" style="margin-left: 80%;"><img src="../static/create.png" alt="HomeIcon" /></a>`;
 
     for (let index of community.data) {
         let cnt = 0;

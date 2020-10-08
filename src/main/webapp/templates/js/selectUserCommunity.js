@@ -227,6 +227,17 @@ function imgBye() {
     }
 }
 
+function download(){
+    let downloadBox = document.getElementsByClassName(`download_box`);
+
+    for (let i = 0; i < downloadBox.length; i++){
+        if(downloadBox[i].style.display === 'none'){
+            downloadBox[i].style.display = 'block';
+        }else{
+            downloadBox[i].style.display = 'none';
+        }
+    }
+}
 
 (function printCommunity() {
     const txt = document.querySelector(".txt");
@@ -262,9 +273,16 @@ function imgBye() {
     }
     real_div += `</div>`;
     if (community.image.length > 0) {
+        real_div +=
+            `<div style="text-align: right; margin: 10px 0 0 0;" onclick="download()">` +
+                `<img src="../static/folder.png" alt="folder" style="width: 20px; height: 20px;" />첨부파일[${community.image.length}]` +
+            `</div>` +
+            '<div class="download_box">';
         for (let index of community.image) {
-            real_div += `<span>${index.fileName}<img style="width: 20px; height: 20px;" src="../static/download.png" alt="Image" onclick="imageDownload(${index.i_id})"></span>`;
+            real_div +=
+                    `<div>${index.fileName}<img style="width: 20px; height: 20px;" src="../static/download.png" alt="Image" onclick="imageDownload(${index.i_id})"></div>`;
         }
+        real_div += '</div>';
     }
     real_div +=
         `<pre class="content">${community.data.b_content}</pre>` +
@@ -275,10 +293,14 @@ function imgBye() {
             // `<div style="border: 1px solid black; width: 400px; height: 300px;">` ;
                 // `<span style="position: absolute"><button onclick="imgHI()"><</button></span><div style="display: flex;">`;
         for (let index of community.image) {
-            real_div +=
-                // `<div class="imgDiv" style="border: 1px solid red;">` +
-                    `<img class="content_image" src="data:image/jpg;base64, ${index.image}" alt="Image" />` ;
+            let c = index.fileName.split(".");
+            c = c[1];
+            if(c === "png" || c === "jpg") {
+                real_div +=
+                    // `<div class="imgDiv" style="border: 1px solid red;">` +
+                    `<img class="content_image" src="data:image/jpg;base64, ${index.image}" alt="Image" />`;
                 // '</div>';
+            }
         }
         // real_div += '</div><span style="position: absolute"><button onclick="imgBye()">></button></span></div>';
     }
