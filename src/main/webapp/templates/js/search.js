@@ -49,7 +49,7 @@ const word = location.search.substr(location.search.indexOf("=") + 1);
             "<div style='margin-top: 20px;'>검색하신 내용이 존재하지 않습니다.</div>";
         document.write(real_tr);
     }else {
-        for (let index of txt.data) {
+        for (let index of searchList.data) {
             real_tr =
                 `<tr>` +
                     `<td >${index.b_id}</td>` +

@@ -343,6 +343,7 @@ function download(){
         /* 대댓글 입력 */
                 `<br>` +
                 `<div class="second_${value.c_id}" style="display:none; text-align: center;">` +
+                    `<p id="second_length" style="text-align: left; margin: 0 0 0 100px;"></p>` +
                     `<input id="second_content_${value.c_id}" type="text" class="comment_box" onkeyup="second_enter(${value.c_id})"/>` +
                     `<button class="comment_btn" onclick="secondInsert(${value.c_id})">등록</button>` +
                 `</div>`;
