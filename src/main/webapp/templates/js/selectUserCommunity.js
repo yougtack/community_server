@@ -21,6 +21,10 @@ function commentInsert() {
         alert("댓글에 내용을 작성해주세요.");
         document.getElementById("c_content").focus();
         return false;
+    } else if (document.getElementById("c_content").value.length > 50) {
+        alert("글자 제한 수를 초과하였습니다.");
+        document.getElementById("c_content").focus();
+        return false;
     }
 
     let xhttp = new XMLHttpRequest();
@@ -125,6 +129,20 @@ function commentDelete(c_id) {
 }
 
 function secondInsert(c_id) {
+    if (userId === "") {
+        alert("로그인이 필요합니다.");
+        location.href = "login.html";
+        return false;
+    } else if (document.getElementById(`second_content_${c_id}`).value.trim().length <= 0) {
+        alert("댓글에 내용을 작성해주세요.");
+        document.getElementById(`second_content_${c_id}`).focus();
+        return false;
+    } else if (document.getElementById(`second_content_${c_id}`).value.length > 50) {
+        alert("글자 제한 수를 초과하였습니다.");
+        document.getElementById(`second_content_${c_id}`).focus();
+        return false;
+    }
+
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
     const secondData = {
@@ -214,14 +232,15 @@ let imgCnt = 0;
 function imgHI() {
     const imgDiv = document.getElementsByClassName("imgDiv");
 
-    imgDiv[imgCnt++].style.display = "none";
+    if(imgCnt !== 0){
+        imgDiv[imgCnt].style.display = "none";
+        imgDiv[--imgCnt].style.display = "block";
+    }
+
 }
 function imgBye() {
     const imgDiv = document.getElementsByClassName("imgDiv");
-    if(imgCnt > 4){
-        imgCnt = 0;
-        imgDiv[imgCnt].style.display = "block";
-    }else {
+    if(imgCnt !== imgDiv.length -1){
         imgDiv[imgCnt].style.display = "none";
         imgDiv[++imgCnt].style.display = "block";
     }
@@ -275,12 +294,14 @@ function download(){
     if (community.image.length > 0) {
         real_div +=
             `<div style="text-align: right; margin: 10px 0 0 0;" onclick="download()">` +
-                `<img src="../static/folder.png" alt="folder" style="width: 20px; height: 20px;" />첨부파일[${community.image.length}]` +
+                `<img src="../static/folder.png" alt="folder" style="width: 20px; height: 20px;"/>첨부파일[${community.image.length}]` +
             `</div>` +
             '<div class="download_box">';
         for (let index of community.image) {
             real_div +=
-                    `<div>${index.fileName}<img style="width: 20px; height: 20px;" src="../static/download.png" alt="Image" onclick="imageDownload(${index.i_id})"></div>`;
+                    `<div onclick="imageDownload(${index.i_id})">${index.fileName}` +
+                        `<img style="width: 20px; height: 20px;" src="../static/download.png" alt="Image" onclick="imageDownload(${index.i_id})">` +
+                    `</div>`;
         }
         real_div += '</div>';
     }
@@ -289,23 +310,31 @@ function download(){
         '<br>';
 
     if (community.image.length > 0) {
-        // real_div +=
-            // `<div style="border: 1px solid black; width: 400px; height: 300px;">` ;
-                // `<span style="position: absolute"><button onclick="imgHI()"><</button></span><div style="display: flex;">`;
+        real_div +=
+            '<button onclick="imgHI()"><</button>' +
+            `<div style="border: 1px solid black; width: 400px; height: 300px;">`;
+        let q = 0;
         for (let index of community.image) {
             let c = index.fileName.split(".");
             c = c[1];
             if(c === "png" || c === "jpg") {
-                real_div +=
-                    // `<div class="imgDiv" style="border: 1px solid red;">` +
-                    `<img class="content_image" src="data:image/jpg;base64, ${index.image}" alt="Image" />`;
-                // '</div>';
+                if(q !== 0) {
+                    real_div +=
+                        `<span class="imgDiv" style="display: none;">` +
+                            `<img class="content_image" src="data:image/jpg;base64, ${index.image}" alt="Image" />` +
+                        '</span>';
+                }else {
+                    real_div +=
+                        `<span class="imgDiv">` +
+                            `<img class="content_image" src="data:image/jpg;base64, ${index.image}" alt="Image" />` +
+                        '</span>';
+                }
+                ++q;
             }
         }
-        // real_div += '</div><span style="position: absolute"><button onclick="imgBye()">></button></span></div>';
+        real_div += '</div>' +
+            '<button onclick="imgBye()">></button>';
     }
-    real_div += '</div>';
-
     real_div += `<br><hr><br>`;
     /* 댓글 */
     real_div += '<p class="txt" style="margin-left: 20px;">댓글</p>';
