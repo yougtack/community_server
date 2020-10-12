@@ -49,15 +49,15 @@ public class CommentController {
         }
         return commentService.update(commentModel);
     }
-    //2번째 댓글 수정
-    @PutMapping(value = "/second")
-    public Integer secondUpdate(@RequestBody SecondCommentModel secondCommentModel, HttpServletResponse response, HttpServletRequest request){
-        String loginUserId = LoginUtil.getCheckLogin(request);
-        if(CheckUtil.loginCheck(loginUserId, secondCommentModel.getUserId(), response, request) >= 1){
-            return 0;
-        }
-        return commentService.secondUpdate(secondCommentModel);
-    }
+//    //2번째 댓글 수정
+//    @PutMapping(value = "/second")
+//    public Integer secondUpdate(@RequestBody SecondCommentModel secondCommentModel, HttpServletResponse response, HttpServletRequest request){
+//        String loginUserId = LoginUtil.getCheckLogin(request);
+//        if(CheckUtil.loginCheck(loginUserId, secondCommentModel.getUserId(), response, request) >= 1){
+//            return 0;
+//        }
+//        return commentService.secondUpdate(secondCommentModel);
+//    }
 
 
     //댓글 삭제

@@ -22,7 +22,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Integer secondInsert(SecondCommentModel secondCommentModel){
-        return dao.secondInsert(secondCommentModel.getC_id(), secondCommentModel.getC_content(), secondCommentModel.getUserId());
+        return dao.secondInsert(secondCommentModel.getB_id(), secondCommentModel.getRecomment_id(), secondCommentModel.getC_content(), secondCommentModel.getUserId());
     }
 
     @Override
@@ -30,10 +30,10 @@ public class CommentServiceImpl implements CommentService {
         return dao.update(commentModel.getC_id(), commentModel.getC_content());
     }
 
-    @Override
-    public Integer secondUpdate(SecondCommentModel secondCommentModel){
-        return dao.secondUpdate(secondCommentModel.getSecond_id(), secondCommentModel.getC_content());
-    }
+//    @Override
+//    public Integer secondUpdate(SecondCommentModel secondCommentModel){
+//        return dao.secondUpdate(secondCommentModel.getSecond_id(), secondCommentModel.getC_content());
+//    }
 
     @Override
     public Integer delete(int c_id) {
