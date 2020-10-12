@@ -9,7 +9,7 @@ public class SecondCommentModel {
     private int second_id;
     private int c_id;
     private String c_content;
-    private String c_date;
+    private Long c_date;
     private String userId;
     private byte[] profile;
 }
