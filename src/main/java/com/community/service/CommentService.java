@@ -12,7 +12,7 @@ public interface CommentService {
     Integer secondInsert(SecondCommentModel secondCommentModel);
 
     Integer update(CommentModel commentModel);
-    Integer secondUpdate(SecondCommentModel secondCommentModel);
+//    Integer secondUpdate(SecondCommentModel secondCommentModel);
 
     Integer delete(int c_id);
     Integer secondDelete(int second_id);
