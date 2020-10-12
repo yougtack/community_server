@@ -261,7 +261,7 @@ function download(){
 
 (function printCommunity() {
     const txt = document.querySelector(".txt");
-
+    const time = new Date(community.data.b_date * 1000);
     /* 본문  */
     if (community.data.b_type === "1") {
         txt.innerText = "자유게시판";
@@ -272,10 +272,10 @@ function download(){
     } else {
         txt.innerText = "코딩게시판";
     }
-
+    //<input type="button" value="목록" class="list_btn" />
     txt.innerHTML +=
         `<div style="text-align: right;">` +
-            `<a href="community.html?b_type=${community.data.b_type}"><input type="button" value="목록" class="list_btn" /></a>` +
+            `<a href="community.html?b_type=${community.data.b_type}"><img src="../static/list.png" alt="IMG" /></a>` +
         `</div>`;
 
     let real_div = `<div>`;
@@ -285,7 +285,12 @@ function download(){
             `<br>` +
             `<span><img class="profile" src="data:image/jpg;base64, ${community.data.profile}" alt="Image" /></span>` +
             `<span class="userId">${community.data.userId}</span><br>` +
-            `<span class="info">${community.data.b_date}</span>` +
+            `<span class="info">` +
+                            `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
+                            `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
+                            `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
+                            `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}` +
+            `</span>` +
             `<span class="info"><img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${community.data.b_count}</span>`;
     if (userId === community.data.userId) {
         real_div += `<span><img class="icon" src="../static/delete.png" alt="deleteImg" onclick="communityDelete()" /></span>`;
@@ -354,6 +359,7 @@ function download(){
             `</div>`+
             `<br><br>`;
     for (let value of community.data.comments) {
+        const time = new Date(value.c_date * 1000);
         real_comment +=
             `<hr>`+
             `<img class="second_profile" src="data:image/jpg;base64, ${value.profile}" alt="Image" />` +
@@ -361,7 +367,12 @@ function download(){
                 `<button class="comment_txt" onclick="secondBox(${value.c_id})">댓글쓰기</button>` +
             `</div>`;
         real_comment +=
-            `<div class="info">${value.c_date}</div>`;
+            `<div class="info">` +
+                `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
+                `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
+                `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
+                `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}` +
+            `</div>`;
         if (userId === value.userId) {
             real_comment +=
                 `<span><img class="icon" src="../static/delete.png" alt="deleteImg" onclick="commentDelete(${value.c_id})" /></span>` +
