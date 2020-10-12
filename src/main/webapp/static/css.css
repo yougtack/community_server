@@ -62,8 +62,8 @@ th, td {
 /* --------------------- */
 
 .u_profile {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
 }
 
 .profile {
@@ -122,10 +122,6 @@ section {
 
 .input_button {
     width: 25%;
-}
-
-.community {
-    margin: 10px 0 0 0;
 }
 
 /* userCommunity */
@@ -216,7 +212,7 @@ section {
 }
 
 .info_box {
-    width: 105px;
+    width: 50px;
     position: absolute;
     padding: 7px;
     font-size: 14px;
@@ -232,13 +228,14 @@ section {
 /* index */
 .index_div {
     width: 30%;
-    display:inline-grid;
+    display: inline-grid;
     margin: 20px 110px 0 0;
 }
 
 .index_box {
     border: 1px solid #ddd;
     border-left: 5px solid #0059ab;
+    width: 90%;
 }
 
 .index_item {
@@ -282,4 +279,19 @@ section {
     display: none;
     top: 260px;
     left: 1050px;
+}
+
+.cnt_size {
+    font-size: 12px;
+}
+
+.community_info {
+    float: right;
+}
+
+/* profile_div */
+.profile_div {
+    width: 70%;
+    margin: 20px 0 0 0;
+    text-align: center;
 }

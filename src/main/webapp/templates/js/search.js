@@ -29,36 +29,40 @@ const word = location.search.substr(location.search.indexOf("=") + 1);
 
 (function printCommunity() {
     const txt = document.querySelector(".txt");
-    let real_tr;
-    real_tr =
-        `<tr>` +
-            `<td style="width: 5%;">번호</td>` +
-            `<td style="width: 30%;">이름</td>` +
-            `<td style="width: 35%;">날짜</td>` +
-            `<td style="width: 25%;">작성자</td>` +
-            `<td style="width: 5%;">조회수</td>` +
-        `</tr>`;
-    document.write(real_tr);
+    let real_body = '';
 
     txt.innerText = "검색결과";
     txt.innerHTML +=
         '<a href="../templates/insert.html" style="margin-left: 80%;"><img src="../static/create.png" alt="HomeIcon" /></a>';
 
     if(searchList.data.length === 0) {
-        real_tr =
+        real_body =
             "<div style='margin-top: 20px;'>검색하신 내용이 존재하지 않습니다.</div>";
-        document.write(real_tr);
+        document.write(real_body);
     }else {
         for (let index of searchList.data) {
-            real_tr =
-                `<tr>` +
-                    `<td >${index.b_id}</td>` +
-                    `<td><a class="community_a" href="userCommunity.html?b_id=${index.b_id}">${index.b_title}</a></td>` +
-                    `<td>${index.b_date}</td>` +
-                    `<td>${index.userId}</td>` +
-                    `<td>${index.b_count}</td>` +
-                `</tr>`;
-            document.write(real_tr);
+            let cnt = 0;
+            const time = new Date(index.b_date * 1000);
+                for (let count of index.comments) {
+                    ++cnt;
+                }
+                real_body +=
+                    `<div class="index_box">` +
+                        '<div class="index_item">' +
+                            `<span style="font-size: 14px;">#${index.b_id}</span>` +
+                            `<span class="community_info">${index.userId}</span>` +
+                            '<br>' +
+                            `<span><a class="index_title" href="userCommunity.html?b_id=${index.b_id}">${index.b_title}</a><span class="cnt_size">[${cnt}]</span></span>` +
+                            `<span class="community_info" style="font-size: 12px;">` +
+                                `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
+                                `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
+                                `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
+                                `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}` +
+                            `</span>` +
+                            `<span class="index_img"><img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${index.b_count}</span>` +
+                        '</div>' +
+                    '</div>';
+            }
+        document.write(real_body);
         }
-    }
 })();

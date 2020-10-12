@@ -285,7 +285,7 @@ function download(){
             `<span><img class="profile" src="data:image/jpg;base64, ${community.data.profile}" alt="Image" /></span>` +
             `<span class="userId">${community.data.userId}</span><br>` +
             `<span class="info">${community.data.b_date}</span>` +
-            `<span class="info">조회수 : ${community.data.b_count}</span>`;
+            `<span class="info"><img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${community.data.b_count}</span>`;
     if (userId === community.data.userId) {
         real_div += `<span><img class="icon" src="../static/delete.png" alt="deleteImg" onclick="communityDelete()" /></span>`;
         real_div += `<span><a href="modify.html?b_id=${b_id}"><img class="icon" src="../static/modify.png" alt="modifyImg" /></a></span>`;

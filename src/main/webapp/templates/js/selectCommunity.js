@@ -21,10 +21,6 @@ const community = {
     };
 
     xhttp.send();
-    console.log(community.data);
-    const b = new Date(community.data[0].b_date).toString();
-    console.log(community.data[0].b_date);
-    console.log(b);
 })();
 
 (function printCommunity() {
@@ -45,23 +41,28 @@ const community = {
 
     for (let index of community.data) {
         let cnt = 0;
+        const time = new Date(index.b_date * 1000);
         if (type === index.b_type) {
             for (let count of index.comments) {
                 ++cnt;
             }
             real_body +=
-                `<div class="index_box" style="width: 90%">` +
+                `<div class="index_box">` +
                     '<div class="index_item">' +
                         `<span style="font-size: 14px;">#${index.b_id}</span>` +
+                        `<span class="community_info">${index.userId}</span>` +
                         '<br>' +
-                        `<span class="index_title"><a href="userCommunity.html?b_id=${index.b_id}">${index.b_title}[${cnt}]</a></span>` +
-                        `<span class="" style="float: right">${index.userId}</span>` +
-                        `<span class="" style="float: right;">${index.b_date}</span>` +
-                        `<span class=""><img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${index.b_count}</span>` +
+                        `<span><a class="index_title" href="userCommunity.html?b_id=${index.b_id}">${index.b_title}</a><span class="cnt_size">[${cnt}]</span></span>` +
+                        `<span class="community_info" style="font-size: 12px;">` +
+                            `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
+                            `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
+                            `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
+                            `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}` +
+                        `</span>` +
+                        `<span class="index_img"><img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${index.b_count}</span>` +
                     '</div>' +
                 '</div>';
-
-            document.write(real_body);
         }
     }
+    document.write(real_body);
 })();

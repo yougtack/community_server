@@ -66,9 +66,7 @@ if (!!document.cookie) {
         `${document.cookie.substr(7,)}님` +
         `<img class="main_sidebar_icon" src="../static/settings.png" alt="Img" onclick="myInfoBox()" />` +
         `<div class="box info_box">` +
-            `<a href="profile.html">프로필 변경</a>` +
-            `<br>` +
-            `<a href="password.html">비밀번호 변경</a>` +
+            `<a href="profile.html">프로필</a>` +
         `</div>`;
 }
 real_header +=
