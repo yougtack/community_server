@@ -44,14 +44,27 @@
 
     <select id="getBoardList" resultMap="boardMap">
         SELECT
-            c.b_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId, m.profile,
+            c.b_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId,
             cc.c_content
         FROM
             community AS c
         LEFT OUTER JOIN
             community_comment AS cc ON c.b_id = cc.b_id
+        ORDER BY
+            c.b_id
+        DESC
+    </select>
+
+    <select id="getMyBoardList" resultMap="boardMap">
+        SELECT
+            c.b_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId,
+            cc.c_content
+        FROM
+            community AS c
         LEFT OUTER JOIN
-            community_member AS m ON c.userId = m.userId
+            community_comment AS cc ON c.b_id = cc.b_id
+        WHERE
+            c.userId = #{userId}
         ORDER BY
             c.b_id
         DESC

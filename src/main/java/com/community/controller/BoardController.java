@@ -27,6 +27,12 @@ public class BoardController {
         return boardService.getBoardList();
     }
 
+    //내가쓴 글
+    @GetMapping(value = "myBoardList")
+    public List<BoardModel> myBoardList(@RequestBody BoardModel boardModel){
+        return boardService.getMyBoardList(boardModel);
+    }
+
     //게시글 작성 하기
     @PostMapping(value = "/community")
     public Integer insert(@RequestBody ViewModel viewModel, HttpServletResponse response, HttpServletRequest request){
