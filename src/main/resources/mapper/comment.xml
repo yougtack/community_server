@@ -19,7 +19,7 @@
 
     <insert id="secondInsert" parameterType="String">
         INSERT INTO
-            test(b_id, recomment_id, content, c_date, userId)
+            community_comment(b_id, recomment_id, c_content, c_date, userId)
         VALUES
             (${b_id}, ${recomment_id}, #{c_content}, unix_timestamp(now()), #{userId})
     </insert>
@@ -28,18 +28,9 @@
         UPDATE
             community_comment
         SET
-            c_content = #{c_content}
+            c_content = #{c_content}, c_date = unix_timestamp(now())
         WHERE
             c_id = ${c_id}
-    </update>
-
-    <update id="secondUpdate" parameterType="String">
-        UPDATE
-            community_comment_1
-        SET
-            c_content = #{c_content}
-        WHERE
-            second_id= ${second_id}
     </update>
 
     <delete id="delete" parameterType="String">
@@ -47,12 +38,5 @@
             community_comment
         WHERE
             c_id = ${c_id}
-    </delete>
-
-    <delete id="secondDelete" parameterType="String">
-        DELETE FROM
-            community_comment_1
-        WHERE
-            second_id = ${second_id}
     </delete>
 </mapper>

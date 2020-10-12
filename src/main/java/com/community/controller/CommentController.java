@@ -43,22 +43,12 @@ public class CommentController {
     //댓글 수정
     @PutMapping
     public Integer update(@RequestBody CommentModel commentModel, HttpServletResponse response, HttpServletRequest request){
-        String loginUserId = LoginUtil.getCheckLogin(request);
-        if(CheckUtil.loginCheck(loginUserId, commentModel.getUserId(), response, request) >= 1){
-            return 0;
-        }
-        return commentService.update(commentModel);
-    }
-//    //2번째 댓글 수정
-//    @PutMapping(value = "/second")
-//    public Integer secondUpdate(@RequestBody SecondCommentModel secondCommentModel, HttpServletResponse response, HttpServletRequest request){
 //        String loginUserId = LoginUtil.getCheckLogin(request);
-//        if(CheckUtil.loginCheck(loginUserId, secondCommentModel.getUserId(), response, request) >= 1){
+//        if(CheckUtil.loginCheck(loginUserId, commentModel.getUserId(), response, request) >= 1){
 //            return 0;
 //        }
-//        return commentService.secondUpdate(secondCommentModel);
-//    }
-
+        return commentService.update(commentModel);
+    }
 
     //댓글 삭제
     @DeleteMapping(value = "/{c_id}")
@@ -68,15 +58,5 @@ public class CommentController {
             return 0;
         }
         return commentService.delete(c_id);
-    }
-
-    //2번째 댓글 삭제
-    @DeleteMapping(value = "/second/{second_id}")
-    public Integer secondDelete(@PathVariable int second_id, @RequestBody CheckUserModel checkUserModel, HttpServletResponse response, HttpServletRequest request){
-        String loginUserId = LoginUtil.getCheckLogin(request);
-        if(CheckUtil.loginCheck(loginUserId, checkUserModel.getUserId(), response, request) >= 1){
-            return 0;
-        }
-        return commentService.secondDelete(second_id);
     }
 }
