@@ -21,23 +21,16 @@ const community = {
     };
 
     xhttp.send();
+    console.log(community.data);
+    const b = new Date(community.data[0].b_date).toString();
+    console.log(community.data[0].b_date);
+    console.log(b);
 })();
 
 (function printCommunity() {
     const type = location.search.substr(location.search.indexOf("=") + 1);
     const txt = document.querySelector(".txt");
-    let real_tr = '';
-
-    real_tr +=
-        `<tr>` +
-            `<td style="width: 5%;">번호</td>` +
-            `<td style="width: 30%;">제목</td>` +
-            `<td style="width: 35%;">날짜</td>` +
-            `<td style="width: 25%;">작성자</td>` +
-            `<td style="width: 5%;">조회수</td>` +
-        `</tr>`;
-
-    document.write(real_tr);
+    let real_body = '';
 
     if (type === "1") {
         txt.innerText = "자유게시판";
@@ -53,19 +46,22 @@ const community = {
     for (let index of community.data) {
         let cnt = 0;
         if (type === index.b_type) {
-            real_tr =
-                `<tr>` +
-                `<td >${index.b_id}</td>`;
             for (let count of index.comments) {
                 ++cnt;
             }
-            real_tr +=
-                `<td><a href="userCommunity.html?b_id=${index.b_id}">${index.b_title}</a>[${cnt}]</td>` +
-                `<td>${index.b_date}</td>` +
-                `<td>${index.userId}</td>` +
-                `<td>${index.b_count}</td>` +
-                `</tr>`;
-            document.write(real_tr);
+            real_body +=
+                `<div class="index_box" style="width: 90%">` +
+                    '<div class="index_item">' +
+                        `<span style="font-size: 14px;">#${index.b_id}</span>` +
+                        '<br>' +
+                        `<span class="index_title"><a href="userCommunity.html?b_id=${index.b_id}">${index.b_title}[${cnt}]</a></span>` +
+                        `<span class="" style="float: right">${index.userId}</span>` +
+                        `<span class="" style="float: right;">${index.b_date}</span>` +
+                        `<span class=""><img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${index.b_count}</span>` +
+                    '</div>' +
+                '</div>';
+
+            document.write(real_body);
         }
     }
 })();
