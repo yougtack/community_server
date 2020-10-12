@@ -82,14 +82,14 @@
         INSERT INTO
             community(b_type, b_title, b_date, b_content, userId)
         VALUES
-            (#{b_type}, #{b_title}, now(), #{b_content}, #{user_id})
+            (#{b_type}, #{b_title}, unix_timestamp(now()), #{b_content}, #{user_id})
     </insert>
 
     <update id="update" parameterType="String">
         UPDATE
             community
         SET
-            b_type = #{b_type}, b_title = #{b_title}, b_content = #{b_content}, b_date = now()
+            b_type = #{b_type}, b_title = #{b_title}, b_content = #{b_content}, b_date = unix_timestamp(now())
         WHERE
             b_id = ${b_id}
     </update>
