@@ -43,10 +43,10 @@ public class CommentController {
     //댓글 수정
     @PutMapping
     public Integer update(@RequestBody CommentModel commentModel, HttpServletResponse response, HttpServletRequest request){
-//        String loginUserId = LoginUtil.getCheckLogin(request);
-//        if(CheckUtil.loginCheck(loginUserId, commentModel.getUserId(), response, request) >= 1){
-//            return 0;
-//        }
+        String loginUserId = LoginUtil.getCheckLogin(request);
+        if(CheckUtil.loginCheck(loginUserId, commentModel.getUserId(), response, request) >= 1){
+            return 0;
+        }
         return commentService.update(commentModel);
     }
 
