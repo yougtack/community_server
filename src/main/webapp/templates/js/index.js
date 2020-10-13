@@ -55,14 +55,10 @@ let c_length = 0;
         if (rank_length >= 10) {
             break;
         } else {
-            let cnt = 0;
-            for (let count of value.comments) {
-                ++cnt;
-            }
             rank_div +=
                 `<div class="index_box">` +
                     '<div class="index_item">' +
-                        `<span><a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a><span class="cnt_size">[${cnt}]</span></span>` +
+                        `<span><a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a><span class="cnt_size">[${value.commentCount}]</span></span>` +
                         `<span class="index_date">` +
                             `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
                             `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
@@ -92,14 +88,10 @@ let c_length = 0;
             if (c_length >= 5) {
                 break;
             } else {
-                let cnt = 0;
-                for (let count of value.comments) {
-                    ++cnt;
-                }
                 free_div +=
                     `<div class="index_box">` +
                         '<div class="index_item">' +
-                            `<span><a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a><span class="cnt_size">[${cnt}]</span></span>` +
+                            `<span><a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a><span class="cnt_size">[${value.commentCount}]</span></span>` +
                             `<span class="index_date">` +
                                 `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
                                 `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
@@ -121,45 +113,6 @@ let c_length = 0;
     document.write(free_div);
 })();
 
-(function gamePrint() {
-    let game_div =
-        '<div class="index_div">' +
-            '<p class="txt">게임게시판</p>';
-    for (let value of indexData.data) {
-        const time = new Date(value.b_date * 1000);
-        if(value.b_type === "2") {
-            if (c_length >= 5) {
-                break;
-            } else {
-                let cnt = 0;
-                for (let count of value.comments) {
-                    ++cnt;
-                }
-                game_div +=
-                    `<div class="index_box">` +
-                        '<div class="index_item">' +
-                            `<span><a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a><span class="cnt_size">[${cnt}]</span></span>` +
-                            `<span class="index_date">` +
-                                `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
-                                `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
-                                `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
-                                `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}` +
-                            `</span>` +
-                            '<br>' +
-                            `<span class="index_userId">${value.userId}</span>` +
-                            `<span class="index_img"><img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${value.b_count}</span>` +
-                        '</div>' +
-                    '</div>';
-            }
-            ++c_length;
-        }
-    }
-    game_div += '</div>';
-
-    c_length = 0;
-    document.write(game_div);
-})();
-
 (function foodPrint() {
     let food_div =
         '<div class="index_div">' +
@@ -170,14 +123,10 @@ let c_length = 0;
             if (c_length >= 5) {
                 break;
             } else {
-                let cnt = 0;
-                for (let count of value.comments) {
-                    ++cnt;
-                }
                 food_div +=
                     `<div class="index_box">` +
                         '<div class="index_item">' +
-                            `<span><a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a><span class="cnt_size">[${cnt}]</span></span>` +
+                            `<span><a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a><span class="cnt_size">[${value.commentCount}}]</span></span>` +
                             `<span class="index_date">` +
                                 `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
                                 `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
@@ -199,6 +148,41 @@ let c_length = 0;
     document.write(food_div);
 })();
 
+(function gamePrint() {
+    let game_div =
+        '<div class="index_div">' +
+        '<p class="txt">게임게시판</p>';
+    for (let value of indexData.data) {
+        const time = new Date(value.b_date * 1000);
+        if(value.b_type === "2") {
+            if (c_length >= 5) {
+                break;
+            } else {
+                game_div +=
+                    `<div class="index_box">` +
+                    '<div class="index_item">' +
+                    `<span><a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a><span class="cnt_size">[${value.commentCount}}]</span></span>` +
+                    `<span class="index_date">` +
+                    `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
+                    `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
+                    `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
+                    `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}` +
+                    `</span>` +
+                    '<br>' +
+                    `<span class="index_userId">${value.userId}</span>` +
+                    `<span class="index_img"><img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${value.b_count}</span>` +
+                    '</div>' +
+                    '</div>';
+            }
+            ++c_length;
+        }
+    }
+    game_div += '</div>';
+
+    c_length = 0;
+    document.write(game_div);
+})();
+
 (function codingPrint() {
     let coding_div =
         '<div class="index_div">' +
@@ -209,14 +193,10 @@ let c_length = 0;
             if (c_length >= 5) {
                 break;
             } else {
-                let cnt = 0;
-                for (let count of value.comments) {
-                    ++cnt;
-                }
                 coding_div +=
                     `<div class="index_box">` +
                         '<div class="index_item">' +
-                            `<span><a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a><span class="cnt_size">[${cnt}]</span></span>` +
+                            `<span><a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a><span class="cnt_size">[${value.commentCount}]</span></span>` +
                             `<span class="index_date">` +
                                 `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
                                 `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
