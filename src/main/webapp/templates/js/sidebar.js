@@ -66,17 +66,15 @@ if (!!document.cookie) {
         `${document.cookie.substr(7,)}님` +
         `<img class="main_sidebar_icon" src="../static/settings.png" alt="Img" onclick="myInfoBox()" />` +
         `<div class="box info_box">` +
-            `<a href="profile.html">프로필 변경</a>` +
-            `<br>` +
-            `<a href="password.html">비밀번호 변경</a>` +
+            `<a href="profile.html">프로필</a>` +
         `</div>`;
 }
 real_header +=
         '<br>' +
         '<br>' +
         '<div style="margin-bottom: 20px;">' +
-            '<input type="text" id="word" style="width: 120px; margin-left: 5px;" placeholder="제목 검색"/>' +
-            '<input type="button" value="검색" onclick="s_search()" style="width: 50px;"/>' +
+            '<input type="text" id="word" style="width: 120px; padding: 10px;" placeholder="제목 검색"/>' +
+            '<input type="button" value="검색" onclick="s_search()" style="width: 55px; padding: 10px;"/>' +
         '</div>' +
         '<div class="main_category">' +
             '<a href="community.html?b_type=1">자유게시판<img class="main_sidebar_icon" src="../static/people.png" alt="img"/></a>' +

@@ -51,6 +51,7 @@ let c_length = 0;
             '<div style="width: 70%;">' +
                 '<p class="txt">인기게시글</p>';
     for (let value of indexData.rankData) {
+        const time = new Date(value.b_date * 1000);
         if (rank_length >= 10) {
             break;
         } else {
@@ -61,8 +62,13 @@ let c_length = 0;
             rank_div +=
                 `<div class="index_box">` +
                     '<div class="index_item">' +
-                        `<span class="index_title"><a href="userCommunity.html?b_id=${value.b_id}">${value.b_title}[${cnt}]</a></span>` +
-                        `<span class="index_date">${value.b_date}</span>` +
+                        `<span><a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a><span class="cnt_size">[${cnt}]</span></span>` +
+                        `<span class="index_date">` +
+                            `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
+                            `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
+                            `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
+                            `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}` +
+                        `</span>` +
                         '<br>' +
                         `<span class="index_userId">${value.userId}</span>` +
                         `<span class="index_img"><img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${value.b_count}</span>` +
@@ -81,6 +87,7 @@ let c_length = 0;
         '<div class="index_div">' +
             '<p class="txt">자유게시판</p>';
     for (let value of indexData.data) {
+        const time = new Date(value.b_date * 1000);
         if(value.b_type === "1") {
             if (c_length >= 5) {
                 break;
@@ -92,8 +99,13 @@ let c_length = 0;
                 free_div +=
                     `<div class="index_box">` +
                         '<div class="index_item">' +
-                            `<span class="index_title"><a href="userCommunity.html?b_id=${value.b_id}">${value.b_title}[${cnt}]</a></span>` +
-                            `<span class="index_date">${value.b_date}</span>` +
+                            `<span><a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a><span class="cnt_size">[${cnt}]</span></span>` +
+                            `<span class="index_date">` +
+                                `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
+                                `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
+                                `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
+                                `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}` +
+                            `</span>` +
                             '<br>' +
                             `<span class="index_userId">${value.userId}</span>` +
                             `<span class="index_img"><img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${value.b_count}</span>` +
@@ -114,6 +126,7 @@ let c_length = 0;
         '<div class="index_div">' +
             '<p class="txt">게임게시판</p>';
     for (let value of indexData.data) {
+        const time = new Date(value.b_date * 1000);
         if(value.b_type === "2") {
             if (c_length >= 5) {
                 break;
@@ -125,8 +138,13 @@ let c_length = 0;
                 game_div +=
                     `<div class="index_box">` +
                         '<div class="index_item">' +
-                            `<span class="index_title"><a href="userCommunity.html?b_id=${value.b_id}">${value.b_title}[${cnt}]</a></span>` +
-                            `<span class="index_date">${value.b_date}</span>` +
+                            `<span><a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a><span class="cnt_size">[${cnt}]</span></span>` +
+                            `<span class="index_date">` +
+                                `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
+                                `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
+                                `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
+                                `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}` +
+                            `</span>` +
                             '<br>' +
                             `<span class="index_userId">${value.userId}</span>` +
                             `<span class="index_img"><img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${value.b_count}</span>` +
@@ -147,6 +165,7 @@ let c_length = 0;
         '<div class="index_div">' +
             '<p class="txt">음식게시판</p>';
     for (let value of indexData.data) {
+        const time = new Date(value.b_date * 1000);
         if(value.b_type === "3") {
             if (c_length >= 5) {
                 break;
@@ -158,8 +177,13 @@ let c_length = 0;
                 food_div +=
                     `<div class="index_box">` +
                         '<div class="index_item">' +
-                            `<span class="index_title"><a href="userCommunity.html?b_id=${value.b_id}">${value.b_title}[${cnt}]</a></span>` +
-                            `<span class="index_date">${value.b_date}</span>` +
+                            `<span><a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a><span class="cnt_size">[${cnt}]</span></span>` +
+                            `<span class="index_date">` +
+                                `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
+                                `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
+                                `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
+                                `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}` +
+                            `</span>` +
                             '<br>' +
                             `<span class="index_userId">${value.userId}</span>` +
                             `<span class="index_img"><img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${value.b_count}</span>` +
@@ -180,6 +204,7 @@ let c_length = 0;
         '<div class="index_div">' +
             '<p class="txt">코딩게시판</p>';
     for (let value of indexData.data) {
+        const time = new Date(value.b_date * 1000);
         if(value.b_type === "4") {
             if (c_length >= 5) {
                 break;
@@ -191,8 +216,13 @@ let c_length = 0;
                 coding_div +=
                     `<div class="index_box">` +
                         '<div class="index_item">' +
-                            `<span class="index_title"><a href="userCommunity.html?b_id=${value.b_id}">${value.b_title}[${cnt}]</a></span>` +
-                            `<span class="index_date">${value.b_date}</span>` +
+                            `<span><a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a><span class="cnt_size">[${cnt}]</span></span>` +
+                            `<span class="index_date">` +
+                                `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
+                                `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
+                                `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
+                                `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}` +
+                            `</span>` +
                             '<br>' +
                             `<span class="index_userId">${value.userId}</span>` +
                             `<span class="index_img"><img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${value.b_count}</span>` +

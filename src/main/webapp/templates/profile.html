@@ -11,20 +11,46 @@
         <script src="js/sidebar.js"></script>
     </div>
     <section>
-        <p class="txt">프로필 변경</p>
-        <br>
-        <br>
-        <p>적용 중인 프로필</p>
-        <br>
-        <div id="user_profile_view"></div>
-        <br>
-        <br>
-        <input type="file" id="user_profile" accept="image/*" />
-        <div style="margin: 20px 0 0 0; text-align: center;">
-            <input type="button" value="변경" onclick="profileChange()" />
+        <p class="txt">프로필</p>
+        <div class="profile_div">
+            <div style="display: inline-block;">
+                <p>적용 중인 프로필</p>
+                <div id="user_profile_view"></div>
+                <input type="file" id="user_profile" accept="image/*"/>
+                <div style="margin: 20px 0 0 0; text-align: center;">
+                    <input type="button" value="변경" onclick="profileChange()" />
+                </div>
+            </div>
+            <div style="display: inline-block">
+                <p class="txt">비밀번호 변경</p>
+                <div>
+                    비밀번호 변경
+                    <br>
+                    <input type="password" id="user_password" onkeyup="enter()"/>
+                </div>
+                <div>
+                    <br>
+                    비밀번호 변경 확인
+                    <br>
+                    <input type="password" id="user_password_check" onkeyup="enter()"/>
+                </div>
+                <div style="margin: 20px 0 0 0; text-align: center;">
+                    <input type="button" value="변경" onclick="passwordCheck()"/>
+                </div>
+            </div>
+        </div>
+        <div class="profile_div">
+            <p>내가 쓴 게시글</p>
         </div>
     </section>
     <script src="js/profile.js"></script>
     <script src="js/word.js"></script>
 </body>
+<script>
+    let img = document.getElementById("test");
+    for (let x = 0; x < img.length; x++) {
+        console.log("HI");
+        img.item(x).onclick=function() {window.open(this.src)};
+    }
+</script>
 </html>

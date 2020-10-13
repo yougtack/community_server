@@ -13,12 +13,12 @@ function imageDownload(i_id) {
 }
 
 function commentInsert() {
-    if (userId === "") {
-        alert("로그인이 필요합니다.");
-        location.href = "login.html";
-        return false;
-    } else if (document.getElementById("c_content").value.trim().length <= 0) {
+    if (document.getElementById("c_content").value.trim().length <= 0) {
         alert("댓글에 내용을 작성해주세요.");
+        document.getElementById("c_content").focus();
+        return false;
+    } else if (document.getElementById("c_content").value.length > 50) {
+        alert("글자 제한 수를 초과하였습니다.");
         document.getElementById("c_content").focus();
         return false;
     }
@@ -71,16 +71,17 @@ function communityDelete() {
     }
 }
 
-function secondeDelete(second_id) {
+function secondDelete(c_id) {
     if (confirm("해당 댓글을 삭제하시겠습니까?")) {
         let xhttp = new XMLHttpRequest();
+        console.log(c_id);
         const url = "http://localhost:8080";
         const deleteData = {
-            second_i: second_id,
+            c_id: c_id,
             userId: userId
         };
 
-        xhttp.open("DELETE", url + `/comment/second/${second_id}`, false);
+        xhttp.open("DELETE", url + `/comment/${c_id}`, false);
 
         xhttp.onreadystatechange = () => {
             if (xhttp.status !== 200) {
@@ -125,10 +126,21 @@ function commentDelete(c_id) {
 }
 
 function secondInsert(c_id) {
+    if (document.getElementById(`second_content_${c_id}`).value.trim().length <= 0) {
+        alert("댓글에 내용을 작성해주세요.");
+        document.getElementById(`second_content_${c_id}`).focus();
+        return false;
+    } else if (document.getElementById(`second_content_${c_id}`).value.length > 50) {
+        alert("글자 제한 수를 초과하였습니다.");
+        document.getElementById(`second_content_${c_id}`).focus();
+        return false;
+    }
+
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
     const secondData = {
-        c_id: c_id,
+        b_id, b_id,
+        recomment_id: c_id,
         userId: userId,
         c_content: document.getElementById(`second_content_${c_id}`).value
     };
@@ -148,12 +160,6 @@ function secondInsert(c_id) {
     location.href = `userCommunity.html?b_id=${b_id}`;
 }
 
-function enter() {
-    if (window.event.keyCode === 13) {
-        commentInsert();
-    }
-}
-
 function second_enter(c_id) {
     if (window.event.keyCode === 13) {
         secondInsert(c_id);
@@ -162,6 +168,7 @@ function second_enter(c_id) {
 
 function secondBox(c_id){
     let second = document.getElementsByClassName(`second_${c_id}`);
+    console.log(c_id);
 
     for (let i = 0; i < second.length; i++){
         if(second[i].style.display === 'none'){
@@ -189,7 +196,6 @@ function secondBox(c_id){
     };
 
     xhttp.send();
-    console.log(community.data);
 })();
 
 (function image() {
@@ -210,23 +216,26 @@ function secondBox(c_id){
     xhttp.send();
 })();
 
+/* test functuon */
 let imgCnt = 0;
 
 function imgHI() {
     const imgDiv = document.getElementsByClassName("imgDiv");
 
-    imgDiv[imgCnt++].style.display = "none";
+    if(imgCnt !== 0){
+        imgDiv[imgCnt].style.display = "none";
+        imgDiv[--imgCnt].style.display = "block";
+    }
+
 }
 function imgBye() {
     const imgDiv = document.getElementsByClassName("imgDiv");
-    if(imgCnt > 4){
-        imgCnt = 0;
-        imgDiv[imgCnt].style.display = "block";
-    }else {
+    if(imgCnt !== imgDiv.length -1){
         imgDiv[imgCnt].style.display = "none";
         imgDiv[++imgCnt].style.display = "block";
     }
 }
+/*  */
 
 function download(){
     let downloadBox = document.getElementsByClassName(`download_box`);
@@ -240,8 +249,16 @@ function download(){
     }
 }
 
+let cnt = 0;
+
 (function printCommunity() {
     const txt = document.querySelector(".txt");
+    const time = new Date(community.data.b_date * 1000);
+
+    for (let c of community.data.comments){
+        ++cnt
+    }
+
 
     /* 본문  */
     if (community.data.b_type === "1") {
@@ -253,86 +270,114 @@ function download(){
     } else {
         txt.innerText = "코딩게시판";
     }
-
+    //<input type="button" value="목록" class="list_btn" />
     txt.innerHTML +=
         `<div style="text-align: right;">` +
-            `<a href="community.html?b_type=${community.data.b_type}"><input type="button" value="목록" class="list_btn" /></a>` +
+            `<a href="community.html?b_type=${community.data.b_type}"><img src="../static/list.png" alt="IMG" /></a>` +
         `</div>`;
 
     let real_div = `<div>`;
     real_div +=
-        `<div class="info_div">`+
-            `<p class="title">${community.data.b_title}</p>` +
-            `<br>` +
-            `<span><img class="profile" src="data:image/jpg;base64, ${community.data.profile}" alt="Image" /></span>` +
-            `<span class="userId">${community.data.userId}</span><br>` +
-            `<span class="info">${community.data.b_date}</span>` +
-            `<span class="info">조회수 : ${community.data.b_count}</span>`;
+        `<div class="info_div div_border">`+
+            '<div style="margin: 10px 0 0 0;">' +
+                `<span><img class="community_profile" src="data:image/jpg;base64, ${community.data.profile}" alt="Image" /></span>` +
+                '<div style="display: inline-block;">' +
+                    `<span class="userId">${community.data.userId}</span>` +
+                    `<br>` +
+                    `<span class="info">` +
+                        `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
+                        `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
+                        `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
+                        `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}` +
+                    `</span>` +
+                    `<span class="info"><img class="index_img_size" src="../static/comment.png" alt="eyeIcon" />${cnt}</span>` +
+                    `<span class="info"><img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${community.data.b_count}</span>` +
+                '</div>';
     if (userId === community.data.userId) {
         real_div += `<span><img class="icon" src="../static/delete.png" alt="deleteImg" onclick="communityDelete()" /></span>`;
         real_div += `<span><a href="modify.html?b_id=${b_id}"><img class="icon" src="../static/modify.png" alt="modifyImg" /></a></span>`;
     }
-    real_div += `</div>`;
+    real_div +=
+            `</div>` +
+        '</div>';
     if (community.image.length > 0) {
         real_div +=
             `<div style="text-align: right; margin: 10px 0 0 0;" onclick="download()">` +
-                `<img src="../static/folder.png" alt="folder" style="width: 20px; height: 20px;" />첨부파일[${community.image.length}]` +
+                `<img src="../static/folder.png" alt="folder" style="width: 20px; height: 20px;"/>첨부파일[${community.image.length}]` +
             `</div>` +
             '<div class="download_box">';
         for (let index of community.image) {
             real_div +=
-                    `<div>${index.fileName}<img style="width: 20px; height: 20px;" src="../static/download.png" alt="Image" onclick="imageDownload(${index.i_id})"></div>`;
+                    `<div onclick="imageDownload(${index.i_id})">${index.fileName}` +
+                        `<img style="width: 20px; height: 20px;" src="../static/download.png" alt="Image" onclick="imageDownload(${index.i_id})">` +
+                    `</div>`;
         }
         real_div += '</div>';
     }
     real_div +=
-        `<pre class="content">${community.data.b_content}</pre>` +
-        '<br>';
+        '<div class="div_border">' +
+            `<p class="b_id_size" style="margin: 10px 0 0 25px; color: #999">#${community.data.b_id}</p>` +
+            `<p class="title">${community.data.b_title}</p>` +
+            '<hr style="width: 93%; border-color: #ddd">' +
+            `<pre class="content">${community.data.b_content}</pre>` +
+        '</div>';
 
     if (community.image.length > 0) {
-        // real_div +=
-            // `<div style="border: 1px solid black; width: 400px; height: 300px;">` ;
-                // `<span style="position: absolute"><button onclick="imgHI()"><</button></span><div style="display: flex;">`;
+        real_div +=
+            '<button onclick="imgHI()"><</button>' +
+            `<div style="border: 1px solid black; width: 400px; height: 300px;">`;
+        let q = 0;
         for (let index of community.image) {
             let c = index.fileName.split(".");
             c = c[1];
             if(c === "png" || c === "jpg") {
-                real_div +=
-                    // `<div class="imgDiv" style="border: 1px solid red;">` +
-                    `<img class="content_image" src="data:image/jpg;base64, ${index.image}" alt="Image" />`;
-                // '</div>';
+                if(q !== 0) {
+                    real_div +=
+                        `<span class="imgDiv" style="display: none;">` +
+                            `<img class="content_image" src="data:image/jpg;base64, ${index.image}" alt="Image" />` +
+                        '</span>';
+                }else {
+                    real_div +=
+                        `<span class="imgDiv">` +
+                            `<img class="content_image" src="data:image/jpg;base64, ${index.image}" alt="Image" />` +
+                        '</span>';
+                }
+                ++q;
             }
         }
-        // real_div += '</div><span style="position: absolute"><button onclick="imgBye()">></button></span></div>';
+        real_div +=
+            '</div>' +
+            '<button onclick="imgBye()">></button>';
     }
-    real_div += '</div>';
-
-    real_div += `<br><hr><br>`;
-    /* 댓글 */
-    real_div += '<p class="txt" style="margin-left: 20px;">댓글</p>';
-
+    real_div +=
+        '</div>' ;
     document.write(real_div);
 })();
 
 (function printComment() {
     /* 댓글 */
-    let real_comment = ``;
+    let  real_comment =
+        '<div class="div_border" style="margin: 30px 0 0 0;">' +
+            `<div class="div_border comment_title">댓글  ${cnt}</div>`;
 
-    real_comment +=
-            `<p id="comment_length" style="margin: 0 0 0 50px;"></p>` +
-            `<div style="text-align: center;"><input type="text" id="c_content" class="comment_box" onkeyup="enter()"/>` +
-                `<button class="comment_btn" onclick="commentInsert()">등록</button>` +
-            `</div>`+
-            `<br><br>`;
     for (let value of community.data.comments) {
+        const time = new Date(value.c_date * 1000);
         real_comment +=
-            `<hr>`+
-            `<img class="second_profile" src="data:image/jpg;base64, ${value.profile}" alt="Image" />` +
-            `<div class="userId">${value.userId}님` +
-                `<button class="comment_txt" onclick="secondBox(${value.c_id})">댓글쓰기</button>` +
-            `</div>`;
+            `<div style="padding: 10px 10px 0 10px;">` +
+                `<span><img class="second_profile" src="data:image/jpg;base64, ${value.profile}" alt="Image" /></span>` +
+                '<div style="display: inline-block;">' +
+                    `<span class="userId">${value.userId}님` +
+                        `<span class="comment_txt" onclick="secondBox(${value.c_id})"> 댓글쓰기</span>` +
+                    `</span>` +
+                    '<br>'
         real_comment +=
-            `<div class="info">${value.c_date}</div>`;
+                    `<span class="info">` +
+                        `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
+                        `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
+                        `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
+                        `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}` +
+                    '</span>' +
+                '</div>';
         if (userId === value.userId) {
             real_comment +=
                 `<span><img class="icon" src="../static/delete.png" alt="deleteImg" onclick="commentDelete(${value.c_id})" /></span>` +
@@ -341,28 +386,37 @@ function download(){
         real_comment +=
                 `<br>` +
                 `<pre class="c_content">${value.c_content}</pre>` +
+                '<hr style="width: 93%; border:1px solid #ddd">' +
         /* 대댓글 입력 */
                 `<br>` +
                 `<div class="second_${value.c_id}" style="display:none; text-align: center;">` +
+                    `<p id="second_length" style="text-align: left; margin: 0 0 0 100px;"></p>` +
                     `<input id="second_content_${value.c_id}" type="text" class="comment_box" onkeyup="second_enter(${value.c_id})"/>` +
                     `<button class="comment_btn" onclick="secondInsert(${value.c_id})">등록</button>` +
                 `</div>`;
 
         /* 대댓글 */
         for(let value2 of value.secondComment) {
+            const time = new Date(value2.c_date * 1000);
             real_comment +=
-                `<hr style="width: 90%;">` +
                 `<img class="arrow_icon" src="../static/arrows.png" alt="img"/>` +
-                `<img class="second_profile" src="data:image/jpg;base64, ${value2.profile}" alt="Image" />` +
-                `<div class="userId">${value2.userId}님` +
-                    `<button class="comment_txt" onclick="secondBox(${value.c_id})">댓글쓰기</button>` +
-                `</div>` +
-                `<div class="info">${value2.c_date}</div>`;
+               `<span><img class="second_profile" src="data:image/jpg;base64, ${value2.profile}" alt="Image" /></span>` +
+                '<div style="display: inline-block;">' +
+                    `<div class="userId">${value2.userId}님` +
+                        `<span class="comment_txt" onclick="secondBox(${value.c_id})"> 댓글쓰기</input>` +
+                    `</div>` +
+                    `<div class="info">` +
+                        `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
+                        `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
+                        `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
+                        `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}` +
+                    '</div>' +
+                '</div>';
             if (userId === value2.userId) {
                 real_comment +=
-                    `<span><img class="icon" src="../static/delete.png" alt="deleteImg" onclick="secondeDelete(${value2.second_id})" /></span>` +
+                    `<span><img class="icon" src="../static/delete.png" alt="deleteImg" onclick="secondDelete(${value2.c_id})" /></span>` +
                     `<span>` +
-                        `<a href="secondModify.html?c_id=${value2.c_id}&second_id=${value2.second_id}&b_id=${b_id}">` +
+                        `<a href="secondModify.html?c_id=${value2.c_id}&recomment_id=${value2.recomment_id}&b_id=${b_id}">` +
                             `<img class="icon" src="../static/modify.png" alt="modifyImg" />` +
                         `</a>` +
                     `</span>`;
@@ -371,6 +425,29 @@ function download(){
                     `<br>`+
                     `<pre class="c_content_second">${value2.c_content}</pre>`;
         }
+        real_comment +=
+            '</div>';
     }
+    real_comment +=
+        '</div>';
+
+    /* 댓글 */
+    real_comment +=
+        '<div class="div_border" style="height: 130px;">';
+    if (userId !== "") {
+        real_comment +=
+            `<p id="comment_length" class="comment_length"></p>` +
+                `<div style=" margin: 30px 0 0 100px;">` +
+                    `<textarea id="c_content" class="comment_box textarea_resize"></textarea>` +
+                    `<span><button class="comment_btn" style="position: absolute;" onclick="commentInsert()">등록</button></span>` +
+                    '<p id="warning_message" class="warning_message"></p>' +
+                `</div>`;
+    } else {
+        real_comment +=
+            '<div>로그인이 필요합니다</div>';
+    }
+    real_comment +=
+        '</div>';
+
     document.write(real_comment);
 })();
