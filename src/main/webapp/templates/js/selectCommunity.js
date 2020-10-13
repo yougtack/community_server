@@ -39,9 +39,10 @@ const community = {
     }
     txt.innerHTML += `<a href="../templates/insert.html?type=${type}" style="margin-left: 80%;"><img src="../static/create.png" alt="HomeIcon" /></a>`;
 
+
     for (let index of community.data) {
         const time = new Date(index.b_date * 1000);
-        if (type === index.b_type) {
+        if (type === index.b_type){
             real_body +=
                 `<div class="index_box">` +
                     '<div class="index_item">' +
