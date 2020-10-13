@@ -9,6 +9,8 @@ import java.util.List;
 public interface BoardService {
     List<BoardModel> getBoardList();
 
+    List<BoardModel> getMyBoardList(BoardModel boardModel);
+
     Integer insert(ViewModel viewModel);
     Integer update(ViewModel model, int b_id);
     Integer delete(int b_id);

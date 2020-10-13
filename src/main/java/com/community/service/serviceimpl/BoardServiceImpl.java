@@ -20,10 +20,16 @@ public class BoardServiceImpl implements BoardService {
     @Autowired
     BoardService boardService;
 
-    @Override
+       @Override
     public List<BoardModel> getBoardList(){
         return dao.getBoardList();
     }
+
+    @Override
+    public List<BoardModel> getMyBoardList(BoardModel boardModel){
+        return dao.getMyBoardList(boardModel.getUserId());
+    }
+
 
     @Override
     public Integer insert(ViewModel viewModel){
