@@ -308,7 +308,7 @@ section {
 }
 
 .comment_box {
-    width: 70%;
+    width: 80%;
     height: 50px;
 }
 
@@ -323,7 +323,7 @@ section {
 
 .comment_length {
     margin: 70px 0 0 0;
-    left: 700px;
+    left: 1000px;
     position: absolute;
     font-size: 13px;
     color: #999
