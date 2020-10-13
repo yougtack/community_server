@@ -16,4 +16,6 @@ public class BoardModel {
     private String userId;
 
     private List<BoardComment> boardComments;
+//    private List<CommentModel> comments;
+    private int commentCount;
 }

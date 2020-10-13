@@ -16,4 +16,6 @@ public class BoardComment {
     private Long b_date;
     private int b_count;
     private String userId;
+
+    private int commentCount;
 }
