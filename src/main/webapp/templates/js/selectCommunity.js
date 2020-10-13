@@ -49,7 +49,7 @@ const community = {
             real_body +=
                 `<div class="index_box">` +
                     '<div class="index_item">' +
-                        `<span style="font-size: 14px;">#${index.b_id}</span>` +
+                        `<span class="b_id_size">#${index.b_id}</span>` +
                         `<span class="community_info">${index.userId}</span>` +
                         '<br>' +
                         `<span><a class="index_title" href="userCommunity.html?b_id=${index.b_id}">${index.b_title}</a><span class="cnt_size">[${cnt}]</span></span>` +
