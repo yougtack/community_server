@@ -22,6 +22,15 @@
         </collection>
     </resultMap>
 
+    <resultMap id="rankMap" type="com.community.model.BoardModel">
+        <id property="b_id" column="b_id"/>
+        <result property="b_type" column="b_type"></result>
+        <result property="b_title" column="b_title"></result>
+        <result property="b_date" column="b_date"></result>
+        <result property="b_count" column="b_count"></result>
+        <result property="userId" column="userId"></result>
+        <result property="commentCount" column="commentCount1"></result>
+    </resultMap>
     <resultMap id="viewMap" type="com.community.model.ViewModel">
         <id property="b_id" column="b_id"/>
         <result property="b_type" column="b_type"></result>
@@ -161,14 +170,16 @@
         DESC
     </select>
 
-    <select id="getRank" resultMap="boardMap">
+    <select id="getRank" resultMap="rankMap">
         SELECT
             c.b_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId,
-            cc.c_content
+            count(cc.c_content) AS commentCount1
         FROM
             community AS c
         LEFT OUTER JOIN
             community_comment AS cc ON c.b_id = cc.b_id
+		GROUP BY
+			c.b_id
         ORDER BY
             c.b_count
         DESC
