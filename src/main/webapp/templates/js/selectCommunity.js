@@ -48,7 +48,10 @@ const community = {
                         `<span class="b_id_size">#${index.b_id}</span>` +
                         `<span class="community_info">${index.userId}</span>` +
                         '<br>' +
-                        `<span><a class="index_title" href="userCommunity.html?b_id=${index.b_id}">${index.b_title}</a><span class="cnt_size">[${index.commentCount}]</span></span>` +
+                        `<span>` +
+                            `<a class="index_title" href="userCommunity.html?b_id=${index.b_id}">${index.b_title}</a>` +
+                            `<span class="cnt_size">[${index.commentCount}]</span>` +
+                        `</span>` +
                         `<span class="community_info" style="font-size: 12px;">` +
                             `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
                             `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
