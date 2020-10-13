@@ -172,12 +172,14 @@
 
     <select id="getRank" resultMap="rankMap">
         SELECT
-            c.b_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId,
+            c.b_id, c.b_recomment_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId,
             count(cc.c_content) AS commentCount1
         FROM
             community AS c
         LEFT OUTER JOIN
             community_comment AS cc ON c.b_id = cc.b_id
+		WHERE
+			c.b_recomment_id is null
 		GROUP BY
 			c.b_id
         ORDER BY
