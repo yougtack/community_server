@@ -4,7 +4,7 @@ const second = {
 
 const c_id = location.search.substr(6, 2).split("&");
 const b_id = location.search.substr(location.search.indexOf("b_id=") + 5);
-const second_id = location.search.substr( 19,3).split("&");
+const recomment_id = location.search.substr(location.search.indexOf("recomment_id") + 13).split("&");
 const userId = document.cookie.substr(7,);
 
 function secondModify() {
@@ -22,12 +22,12 @@ function secondModify() {
             return false;
         }
         const secondData = {
-            second_id: second_id[0],
+            c_id: c_id[0],
             c_content: document.getElementById("second_content").value,
             userId: userId
         };
 
-        xhttp.open("PUT", url + `/comment/second`, false);
+        xhttp.open("PUT", url + `/comment`, false);
 
         xhttp.onreadystatechange = () => {
 
@@ -70,9 +70,9 @@ function cancel() {
     let c_comment;
 
     for (let index of second.data.comments) {
-        if (index.c_id === parseInt(c_id)) {
+        if (index.c_id === parseInt(recomment_id[0])) {
             for (let value of index.secondComment) {
-                if (value.second_id === parseInt(second_id[0])) {
+                if (value.recomment_id === parseInt(recomment_id[0])) {
                     c_comment = value.c_content;
                 }
             }

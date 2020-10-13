@@ -76,10 +76,10 @@ function secondDelete(c_id) {
         let xhttp = new XMLHttpRequest();
         console.log(c_id);
         const url = "http://localhost:8080";
-        // const deleteData = {
-        //     second_i: second_id,
-        //     userId: userId
-        // };
+        const deleteData = {
+            c_id: c_id,
+            userId: userId
+        };
 
         xhttp.open("DELETE", url + `/comment/${c_id}`, false);
 
@@ -90,11 +90,11 @@ function secondDelete(c_id) {
         };
 
         xhttp.setRequestHeader("Content-Type", "application/json");
-        xhttp.send();
+        xhttp.send(JSON.stringify(deleteData));
 
         alert("삭제하였습니다.");
 
-        // location.href = `userCommunity.html?b_id=${b_id}`;
+        location.href = `userCommunity.html?b_id=${b_id}`;
     }
 }
 
@@ -158,12 +158,6 @@ function secondInsert(c_id) {
     xhttp.send(JSON.stringify(secondData));
 
     location.href = `userCommunity.html?b_id=${b_id}`;
-}
-
-function enter() {
-    if (window.event.keyCode === 13) {
-        commentInsert();
-    }
 }
 
 function second_enter(c_id) {
@@ -422,7 +416,7 @@ let cnt = 0;
                 real_comment +=
                     `<span><img class="icon" src="../static/delete.png" alt="deleteImg" onclick="secondDelete(${value2.c_id})" /></span>` +
                     `<span>` +
-                        `<a href="secondModify.html?c_id=${value2.c_id}&second_id=${value2.second_id}&b_id=${b_id}">` +
+                        `<a href="secondModify.html?c_id=${value2.c_id}&recomment_id=${value2.recomment_id}&b_id=${b_id}">` +
                             `<img class="icon" src="../static/modify.png" alt="modifyImg" />` +
                         `</a>` +
                     `</span>`;
@@ -439,14 +433,14 @@ let cnt = 0;
 
     /* 댓글 */
     real_comment +=
-        '<div class="div_border" style="height: 130px;">' +
-            '<p class="txt" style="margin: 20px 0 0 25px; ">댓글</p>';
+        '<div class="div_border" style="height: 130px;">';
     if (userId !== "") {
         real_comment +=
-            `<p id="comment_length" style="margin: 0 0 0 50px;"></p>` +
-                `<div style="text-align: center;">` +
-                    `<input type="text" id="c_content" class="comment_box" onkeyup="enter()"/>` +
-                    `<button class="comment_btn" onclick="commentInsert()">등록</button>` +
+            `<p id="comment_length" class="comment_length"></p>` +
+                `<div style=" margin: 30px 0 0 100px;">` +
+                    `<textarea id="c_content" class="comment_box textarea_resize"></textarea>` +
+                    `<span><button class="comment_btn" style="position: absolute;" onclick="commentInsert()">등록</button></span>` +
+                    '<p id="warning_message" class="warning_message"></p>' +
                 `</div>`;
     } else {
         real_comment +=
