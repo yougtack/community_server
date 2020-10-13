@@ -152,16 +152,13 @@
         DESC
     </select>
 
-    <select id="getRank" resultMap="boardMap">
+    <select id="getRank" resultType="com.community.model.BoardRankModel">
         SELECT
-            c.b_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId,
-            cc.c_content
+            b_id, b_type, b_title, b_date, b_count, userId
         FROM
-            community AS c
-        LEFT OUTER JOIN
-            community_comment AS cc ON c.b_id = cc.b_id
+            community
         ORDER BY
-            c.b_count
+            b_count
         DESC
     </select>
 
