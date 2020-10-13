@@ -249,6 +249,18 @@ function download(){
     }
 }
 
+function infoBox() {
+    let box = document.getElementsByClassName(`community_info_box`);
+
+    for (let i = 0; i < box.length; i++){
+        if(box[i].style.display === 'none'){
+            box[i].style.display = 'block';
+        }else{
+            box[i].style.display = 'none';
+        }
+    }
+}
+
 let cnt = 0;
 
 (function printCommunity() {
@@ -292,17 +304,24 @@ let cnt = 0;
                     `</span>` +
                     `<span class="info"><img class="index_img_size" src="../static/comment.png" alt="eyeIcon" />${cnt}</span>` +
                     `<span class="info"><img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${community.data.b_count}</span>` +
-                '</div>';
+                '</div>' +
+                '<span onclick="infoBox()"><img src="../static/more_vert.png" class="icon" alt="img" style="cursor: pointer;" /></span>' +
+            '<div class="community_info_box" style="float: right;">' +
+                `<div class="comment_box_info_box_size">답글</div>`;
     if (userId === community.data.userId) {
-        real_div += `<span><img class="icon" src="../static/delete.png" alt="deleteImg" onclick="communityDelete()" /></span>`;
-        real_div += `<span><a href="modify.html?b_id=${b_id}"><img class="icon" src="../static/modify.png" alt="modifyImg" /></a></span>`;
+        real_div +=
+                `<div class="comment_box_info_box_size">` +
+                    `<a href="modify.html?b_id=${b_id}">수정</a>` +
+                `</div>` +
+                `<div class="comment_box_info_box_size" onclick="communityDelete()">삭제</div>`;
     }
     real_div +=
-            `</div>` +
+                `</div>` +
+            '</div>' +
         '</div>';
     if (community.image.length > 0) {
         real_div +=
-            `<div style="text-align: right; margin: 10px 0 0 0;" onclick="download()">` +
+            `<div style="text-align: right; margin: 10px 0 0 0; cursor: pointer;" onclick="download()">` +
                 `<img src="../static/folder.png" alt="folder" style="width: 20px; height: 20px;"/>첨부파일[${community.image.length}]` +
             `</div>` +
             '<div class="download_box">';
@@ -330,7 +349,7 @@ let cnt = 0;
         for (let index of community.image) {
             let c = index.fileName.split(".");
             c = c[1];
-            if(c === "png" || c === "jpg") {
+            if(c === "png" || c === "jpg" || c === "jpeg") {
                 if(q !== 0) {
                     real_div +=
                         `<span class="imgDiv" style="display: none;">` +
@@ -444,7 +463,7 @@ let cnt = 0;
                 `</div>`;
     } else {
         real_comment +=
-            '<div>로그인이 필요합니다</div>';
+            '<div style="text-align: center; margin: 50px 0 0 0;">로그인 후 이용할 수 있습니다.</div>';
     }
     real_comment +=
         '</div>';

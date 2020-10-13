@@ -93,6 +93,7 @@ th, td {
     width: 20px;
     height: 20px;
     margin: 0 0 0 10px;
+    cursor: pointer;
 }
 
 .main_category {
@@ -332,4 +333,23 @@ section {
 .warning_message {
     color: red;
     font-size: 16px;
+}
+
+.community_info_box {
+    width: 30px;
+    position: absolute;
+    padding: 7px;
+    font-size: 14px;
+    text-align: left;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    display: none;
+    top: 160px;
+    left: 1140px;
+}
+
+.comment_box_info_box_size {
+    cursor: pointer;
+    margin: 4px 0 0 0;
 }
