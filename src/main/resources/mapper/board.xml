@@ -126,7 +126,7 @@
 
     <insert id="insert" parameterType="String">
         INSERT INTO
-            test(b_type, b_title, b_date, b_content, userId)
+            community(b_type, b_title, b_date, b_content, userId)
         VALUES
             (#{b_type}, #{b_title}, unix_timestamp(now()), #{b_content}, #{user_id})
     </insert>
