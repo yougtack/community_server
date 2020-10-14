@@ -33,6 +33,7 @@
     </resultMap>
     <resultMap id="viewMap" type="com.community.model.ViewModel">
         <id property="b_id" column="b_id"/>
+        <result property="b_recomment_id" column="b_recomment_id"></result>
         <result property="b_type" column="b_type"></result>
         <result property="b_title" column="b_title"></result>
         <result property="b_content" column="b_content"></result>
@@ -103,7 +104,7 @@
 
     <select id="getView" resultMap="viewMap">
         SELECT
-            c.b_id, c.b_type, c.b_title, c.b_content, c.b_date, c.b_count, c.userId, m.profile,
+            c.b_id, c.b_recomment_id, c.b_type, c.b_title, c.b_content, c.b_date, c.b_count, c.userId, m.profile,
             fc.c_id AS first_c_id, fc.b_id AS first_b_id, fc.c_content AS first_c_content, fc.c_date AS first_c_date, fc.userId AS first_c_userId,
             (SELECT profile FROM community_member WHERE userId = fc.userId) AS first_profile,
             sc.c_id AS second_c_id, sc.b_id AS second_b_id, sc.recomment_id AS second_recomment_id, sc.c_content AS second_c_content, sc.c_date AS second_c_date, sc.userId AS second_c_userId,
