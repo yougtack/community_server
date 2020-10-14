@@ -65,7 +65,7 @@
             c.b_id, c.b_recomment_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId,
             c1.b_id AS boardComment_b_id, c1.b_recomment_id AS boardComment_b_recomment_id, c1.b_type AS boardComment_b_type,
             c1.b_title AS boardComment_b_title, c1.b_content AS boardComment_b_content, c1.b_date AS boardComment_b_date, c1.b_count AS boardComment_b_count, c1.userId AS boardComment_userId,
-            count(cc.c_content) AS commentCount1, count(cc1.c_content) AS commentCount2
+            if(count(cc.c_content)=0, null, count(cc.c_content)) AS commentCount1, if(count(cc1.c_content)=0, null, count(cc1.c_content)) AS commentCount2
         FROM
             community AS c
         LEFT OUTER JOIN

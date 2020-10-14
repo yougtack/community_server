@@ -9,7 +9,7 @@ import java.util.List;
 public interface BoardService {
     List<BoardModel> getBoardList();
 
-    List<BoardModel> getMyBoardList(BoardModel boardModel);
+    List<BoardModel> getMyBoardList(String userId);
 
     Integer insert(ViewModel viewModel);
     Integer update(ViewModel model, int b_id);

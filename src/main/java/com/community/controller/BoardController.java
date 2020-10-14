@@ -6,6 +6,7 @@ import com.community.util.CheckUtil;
 import com.community.util.LoginUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,9 +29,9 @@ public class BoardController {
     }
 
     //내가쓴 글
-    @GetMapping(value = "myBoardList")
-    public List<BoardModel> myBoardList(@RequestBody BoardModel boardModel){
-        return boardService.getMyBoardList(boardModel);
+    @GetMapping(value = "/myBoardList/{userId}")
+    public List<BoardModel> myBoardList(@PathVariable String userId){
+        return boardService.getMyBoardList(userId);
     }
 
     //게시글 작성 하기
@@ -167,4 +168,33 @@ public class BoardController {
         }
         return boardService.deleteImage(i_id);
     }
+
+//    @PostMapping(value = "/test")
+//    public Integer test(MultipartHttpServletRequest multipartHttpServletRequest){
+//        List<MultipartFile>multipartFiles = multipartHttpServletRequest.getFiles("files");
+//
+//        for(MultipartFile files : multipartFiles){
+//            System.out.println("file:"+files);
+//            System.out.println("getOriginalFilename:"+files.getOriginalFilename());
+//            System.out.println("getName:"+files.getName());
+//            System.out.println("getContentType:"+files.getContentType());
+//            System.out.println("-------------");
+//        }
+//
+//        return 0;
+//    }
+
+//    @PostMapping(value = "/test")
+//    public Integer test(@RequestPart("file")MultipartFile file multipartHttpServletRequest){
+//        List<MultipartFile>multipartFiles = multipartHttpServletRequest.getFiles("files");
+//
+//        for(MultipartFile files : multipartFiles){
+//            System.out.println("file:"+files);
+//            System.out.println("getOriginalFilename:"+files.getOriginalFilename());
+//            System.out.println("getName:"+files.getName());
+//            System.out.println("getContentType:"+files.getContentType());
+//            System.out.println("-------------");
+//        }
+//        return 0;
+//    }
 }
