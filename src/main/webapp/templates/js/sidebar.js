@@ -64,10 +64,7 @@ if (!!document.cookie) {
     }
     real_header +=
         `${document.cookie.substr(7,)}님` +
-        `<img class="main_sidebar_icon" src="../static/settings.png" alt="Img" onclick="myInfoBox()" />` +
-        `<div class="box info_box">` +
-            `<a href="profile.html">프로필</a>` +
-        `</div>`;
+        `<a href="profile.html"><img class="main_sidebar_icon" src="../static/settings.png" alt="Img"/></a>`;
 }
 real_header +=
         '<br>' +

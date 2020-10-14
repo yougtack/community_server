@@ -65,7 +65,6 @@ const community = {
         }
         for (let value of index.boardComments) {
             if (type === value.b_type) {
-                console.log("Hi");
                 real_body +=
                     `<img class="board_arrow" src="../static/arrows.png" alt="img"/>` +
                         `<div class="board_comments_box" style="display: inline-block;">` +

@@ -41,18 +41,14 @@ const word = location.search.substr(location.search.indexOf("=") + 1);
         document.write(real_body);
     }else {
         for (let index of searchList.data) {
-            let cnt = 0;
             const time = new Date(index.b_date * 1000);
-                for (let count of index.comments) {
-                    ++cnt;
-                }
                 real_body +=
                     `<div class="index_box">` +
                         '<div class="index_item">' +
                             `<span style="font-size: 14px;">#${index.b_id}</span>` +
                             `<span class="community_info">${index.userId}</span>` +
                             '<br>' +
-                            `<span><a class="index_title" href="userCommunity.html?b_id=${index.b_id}">${index.b_title}</a><span class="cnt_size">[${cnt}]</span></span>` +
+                            `<span><a class="index_title" href="userCommunity.html?b_id=${index.b_id}">${index.b_title}</a><span class="cnt_size">[${index.commentCount}]</span></span>` +
                             `<span class="community_info" style="font-size: 12px;">` +
                                 `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
                                 `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
