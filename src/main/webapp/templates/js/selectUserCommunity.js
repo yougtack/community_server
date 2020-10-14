@@ -343,8 +343,8 @@ let cnt = 0;
             `<div style="border: 1px solid black; width: 400px; height: 300px;">`;
         let q = 0;
         for (let index of community.image) {
-            let c = index.fileName.split(".");
-            c = c[1];
+            // let c = index.fileName.split(".");
+            // c = c[1];
             // if(c === "png" || c === "jpg" || c === "jpeg") {
                 if(q !== 0) {
                     real_div +=

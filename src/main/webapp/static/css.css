@@ -273,6 +273,7 @@ section {
 
 .community_info {
     float: right;
+    margin: 0 10px 0 0;
 }
 
 /* profile_div */
