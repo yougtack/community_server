@@ -262,7 +262,12 @@ let cnt = 0;
     const txt = document.querySelector(".txt");
     const time = new Date(community.data.b_date * 1000);
 
-    for (let c of community.data.comments){
+    for (let c_cnt of community.data.comments){
+        if(c_cnt.secondComment.length > 0) {
+            for(let s_cnt of c_cnt.secondComment){
+                ++cnt;
+            }
+        }
         ++cnt
     }
 
