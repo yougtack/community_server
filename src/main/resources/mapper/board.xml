@@ -66,7 +66,6 @@
             c.b_id, c.b_recomment_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId,
             c1.b_id AS boardComment_b_id, c1.b_recomment_id AS boardComment_b_recomment_id, c1.b_type AS boardComment_b_type,
             c1.b_title AS boardComment_b_title, c1.b_content AS boardComment_b_content, c1.b_date AS boardComment_b_date, c1.b_count AS boardComment_b_count, c1.userId AS boardComment_userId
-
         FROM
             community AS c
         LEFT OUTER JOIN
@@ -79,8 +78,8 @@
             c.b_recomment_id is null
         AND
             cc.recomment_id is null
-        OR
-            c1.b_id is not null
+        group by
+            c.b_id, c1.b_id
         ORDER BY
             c.b_id DESC, c1.b_id DESC
     </select>
@@ -130,14 +129,14 @@
         INSERT INTO
             community(b_recomment_id, b_type, b_title, b_date, b_content, userId)
         VALUES
-            (if(${b_recomment_id}=0, null, ${b_recomment_id}), #{b_type}, #{b_title}, unix_timestamp(now()), #{b_content}, #{user_id})
+            (if(${b_recomment_id}=0, null, ${b_recomment_id}), #{b_type}, #{b_title}, now(), #{b_content}, #{user_id})
     </insert>
 
     <update id="update" parameterType="String">
         UPDATE
             community
         SET
-            b_type = #{b_type}, b_title = #{b_title}, b_content = #{b_content}, b_date = unix_timestamp(now())
+            b_type = #{b_type}, b_title = #{b_title}, b_content = #{b_content}, b_date =now()
         WHERE
             b_id = ${b_id}
     </update>
