@@ -39,18 +39,6 @@ function logout() {
     xhttp.send();
 }
 
-function myInfoBox() {
-    let box = document.getElementsByClassName(`box`);
-
-    for (let i = 0; i < box.length; i++){
-        if(box[i].style.display === 'none'){
-            box[i].style.display = 'block';
-        }else{
-            box[i].style.display = 'none';
-        }
-    }
-}
-
 let real_header = ``;
 
 real_header +=
@@ -64,10 +52,7 @@ if (!!document.cookie) {
     }
     real_header +=
         `${document.cookie.substr(7,)}님` +
-        `<img class="main_sidebar_icon" src="../static/settings.png" alt="Img" onclick="myInfoBox()" />` +
-        `<div class="box info_box">` +
-            `<a href="profile.html">프로필</a>` +
-        `</div>`;
+        `<a href="profile.html"><img class="main_sidebar_icon" src="../static/settings.png" alt="Img"/></a>`;
 }
 real_header +=
         '<br>' +
