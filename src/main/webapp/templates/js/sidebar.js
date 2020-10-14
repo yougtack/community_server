@@ -39,18 +39,6 @@ function logout() {
     xhttp.send();
 }
 
-function myInfoBox() {
-    let box = document.getElementsByClassName(`box`);
-
-    for (let i = 0; i < box.length; i++){
-        if(box[i].style.display === 'none'){
-            box[i].style.display = 'block';
-        }else{
-            box[i].style.display = 'none';
-        }
-    }
-}
-
 let real_header = ``;
 
 real_header +=

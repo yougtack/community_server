@@ -3,14 +3,12 @@ const user = {
 };
 
 function profile() {
-    console.log("HI");
     const img = document.getElementById("profile");
     let files = img;
     let formData = new FormData();
     formData.append('profile', files.files[0]);
 
     let xhttp = new XMLHttpRequest();
-
     const url = "http://localhost:8080";
 
     xhttp.open("PUT", url + `/member/signUpProfile`, false);

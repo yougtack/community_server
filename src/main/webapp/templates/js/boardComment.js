@@ -104,8 +104,6 @@ function valueCheck() {
 
     xhttp.send();
 
-    console.log(boardComment.data);
-
     document.getElementById("type").value = boardComment.data.b_type;
     document.getElementById("title").value = boardComment.data.b_title;
 })();

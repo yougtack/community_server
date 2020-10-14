@@ -67,23 +67,23 @@ const community = {
             if (type === value.b_type) {
                 real_body +=
                     `<img class="board_arrow" src="../static/arrows.png" alt="img"/>` +
-                        `<div class="board_comments_box" style="display: inline-block;">` +
+                    `<div class="board_comments_box" style="display: inline-block;">` +
                         '<div class="index_item">' +
-                        `<span class="b_id_size">#${value.b_id}</span>` +
-                        `<span class="community_info">${value.userId}</span>` +
-                        '<br>' +
-                        `<span>` +
-                            `<a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a>` +
-                        `<span class="cnt_size">[${value.commentCount}]</span>` +
-                        `</span>` +
-                        `<span class="community_info" style="font-size: 12px;">` +
-                            `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
-                            `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
-                            `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
-                            `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}` +
-                        `</span>` +
-                        `<span class="index_img"><img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${value.b_count}</span>` +
-                        '</div>' +
+                            `<span class="b_id_size">#${value.b_id}</span>` +
+                            `<span class="community_info">${value.userId}</span>` +
+                            '<br>' +
+                            `<span>` +
+                                `<a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a>` +
+                            `<span class="cnt_size">[${value.commentCount}]</span>` +
+                            `</span>` +
+                            `<span class="community_info" style="font-size: 12px;">` +
+                                `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
+                                `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
+                                `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
+                                `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}` +
+                            `</span>` +
+                            `<span class="index_img"><img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${value.b_count}</span>` +
+                            '</div>' +
                     '</div>' +
                     '<br>';
             }
