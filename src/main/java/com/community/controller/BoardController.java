@@ -4,10 +4,8 @@ import com.community.model.*;
 import com.community.service.BoardService;
 import com.community.util.CheckUtil;
 import com.community.util.LoginUtil;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,9 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.List;
-import java.util.UUID;
 
-import static org.apache.commons.io.FilenameUtils.getExtension;
 
 @RestController
 @RequestMapping(value = "/board")
