@@ -14,7 +14,7 @@ public class BoardComment {
     private String b_type;
     private String b_title;
     private String b_content;
-    private Date b_date;
+    private Long b_date;
     private int b_count;
     private String userId;
 

@@ -86,7 +86,7 @@
 
     <select id="getMyBoardList" resultMap="boardMap">
         SELECT
-            c.b_id, c.b_recomment_id, c.b_date, c.b_title, c.b_date, c.b_count, c.userId,
+            c.b_id, c.b_recomment_id, UNIX_TIMESTAMP(c.b_date) AS b_date, c.b_title, c.b_date, c.b_count, c.userId,
             count(cc.c_content) AS commentCount1
         FROM
             community AS c
@@ -103,7 +103,7 @@
 
     <select id="getView" resultMap="viewMap">
         SELECT
-            c.b_id, c.b_recomment_id, c.b_type, c.b_title, c.b_content, c.b_date, c.b_count, c.userId, m.profile,
+            c.b_id, c.b_recomment_id, UNIX_TIMESTAMP(c.b_date) AS b_date, c.b_title, c.b_content, c.b_date, c.b_count, c.userId, m.profile,
             fc.c_id AS first_c_id, fc.b_id AS first_b_id, fc.c_content AS first_c_content, fc.c_date AS first_c_date, fc.userId AS first_c_userId,
             (SELECT profile FROM community_member WHERE userId = fc.userId) AS first_profile,
             sc.c_id AS second_c_id, sc.b_id AS second_b_id, sc.recomment_id AS second_recomment_id, sc.c_content AS second_c_content, sc.c_date AS second_c_date, sc.userId AS second_c_userId,
@@ -173,7 +173,7 @@
 
     <select id="getRank" resultMap="rankMap">
         SELECT
-            c.b_id, c.b_recomment_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId,
+            c.b_id, c.b_recomment_id, c.b_type, c.b_title, UNIX_TIMESTAMP(c.b_date) AS b_date, c.b_count, c.userId,
             count(cc.c_content) AS commentCount1
         FROM
             community AS c
