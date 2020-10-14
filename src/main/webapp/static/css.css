@@ -160,6 +160,9 @@ section {
 .insert_title_length {
     left: 860px;
     margin: 20px 0 0 0;
+    position: absolute;
+    font-size: 13px;
+    color: #999
 }
 
 .insert_title {
@@ -170,6 +173,9 @@ section {
 .insert_content_length {
     left: 840px;
     margin: 390px 0 0 0;
+    position: absolute;
+    font-size: 13px;
+    color: #999
 }
 
 .insert_content {

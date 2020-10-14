@@ -20,12 +20,12 @@
                 <option value="3">음식게시판</option>
                 <option value="4">코딩게시판</option>
             </select>
-            <input type="file" multiple="multiple" id="files" name="files" class="insert_file" />
-            <p id="title_length" class="comment_length insert_title_length"></p>
+            <input type="file" multiple="multiple" id="files" name="files" accept="image/png, image/jpeg, image/jpg" class="insert_file" />
+            <p id="title_length" class="insert_title_length"></p>
             <input type="text" id="title" class="insert_title"/>
             <br>
             <br>
-            <p id="content_length" class="comment_length insert_content_length"></p>
+            <p id="content_length" class="insert_content_length"></p>
             <textarea class="textarea_resize insert_content" rows="5" cols="50" id="content" ></textarea>
             <br>
             <input type="button" class="insert_btn" style="float:right;" value="등록" onclick="valueCheck()"/>

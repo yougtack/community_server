@@ -16,9 +16,7 @@ let c_length = 0;
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
         }
 
-        const array = JSON.parse(xhttp.responseText);
-
-        indexData.rankData = array;
+        indexData.rankData = JSON.parse(xhttp.responseText);
     };
 
     xhttp.send();
@@ -58,7 +56,10 @@ let c_length = 0;
             rank_div +=
                 `<div class="index_box">` +
                     '<div class="index_item">' +
-                        `<span><a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a><span class="cnt_size">[${value.commentCount}]</span></span>` +
+                        `<span>` +
+                            `<a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a>` +
+                            `<span class="cnt_size">[${value.commentCount}]</span>` +
+                        `</span>` +
                         `<span class="index_date">` +
                             `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
                             `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
@@ -91,7 +92,10 @@ let c_length = 0;
                 free_div +=
                     `<div class="index_box">` +
                         '<div class="index_item">' +
-                            `<span><a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a><span class="cnt_size">[${value.commentCount}]</span></span>` +
+                            `<span>` +
+                                `<a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a>` +
+                                `<span class="cnt_size">[${value.commentCount}]</span>` +
+                            `</span>` +
                             `<span class="index_date">` +
                                 `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
                                 `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
@@ -126,7 +130,10 @@ let c_length = 0;
                 food_div +=
                     `<div class="index_box">` +
                         '<div class="index_item">' +
-                            `<span><a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a><span class="cnt_size">[${value.commentCount}]</span></span>` +
+                            `<span>` +
+                                `<a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a>` +
+                                `<span class="cnt_size">[${value.commentCount}]</span>` +
+                            `</span>` +
                             `<span class="index_date">` +
                                 `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
                                 `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
@@ -160,18 +167,21 @@ let c_length = 0;
             } else {
                 game_div +=
                     `<div class="index_box">` +
-                    '<div class="index_item">' +
-                    `<span><a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a><span class="cnt_size">[${value.commentCount}]</span></span>` +
-                    `<span class="index_date">` +
-                    `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
-                    `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
-                    `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
-                    `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}` +
-                    `</span>` +
-                    '<br>' +
-                    `<span class="index_userId">${value.userId}</span>` +
-                    `<span class="index_img"><img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${value.b_count}</span>` +
-                    '</div>' +
+                        '<div class="index_item">' +
+                            `<span>` +
+                                `<a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a>` +
+                                `<span class="cnt_size">[${value.commentCount}]</span>` +
+                            `</span>` +
+                            `<span class="index_date">` +
+                                `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
+                                `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
+                                `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
+                                `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}` +
+                            `</span>` +
+                            '<br>' +
+                            `<span class="index_userId">${value.userId}</span>` +
+                            `<span class="index_img"><img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${value.b_count}</span>` +
+                        '</div>' +
                     '</div>';
             }
             ++c_length;
@@ -196,7 +206,10 @@ let c_length = 0;
                 coding_div +=
                     `<div class="index_box">` +
                         '<div class="index_item">' +
-                            `<span><a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a><span class="cnt_size">[${value.commentCount}]</span></span>` +
+                            `<span>` +
+                                `<a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a>` +
+                                `<span class="cnt_size">[${value.commentCount}]</span>` +
+                            `</span>` +
                             `<span class="index_date">` +
                                 `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
                                 `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +

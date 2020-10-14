@@ -58,9 +58,7 @@ function cancel() {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
         }
 
-        const array = JSON.parse(xhttp.responseText);
-
-        second.data = array;
+        second.data = JSON.parse(xhttp.responseText);
     };
 
     xhttp.send();

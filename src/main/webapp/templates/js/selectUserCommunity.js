@@ -168,7 +168,6 @@ function second_enter(c_id) {
 
 function secondBox(c_id){
     let second = document.getElementsByClassName(`second_${c_id}`);
-    console.log(c_id);
 
     for (let i = 0; i < second.length; i++){
         if(second[i].style.display === 'none'){
@@ -190,9 +189,7 @@ function secondBox(c_id){
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
         }
 
-        const array = JSON.parse(xhttp.responseText);
-
-        community.data = array;
+        community.data = JSON.parse(xhttp.responseText);
     };
 
     xhttp.send();
@@ -208,9 +205,7 @@ function secondBox(c_id){
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
         }
 
-        const arrayImage = JSON.parse(xhttp.responseText);
-
-        community.image = arrayImage;
+        community.image = JSON.parse(xhttp.responseText);
     };
 
     xhttp.send();
@@ -327,7 +322,8 @@ let cnt = 0;
             '<div class="download_box">';
         for (let index of community.image) {
             real_div +=
-                    `<div onclick="imageDownload(${index.i_id})">${index.fileName}` +
+                    `<div> ${index.fileName} `+
+                // `<div style="width:70px;padding:0 5px; overflow:hidden;text-overflow:ellipsis;white-space:nowrap; display: inline-block">${index.fileName}</div>\` +
                         `<img style="width: 20px; height: 20px;" src="../static/download.png" alt="Image" onclick="imageDownload(${index.i_id})">` +
                     `</div>`;
         }
