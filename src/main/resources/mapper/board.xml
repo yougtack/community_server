@@ -122,7 +122,7 @@
             fc.recomment_id IS NULL
         ORDER BY
             fc.c_id
-        DESC
+        ASC
     </select>
 
     <insert id="insert" parameterType="String">
