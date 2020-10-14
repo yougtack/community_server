@@ -27,7 +27,7 @@ public interface BoardDao {
     List<BoardModel> getRank();
 
     Integer imageUpload(@Param("image") byte[] image, @Param("fileName") String fileName, @Param("b_id") int b_id);
-    Integer imageUpdate(@Param("image") byte[] image, @Param("fileName") String fileName, @Param("b_id") int b_id);
+    Integer imageInsert(@Param("image") byte[] image, @Param("fileName") String fileName, @Param("saveFileName") String saveFileName, @Param("b_id") int b_id);
 
     List<ImageModel> getImage(@Param("b_id") int b_id);
 

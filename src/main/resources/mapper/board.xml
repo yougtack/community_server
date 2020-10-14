@@ -187,11 +187,11 @@
         DESC
     </select>
 
-    <insert id="imageUpdate" parameterType="com.community.model.ImageModel">
+    <insert id="imageInsert" parameterType="com.community.model.ImageModel">
         INSERT INTO
-            community_image(b_id, image, fileName)
+            community_image(b_id, image, fileName, UUID_fileName)
         VALUES
-            (${b_id}, #{image}, #{fileName})
+            (${b_id}, #{image}, #{fileName}, #{saveFileName})
     </insert>
 
 
