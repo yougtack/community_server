@@ -11,7 +11,7 @@
         <script src="js/sidebar.js"></script>
     </div>
     <section>
-        <p class="txt">게시글 수정</p>
+        <p class="txt">답글 쓰기</p>
         <div class="insert_div">
         <select id="type" class="insert_type">
             <option value="">게시판선택</option>
@@ -20,29 +20,24 @@
             <option value="3">음식게시판</option>
             <option value="4">코딩게시판</option>
         </select>
-        <input type="file" multiple="multiple" id="files" name="files" class="insert_file"/>
-        <br>
-        <br>
+        <input type="file" multiple="multiple" id="files" name="files" class="insert_file" />
         <p id="title_length" class="comment_length insert_title_length"></p>
-        <input type="text" id="title" class="insert_title" onkeypress="titleCount()"/>
+        <input type="text" id="title" class="insert_title"/>
         <br>
-        <div id="delBtn">
-        </div>
         <br>
         <p id="content_length" class="comment_length insert_content_length"></p>
         <textarea class="textarea_resize insert_content" rows="5" cols="50" id="content"></textarea>
-        <br>
-        <br>
-            <input type="button" class="insert_btn" style="float:right;" value="수정" onclick="communityModify()"/>
-            <input type="button" class="cancel_btn" value="취소" onclick="cancel()"/>
+            <br>
+        <input type="button" class="insert_btn" style="float:right;" value="등록" onclick="valueCheck()"/>
+        <input type="button" class="cancel_btn" value="취소" onclick="valueCheck()"/>
         </div>
     </section>
-    <script src="js/modify.js"></script>
+    <script src="js/insert.js"></script>
     <script src="js/word.js"></script>
     <script>
         /* title */
         let title_length = document.getElementById("title_length");
-        title_length.innerText = document.getElementById("title").value.length + "/20";
+        title_length.innerText = document.getElementById("title").value.length + "/20"
         const titleKey = document.getElementById("title");
         function titleCount(){
             title_length.innerText = document.getElementById("title").value.length + "/20";

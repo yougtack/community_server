@@ -307,7 +307,7 @@ let cnt = 0;
                 '</div>' +
                 '<span onclick="infoBox()"><img src="../static/more_vert.png" class="icon" alt="img" style="cursor: pointer;" /></span>' +
             '<div class="community_info_box" style="float: right;">' +
-                `<div class="comment_box_info_box_size">답글</div>`;
+                `<a href="boardComment.html?b_id=${b_id}" class="comment_box_info_box_size">답글</a>`;
     if (userId === community.data.userId) {
         real_div +=
                 `<div class="comment_box_info_box_size">` +
@@ -349,7 +349,7 @@ let cnt = 0;
         for (let index of community.image) {
             let c = index.fileName.split(".");
             c = c[1];
-            if(c === "png" || c === "jpg" || c === "jpeg") {
+            // if(c === "png" || c === "jpg" || c === "jpeg") {
                 if(q !== 0) {
                     real_div +=
                         `<span class="imgDiv" style="display: none;">` +
@@ -362,7 +362,7 @@ let cnt = 0;
                         '</span>';
                 }
                 ++q;
-            }
+            // }
         }
         real_div +=
             '</div>' +
