@@ -126,9 +126,9 @@
 
     <insert id="insert" parameterType="String">
         INSERT INTO
-            community(b_type, b_title, b_date, b_content, userId)
+            community(b_recomment_id, b_type, b_title, b_date, b_content, userId)
         VALUES
-            (#{b_type}, #{b_title}, unix_timestamp(now()), #{b_content}, #{user_id})
+            (if(${b_recomment_id}=0, null, ${b_recomment_id}), #{b_type}, #{b_title}, unix_timestamp(now()), #{b_content}, #{user_id})
     </insert>
 
     <update id="update" parameterType="String">

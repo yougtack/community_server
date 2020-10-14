@@ -36,7 +36,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public Integer insert(ViewModel viewModel){
-        return dao.insert(viewModel.getB_type(), viewModel.getB_title(), viewModel.getB_content(), viewModel.getUserId());
+        return dao.insert(viewModel.getB_recomment_id(), viewModel.getB_type(), viewModel.getB_title(), viewModel.getB_content(), viewModel.getUserId());
     }
 
     @Override
