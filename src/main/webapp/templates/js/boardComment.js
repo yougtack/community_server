@@ -12,9 +12,10 @@ function boardCommentInsert(type,title,content) {
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
     let check;
+    let boardCommentData;
 
     if (boardComment.data.b_recomment_id === 0) {
-        const boardCommentData = {
+         boardCommentData = {
             b_recomment_id: b_id,
             b_type: type.value,
             b_title: title.value,
@@ -22,8 +23,8 @@ function boardCommentInsert(type,title,content) {
             userId: document.cookie.substr(7,)
         }
     } else {
-        const boardCommentData = {
-            b_recomment_id: recomment_id,
+        boardCommentData = {
+            b_recomment_id: boardComment.data.b_recomment_id,
             b_type: type.value,
             b_title: title.value,
             b_content: content.value,
