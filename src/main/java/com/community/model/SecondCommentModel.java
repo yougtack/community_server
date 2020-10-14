@@ -3,6 +3,8 @@ package com.community.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Getter
 @Setter
 public class SecondCommentModel {
@@ -10,7 +12,7 @@ public class SecondCommentModel {
     private int b_id;
     private int recomment_id;
     private String c_content;
-    private Long c_date;
+    private Date c_date;
     private String userId;
     private byte[] profile;
 }

@@ -4,6 +4,7 @@ import com.community.model.*;
 import com.community.service.BoardService;
 import com.community.util.CheckUtil;
 import com.community.util.LoginUtil;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -170,23 +171,5 @@ public class BoardController {
             return 0;
         }
         return boardService.deleteImage(i_id);
-    }
-
-    @PostMapping(value = "/test")
-    public Integer test(MultipartHttpServletRequest multipartHttpServletRequest) throws IOException {
-        List<MultipartFile>multipartFiles = multipartHttpServletRequest.getFiles("files");
-
-        String genId = UUID.randomUUID().toString();
-
-        for(MultipartFile files : multipartFiles){
-            String saveFileName = genId + "." + getExtension(files.getOriginalFilename());
-
-            System.out.println("file:"+files);
-            System.out.println("getOriginalFilename:"+files.getOriginalFilename());
-            System.out.println("saveFileName:"+saveFileName);
-            System.out.println("-------------");
-        }
-
-        return 0;
     }
 }
