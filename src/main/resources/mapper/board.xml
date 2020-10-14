@@ -61,7 +61,7 @@
     </resultMap>
 
     <select id="getBoardList" resultMap="boardMap">
-       SELECT
+        SELECT
             c.b_id, c.b_recomment_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId,
             c1.b_id AS boardComment_b_id, c1.b_recomment_id AS boardComment_b_recomment_id, c1.b_type AS boardComment_b_type,
             c1.b_title AS boardComment_b_title, c1.b_content AS boardComment_b_content, c1.b_date AS boardComment_b_date, c1.b_count AS boardComment_b_count, c1.userId AS boardComment_userId
@@ -72,17 +72,16 @@
             community_comment AS cc ON c.b_id = cc.b_id
         LEFT OUTER JOIN
             community AS c1 ON c.b_id = c1.b_recomment_id
-		LEFT OUTER JOIN
-			community_comment AS cc1 ON c1.b_id = cc1.b_id
-		WHERE
-			c.b_recomment_id is null
-		AND
-			cc.recomment_id is null
-		OR
-			c1.b_id is not null
+        LEFT OUTER JOIN
+            community_comment AS cc1 ON c1.b_id = cc1.b_id
+        WHERE
+            c.b_recomment_id is null
+        AND
+            cc.recomment_id is null
+        OR
+            c1.b_id is not null
         ORDER BY
-            c.b_id
-        DESC
+            c.b_id DESC, c1.b_id DESC
     </select>
 
     <select id="getMyBoardList" resultMap="boardMap">
