@@ -13,12 +13,22 @@ function boardCommentInsert(type,title,content) {
     const url = "http://localhost:8080";
     let check;
 
-    const boardCommentData = {
-        b_recomment_id: b_id,
-        b_type: type.value,
-        b_title: title.value,
-        b_content: content.value,
-        userId: document.cookie.substr(7,)
+    if (boardComment.data.b_recomment_id === 0) {
+        const boardCommentData = {
+            b_recomment_id: b_id,
+            b_type: type.value,
+            b_title: title.value,
+            b_content: content.value,
+            userId: document.cookie.substr(7,)
+        }
+    } else {
+        const boardCommentData = {
+            b_recomment_id: recomment_id,
+            b_type: type.value,
+            b_title: title.value,
+            b_content: content.value,
+            userId: document.cookie.substr(7,)
+        }
     }
 
     xhttp.open("POST", url + `/board/community`, false);
@@ -92,6 +102,8 @@ function valueCheck() {
     };
 
     xhttp.send();
+
+    console.log(boardComment.data);
 
     document.getElementById("type").value = boardComment.data.b_type;
     document.getElementById("title").value = boardComment.data.b_title;
