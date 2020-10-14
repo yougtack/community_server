@@ -126,7 +126,7 @@ let c_length = 0;
                 food_div +=
                     `<div class="index_box">` +
                         '<div class="index_item">' +
-                            `<span><a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a><span class="cnt_size">[${value.commentCount}}]</span></span>` +
+                            `<span><a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a><span class="cnt_size">[${value.commentCount}]</span></span>` +
                             `<span class="index_date">` +
                                 `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
                                 `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
@@ -161,7 +161,7 @@ let c_length = 0;
                 game_div +=
                     `<div class="index_box">` +
                     '<div class="index_item">' +
-                    `<span><a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a><span class="cnt_size">[${value.commentCount}}]</span></span>` +
+                    `<span><a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a><span class="cnt_size">[${value.commentCount}]</span></span>` +
                     `<span class="index_date">` +
                     `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
                     `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
