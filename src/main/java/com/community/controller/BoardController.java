@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.List;
+import java.util.UUID;
+
+import static org.apache.commons.io.FilenameUtils.getExtension;
 
 @RestController
 @RequestMapping(value = "/board")
@@ -97,12 +100,12 @@ public class BoardController {
     //게시글 수정시 사진 업로드
     @PostMapping("/upload/{b_id}")
     @ResponseBody
-    public Integer updateUpload(MultipartHttpServletRequest multipartHttpServletRequest, @PathVariable int b_id, HttpServletResponse response, HttpServletRequest request) throws IOException {
+    public Integer insertUpload(MultipartHttpServletRequest multipartHttpServletRequest, @PathVariable int b_id, HttpServletResponse response, HttpServletRequest request) throws IOException {
         String loginUserId = LoginUtil.getCheckLogin(request);
         if(CheckUtil.imageCheck(loginUserId, response, request) >= 1){
             return 0;
         }
-        return boardService.imageUpdate(multipartHttpServletRequest, b_id);
+        return boardService.imageInsert(multipartHttpServletRequest, b_id);
     }
 
     //상세번호로 사가져오기 (바이너리 상태)
@@ -169,32 +172,21 @@ public class BoardController {
         return boardService.deleteImage(i_id);
     }
 
-//    @PostMapping(value = "/test")
-//    public Integer test(MultipartHttpServletRequest multipartHttpServletRequest){
-//        List<MultipartFile>multipartFiles = multipartHttpServletRequest.getFiles("files");
-//
-//        for(MultipartFile files : multipartFiles){
-//            System.out.println("file:"+files);
-//            System.out.println("getOriginalFilename:"+files.getOriginalFilename());
-//            System.out.println("getName:"+files.getName());
-//            System.out.println("getContentType:"+files.getContentType());
-//            System.out.println("-------------");
-//        }
-//
-//        return 0;
-//    }
+    @PostMapping(value = "/test")
+    public Integer test(MultipartHttpServletRequest multipartHttpServletRequest) throws IOException {
+        List<MultipartFile>multipartFiles = multipartHttpServletRequest.getFiles("files");
 
-//    @PostMapping(value = "/test")
-//    public Integer test(@RequestPart("file")MultipartFile file multipartHttpServletRequest){
-//        List<MultipartFile>multipartFiles = multipartHttpServletRequest.getFiles("files");
-//
-//        for(MultipartFile files : multipartFiles){
-//            System.out.println("file:"+files);
-//            System.out.println("getOriginalFilename:"+files.getOriginalFilename());
-//            System.out.println("getName:"+files.getName());
-//            System.out.println("getContentType:"+files.getContentType());
-//            System.out.println("-------------");
-//        }
-//        return 0;
-//    }
+        String genId = UUID.randomUUID().toString();
+
+        for(MultipartFile files : multipartFiles){
+            String saveFileName = genId + "." + getExtension(files.getOriginalFilename());
+
+            System.out.println("file:"+files);
+            System.out.println("getOriginalFilename:"+files.getOriginalFilename());
+            System.out.println("saveFileName:"+saveFileName);
+            System.out.println("-------------");
+        }
+
+        return 0;
+    }
 }

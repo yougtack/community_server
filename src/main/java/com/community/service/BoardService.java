@@ -22,7 +22,7 @@ public interface BoardService {
     List<BoardModel> getRank();
 
     Integer imageUpload(MultipartHttpServletRequest multipartHttpServletRequest) throws IOException;
-    Integer imageUpdate(MultipartHttpServletRequest multipartHttpServletRequest, int b_id) throws IOException;
+    Integer imageInsert(MultipartHttpServletRequest multipartHttpServletRequest, int b_id) throws IOException;
 
 
     List<ImageModel> getImage(int b_id);

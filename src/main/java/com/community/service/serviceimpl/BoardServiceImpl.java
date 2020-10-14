@@ -10,6 +10,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
+
+import static org.apache.commons.io.FilenameUtils.getExtension;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -33,7 +36,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public Integer insert(ViewModel viewModel){
-        return dao.insert(viewModel.getB_type(), viewModel.getB_title(), viewModel.getB_content(), viewModel.getUserId());
+        return dao.insert(viewModel.getB_recomment_id(), viewModel.getB_type(), viewModel.getB_title(), viewModel.getB_content(), viewModel.getUserId());
     }
 
     @Override
@@ -74,25 +77,26 @@ public class BoardServiceImpl implements BoardService {
         List<MultipartFile>multipartFiles = multipartHttpServletRequest.getFiles("Files");
         if(!multipartFiles.isEmpty()){
             for(MultipartFile filePart : multipartFiles){
-                if(filePart.getOriginalFilename().equals("")){
-                    return 0;
-                }
                 result = dao.imageUpload(filePart.getBytes(), filePart.getOriginalFilename(), b_id);
             }
+        }else{
+            return 0;
         }
         return result;
     }
 
     @Override
-    public Integer imageUpdate(MultipartHttpServletRequest multipartHttpServletRequest, int b_id) throws IOException{
+    public Integer imageInsert(MultipartHttpServletRequest multipartHttpServletRequest, int b_id) throws IOException{
         int result = 0;
         List<MultipartFile>multipartFiles = multipartHttpServletRequest.getFiles("Files");
         if(!multipartFiles.isEmpty()) {
             for (MultipartFile filePart : multipartFiles) {
+                String genId = UUID.randomUUID().toString();
+                String saveFileName = genId + "." + getExtension(filePart.getOriginalFilename());
                 if (filePart.getOriginalFilename().equals("")) {
                     return 0;
                 }
-                result = dao.imageUpdate(filePart.getBytes(), filePart.getOriginalFilename(), b_id);
+                result = dao.imageInsert(filePart.getBytes(), filePart.getOriginalFilename(), saveFileName, b_id);
             }
         }
         return result;
