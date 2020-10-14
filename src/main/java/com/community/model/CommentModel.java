@@ -12,7 +12,7 @@ public class CommentModel {
     private Integer c_id;
     private Integer b_id;
     private String c_content;
-    private Date c_date;
+    private Long c_date;
     private String userId;
     private byte[] profile;
 
