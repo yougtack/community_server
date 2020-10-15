@@ -82,8 +82,8 @@ public class BoardController {
     }
 
     //검색단어로 게시글 리스트 가져오기
-    @GetMapping(value = "/search")
-    public List<BoardModel> search(@RequestParam("word") String word){
+    @GetMapping(value = "/search/{word}")
+    public List<BoardModel> search(@PathVariable("word") String word){
         return boardService.search(word);
     }
 
