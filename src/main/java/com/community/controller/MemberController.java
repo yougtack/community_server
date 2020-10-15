@@ -56,6 +56,7 @@ public class MemberController {
                 Cookie cookie = new Cookie("userId", userInfo.getUserId());
                 cookie.setMaxAge(-1);
                 cookie.setPath("/");
+                cookie.setHttpOnly(true);
 
                 response.addCookie(cookie);
             }else{
