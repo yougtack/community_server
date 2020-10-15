@@ -44,6 +44,16 @@ public class BoardController {
         return  boardService.insert(viewModel);
     }
 
+    //게시글 답글 작성 하기
+    @PostMapping(value = "/community/second")
+    public Integer secondInsert(@RequestBody ViewModel viewModel, HttpServletResponse response, HttpServletRequest request){
+        String loginUserId = LoginUtil.getCheckLogin(request);
+        if(CheckUtil.loginCheck(loginUserId, viewModel.getUserId(), response, request) >= 1){
+            return 0;
+        }
+        return  boardService.secondInsert(viewModel);
+    }
+
     //게시글 수정하기
     @PutMapping(value = "/community/{b_id}")
     public Integer update(@RequestBody ViewModel viewModel, @PathVariable int b_id, HttpServletResponse response, HttpServletRequest request){

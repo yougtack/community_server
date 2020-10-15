@@ -67,8 +67,6 @@
             community AS c1 ON c.b_id = c1.b_recomment_id
         LEFT OUTER JOIN
             community_comment AS cc1 ON c1.b_id = cc1.b_id
-        WHERE
-            c.b_recomment_id is null
         group by
             c.b_id, c1.b_id
         ORDER BY
@@ -113,7 +111,17 @@
         INSERT INTO
             community(b_recomment_id, b_type, b_title, b_date, b_content, userId)
         VALUES
-            (if(${b_recomment_id}=0, null, ${b_recomment_id}), #{b_type}, #{b_title}, now(), #{b_content}, #{user_id})
+            ((SELECT AUTO_INCREMENT
+                FROM information_schema.tables
+                WHERE table_name = 'community'
+                AND table_schema = DATABASE()), #{b_type}, #{b_title}, now(), #{b_content}, #{user_id})
+    </insert>
+
+    <insert id="secondInsert" parameterType="String">
+        INSERT INTO
+            community(b_recomment_id, b_type, b_title, b_date, b_content, userId)
+        VALUES
+            (${b_recomment_id}, #{b_type}, #{b_title}, now(), #{b_content}, #{user_id})
     </insert>
 
     <update id="update" parameterType="String">

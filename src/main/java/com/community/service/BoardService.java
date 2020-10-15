@@ -12,6 +12,8 @@ public interface BoardService {
     List<BoardModel> getMyBoardList(String userId);
 
     Integer insert(ViewModel viewModel);
+    Integer secondInsert(ViewModel viewModel);
+
     Integer update(ViewModel model, int b_id);
     Integer delete(int b_id);
 
