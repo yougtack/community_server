@@ -193,6 +193,7 @@ function secondBox(c_id){
     };
 
     xhttp.send();
+    console.log(community.data);
 })();
 
 (function image() {
@@ -262,12 +263,7 @@ let cnt = 0;
     const txt = document.querySelector(".txt");
     const time = new Date(community.data.b_date * 1000);
 
-    for (let c_cnt of community.data.comments){
-        if(c_cnt.secondComment.length > 0) {
-            for(let s_cnt of c_cnt.secondComment){
-                ++cnt;
-            }
-        }
+    for (let c_cnt of community.data.comments) {
         ++cnt
     }
 
@@ -416,35 +412,35 @@ let cnt = 0;
                 `</div>`;
 
         /* 대댓글 */
-        for(let value2 of value.secondComment) {
-            const time = new Date(value2.c_date * 1000);
-            real_comment +=
-                `<img class="arrow_icon" src="../static/arrows.png" alt="img"/>` +
-               `<span><img class="second_profile" src="data:image/jpg;base64, ${value2.profile}" alt="Image" /></span>` +
-                '<div style="display: inline-block;">' +
-                    `<div class="userId">${value2.userId}님` +
-                        `<span class="comment_txt" onclick="secondBox(${value.c_id})"> 댓글쓰기</input>` +
-                    `</div>` +
-                    `<div class="info">` +
-                        `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
-                        `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
-                        `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
-                        `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}` +
-                    '</div>' +
-                '</div>';
-            if (userId === value2.userId) {
-                real_comment +=
-                    `<span><img class="icon" src="../static/delete.png" alt="deleteImg" onclick="secondDelete(${value2.c_id})" /></span>` +
-                    `<span>` +
-                        `<a href="secondModify.html?c_id=${value2.c_id}&recomment_id=${value2.recomment_id}&b_id=${b_id}">` +
-                            `<img class="icon" src="../static/modify.png" alt="modifyImg" />` +
-                        `</a>` +
-                    `</span>`;
-            }
-            real_comment +=
-                    `<br>`+
-                    `<pre class="c_content_second">${value2.c_content}</pre>`;
-        }
+        // for(let value2 of value.secondComment) {
+        //     const time = new Date(value2.c_date * 1000);
+        //     real_comment +=
+        //         `<img class="arrow_icon" src="../static/arrows.png" alt="img"/>` +
+        //        `<span><img class="second_profile" src="data:image/jpg;base64, ${value2.profile}" alt="Image" /></span>` +
+        //         '<div style="display: inline-block;">' +
+        //             `<div class="userId">${value2.userId}님` +
+        //                 `<span class="comment_txt" onclick="secondBox(${value.c_id})"> 댓글쓰기</input>` +
+        //             `</div>` +
+        //             `<div class="info">` +
+        //                 `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
+        //                 `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
+        //                 `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
+        //                 `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}` +
+        //             '</div>' +
+        //         '</div>';
+        //     if (userId === value2.userId) {
+        //         real_comment +=
+        //             `<span><img class="icon" src="../static/delete.png" alt="deleteImg" onclick="secondDelete(${value2.c_id})" /></span>` +
+        //             `<span>` +
+        //                 `<a href="secondModify.html?c_id=${value2.c_id}&recomment_id=${value2.recomment_id}&b_id=${b_id}">` +
+        //                     `<img class="icon" src="../static/modify.png" alt="modifyImg" />` +
+        //                 `</a>` +
+        //             `</span>`;
+        //     }
+        //     real_comment +=
+        //             `<br>`+
+        //             `<pre class="c_content_second">${value2.c_content}</pre>`;
+        // }
         real_comment +=
             '</div>';
     }
