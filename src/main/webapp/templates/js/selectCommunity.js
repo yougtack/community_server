@@ -21,6 +21,7 @@ const community = {
     };
 
     xhttp.send();
+    console.log(community.data);
 })();
 
 (function printCommunity() {

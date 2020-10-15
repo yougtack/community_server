@@ -438,8 +438,7 @@ let cnt = 0;
             }
     }
     real_comment +=
-            '</div>' +
-        '</div>';
+            '</div>' ;
 
 
     /* 댓글 */
