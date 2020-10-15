@@ -166,7 +166,7 @@
 			c.b_id
         ORDER BY
             c.b_count
-        DESC;
+        DESC
     </select>
 
     <insert id="imageInsert" parameterType="com.community.model.ImageModel">
