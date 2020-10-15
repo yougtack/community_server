@@ -40,7 +40,7 @@
         <result property="b_date" column="b_date"></result>
         <result property="b_count" column="b_count"></result>
         <result property="userId" column="userId"></result>
-<!--        <result property="profile" column="profile"/>-->
+        <result property="profile" column="profile"/>
 
         <collection property="comments" ofType="com.community.model.CommentModel">
             <id property="c_id" column="first_c_id"></id>
@@ -48,7 +48,7 @@
             <result property="c_content" column="first_c_content"></result>
             <result property="c_date" column="first_c_date"></result>
             <result property="userId" column="first_userId"></result>
-<!--            <result property="profile" column="first_profile"/>-->
+            <result property="profile" column="first_profile"/>
         </collection>
     </resultMap>
 
@@ -56,7 +56,7 @@
         SELECT
             c.b_id, c.b_recomment_id, c.b_type, c.b_title, UNIX_TIMESTAMP(c.b_date) AS b_date, c.b_count, c.userId,
             c1.b_id AS boardComment_b_id, c1.b_recomment_id AS boardComment_b_recomment_id, c1.b_type AS boardComment_b_type,
-            c1.b_title AS boardComment_b_title, c1.b_content AS boardComment_b_content, c1.b_date AS boardComment_b_date, c1.b_count AS boardComment_b_count, c1.userId AS boardComment_userId
+            c1.b_title AS boardComment_b_title, c1.b_content AS boardComment_b_content, UNIX_TIMESTAMP(c1.b_date) AS boardComment_b_date, c1.b_count AS boardComment_b_count, c1.userId AS boardComment_userId
         FROM
             community AS c
         LEFT OUTER JOIN
