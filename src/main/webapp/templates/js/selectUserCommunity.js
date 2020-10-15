@@ -166,6 +166,11 @@ function second_enter(c_id) {
 }
 
 function secondBox(c_id){
+    if (document.cookie.substr(7,) === "") {
+        alert("로그인이 필요합니다.");
+        location.href = "login.html";
+        return false;
+    }
     let second = document.getElementsByClassName(`second_${c_id}`);
 
     for (let i = 0; i < second.length; i++){
@@ -372,13 +377,12 @@ let cnt = 0;
     /* 댓글 */
     let  real_comment =
         '<div class="div_border" style="margin: 30px 0 0 0;">' +
-            `<div class="div_border comment_title">댓글  ${cnt}</div>`;
+            `<div class="div_border comment_title" style="margin: 0 0 20px 0;">댓글  ${cnt}</div>`;
 
     for (let value of community.data.comments) {
         const time = new Date(value.c_date * 1000);
         if (value.c_id === value.recomment_id) {
             real_comment +=
-                `<div style="padding: 10px 10px 0 10px;">` +
                     `<span><img class="second_profile" src="data:image/jpg;base64, ${value.profile}" alt="Image" /></span>` +
                     '<div style="display: inline-block;">' +
                         `<span class="userId">${value.userId}님` +
@@ -438,8 +442,7 @@ let cnt = 0;
             }
     }
     real_comment +=
-            '</div>' ;
-
+            '</div>';
 
     /* 댓글 */
     real_comment +=

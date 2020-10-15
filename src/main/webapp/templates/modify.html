@@ -13,16 +13,6 @@
     <section>
         <p class="txt">게시글 수정</p>
         <div class="insert_div">
-        <select id="type" class="insert_type">
-            <option value="">게시판선택</option>
-            <option value="1">자유게시판</option>
-            <option value="2">게임게시판</option>
-            <option value="3">음식게시판</option>
-            <option value="4">코딩게시판</option>
-        </select>
-        <input type="file" multiple="multiple" id="files" name="files" accept="image/png, image/jpeg, image/jpg" class="insert_file"/>
-        <br>
-        <br>
         <p id="title_length" class="insert_title_length"></p>
         <input type="text" id="title" class="insert_title" onkeypress="titleCount()"/>
         <br>
@@ -31,6 +21,7 @@
         <br>
         <p id="content_length" class="insert_content_length"></p>
         <textarea class="textarea_resize insert_content" rows="5" cols="50" id="content"></textarea>
+            <input type="file" multiple="multiple" id="files" name="files" accept="image/png, image/jpeg, image/jpg" class="insert_file"/>
         <br>
         <br>
             <input type="button" class="insert_btn" style="float:right;" value="수정" onclick="communityModify()"/>
