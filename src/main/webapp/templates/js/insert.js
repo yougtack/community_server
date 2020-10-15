@@ -1,12 +1,10 @@
-document.getElementById("type").value = location.search.substr(location.search.indexOf("=") + 1);
-
-function insert(type, title, content) {
+function insert(title, content) {
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
 
     let check;
     const data = {
-        b_type: type.value,
+        b_type: location.search.substr(location.search.indexOf("=") + 1),
         b_title: title.value,
         b_content: content.value,
         userId: document.cookie.substr(7,)
@@ -58,16 +56,11 @@ function imgInsert() {
 function valueCheck() {
     const title = document.getElementById("title"),
         content = document.getElementById("content"),
-        type = document.getElementById("type"),
         files = document.getElementById("files").value;
 
     if (title.value.trim().length <= 0) {
         alert("제목을 작성해주세요.");
         title.focus();
-        return false;
-    } else if (type.value.trim().length <= 0) {
-        alert("타입을 선택해주세요.");
-        type.focus();
         return false;
     } else if (content.value.trim().length <= 0) {
         alert("내용을 작성해주세요.");
@@ -83,7 +76,7 @@ function valueCheck() {
         return false;
     }
 
-    insert(type, title, content);
+    insert(title, content);
 
     if (files !== "") {
         imgInsert();

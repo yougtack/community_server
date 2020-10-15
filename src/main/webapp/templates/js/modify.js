@@ -157,4 +157,5 @@ function image() {
     document.getElementById("title").value = community.data.b_title;
     document.getElementById("content").value = community.data.b_content;
     document.getElementById("type").value = community.data.b_type;
+    console.log(community.data);
 })();
