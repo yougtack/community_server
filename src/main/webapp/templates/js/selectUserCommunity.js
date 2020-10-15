@@ -74,7 +74,6 @@ function communityDelete() {
 function secondDelete(c_id) {
     if (confirm("해당 댓글을 삭제하시겠습니까?")) {
         let xhttp = new XMLHttpRequest();
-        console.log(c_id);
         const url = "http://localhost:8080";
         const deleteData = {
             c_id: c_id,
@@ -193,7 +192,6 @@ function secondBox(c_id){
     };
 
     xhttp.send();
-    console.log(community.data);
 })();
 
 (function image() {
@@ -378,74 +376,71 @@ let cnt = 0;
 
     for (let value of community.data.comments) {
         const time = new Date(value.c_date * 1000);
-        real_comment +=
-            `<div style="padding: 10px 10px 0 10px;">` +
-                `<span><img class="second_profile" src="data:image/jpg;base64, ${value.profile}" alt="Image" /></span>` +
-                '<div style="display: inline-block;">' +
-                    `<span class="userId">${value.userId}님` +
-                        `<span class="comment_txt" onclick="secondBox(${value.c_id})"> 댓글쓰기</span>` +
-                    `</span>` +
-                    '<br>'
-        real_comment +=
-                    `<span class="info">` +
-                        `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
-                        `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
-                        `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
-                        `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}` +
-                    '</span>' +
-                '</div>';
-        if (userId === value.userId) {
+        if (value.c_id === value.recomment_id) {
             real_comment +=
-                `<span><img class="icon" src="../static/delete.png" alt="deleteImg" onclick="commentDelete(${value.c_id})" /></span>` +
-                `<span><a href="commentModify.html?c_id=${value.c_id}&b_id=${b_id}"><img class="icon" src="../static/modify.png" alt="modifyImg" /></a></span>`;
-        }
-        real_comment +=
-                `<br>` +
-                `<pre class="c_content">${value.c_content}</pre>` +
-                '<hr style="width: 93%; border:1px solid #ddd">' +
-        /* 대댓글 입력 */
-                `<br>` +
-                `<div class="second_${value.c_id}" style="display:none; text-align: center;">` +
-                    `<p id="second_length" style="text-align: left; margin: 0 0 0 100px;"></p>` +
-                    `<input id="second_content_${value.c_id}" type="text" class="comment_box" onkeyup="second_enter(${value.c_id})"/>` +
-                    `<button class="comment_btn" onclick="secondInsert(${value.c_id})">등록</button>` +
-                `</div>`;
-
-        /* 대댓글 */
-        // for(let value2 of value.secondComment) {
-        //     const time = new Date(value2.c_date * 1000);
-        //     real_comment +=
-        //         `<img class="arrow_icon" src="../static/arrows.png" alt="img"/>` +
-        //        `<span><img class="second_profile" src="data:image/jpg;base64, ${value2.profile}" alt="Image" /></span>` +
-        //         '<div style="display: inline-block;">' +
-        //             `<div class="userId">${value2.userId}님` +
-        //                 `<span class="comment_txt" onclick="secondBox(${value.c_id})"> 댓글쓰기</input>` +
-        //             `</div>` +
-        //             `<div class="info">` +
-        //                 `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
-        //                 `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
-        //                 `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
-        //                 `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}` +
-        //             '</div>' +
-        //         '</div>';
-        //     if (userId === value2.userId) {
-        //         real_comment +=
-        //             `<span><img class="icon" src="../static/delete.png" alt="deleteImg" onclick="secondDelete(${value2.c_id})" /></span>` +
-        //             `<span>` +
-        //                 `<a href="secondModify.html?c_id=${value2.c_id}&recomment_id=${value2.recomment_id}&b_id=${b_id}">` +
-        //                     `<img class="icon" src="../static/modify.png" alt="modifyImg" />` +
-        //                 `</a>` +
-        //             `</span>`;
-        //     }
-        //     real_comment +=
-        //             `<br>`+
-        //             `<pre class="c_content_second">${value2.c_content}</pre>`;
-        // }
-        real_comment +=
-            '</div>';
+                `<div style="padding: 10px 10px 0 10px;">` +
+                    `<span><img class="second_profile" src="data:image/jpg;base64, ${value.profile}" alt="Image" /></span>` +
+                    '<div style="display: inline-block;">' +
+                        `<span class="userId">${value.userId}님` +
+                            `<span class="comment_txt" onclick="secondBox(${value.c_id})"> 댓글쓰기</span>` +
+                        `</span>` +
+                        '<br>'
+            real_comment +=
+                        `<span class="info">` +
+                            `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
+                            `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
+                            `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
+                            `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}` +
+                        '</span>' +
+                    '</div>';
+            if (userId === value.userId) {
+                real_comment +=
+                    `<span><img class="icon" src="../static/delete.png" alt="deleteImg" onclick="commentDelete(${value.c_id})" /></span>` +
+                    `<span><a href="commentModify.html?c_id=${value.c_id}&b_id=${b_id}"><img class="icon" src="../static/modify.png" alt="modifyImg" /></a></span>`;
+            }
+            real_comment +=
+                    `<br>` +
+                    `<pre class="c_content">${value.c_content}</pre>` +
+                    '<hr style="width: 93%; border:1px solid #ddd">' +
+                    /* 대댓글 입력 */
+                    `<br>` +
+                    `<div class="second_${value.c_id}" style="display:none; text-align: center;">` +
+                        `<p id="second_length" style="text-align: left; margin: 0 0 0 100px;"></p>` +
+                        `<input id="second_content_${value.c_id}" type="text" class="comment_box" onkeyup="second_enter(${value.c_id})"/>` +
+                        `<button class="comment_btn" onclick="secondInsert(${value.c_id})">등록</button>` +
+                    `</div>`;
+        }else {
+            /* 대댓글 */
+                real_comment +=
+                    `<img class="arrow_icon" src="../static/arrows.png" alt="img"/>` +
+                    `<span><img class="second_profile" src="data:image/jpg;base64, ${value.profile}" alt="Image" /></span>` +
+                    '<div style="display: inline-block;">' +
+                        `<div class="userId">${value.userId}님</div>` +
+                        `<div class="info">` +
+                            `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
+                            `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
+                            `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
+                            `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}` +
+                        '</div>' +
+                    '</div>';
+                if (userId === value.userId) {
+                    real_comment +=
+                        `<span><img class="icon" src="../static/delete.png" alt="deleteImg" onclick="secondDelete(${value.c_id})" /></span>` +
+                        `<span>` +
+                            `<a href="secondModify.html?c_id=${value.c_id}&recomment_id=${value.recomment_id}&b_id=${b_id}">` +
+                                `<img class="icon" src="../static/modify.png" alt="modifyImg" />` +
+                            `</a>` +
+                        `</span>`;
+                }
+                real_comment +=
+                    `<br>` +
+                    `<pre class="c_content_second">${value.c_content}</pre>`;
+            }
     }
     real_comment +=
+            '</div>' +
         '</div>';
+
 
     /* 댓글 */
     real_comment +=
