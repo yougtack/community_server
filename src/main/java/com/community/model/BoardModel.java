@@ -3,8 +3,6 @@ package com.community.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
 public class BoardModel {
@@ -16,7 +14,5 @@ public class BoardModel {
     private int b_count;
     private String userId;
 
-//    private List<BoardComment> boardComments;
-//    private List<CommentModel> comments;
     private int commentCount;
 }
