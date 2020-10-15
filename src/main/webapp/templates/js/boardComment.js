@@ -14,25 +14,16 @@ function boardCommentInsert(type,title,content) {
     let check;
     let boardCommentData;
 
-    if (boardComment.data.b_recomment_id === 0) {
-         boardCommentData = {
-            b_recomment_id: b_id,
-            b_type: type.value,
-            b_title: title.value,
-            b_content: content.value,
-            userId: document.cookie.substr(7,)
-        }
-    } else {
-        boardCommentData = {
-            b_recomment_id: boardComment.data.b_recomment_id,
-            b_type: type.value,
-            b_title: title.value,
-            b_content: content.value,
-            userId: document.cookie.substr(7,)
-        }
+    boardCommentData = {
+        b_recomment_id: boardComment.data.b_recomment_id,
+        b_type: type.value,
+        b_title: title.value,
+        b_content: content.value,
+        userId: document.cookie.substr(7,)
     }
 
-    xhttp.open("POST", url + `/board/community`, false);
+
+    xhttp.open("POST", url + `/board/community/second`, false);
 
     xhttp.onreadystatechange = () => {
         if (xhttp.status !== 200) {
