@@ -11,6 +11,7 @@ import java.util.List;
 public class CommentModel {
     private Integer c_id;
     private Integer b_id;
+    private Integer recomment_id;
     private String c_content;
     private Long c_date;
     private String userId;

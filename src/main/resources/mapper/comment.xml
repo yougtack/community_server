@@ -14,7 +14,11 @@
         INSERT INTO
             community_comment(b_id, recomment_id, c_content, c_date, userId)
         VALUES
-            (${b_id}, ${b_id}, #{c_content}, now(), #{userId})
+            (${b_id}, (SELECT AUTO_INCREMENT
+                        FROM information_schema.tables
+                        WHERE table_name = 'community_comment'
+                        AND table_schema = DATABASE()),
+            #{c_content}, now(), #{userId})
     </insert>
 
     <insert id="secondInsert" parameterType="String">
