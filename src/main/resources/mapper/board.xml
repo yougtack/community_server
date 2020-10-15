@@ -3,23 +3,24 @@
 <mapper namespace="com.community.dao.BoardDao">
     <resultMap id="boardMap" type="com.community.model.BoardModel">
         <id property="b_id" column="b_id"/>
+        <result property="b_recomment_id" column="b_recomment_id"></result>
         <result property="b_type" column="b_type"></result>
         <result property="b_title" column="b_title"></result>
         <result property="b_date" column="b_date"></result>
         <result property="b_count" column="b_count"></result>
         <result property="userId" column="userId"></result>
 <!--        <result property="commentCount" column="commentCount1"></result>-->
-        <collection property="boardComments" ofType="com.community.model.BoardComment">
-            <id property="b_id" column="boardComment_b_id"></id>
-            <result property="b_recomment_id" column="boardComment_b_recomment_id"></result>
-            <result property="b_type" column="boardComment_b_type"></result>
-            <result property="b_title" column="boardComment_b_title"></result>
-            <result property="b_content" column="boardComment_b_content"></result>
-            <result property="b_date" column="boardComment_b_date"></result>
-            <result property="b_count" column="boardComment_b_count"></result>
-            <result property="userId" column="boardComment_userId"></result>
+<!--        <collection property="boardComments" ofType="com.community.model.BoardComment">-->
+<!--            <id property="b_id" column="boardComment_b_id"></id>-->
+<!--            <result property="b_recomment_id" column="boardComment_b_recomment_id"></result>-->
+<!--            <result property="b_type" column="boardComment_b_type"></result>-->
+<!--            <result property="b_title" column="boardComment_b_title"></result>-->
+<!--            <result property="b_content" column="boardComment_b_content"></result>-->
+<!--            <result property="b_date" column="boardComment_b_date"></result>-->
+<!--            <result property="b_count" column="boardComment_b_count"></result>-->
+<!--            <result property="userId" column="boardComment_userId"></result>-->
 <!--            <result property="commentCount" column="commentCount2"></result>-->
-        </collection>
+<!--        </collection>-->
     </resultMap>
 
     <resultMap id="rankMap" type="com.community.model.BoardModel">
