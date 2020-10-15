@@ -5,7 +5,7 @@ const indexData = {
 
 let c_length = 0;
 
-(function init() {
+(function rank_init() {
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
 
@@ -22,7 +22,7 @@ let c_length = 0;
     xhttp.send();
 })();
 
-(function init() {
+(function index_init() {
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
 
@@ -79,22 +79,31 @@ let c_length = 0;
     document.write(rank_div);
 })();
 
-(function freePrint() {
-    let free_div =
-        '<div class="index_div">' +
-            '<p class="txt">자유게시판</p>';
-    for (let value of indexData.data) {
-        const time = new Date(value.b_date * 1000);
-        if(value.b_type === "1") {
-            if (c_length >= 5) {
-                break;
-            } else {
-                free_div +=
-                    `<div class="index_box">` +
-                        '<div class="index_item">' +
+(function indexPrint() {
+    for(let index_type = 1; index_type <= 4; index_type++ ){
+        let index_div =
+            '<div class="index_div">';
+        if (index_type === 1) {
+            index_div += '<p class="txt">자유게시판</p>';
+        } else if (index_type === 2) {
+            index_div += '<p class="txt">게임게시판</p>';
+        } else if (index_type === 3) {
+            index_div += '<p class="txt">음식게시판</p>';
+        } else {
+            index_div += '<p class="txt">코딩게시판</p>';
+        }
+        for (let value of indexData.data) {
+            const time = new Date(value.b_date * 1000);
+            if (value.b_type === "" + index_type) {
+                if (c_length >= 5) {
+                    break;
+                } else {
+                    index_div +=
+                        `<div class="index_box">` +
+                            '<div class="index_item">' +
                             `<span>` +
                                 `<a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a>` +
-                                `<span class="cnt_size">[${value.commentCount}]</span>` +
+                            `<span class="cnt_size">[${value.commentCount}]</span>` +
                             `</span>` +
                             `<span class="index_date">` +
                                 `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
@@ -105,128 +114,16 @@ let c_length = 0;
                             '<br>' +
                             `<span class="index_userId">${value.userId}</span>` +
                             `<span class="index_img"><img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${value.b_count}</span>` +
-                        '</div>' +
-                    '</div>';
+                            '</div>' +
+                        '</div>';
+                }
+                ++c_length;
             }
-            ++c_length;
         }
+        index_div +=
+            '</div>';
+
+        c_length = 0;
+        document.write(index_div);
     }
-    free_div += '</div>';
-
-    c_length = 0;
-    document.write(free_div);
-})();
-
-(function foodPrint() {
-    let food_div =
-        '<div class="index_div">' +
-            '<p class="txt">음식게시판</p>';
-    for (let value of indexData.data) {
-        const time = new Date(value.b_date * 1000);
-        if(value.b_type === "3") {
-            if (c_length >= 5) {
-                break;
-            } else {
-                food_div +=
-                    `<div class="index_box">` +
-                        '<div class="index_item">' +
-                            `<span>` +
-                                `<a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a>` +
-                                `<span class="cnt_size">[${value.commentCount}]</span>` +
-                            `</span>` +
-                            `<span class="index_date">` +
-                                `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
-                                `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
-                                `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
-                                `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}` +
-                            `</span>` +
-                            '<br>' +
-                            `<span class="index_userId">${value.userId}</span>` +
-                            `<span class="index_img"><img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${value.b_count}</span>` +
-                        '</div>' +
-                    '</div>';
-            }
-            ++c_length;
-        }
-    }
-    food_div += '</div>';
-
-    c_length = 0;
-    document.write(food_div);
-})();
-
-(function gamePrint() {
-    let game_div =
-        '<div class="index_div">' +
-        '<p class="txt">게임게시판</p>';
-    for (let value of indexData.data) {
-        const time = new Date(value.b_date * 1000);
-        if(value.b_type === "2") {
-            if (c_length >= 5) {
-                break;
-            } else {
-                game_div +=
-                    `<div class="index_box">` +
-                        '<div class="index_item">' +
-                            `<span>` +
-                                `<a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a>` +
-                                `<span class="cnt_size">[${value.commentCount}]</span>` +
-                            `</span>` +
-                            `<span class="index_date">` +
-                                `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
-                                `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
-                                `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
-                                `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}` +
-                            `</span>` +
-                            '<br>' +
-                            `<span class="index_userId">${value.userId}</span>` +
-                            `<span class="index_img"><img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${value.b_count}</span>` +
-                        '</div>' +
-                    '</div>';
-            }
-            ++c_length;
-        }
-    }
-    game_div += '</div>';
-
-    c_length = 0;
-    document.write(game_div);
-})();
-
-(function codingPrint() {
-    let coding_div =
-        '<div class="index_div">' +
-            '<p class="txt">코딩게시판</p>';
-    for (let value of indexData.data) {
-        const time = new Date(value.b_date * 1000);
-        if(value.b_type === "4") {
-            if (c_length >= 5) {
-                break;
-            } else {
-                coding_div +=
-                    `<div class="index_box">` +
-                        '<div class="index_item">' +
-                            `<span>` +
-                                `<a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a>` +
-                                `<span class="cnt_size">[${value.commentCount}]</span>` +
-                            `</span>` +
-                            `<span class="index_date">` +
-                                `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
-                                `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
-                                `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
-                                `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}` +
-                            `</span>` +
-                            '<br>' +
-                            `<span class="index_userId">${value.userId}</span>` +
-                            `<span class="index_img"><img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${value.b_count}</span>` +
-                        '</div>' +
-                    '</div>';
-            }
-            ++c_length;
-        }
-    }
-    coding_div += '</div>';
-
-    c_length = 0;
-    document.write(coding_div);
 })();
