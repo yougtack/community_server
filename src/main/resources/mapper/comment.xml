@@ -12,16 +12,16 @@
 
     <insert id="insert" parameterType="String">
         INSERT INTO
-            community_comment(b_id, c_content, c_date, userId)
+            community_comment(b_id, recomment_id, c_content, c_date, userId)
         VALUES
-            (${b_id}, #{c_content}, unix_timestamp(now()), #{userId})
+            (${b_id}, ${b_id}, #{c_content}, now(), #{userId})
     </insert>
 
     <insert id="secondInsert" parameterType="String">
         INSERT INTO
             community_comment(b_id, recomment_id, c_content, c_date, userId)
         VALUES
-            (${b_id}, ${recomment_id}, #{c_content}, unix_timestamp(now()), #{userId})
+            (${b_id}, ${recomment_id}, #{c_content}, now(), #{userId})
     </insert>
 
     <update id="update" parameterType="String">

@@ -15,6 +15,4 @@ public class CommentModel {
     private Long c_date;
     private String userId;
     private byte[] profile;
-
-    private List<SecondCommentModel> secondComment;
 }
