@@ -70,7 +70,7 @@ public class MemberController {
                 response.addCookie(cookie);
             }else{
                 System.out.println("is app!!");
-                System.out.println(userInfo.getUserId());
+                CheckUtil.APP_USERID = userInfo.getUserId();
 //                System.out.println(LoginUtil.getAuthorization(request));
             }
         }else {

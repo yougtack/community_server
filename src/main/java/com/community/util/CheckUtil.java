@@ -6,9 +6,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class CheckUtil {
+    public static String APP_USERID = "";
+
     //board, comment 영역
     public static Integer loginCheck(String loginUserId, String userId, HttpServletResponse response, HttpServletRequest request){
         int count = 0;
+        System.out.println(APP_USERID);
+        System.out.println(userId);
+
         if(!LoginUtil.isApp(request)){ //web일때 false
             if(loginUserId == null){
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());
@@ -18,7 +23,13 @@ public class CheckUtil {
                 count++;
             }
         }else{//app일때 true
-
+            if(APP_USERID == null){
+                response.setStatus(HttpStatus.UNAUTHORIZED.value());
+                count++;
+            }else if(!APP_USERID.equals(userId)) {
+                response.setStatus(HttpStatus.FORBIDDEN.value());
+                count++;
+            }
         }
         return count;
     }
@@ -31,7 +42,10 @@ public class CheckUtil {
                 count++;
             }
         }else{//app일때 true
-
+            if(APP_USERID == null){
+                response.setStatus(HttpStatus.UNAUTHORIZED.value());
+                count++;
+            }
         }
         return count;
     }
@@ -48,7 +62,13 @@ public class CheckUtil {
                 count++;
             }
         }else{
-
+            if(APP_USERID == null){
+                response.setStatus(HttpStatus.UNAUTHORIZED.value());
+                count++;
+            }else if(!APP_USERID.equals("admin")) {
+                response.setStatus(HttpStatus.FORBIDDEN.value());
+                count++;
+            }
         }
         return count;
     }
