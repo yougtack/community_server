@@ -115,7 +115,7 @@ function profileChange() {
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
 
-    xhttp.open("GET", url + `/board/myCommentBoard/${userId}`, false);
+    xhttp.open("GET", url + `/board/myCommentBoards/${userId}`, false);
 
     xhttp.onreadystatechange = () => {
         if (xhttp.status !== 200) {
@@ -126,11 +126,13 @@ function profileChange() {
     };
 
     xhttp.send();
-    console.log(myBoard.commentData);
 })();
 
 (function profilePrint() {
     let my_board = document.getElementById("my_board");
+
+    my_board.innerHTML +=
+        '<p class="profile_p">내가 작성한 게시글</p>';
 
     for(let value of myBoard.data){
         const time = new Date(value.b_date * 1000);
@@ -150,6 +152,35 @@ function profileChange() {
                     '<br>' +
                     `<span class="index_userId">${value.userId}</span>` +
                     `<span class="index_img"><img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${value.b_count}</span>` +
+                '</div>' +
+            '</div>';
+    }
+})();
+
+(function myCommentPrint() {
+    let my_board = document.getElementById("my_comment");
+
+    my_board.innerHTML +=
+        '<p class="profile_p">내가 댓글을 작성한 게시글</p>';
+
+    for(let value of myBoard.commentData){
+        const time = new Date(value.b_date * 1000);
+        my_board.innerHTML +=
+            `<div class="index_box">` +
+                '<div class="index_item">' +
+                `<span>` +
+                    `<a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a>` +
+                `<span class="cnt_size">[${value.commentCount}]</span>` +
+                `</span>` +
+                `<span class="index_date">` +
+                    `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
+                    `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
+                    `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
+                    `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}` +
+                `</span>` +
+                '<br>' +
+                `<span class="index_userId">${value.userId}</span>` +
+                `<span class="index_img"><img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${value.b_count}</span>` +
                 '</div>' +
             '</div>';
     }
