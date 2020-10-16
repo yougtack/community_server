@@ -13,6 +13,7 @@ public class BoardModel {
     private Long b_date;
     private int b_count;
     private String userId;
+    private int updateCheck;
 
     private int commentCount;
 }

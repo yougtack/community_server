@@ -32,7 +32,7 @@
         UPDATE
             community_comment
         SET
-            c_content = #{c_content}, c_date = unix_timestamp(now())
+            c_content = #{c_content}, updateCheck = 1
         WHERE
             c_id = ${c_id}
     </update>
