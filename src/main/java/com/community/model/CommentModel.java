@@ -3,9 +3,6 @@ package com.community.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
-import java.util.List;
-
 @Getter
 @Setter
 public class CommentModel {
@@ -15,5 +12,6 @@ public class CommentModel {
     private String c_content;
     private Long c_date;
     private String userId;
+    private int updateCheck;
     private byte[] profile;
 }

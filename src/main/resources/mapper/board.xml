@@ -9,6 +9,7 @@
         <result property="b_date" column="b_date"></result>
         <result property="b_count" column="b_count"></result>
         <result property="userId" column="userId"></result>
+        <result property="updateCheck" column="updateCheck"></result>
         <result property="commentCount" column="commentCount1"></result>
     </resultMap>
 
@@ -40,13 +41,14 @@
             <result property="c_content" column="first_c_content"></result>
             <result property="c_date" column="first_c_date"></result>
             <result property="userId" column="first_userId"></result>
+            <result property="updateCheck" column="first_c_updateCheck"></result>
             <result property="profile" column="first_profile"/>
         </collection>
     </resultMap>
 
     <select id="getBoardList" resultMap="boardMap">
             SELECT
-            c.b_id, c.b_recomment_id, c.b_type, c.b_title, UNIX_TIMESTAMP(c.b_date) AS b_date, c.b_count, c.userId,
+            c.b_id, c.b_recomment_id, c.b_type, c.b_title, UNIX_TIMESTAMP(c.b_date) AS b_date, c.b_count, c.userId, c.updateCheck,
             (select count(c_content) from community_comment where b_id = c.b_id) AS commentCount1
         FROM
             community AS c
@@ -76,7 +78,7 @@
             c.b_id, c.b_recomment_id, c.b_type, c.b_title, c.b_content, UNIX_TIMESTAMP(c.b_date) AS b_date, c.b_count, c.userId,
             (select profile from community_member where userId = c.userId) AS profile,
             cc.c_id AS first_c_id, cc.b_id AS first_b_id, cc.recomment_id AS first_recomment_id, cc.c_content AS first_c_content,
-            UNIX_TIMESTAMP(cc.c_date) AS first_c_date, cc.userId AS first_userId,
+            UNIX_TIMESTAMP(cc.c_date) AS first_c_date, cc.userId AS first_userId, cc.updateCheck AS first_c_updateCheck,
             (select profile from community_member where userId = cc.userId) AS first_profile
         from
             community AS c
@@ -109,7 +111,7 @@
         UPDATE
             community
         SET
-            b_type = #{b_type}, b_title = #{b_title}, b_content = #{b_content}, b_date =now()
+            b_type = #{b_type}, b_title = #{b_title}, b_content = #{b_content}, updateCheck = 1
         WHERE
             b_id = ${b_id}
     </update>
