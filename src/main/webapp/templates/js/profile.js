@@ -1,5 +1,6 @@
 const myBoard = {
-    data: []
+    data: [],
+    commentData: []
 }
 
 const userId = document.cookie.substr(7,);
@@ -85,7 +86,7 @@ function profileChange() {
     }
 }
 
-(function init() {
+(function myBoardInit() {
     const user_profile = document.getElementById("user_profile_view");
 
     for (let profile of userInfo.data) {
@@ -108,6 +109,24 @@ function profileChange() {
     };
 
     xhttp.send();
+})();
+
+(function myCommentInit(){
+    let xhttp = new XMLHttpRequest();
+    const url = "http://localhost:8080";
+
+    xhttp.open("GET", url + `/board/myCommentBoard/${userId}`, false);
+
+    xhttp.onreadystatechange = () => {
+        if (xhttp.status !== 200) {
+            console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
+        }
+
+        myBoard.commentData = JSON.parse(xhttp.responseText);
+    };
+
+    xhttp.send();
+    console.log(myBoard.commentData);
 })();
 
 (function profilePrint() {
@@ -135,4 +154,3 @@ function profileChange() {
             '</div>';
     }
 })();
-
