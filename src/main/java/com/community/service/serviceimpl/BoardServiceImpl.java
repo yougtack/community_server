@@ -33,6 +33,10 @@ public class BoardServiceImpl implements BoardService {
         return dao.getMyBoardList(userId);
     }
 
+    @Override
+    public List<BoardModel> getMyCommentBoards(String userId){
+        return dao.getMyCommentBoards(userId);
+    }
 
     @Override
     public Integer insert(ViewModel viewModel){

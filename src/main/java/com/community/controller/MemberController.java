@@ -58,7 +58,7 @@ public class MemberController {
                 Cookie cookie = new Cookie("userId", userInfo.getUserId());
 //                Cookie cookie = new Cookie("userId", uuid);
 
-                CheckUtil.USER_ID = userInfo.getUserId();
+//                CheckUtil.USER_ID = userInfo.getUserId();
 //                System.out.println("uuid:"+uuid);
 //                System.out.println("userId:"+userInfo.getUserId());
                 cookie.setMaxAge(-1);
