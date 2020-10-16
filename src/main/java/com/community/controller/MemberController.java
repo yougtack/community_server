@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/member")
@@ -53,10 +54,15 @@ public class MemberController {
         MemberModel userInfo = memberService.login(member);
         if(userInfo != null){
             if(!isApp){
+                String uuid = UUID.randomUUID().toString();
                 Cookie cookie = new Cookie("userId", userInfo.getUserId());
+//                Cookie cookie = new Cookie("userId", uuid);
+
+                CheckUtil.USER_ID = userInfo.getUserId();
+//                System.out.println("uuid:"+uuid);
+//                System.out.println("userId:"+userInfo.getUserId());
                 cookie.setMaxAge(-1);
                 cookie.setPath("/");
-                cookie.setHttpOnly(true);
 
                 response.addCookie(cookie);
             }else{
