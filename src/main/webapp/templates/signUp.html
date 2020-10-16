@@ -12,19 +12,21 @@
     </div>
     <section>
         <p class="txt">회원가입</p>
-        <input type="text" id="userId" class="input_box" placeholder="아이디" onkeyup="enter()" />
-        <br>
-        <input type="password" id="userPw" class="input_box" placeholder="비밀번호" onkeyup="enter()" />
-        <br>
-        <input type="password" id="userPwCheck" class="input_box" placeholder="비밀번호확인" onkeyup="enter()" />
-        <br>
-        <br>
-        <p>프로필 사진</p>
-        <input type="file" id="profile" name="profile" accept="image/*" />
-        <br>
-        <br>
-        <br>
-        <input type="button" value="회원가입" class="input_button" onclick="signUpCheck()"/>
+        <div class="input_div">
+            <input type="text" id="userId" class="input_box" placeholder="아이디" onkeyup="enter()" />
+            <br>
+            <input type="password" id="userPw" class="input_box" placeholder="비밀번호" onkeyup="enter()" />
+            <br>
+            <input type="password" id="userPwCheck" class="input_box" placeholder="비밀번호확인" onkeyup="enter()" />
+            <br>
+            <br>
+            <p>프로필 사진</p>
+            <input type="file" id="profile" name="profile" accept="image/*" />
+            <br>
+            <br>
+            <br>
+            <input type="button" value="회원가입" class="input_button" onclick="signUpCheck()"/>
+        </div>
     </section>
     <script src="js/signUp.js"></script>
     <script src="js/word.js"></script>

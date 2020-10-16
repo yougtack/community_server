@@ -39,19 +39,10 @@
                 </div>
             </div>
         </div>
-        <div style="margin: 10px 0 0 0;">
-            <p>내가 쓴 게시글</p>
-            <div id="my_board" class="index_div"></div>
-        </div>
+        <div id="my_board" class="index_div"></div>
+        <div id="my_comment" class="index_div"></div>
     </section>
     <script src="js/profile.js"></script>
     <script src="js/word.js"></script>
 </body>
-<script>
-    let img = document.getElementById("test");
-    for (let x = 0; x < img.length; x++) {
-        console.log("HI");
-        img.item(x).onclick=function() {window.open(this.src)};
-    }
-</script>
 </html>
