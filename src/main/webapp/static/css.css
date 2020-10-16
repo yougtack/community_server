@@ -439,3 +439,8 @@ section {
 .board_comment_item {
     margin: 10px 0 0 0;
 }
+
+.update_check {
+    font-size: 8px;
+    color: #999;
+}
