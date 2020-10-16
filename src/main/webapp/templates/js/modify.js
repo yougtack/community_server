@@ -50,11 +50,7 @@ function communityModify() {
 
     const files = document.getElementById("files").value;
     if (confirm("게시글을 수정합니다.")) {
-        if (document.getElementById("type").value.trim().length <= 0) {
-            alert("타입을 선택해주세요.");
-            document.getElementById("type").focus();
-            return false;
-        } else if (document.getElementById("title").value.trim().length <= 0) {
+         if (document.getElementById("title").value.trim().length <= 0) {
             alert("제목을 작성해주세요.");
             document.getElementById("title").focus();
             return false;
@@ -74,7 +70,7 @@ function communityModify() {
         const modifyData = {
             userId: userId,
             b_id: b_id,
-            b_type: document.getElementById("type").value,
+            b_type: community.data.b_type,
             b_title: document.getElementById("title").value,
             b_content: document.getElementById("content").value
         };
@@ -156,5 +152,4 @@ function image() {
 
     document.getElementById("title").value = community.data.b_title;
     document.getElementById("content").value = community.data.b_content;
-    document.getElementById("type").value = community.data.b_type;
 })();
