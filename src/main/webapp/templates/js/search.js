@@ -8,7 +8,7 @@ const word = location.search.substr(location.search.indexOf("=") + 1);
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
 
-    xhttp.open("GET", url + `/board/search?word=${word}`, false);
+    xhttp.open("GET", url + `/board/search/${word}`, false);
 
     xhttp.onreadystatechange = () => {
         if (xhttp.status !== 200) {
