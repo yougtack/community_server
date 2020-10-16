@@ -3,6 +3,7 @@ package com.community.controller;
 import com.community.model.CheckUserModel;
 import com.community.model.MemberModel;
 import com.community.service.MemberService;
+import com.community.util.AES256Util;
 import com.community.util.CheckUtil;
 import com.community.util.LoginUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +11,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/member")
@@ -49,18 +56,14 @@ public class MemberController {
 
     //로그인
     @PostMapping(value = "/login")
-    public MemberModel Login(@RequestBody MemberModel member, HttpServletResponse response, HttpServletRequest request){
+    public MemberModel Login(@RequestBody MemberModel member, HttpServletResponse response, HttpServletRequest request) throws NoSuchPaddingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, UnsupportedEncodingException {
         boolean isApp = LoginUtil.isApp(request);
         MemberModel userInfo = memberService.login(member);
         if(userInfo != null){
             if(!isApp){
-                String uuid = UUID.randomUUID().toString();
+                AES256Util aes256Util = new AES256Util();
+                aes256Util.aesEncode(userInfo.getUserId());
                 Cookie cookie = new Cookie("userId", userInfo.getUserId());
-//                Cookie cookie = new Cookie("userId", uuid);
-
-//                CheckUtil.USER_ID = userInfo.getUserId();
-//                System.out.println("uuid:"+uuid);
-//                System.out.println("userId:"+userInfo.getUserId());
                 cookie.setMaxAge(-1);
                 cookie.setPath("/");
 
