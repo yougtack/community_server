@@ -197,6 +197,7 @@ function secondBox(c_id){
     };
 
     xhttp.send();
+    console.log(community.data);
 })();
 
 (function image() {
@@ -394,7 +395,12 @@ let cnt = 0;
                             `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
                             `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
                             `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
-                            `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}` +
+                            `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}`;
+            if(value.updateCheck > 0) {
+                real_comment +=
+                    '<span class="update_check"> (수정됨)</span>';
+            }
+            real_comment +=
                         '</span>' +
                     '</div>';
             if (userId === value.userId) {
@@ -424,7 +430,12 @@ let cnt = 0;
                             `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
                             `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
                             `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
-                            `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}` +
+                            `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}`;
+            if(value.updateCheck > 0) {
+                real_comment +=
+                    '<span class="update_check"> (수정됨)</span>';
+            }
+            real_comment +=
                         '</div>' +
                     '</div>';
                 if (userId === value.userId) {

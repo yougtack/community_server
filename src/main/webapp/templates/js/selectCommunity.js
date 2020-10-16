@@ -50,7 +50,13 @@ const community = {
                 real_body +=
                     `<div class="index_box">` +
                         '<div class="index_item">' +
-                        `<span class="b_id_size">#${index.b_id}</span>` +
+                        `<span class="b_id_size">#${index.b_id} `;
+                if(index.updateCheck > 0) {
+                    real_body +=
+                        '<span class="update_check">(수정됨)</span>';
+                }
+                real_body +=
+                        `</span>` +
                         `<span class="community_info">${index.userId}</span>` +
                         '<br>' +
                         `<span>` +
@@ -73,7 +79,13 @@ const community = {
                     `<div class="board_comments_box" style="display: inline-block;">` +
                         '<div class="board_comment_item">' +
                             `<img class="board_arrow" src="../static/arrows.png" alt="img"/>` +
-                            `<span class="b_id_size">#${index.b_id}</span>` +
+                            `<span class="b_id_size">#${index.b_id} `;
+                if(index.updateCheck > 0) {
+                    real_body +=
+                                '<span class="update_check">(수정됨)</span>';
+                }
+                real_body +=
+                            `</span>` +
                             `<span class="community_info">${index.userId}</span>` +
                             '<br>' +
                             `<span>` +

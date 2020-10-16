@@ -4,11 +4,7 @@ const boardComment = {
 
 const b_id = location.search.substr(location.search.indexOf("=") + 1);
 
-function typeReadonly() {
-    document.getElementById("type").value = boardComment.data.b_type;
-}
-
-function boardCommentInsert(type,title,content) {
+function boardCommentInsert(title,content) {
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
     let check;
@@ -16,7 +12,7 @@ function boardCommentInsert(type,title,content) {
 
     boardCommentData = {
         b_recomment_id: boardComment.data.b_recomment_id,
-        b_type: type.value,
+        b_type: boardComment.data.b_type,
         b_title: title.value,
         b_content: content.value,
         userId: document.cookie.substr(7,)
@@ -51,16 +47,11 @@ function cancel() {
 
 function valueCheck() {
     const title = document.getElementById("title"),
-        content = document.getElementById("content"),
-        type = document.getElementById("type");
+        content = document.getElementById("content");
 
     if (title.value.trim().length <= 0) {
         alert("제목을 작성해주세요.");
         title.focus();
-        return false;
-    } else if (type.value.trim().length <= 0) {
-        alert("타입을 선택해주세요.");
-        type.focus();
         return false;
     } else if (content.value.trim().length <= 0) {
         alert("내용을 작성해주세요.");
@@ -76,7 +67,7 @@ function valueCheck() {
         return false;
     }
 
-    boardCommentInsert(type, title, content);
+    boardCommentInsert(title, content);
 }
 
 (function init() {
@@ -95,6 +86,5 @@ function valueCheck() {
 
     xhttp.send();
 
-    document.getElementById("type").value = boardComment.data.b_type;
     document.getElementById("title").value = boardComment.data.b_title;
 })();
