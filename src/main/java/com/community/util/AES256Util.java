@@ -1,8 +1,6 @@
 package com.community.util;
 
 import org.apache.tomcat.util.codec.binary.Base64;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -20,7 +18,7 @@ public class AES256Util {
     private static String iv;
     private static Key keySpec;
 
-    public void AES256Util() throws UnsupportedEncodingException {
+    public AES256Util() throws UnsupportedEncodingException {
         String key = "PBKDF2WithHmacSHA1b";
         this.iv = key.substring(0, 16);
 

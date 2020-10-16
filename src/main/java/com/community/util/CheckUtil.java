@@ -7,18 +7,22 @@ import javax.servlet.http.HttpServletResponse;
 
 public class CheckUtil {
     public static String APP_USERID = "";
+    public static String ORIGINAL_USER_ID_ENCODE="";
+    public static String ORIGINAL_USER_ID_DECODE="";
 
     //board, comment 영역
     public static Integer loginCheck(String loginUserId, String userId, HttpServletResponse response, HttpServletRequest request){
+
         int count = 0;
-        System.out.println(APP_USERID);
         System.out.println(userId);
+        System.out.println(ORIGINAL_USER_ID_ENCODE);
+        System.out.println(ORIGINAL_USER_ID_DECODE);
 
         if(!LoginUtil.isApp(request)){ //web일때 false
             if(loginUserId == null){
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());
                 count++;
-            }else if(!userId.equals(userId)) {
+            }else if(!ORIGINAL_USER_ID_DECODE.equals(userId)) {
                 response.setStatus(HttpStatus.FORBIDDEN.value());
                 count++;
             }

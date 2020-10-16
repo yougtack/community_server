@@ -4,6 +4,7 @@ import com.community.dao.MemberDao;
 import com.community.model.CheckUserModel;
 import com.community.model.MemberModel;
 import com.community.service.MemberService;
+import com.community.util.AES256Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,8 +23,8 @@ public class MemberServiceImpl implements MemberService {
     MemberDao dao;
 
     @Override
-    public Integer signUp(MemberModel memberModel){
-        return dao.signUp(memberModel.getUserId(), memberModel.getUserPw());
+    public Integer signUp(MemberModel memberModel, String encode){
+        return dao.signUp(encode, memberModel.getUserId(), memberModel.getUserPw());
     }
 
     @Override

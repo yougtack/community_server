@@ -35,9 +35,11 @@ public class MemberController {
 
     //회원가입
     @PostMapping(value = "/signUp")
-    public Integer SignUp(@RequestBody MemberModel memberModel){
+    public Integer SignUp(@RequestBody MemberModel memberModel) throws NoSuchPaddingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, UnsupportedEncodingException {
         userId = memberModel.getUserId();
-        return  memberService.signUp(memberModel);
+        AES256Util aes256Util = new AES256Util();
+        String encode = aes256Util.aesEncode(memberModel.getUserId());
+        return  memberService.signUp(memberModel, encode);
     }
 
     //회원프로핆
@@ -62,7 +64,9 @@ public class MemberController {
         if(userInfo != null){
             if(!isApp){
                 AES256Util aes256Util = new AES256Util();
-                aes256Util.aesEncode(userInfo.getUserId());
+                String encode = aes256Util.aesEncode(userInfo.getUserId());
+                CheckUtil.ORIGINAL_USER_ID_ENCODE = encode;
+                CheckUtil.ORIGINAL_USER_ID_DECODE = aes256Util.aesDecode(encode);
                 Cookie cookie = new Cookie("userId", userInfo.getUserId());
                 cookie.setMaxAge(-1);
                 cookie.setPath("/");
