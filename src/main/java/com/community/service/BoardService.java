@@ -11,6 +11,8 @@ public interface BoardService {
 
     List<BoardModel> getMyBoardList(String userId);
 
+    List<BoardModel> getMyCommentBoards(String userId);
+
     Integer insert(ViewModel viewModel);
     Integer secondInsert(ViewModel viewModel);
 

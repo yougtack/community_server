@@ -12,11 +12,12 @@ public class CheckUtil {
     public static Integer loginCheck(String loginUserId, String userId, HttpServletResponse response, HttpServletRequest request){
         int count = 0;
         System.out.println("USER_ID:"+USER_ID);
+        System.out.println("userID:"+userId);
         if(!LoginUtil.isApp(request)){ //web일때 false
             if(loginUserId == null){
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());
                 count++;
-            }else if(!loginUserId.equals(userId)) {
+            }else if(!userId.equals(userId)) {
                 response.setStatus(HttpStatus.FORBIDDEN.value());
                 count++;
             }

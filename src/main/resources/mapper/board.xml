@@ -47,7 +47,7 @@
     </resultMap>
 
     <select id="getBoardList" resultMap="boardMap">
-            SELECT
+        SELECT
             c.b_id, c.b_recomment_id, c.b_type, c.b_title, UNIX_TIMESTAMP(c.b_date) AS b_date, c.b_count, c.userId, c.updateCheck,
             (select count(c_content) from community_comment where b_id = c.b_id) AS commentCount1
         FROM
@@ -71,6 +71,22 @@
         ORDER BY
             c.b_id
         DESC
+    </select>
+
+    <select id="getMyCommentBoards" resultMap="boardMap">
+        SELECT
+            c.b_id, c.b_recomment_id, c.b_type, c.b_title, UNIX_TIMESTAMP(c.b_date) AS b_date, c.b_count, c.userId, c.updateCheck,
+            (select count(c_content) from community_comment where b_id = c.b_id) AS commentCount1
+        FROM
+            community AS c
+		LEFT OUTER JOIN
+			community_comment AS cc on c.b_id = cc.b_id
+		where
+			c.b_id in (select b_id from community_comment where userId = #{userId} group by b_id)
+		group by
+			c.b_id
+        ORDER BY
+			c.b_recomment_id ASC, c.b_date ASC
     </select>
 
     <select id="getView" resultMap="viewMap">
