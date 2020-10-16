@@ -27,6 +27,12 @@ const word = location.search.substr(location.search.indexOf("=") + 1);
     document.getElementById("search_word").value = decodeURI(word);
 })();
 
+function searchEnter() {
+    if (window.event.keyCode === 13) {
+        search();
+    }
+}
+
 (function printCommunity() {
     const txt = document.querySelector(".txt");
     let real_body = '';

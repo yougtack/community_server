@@ -23,6 +23,12 @@ const userInfo = {
     xhttp.send();
 })();
 
+function sideSearchEnter() {
+    if (window.event.keyCode === 13) {
+        s_search();
+    }
+}
+
 function logout() {
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
@@ -58,7 +64,7 @@ real_header +=
         '<br>' +
         '<br>' +
         '<div style="margin-bottom: 20px;">' +
-            '<input type="text" id="word" style="width: 120px; padding: 10px;" placeholder="제목 검색"/>' +
+            '<input type="text" id="word" style="width: 120px; padding: 10px;" onkeypress="sideSearchEnter()" placeholder="제목 검색"/>' +
             '<input type="button" value="검색" onclick="s_search()" style="width: 55px; padding: 10px;"/>' +
         '</div>' +
         '<div class="main_category">' +
