@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
 <head>
-    <meta charset="UTF-8">
     <link rel="shortcut icon" href="#">
-    <link rel="stylesheet" type="text/css" href="../static/css.css"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>게시판</title>
+    <script type="text/javascript" src="naverJs/HuskyEZCreator.js" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="../static/css.css"/>
 </head>
 <body>
     <div>
@@ -13,18 +14,16 @@
     <section>
         <p class="txt">게시글 수정</p>
         <div class="insert_div">
-        <p id="title_length" class="insert_title_length"></p>
-        <input type="text" id="title" class="insert_title" onkeypress="titleCount()"/>
-        <br>
-        <div id="delBtn">
-        </div>
-        <br>
-        <p id="content_length" class="insert_content_length"></p>
-        <textarea class="textarea_resize insert_content" rows="5" cols="50" id="content"></textarea>
+            <p id="title_length" class="insert_title_length"></p>
+            <input type="text" id="title" class="insert_title" onkeypress="titleCount()"/>
+            <br>
+            <div id="delBtn"></div>
+            <br>
+            <textarea name="ir1" id="ir1" rows="10" cols="100" style="width:766px; height:412px; display:none;"></textarea>
             <input type="file" multiple="multiple" id="files" name="files" accept="image/png, image/jpeg, image/jpg" class="insert_file"/>
-        <br>
-        <br>
-            <input type="button" class="insert_btn" style="float:right;" value="수정" onclick="communityModify()"/>
+            <br>
+            <br>
+            <input type="button" class="insert_btn" value="수정" onclick="communityModify()"/>
             <input type="button" class="cancel_btn" value="취소" onclick="cancel()"/>
         </div>
     </section>
@@ -38,16 +37,6 @@
         function titleCount(){
             title_length.innerText = document.getElementById("title").value.length + "/20";
         }
-        titleKey.addEventListener("keyup",titleCount);
-
-        /* content */
-        let content_length = document.getElementById("content_length");
-        content_length.innerText = document.getElementById("content").value.length + "/200"
-        const contentKey = document.getElementById("content");
-        function contentCount(){
-            content_length.innerText = document.getElementById("content").value.length + "/200";
-        }
-        contentKey.addEventListener("keyup",contentCount);
     </script>
 </body>
 </html>

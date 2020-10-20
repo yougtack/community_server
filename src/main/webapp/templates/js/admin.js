@@ -12,14 +12,15 @@ function deleteUser(userId) {
         xhttp.onreadystatechange = () => {
             if (xhttp.status !== 200) {
                 console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
+                alert("유저 삭제 중 오류가 발생했습니다. 다시 시도해주세요.");
+            } else {
+                alert("삭제하였습니다.");
+                location.href = "admin.html";
             }
         };
 
         xhttp.setRequestHeader("Content-Type", "application/json");
         xhttp.send(JSON.stringify(deleteUser));
-
-        alert("삭제하였습니다.");
-        location.href = "admin.html";
     }
 }
 

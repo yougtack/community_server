@@ -33,13 +33,14 @@ function secondModify() {
 
             if (xhttp.status !== 200) {
                 console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
+                alert("대댓글 수정 중 오류가 발생했습니다. 다시 시도해주세요.");
+            } else {
+                location.href = `userCommunity.html?b_id=${b_id}`;
             }
         };
 
         xhttp.setRequestHeader("Content-Type", "application/json");
         xhttp.send(JSON.stringify(secondData));
-
-        location.href = `userCommunity.html?b_id=${b_id}`;
     }
 }
 

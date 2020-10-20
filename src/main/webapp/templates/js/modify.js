@@ -6,6 +6,23 @@ const community = {
 const userId = document.cookie.substr(7,);
 const b_id = location.search.substr(location.search.indexOf("=") + 1);
 
+let oEditors = [];
+nhn.husky.EZCreator.createInIFrame({
+    oAppRef: oEditors,
+    elPlaceHolder: "ir1",
+    sSkinURI: "SmartEditor2Skin.html",
+    htParams : {bUseToolbar : true,
+        fOnBeforeUnload : function(){
+            //alert("아싸!");
+        }
+    }, //boolean
+    fOnAppLoad : function(){
+        //예제 코드
+        //oEditors.getById["ir1"].exec("PASTE_HTML", ["로딩이 완료된 후에 본문에 삽입되는 text입니다."]);
+    },
+    fCreator: "createSEditor2"
+});
+
 function imgDelete(i_id) {
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
@@ -47,6 +64,7 @@ function imgInsert() {
 function communityModify() {
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
+    let sHTML = oEditors.getById["ir1"].getIR();
 
     const files = document.getElementById("files").value;
     if (confirm("게시글을 수정합니다.")) {
@@ -54,25 +72,18 @@ function communityModify() {
             alert("제목을 작성해주세요.");
             document.getElementById("title").focus();
             return false;
-        } else if (document.getElementById("content").value.trim().length <= 0) {
-            alert("내용을 작성해주세요.");
-            document.getElementById("content").focus();
-            return false;
         } else if (document.getElementById("title").value.length > 20) {
             alert("글자 제한 수를 초과하였습니다.");
             document.getElementById("title").focus();
             return false;
-        } else if (document.getElementById("content").value.length > 200) {
-            alert("글자 제한 수를 초과하였습니다.");
-            document.getElementById("content").focus();
-            return false;
         }
+
         const modifyData = {
             userId: userId,
             b_id: b_id,
             b_type: community.data.b_type,
             b_title: document.getElementById("title").value,
-            b_content: document.getElementById("content").value
+            b_content: sHTML
         };
 
         xhttp.open("PUT", url + `/board/community/${b_id}`, false);
@@ -80,6 +91,7 @@ function communityModify() {
         xhttp.onreadystatechange = () => {
             if (xhttp.status !== 200) {
                 console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
+                alert("게시글 수정 중 오류가 발생했습니다. 다시 시도해주세요.");
             }
         };
 
@@ -151,5 +163,5 @@ function image() {
     image();
 
     document.getElementById("title").value = community.data.b_title;
-    document.getElementById("content").value = community.data.b_content;
+    document.getElementById("ir1").value = community.data.b_content;
 })();

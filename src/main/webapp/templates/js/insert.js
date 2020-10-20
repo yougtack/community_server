@@ -1,12 +1,41 @@
+(function loginCheck() {
+    if (document.cookie.substr(7,) === "") {
+        alert("로그인이 필요합니다.");
+        location.href = "login.html";
+        return false;
+    }
+})();
+
+let oEditors = [];
+nhn.husky.EZCreator.createInIFrame({
+    oAppRef: oEditors,
+    elPlaceHolder: "ir1",
+    sSkinURI: "SmartEditor2Skin.html",
+    htParams : {bUseToolbar : true,
+        fOnBeforeUnload : function(){
+            //alert("아싸!");
+        }
+    }, //boolean
+    fOnAppLoad : function(){
+        //예제 코드
+        //oEditors.getById["ir1"].exec("PASTE_HTML", ["로딩이 완료된 후에 본문에 삽입되는 text입니다."]);
+    },
+    fCreator: "createSEditor2"
+});
+
+// function pasteHTML() {
+//     var sHTML = "<span style='color:#FF0000;'>이미지도 같은 방식으로 삽입합니다.<\/span>";
+//     oEditors.getById["ir1"].exec("PASTE_HTML", [sHTML]);
+// }
+
 function insert(title, content) {
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
 
-    let check;
     const data = {
         b_type: location.search.substr(location.search.indexOf("=") + 1),
         b_title: title.value,
-        b_content: content.value,
+        b_content: content,
         userId: document.cookie.substr(7,)
     };
 
@@ -14,20 +43,15 @@ function insert(title, content) {
 
     xhttp.onreadystatechange = () => {
         if (xhttp.status !== 200) {
-            check = false;
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
-            return false;
+            alert("게시글 작성 중 오류가 발생했습니다. 다시 시도해주세요.");
         } else {
-            check = true;
+            location.href = `community.html?b_type=${data.b_type}`;
         }
     };
 
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.send(JSON.stringify(data));
-
-    if (check) {
-        location.href = `community.html?b_type=${data.b_type}`;
-    }
 }
 
 function imgInsert() {
@@ -55,38 +79,27 @@ function imgInsert() {
 
 function valueCheck() {
     const title = document.getElementById("title"),
-        content = document.getElementById("content"),
         files = document.getElementById("files").value;
+
+    let sHTML = oEditors.getById["ir1"].getIR();
 
     if (title.value.trim().length <= 0) {
         alert("제목을 작성해주세요.");
         title.focus();
         return false;
-    } else if (content.value.trim().length <= 0) {
+    } else if ( sHTML === ""  || sHTML === null || sHTML === '&nbsp;' ||
+        sHTML === '<br>' || sHTML === '<br/>' || sHTML === '<p><br></p>' || sHTML === '<p>&nbsp;</p>') {
         alert("내용을 작성해주세요.");
-        content.focus();
         return false;
     } else if (document.getElementById("title").value.length > 20) {
         alert("글자 제한 수를 초과하였습니다.");
         title.focus();
         return false;
-    } else if (document.getElementById("content").value.length > 200) {
-        alert("글자 제한 수를 초과하였습니다.");
-        content.focus();
-        return false;
     }
 
-    insert(title, content);
+    insert(title,sHTML);
 
     if (files !== "") {
         imgInsert();
     }
 }
-
-(function loginCheck() {
-    if (document.cookie.substr(7,) === "") {
-        alert("로그인이 필요합니다.");
-        location.href = "login.html";
-        return false;
-    }
-})();

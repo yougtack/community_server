@@ -26,14 +26,15 @@ function passwordChange(user_password) {
         xhttp.onreadystatechange = () => {
             if (xhttp.status !== 200) {
                 console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
+                alert("비밀번호 변경 중 오류가 발생했습니다. 다시 시도해주세요.");
+            } else {
+                alert("비밀번호가 변경되었습니다.");
+                location.href = `index.html`;
             }
         };
 
         xhttp.setRequestHeader("Content-Type", "application/json");
         xhttp.send(JSON.stringify(passwordData));
-
-        alert("비밀번호가 변경되었습니다.");
-        location.href = `index.html`;
     }
 }
 
@@ -76,13 +77,14 @@ function profileChange() {
         xhttp.onreadystatechange = () => {
             if (xhttp.status !== 200) {
                 console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
+                alert("프로필 사진 변경 중 오류가 발생했습니다. 다시 시도해주세요.");
+            } else {
+                alert("프로필 사진이 변경되었습니다.");
+                location.href = `profile.html`;
             }
         };
 
         xhttp.send(formData);
-
-        alert("프로필 사진이 변경되었습니다.");
-        location.href = `profile.html`;
     }
 }
 

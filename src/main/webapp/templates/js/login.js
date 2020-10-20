@@ -1,7 +1,7 @@
 function login(userId, userPw) {
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
-    let check;
+
     let data = {
         userId: userId.value,
         userPw: userPw.value,
@@ -13,18 +13,12 @@ function login(userId, userPw) {
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
             alert("아이디 또는 비밀번호가 틀렸거나, 해당 아이디가 존재하지 않습니다.");
-            check = false;
-            return false;
         } else {
-            check = true;
+            location.href = "index.html";
         }
     };
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.send(JSON.stringify(data));
-
-    if(check){
-        location.href = "index.html";
-    }
 }
 
 function loginCheck() {
