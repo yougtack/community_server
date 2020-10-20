@@ -3,9 +3,9 @@
 <mapper namespace="com.community.dao.MemberDao">
     <insert id="signUp" parameterType="com.community.model.MemberModel">
         INSERT INTO
-            community_member(userId, userPw)
+            community_member(encode, userId, userPw)
         VALUES
-            (#{userId}, #{userPw})
+            (#{encode}, #{userId}, #{userPw})
     </insert>
 
     <update id="signUpProfile" parameterType="com.community.model.MemberModel">

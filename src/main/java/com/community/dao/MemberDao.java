@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface MemberDao {
-    Integer signUp(@Param("userId") String userId, @Param("userPw") String userPw);
+    Integer signUp(@Param("encode") String encode, @Param("userId") String userId, @Param("userPw") String userPw);
 
     Integer signUpProfile(@Param("userId") String userId, @Param("profile") byte[] profile);
 

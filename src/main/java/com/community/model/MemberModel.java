@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MemberModel {
+    private String encode;
     private String userId;
     private String userPw;
     private byte[] profile;
