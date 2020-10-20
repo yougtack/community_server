@@ -61,11 +61,6 @@ function cancel() {
     };
 
     xhttp.send();
-
-    console.log(second.data);
-    console.log(c_id);
-    console.log(recomment_id);
-    console.log(b_id);
 })();
 
 (function commentValue() {

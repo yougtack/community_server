@@ -20,13 +20,10 @@ function profile() {
     };
 
     xhttp.send(formData);
-
-    alert("회원가입을 성공하셨습니다.");
 }
 
 function signUp(userId, userPw) {
     let xhttp = new XMLHttpRequest();
-    let check;
 
     const url = "http://localhost:8080";
     const data = {
@@ -39,19 +36,15 @@ function signUp(userId, userPw) {
     xhttp.onreadystatechange = () => {
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
-            check = false;
-            return false;
-        }else {
-            check = true;
+            alert("회원가입 중 오류가 발생했습니다. 다시 시도해주세요.");
+        } else {
+            alert("회원가입을 성공하셨습니다.");
+            location.href = "login.html";
         }
     };
 
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.send(JSON.stringify(data));
-
-    if(check) {
-        location.href = "login.html";
-    }
 }
 
 
