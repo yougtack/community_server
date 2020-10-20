@@ -35,7 +35,7 @@ public class BoardController {
 
 
     //내가 댓글쓴 게시글
-    @GetMapping(value = "myCommentBoards/{userId}")
+    @GetMapping(value = "/myCommentBoards/{userId}")
     public List<BoardModel> myCommentBoards(@PathVariable String userId){
         return boardService.getMyCommentBoards(userId);
     }
