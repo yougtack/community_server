@@ -6,20 +6,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class CheckUtil {
-    public static String APP_USERID = "";
     public static String ORIGINAL_USER_ID_ENCODE="";
     public static String ORIGINAL_USER_ID_DECODE="";
+    public static String NOW_LOGIN_USER="";
 
     //board, comment 영역
-    public static Integer loginCheck(String loginUserId, String userId, HttpServletResponse response, HttpServletRequest request){
-
+    public static Integer loginCheck(String userId, HttpServletResponse response, HttpServletRequest request){
         int count = 0;
-        System.out.println(userId);
-        System.out.println(ORIGINAL_USER_ID_ENCODE);
-        System.out.println(ORIGINAL_USER_ID_DECODE);
+        NOW_LOGIN_USER = LoginUtil.getCheckLogin(request);
 
         if(!LoginUtil.isApp(request)){ //web일때 false
-            if(loginUserId == null){
+            if(NOW_LOGIN_USER == null){
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());
                 count++;
             }else if(!ORIGINAL_USER_ID_DECODE.equals(userId)) {
@@ -27,10 +24,10 @@ public class CheckUtil {
                 count++;
             }
         }else{//app일때 true
-            if(APP_USERID == null){
+            if(ORIGINAL_USER_ID_DECODE == null){
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());
                 count++;
-            }else if(!APP_USERID.equals(userId)) {
+            }else if(!ORIGINAL_USER_ID_DECODE.equals(userId)) {
                 response.setStatus(HttpStatus.FORBIDDEN.value());
                 count++;
             }
@@ -38,15 +35,16 @@ public class CheckUtil {
         return count;
     }
 
-    public static Integer imageCheck(String loginUserId, HttpServletResponse response, HttpServletRequest request){
+    public static Integer imageCheck(HttpServletResponse response, HttpServletRequest request){
         int count = 0;
+        NOW_LOGIN_USER = LoginUtil.getCheckLogin(request);
         if(!LoginUtil.isApp(request)) { //web일때 false
-            if (loginUserId == null) {
+            if (NOW_LOGIN_USER == null) {
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());
                 count++;
             }
         }else{//app일때 true
-            if(APP_USERID == null){
+            if(ORIGINAL_USER_ID_DECODE == null){
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());
                 count++;
             }
@@ -55,21 +53,22 @@ public class CheckUtil {
     }
 
     //member영역
-   public static Integer memberCheck(String loginUserId, HttpServletResponse response, HttpServletRequest request){
+   public static Integer memberCheck(HttpServletResponse response, HttpServletRequest request){
         int count = 0;
+       NOW_LOGIN_USER = LoginUtil.getCheckLogin(request);
         if(!LoginUtil.isApp(request)){
-            if(loginUserId == null){
+            if(NOW_LOGIN_USER == null){
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());
                 count++;
-            }else if(!loginUserId.equals("admin")){
+            }else if(!ORIGINAL_USER_ID_DECODE.equals("admin")){
                 response.setStatus(HttpStatus.FORBIDDEN.value());
                 count++;
             }
         }else{
-            if(APP_USERID == null){
+            if(ORIGINAL_USER_ID_DECODE == null){
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());
                 count++;
-            }else if(!APP_USERID.equals("admin")) {
+            }else if(!ORIGINAL_USER_ID_DECODE.equals("admin")) {
                 response.setStatus(HttpStatus.FORBIDDEN.value());
                 count++;
             }

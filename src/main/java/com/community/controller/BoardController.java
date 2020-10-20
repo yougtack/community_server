@@ -3,7 +3,6 @@ package com.community.controller;
 import com.community.model.*;
 import com.community.service.BoardService;
 import com.community.util.CheckUtil;
-import com.community.util.LoginUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -43,8 +42,7 @@ public class BoardController {
     //게시글 작성 하기
     @PostMapping(value = "/community")
     public Integer insert(@RequestBody ViewModel viewModel, HttpServletResponse response, HttpServletRequest request){
-        String loginUserId = LoginUtil.getCheckLogin(request);
-        if(CheckUtil.loginCheck(loginUserId, viewModel.getUserId(), response, request) >= 1){
+        if(CheckUtil.loginCheck(viewModel.getUserId(), response, request) >= 1){
             return 0;
         }
         return  boardService.insert(viewModel);
@@ -53,8 +51,7 @@ public class BoardController {
     //게시글 답글 작성 하기
     @PostMapping(value = "/community/second")
     public Integer secondInsert(@RequestBody ViewModel viewModel, HttpServletResponse response, HttpServletRequest request){
-        String loginUserId = LoginUtil.getCheckLogin(request);
-        if(CheckUtil.loginCheck(loginUserId, viewModel.getUserId(), response, request) >= 1){
+        if(CheckUtil.loginCheck(viewModel.getUserId(), response, request) >= 1){
             return 0;
         }
         return  boardService.secondInsert(viewModel);
@@ -63,8 +60,7 @@ public class BoardController {
     //게시글 수정하기
     @PutMapping(value = "/community/{b_id}")
     public Integer update(@RequestBody ViewModel viewModel, @PathVariable int b_id, HttpServletResponse response, HttpServletRequest request){
-        String loginUserId = LoginUtil.getCheckLogin(request);
-        if(CheckUtil.loginCheck(loginUserId, viewModel.getUserId(), response, request) >= 1){
+        if(CheckUtil.loginCheck(viewModel.getUserId(), response, request) >= 1){
             return 0;
         }
         return  boardService.update(viewModel, b_id);
@@ -73,8 +69,7 @@ public class BoardController {
     //게시글 삭제하기
     @DeleteMapping(value = "/community/{b_id}")
     public Integer delete(@PathVariable int b_id, @RequestBody CheckUserModel checkUserModel, HttpServletResponse response, HttpServletRequest request){
-        String loginUserId = LoginUtil.getCheckLogin(request);
-        if(CheckUtil.loginCheck(loginUserId, checkUserModel.getUserId(), response, request) >= 1){
+        if(CheckUtil.loginCheck(checkUserModel.getUserId(), response, request) >= 1){
             return 0;
         }
         return boardService.delete(b_id);
@@ -103,8 +98,7 @@ public class BoardController {
     @PostMapping("/upload")
     @ResponseBody
     public Integer upload(MultipartHttpServletRequest multipartHttpServletRequest, HttpServletResponse response, HttpServletRequest request) throws IOException {
-        String loginUserId = LoginUtil.getCheckLogin(request);
-        if(CheckUtil.imageCheck(loginUserId, response, request) >= 1){
+        if(CheckUtil.imageCheck(response, request) >= 1){
             return 0;
         }
         return boardService.imageUpload(multipartHttpServletRequest);
@@ -114,8 +108,7 @@ public class BoardController {
     @PostMapping("/upload/{b_id}")
     @ResponseBody
     public Integer insertUpload(MultipartHttpServletRequest multipartHttpServletRequest, @PathVariable int b_id, HttpServletResponse response, HttpServletRequest request) throws IOException {
-        String loginUserId = LoginUtil.getCheckLogin(request);
-        if(CheckUtil.imageCheck(loginUserId, response, request) >= 1){
+        if(CheckUtil.imageCheck(response, request) >= 1){
             return 0;
         }
         return boardService.imageInsert(multipartHttpServletRequest, b_id);
@@ -178,8 +171,7 @@ public class BoardController {
 
     @DeleteMapping(value = "/{i_id}")
     public Integer deleteImage(@PathVariable("i_id") int i_id, HttpServletResponse response, HttpServletRequest request){
-        String loginUserId = LoginUtil.getCheckLogin(request);
-        if(CheckUtil.imageCheck(loginUserId, response, request) >= 1){
+        if(CheckUtil.imageCheck(response, request) >= 1){
             return 0;
         }
         return boardService.deleteImage(i_id);
