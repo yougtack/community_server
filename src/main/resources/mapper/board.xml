@@ -55,7 +55,7 @@
 		group by
 			c.b_id
         ORDER BY
-			c.b_recomment_id ASC, c.b_date ASC
+			c.b_id DESC, c.b_recomment_id ASC, c.b_date ASC
     </select>
 
     <select id="getMyBoardList" resultMap="boardMap">
