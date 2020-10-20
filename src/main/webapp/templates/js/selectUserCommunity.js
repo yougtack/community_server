@@ -37,13 +37,14 @@ function commentInsert() {
     xhttp.onreadystatechange = () => {
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
+            alert("댓글 작성 중 오류가 발생했습니다. 다시 시도해주세요.");
+        } else {
+            location.href = `userCommunity.html?b_id=${b_id}`;
         }
     };
 
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.send(JSON.stringify(commentData));
-
-    location.href = `userCommunity.html?b_id=${b_id}`;
 }
 
 function communityDelete() {
@@ -60,14 +61,15 @@ function communityDelete() {
         xhttp.onreadystatechange = () => {
             if (xhttp.status !== 200) {
                 console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
+                alert("게시글 삭제 중 오류가 발생했습니다. 다시 시도해주세요.");
+            } else {
+                alert("삭제하였습니다.");
+                location.href = "index.html";
             }
         };
 
         xhttp.setRequestHeader("Content-Type", "application/json");
         xhttp.send(JSON.stringify(deleteData));
-
-        alert("삭제하였습니다.");
-        location.href = "index.html";
     }
 }
 
@@ -85,15 +87,15 @@ function secondDelete(c_id) {
         xhttp.onreadystatechange = () => {
             if (xhttp.status !== 200) {
                 console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
+                alert("대댓글 삭제 중 오류가 발생했습니다. 다시 시도해주세요.");
+            } else {
+                alert("삭제하였습니다.");
+                location.href = `userCommunity.html?b_id=${b_id}`;
             }
         };
 
         xhttp.setRequestHeader("Content-Type", "application/json");
         xhttp.send(JSON.stringify(deleteData));
-
-        alert("삭제하였습니다.");
-
-        location.href = `userCommunity.html?b_id=${b_id}`;
     }
 }
 
@@ -111,16 +113,14 @@ function commentDelete(c_id) {
         xhttp.onreadystatechange = () => {
             if (xhttp.status !== 200) {
                 console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
+                alert("댓글 삭제 중 오류가 발생했습니다. 다시 시도해주세요.");
+            } else {
+                alert("삭제하였습니다.");
+                location.href = `userCommunity.html?b_id=${b_id}`;
             }
-
         };
-
         xhttp.setRequestHeader("Content-Type", "application/json");
         xhttp.send(JSON.stringify(deleteData));
-
-        alert("삭제하였습니다.");
-
-        location.href = `userCommunity.html?b_id=${b_id}`;
     }
 }
 
@@ -149,14 +149,14 @@ function secondInsert(c_id) {
     xhttp.onreadystatechange = () => {
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
+            alert("대댓글 작성 중 오류가 발생했습니다. 다시 시도해주세요.");
+        } else{
+            location.href = `userCommunity.html?b_id=${b_id}`;
         }
-
     };
 
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.send(JSON.stringify(secondData));
-
-    location.href = `userCommunity.html?b_id=${b_id}`;
 }
 
 function second_enter(c_id) {

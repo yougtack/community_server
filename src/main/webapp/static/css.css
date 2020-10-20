@@ -150,8 +150,8 @@ section {
 
 .insert_div {
     border: 1px solid #ddd;
-    padding: 30px 30px 0 30px;
-    width: 50%;
+    padding: 40px 20px 0 40px;
+    width: 70%;
 }
 
 .insert_type {
@@ -165,7 +165,7 @@ section {
 }
 
 .insert_title_length {
-    left: 860px;
+    left: 1060px;
     margin: 20px 0 0 0;
     position: absolute;
     font-size: 13px;
@@ -173,7 +173,7 @@ section {
 }
 
 .insert_title {
-    width: 562px;
+    width: 760px;
     height: 30px;
 }
 
@@ -198,7 +198,8 @@ section {
     height: 30px;
     border: 1px solid transparent;
     cursor: pointer;
-    margin: 10px 0 10px 0;
+    margin: 10px 20px 10px 0;
+    float:right;
 }
 
 .cancel_btn {
