@@ -199,7 +199,7 @@ section {
     border: 1px solid transparent;
     cursor: pointer;
     margin: 10px 20px 10px 0;
-    float:right;
+    float: right;
 }
 
 .cancel_btn {
@@ -293,7 +293,7 @@ section {
 }
 
 .profile_p {
-   margin: 30px 0 0 0;
+    margin: 30px 0 0 0;
 }
 
 .box {
@@ -459,4 +459,27 @@ section {
 .update_check {
     font-size: 8px;
     color: #999;
+}
+
+/* admin */
+.admin_div {
+    border: 1px solid #ddd;
+    width: 20%;
+    margin: 10px 0 0 0;
+    padding: 10px;
+}
+
+.admin_btn {
+    float: right;
+}
+
+.admin_del {
+    width: 20px;
+    height: 20px;
+}
+
+.admin_img {
+    width: 70px;
+    height: 70px;
+    margin: 0 0 5px 0;
 }
