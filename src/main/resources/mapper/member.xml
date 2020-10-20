@@ -19,7 +19,7 @@
 
     <select id="login" resultType="com.community.model.MemberModel">
         SELECT
-            userId, userPw, profile
+            encode, userId, userPw, profile
         FROM
             community_member
         WHERE

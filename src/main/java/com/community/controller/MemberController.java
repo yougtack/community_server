@@ -61,12 +61,13 @@ public class MemberController {
     public MemberModel Login(@RequestBody MemberModel member, HttpServletResponse response, HttpServletRequest request) throws NoSuchPaddingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, UnsupportedEncodingException {
         boolean isApp = LoginUtil.isApp(request);
         MemberModel userInfo = memberService.login(member);
+        AES256Util aes256Util = new AES256Util();
         if(userInfo != null){
             if(!isApp){
-                AES256Util aes256Util = new AES256Util();
                 String encode = aes256Util.aesEncode(userInfo.getUserId());
                 CheckUtil.ORIGINAL_USER_ID_ENCODE = encode;
                 CheckUtil.ORIGINAL_USER_ID_DECODE = aes256Util.aesDecode(encode);
+                System.out.println(encode);
                 Cookie cookie = new Cookie("userId", userInfo.getUserId());
                 cookie.setMaxAge(-1);
                 cookie.setPath("/");
@@ -74,7 +75,10 @@ public class MemberController {
                 response.addCookie(cookie);
             }else{
                 System.out.println("is app!!");
-                CheckUtil.APP_USERID = userInfo.getUserId();
+
+                String encode = aes256Util.aesEncode(userInfo.getUserId());
+                CheckUtil.ORIGINAL_USER_ID_ENCODE = encode;
+                CheckUtil.ORIGINAL_USER_ID_DECODE = aes256Util.aesDecode(encode);
 //                System.out.println(LoginUtil.getAuthorization(request));
             }
         }else {
@@ -103,8 +107,7 @@ public class MemberController {
     //회원탈퇴시키기
     @DeleteMapping
     public Integer kickMember(@RequestBody CheckUserModel checkUserModel, HttpServletResponse response, HttpServletRequest request){
-        String loginUserId = LoginUtil.getCheckLogin(request);//현재 로그인되어있는 값
-        if(CheckUtil.memberCheck(loginUserId, response, request) >= 1){
+        if(CheckUtil.memberCheck(response, request) >= 1){
             return 0;
         }
         //checkUserModel.userId는 강퇴시킬 아이디가 들어있음
@@ -114,8 +117,7 @@ public class MemberController {
     //멤버 정보수정
     @PutMapping
     public Integer updateUser(@RequestBody MemberModel memberModel, HttpServletResponse response, HttpServletRequest request){
-        String loginUserId = LoginUtil.getCheckLogin(request);
-        if(CheckUtil.loginCheck(loginUserId, memberModel.getUserId(), response, request) >= 1){
+        if(CheckUtil.loginCheck(memberModel.getUserId(), response, request) >= 1){
             return 0;
         }
         return memberService.updateUser(memberModel);
