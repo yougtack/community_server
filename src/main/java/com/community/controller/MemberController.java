@@ -124,7 +124,7 @@ public class MemberController {
 
     @PostMapping(value = "/test")
     public Integer file_upload(MultipartHttpServletRequest multipartHttpServletRequest, HttpServletResponse response, HttpServletRequest request){
-        System.out.println("in test");
+        System.out.println("in test:"+multipartHttpServletRequest.getParameter("editor"));
         return 1;
     }
 }
