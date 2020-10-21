@@ -67,7 +67,7 @@ public class MemberController {
                 String encode = aes256Util.aesEncode(userInfo.getUserId());
                 CheckUtil.ORIGINAL_USER_ID_ENCODE = encode;
                 CheckUtil.ORIGINAL_USER_ID_DECODE = aes256Util.aesDecode(encode);
-                Cookie cookie = new Cookie("userId", userInfo.getUserId());
+                Cookie cookie = new Cookie("userId", encode);
                 cookie.setMaxAge(-1);
                 cookie.setPath("/");
 
