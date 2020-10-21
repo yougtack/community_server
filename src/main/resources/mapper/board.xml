@@ -48,7 +48,7 @@
 
     <select id="getBoardList" resultMap="boardMap">
         SELECT
-            c.b_id, c.b_recomment_id, c.b_type, c.b_title, UNIX_TIMESTAMP(c.b_date) AS b_date, c.b_count, c.userId, c.updateCheck,
+            c.b_id, c.b_recomment_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId, c.updateCheck,
             (select count(c_content) from community_comment where b_id = c.b_id) AS commentCount1
         FROM
             community AS c
@@ -60,7 +60,7 @@
 
     <select id="getMyBoardList" resultMap="boardMap">
         SELECT
-            c.b_id, c.b_recomment_id, UNIX_TIMESTAMP(c.b_date) AS b_date, c.b_title, c.b_date, c.b_count, c.userId, c.updateCheck,
+            c.b_id, c.b_recomment_id, c.b_date, c.b_title, c.b_date, c.b_count, c.userId, c.updateCheck,
             (select count(c_content) from community_comment where b_id = c.b_id) AS commentCount1
         FROM
             community AS c
@@ -75,7 +75,7 @@
 
     <select id="getMyCommentBoards" resultMap="boardMap">
         SELECT
-            c.b_id, c.b_recomment_id, c.b_type, c.b_title, UNIX_TIMESTAMP(c.b_date) AS b_date, c.b_count, c.userId, c.updateCheck,
+            c.b_id, c.b_recomment_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId, c.updateCheck,
             (select count(c_content) from community_comment where b_id = c.b_id) AS commentCount1
         FROM
             community AS c
@@ -91,10 +91,10 @@
 
     <select id="getView" resultMap="viewMap">
         select
-            c.b_id, c.b_recomment_id, c.b_type, c.b_title, c.b_content, UNIX_TIMESTAMP(c.b_date) AS b_date, c.b_count, c.userId,
+            c.b_id, c.b_recomment_id, c.b_type, c.b_title, c.b_content, c.b_date, c.b_count, c.userId,
             (select profile from community_member where userId = c.userId) AS profile,
             cc.c_id AS first_c_id, cc.b_id AS first_b_id, cc.recomment_id AS first_recomment_id, cc.c_content AS first_c_content,
-            UNIX_TIMESTAMP(cc.c_date) AS first_c_date, cc.userId AS first_userId, cc.updateCheck AS first_c_updateCheck,
+            cc.c_date AS first_c_date, cc.userId AS first_userId, cc.updateCheck AS first_c_updateCheck,
             (select profile from community_member where userId = cc.userId) AS first_profile
         from
             community AS c
@@ -149,7 +149,7 @@
 
     <select id="search" resultMap="boardMap">
         SELECT
-            c.b_id, c.b_recomment_id, c.b_type, c.b_title, UNIX_TIMESTAMP(c.b_date) AS b_date, c.b_count, c.userId,
+            c.b_id, c.b_recomment_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId,
             (select count(c_content) from community_comment where b_id = c.b_id) AS commentCount1
         FROM
             community AS c
@@ -162,7 +162,7 @@
 
     <select id="getRank" resultMap="rankMap">
         SELECT
-            c.b_id, c.b_recomment_id, c.b_type, c.b_title, UNIX_TIMESTAMP(c.b_date) AS b_date, c.b_count, c.userId,
+            c.b_id, c.b_recomment_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId,
             (select count(c_content) from community_comment where b_id = c.b_id) AS commentCount1
         FROM
             community AS c
