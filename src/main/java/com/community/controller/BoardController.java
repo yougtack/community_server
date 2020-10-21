@@ -5,6 +5,7 @@ import com.community.service.BoardService;
 import com.community.util.CheckUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
@@ -177,9 +178,14 @@ public class BoardController {
         return boardService.deleteImage(i_id);
     }
 
-    @GetMapping(value = "/test")
+    @PostMapping(value = "/test")
     public Integer file_upload(MultipartHttpServletRequest multipartHttpServletRequest, HttpServletResponse response, HttpServletRequest request) {
-        System.out.println("in test:" + multipartHttpServletRequest.getParameter("editor"));
+        List<MultipartFile>multipartFiles = multipartHttpServletRequest.getFiles("editor");
+        for(MultipartFile filePart : multipartFiles){
+            System.out.println(filePart.getOriginalFilename());
+            System.out.println(filePart.getName());
+            System.out.println("-----------------");
+        }
 
 //        try { //파일정보
         // String sFileInfo = "";
