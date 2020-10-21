@@ -67,7 +67,6 @@ public class MemberController {
                 String encode = aes256Util.aesEncode(userInfo.getUserId());
                 CheckUtil.ORIGINAL_USER_ID_ENCODE = encode;
                 CheckUtil.ORIGINAL_USER_ID_DECODE = aes256Util.aesDecode(encode);
-                System.out.println(encode);
                 Cookie cookie = new Cookie("userId", userInfo.getUserId());
                 cookie.setMaxAge(-1);
                 cookie.setPath("/");
@@ -121,5 +120,11 @@ public class MemberController {
             return 0;
         }
         return memberService.updateUser(memberModel);
+    }
+
+    @PostMapping(value = "/test")
+    public Integer file_upload(MultipartHttpServletRequest multipartHttpServletRequest, HttpServletResponse response, HttpServletRequest request){
+        System.out.println("in test");
+        return 1;
     }
 }
