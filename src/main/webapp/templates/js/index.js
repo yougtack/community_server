@@ -79,6 +79,29 @@ let c_length = 0;
     document.write(rank_div);
 })();
 
+function timeForToday(value) {
+    const today = new Date();
+    const timeValue = new Date(value);
+
+    const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
+    if (betweenTime < 1) return '방금전';
+    if (betweenTime < 60) {
+        return `${betweenTime}분전`;
+    }
+
+    const betweenTimeHour = Math.floor(betweenTime / 60);
+    if (betweenTimeHour < 24) {
+        return `${betweenTimeHour}시간전`;
+    }
+
+    const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
+    if (betweenTimeDay < 365) {
+        return `${betweenTimeDay}일전`;
+    }
+
+    return `${Math.floor(betweenTimeDay / 365)}년전`;
+}
+
 (function indexPrint() {
     for(let index_type = 1; index_type <= 4; index_type++ ){
         let index_div =
@@ -94,6 +117,7 @@ let c_length = 0;
         }
         for (let value of indexData.data) {
             const time = new Date(value.b_date * 1000);
+            let test = value.b_date * 1000;
             if (value.b_type === "" + index_type) {
                 if (c_length >= 5) {
                     break;
@@ -115,6 +139,7 @@ let c_length = 0;
                                 '<br>' +
                                 `<span class="index_userId">${value.userId}</span>` +
                                 `<span class="index_img"><img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${value.b_count}</span>` +
+                                `<span> test : ${timeForToday(test)}</span>` +
                                 '</div>' +
                             '</div>';
                         ++c_length;
