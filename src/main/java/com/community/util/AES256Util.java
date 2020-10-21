@@ -19,7 +19,7 @@ public class AES256Util {
     private static Key keySpec;
 
     public AES256Util() throws UnsupportedEncodingException {
-        String key = "PBKDF2WithHmacSHA1b";
+        String key = "PBKDF2WithHmacSH";
         this.iv = key.substring(0, 16);
 
         byte[] keyBytes = new byte[16];
@@ -47,6 +47,7 @@ public class AES256Util {
         byte[] encrypted = c.doFinal(str.getBytes("UTF-8"));
         String enStr = new String(Base64.encodeBase64(encrypted));
 
+        System.out.println("KeySpec:"+keySpec);
         return enStr;
     }
     //복호화
