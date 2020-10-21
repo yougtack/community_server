@@ -177,7 +177,7 @@ public class BoardController {
         return boardService.deleteImage(i_id);
     }
 
-    @GetMapping(value = "/test")
+    @PostMapping(value = "/test")
     public Integer file_upload(MultipartHttpServletRequest multipartHttpServletRequest, HttpServletResponse response, HttpServletRequest request) {
         System.out.println("in test:" + multipartHttpServletRequest.getParameter("editor"));
 

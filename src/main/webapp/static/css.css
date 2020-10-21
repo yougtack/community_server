@@ -483,3 +483,8 @@ section {
     height: 70px;
     margin: 0 0 5px 0;
 }
+
+/* user_info */
+.user_cursor {
+    cursor: pointer;
+}

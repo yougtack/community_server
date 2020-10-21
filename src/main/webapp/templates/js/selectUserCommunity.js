@@ -291,9 +291,11 @@ let cnt = 0;
     real_div +=
         `<div class="info_div div_border">`+
             '<div style="margin: 10px 0 0 0;">' +
-                `<span><img class="community_profile" src="data:image/jpg;base64, ${community.data.profile}" alt="Image" /></span>` +
+                `<span>` +
+                    `<img class="community_profile user_cursor" src="data:image/jpg;base64, ${community.data.profile}" alt="Image" onclick="location.href='userInfo.html?userId=${community.data.userId}'" />` +
+                `</span>` +
                 '<div style="display: inline-block;">' +
-                    `<span class="userId">${community.data.userId}</span>` +
+                    `<span class="userId user_cursor" onclick="location.href='userInfo.html?userId=${community.data.userId}'">${community.data.userId}</span>` +
                     `<br>` +
                     `<span class="info">` +
                         `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
@@ -353,12 +355,12 @@ let cnt = 0;
                 if(q !== 0) {
                     real_div +=
                         `<span class="imgDiv" style="display: none;">` +
-                            `<img class="content_image" src="data:image/jpg;base64, ${index.image}" alt="Image" />` +
+                            `<img class="content_image" src="data:image/jpg;base64, ${index.image}" alt="Image"/>` +
                         '</span>';
                 }else {
                     real_div +=
                         `<span class="imgDiv">` +
-                            `<img class="content_image" src="data:image/jpg;base64, ${index.image}" alt="Image" />` +
+                            `<img class="content_image" src="data:image/jpg;base64, ${index.image}" alt="Image"/>` +
                         '</span>';
                 }
                 ++q;
@@ -383,9 +385,11 @@ let cnt = 0;
         const time = new Date(value.c_date * 1000);
         if (value.c_id === value.recomment_id) {
             real_comment +=
-                    `<span><img class="second_profile" src="data:image/jpg;base64, ${value.profile}" alt="Image" /></span>` +
+                    `<span>` +
+                        `<img class="second_profile user_cursor" src="data:image/jpg;base64, ${value.profile}" alt="Image" onclick="location.href='userInfo.html?userId=${value.userId}'" />` +
+                    `</span>` +
                     '<div style="display: inline-block;">' +
-                        `<span class="userId">${value.userId}님` +
+                        `<span class="userId user_cursor" onclick="location.href='userInfo.html?userId=${value.userId}'">${value.userId}님` +
                             `<span class="comment_txt" onclick="secondBox(${value.c_id})"> 댓글쓰기</span>` +
                         `</span>` +
                         '<br>'
@@ -422,9 +426,9 @@ let cnt = 0;
             /* 대댓글 */
                 real_comment +=
                     `<img class="arrow_icon" src="../static/arrows.png" alt="img"/>` +
-                    `<span><img class="second_profile" src="data:image/jpg;base64, ${value.profile}" alt="Image" /></span>` +
+                    `<span><img class="second_profile user_cursor" src="data:image/jpg;base64, ${value.profile}" alt="Image" onclick="location.href='userInfo.html?userId=${value.userId}'" /></span>` +
                     '<div style="display: inline-block;">' +
-                        `<div class="userId">${value.userId}님</div>` +
+                        `<div class="userId user_cursor" onclick="location.href='userInfo.html?userId=${value.userId}'">${value.userId}님</div>` +
                         `<div class="info">` +
                             `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
                             `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
