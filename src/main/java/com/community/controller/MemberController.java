@@ -1,6 +1,7 @@
 package com.community.controller;
 
 import com.community.model.CheckUserModel;
+import com.community.model.LoginModel;
 import com.community.model.MemberModel;
 import com.community.service.MemberService;
 import com.community.util.AES256Util;
@@ -58,16 +59,16 @@ public class MemberController {
 
     //로그인
     @PostMapping(value = "/login")
-    public MemberModel Login(@RequestBody MemberModel member, HttpServletResponse response, HttpServletRequest request) throws NoSuchPaddingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, UnsupportedEncodingException {
+    public LoginModel Login(@RequestBody MemberModel member, HttpServletResponse response, HttpServletRequest request) throws NoSuchPaddingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, UnsupportedEncodingException {
         boolean isApp = LoginUtil.isApp(request);
-        MemberModel userInfo = memberService.login(member);
+        LoginModel userInfo = memberService.login(member);
         AES256Util aes256Util = new AES256Util();
         if(userInfo != null){
             if(!isApp){
                 String encode = aes256Util.aesEncode(userInfo.getUserId());
                 CheckUtil.ORIGINAL_USER_ID_ENCODE = encode;
                 CheckUtil.ORIGINAL_USER_ID_DECODE = aes256Util.aesDecode(encode);
-                Cookie cookie = new Cookie("userId", encode);
+                Cookie cookie = new Cookie("userId", CheckUtil.ORIGINAL_USER_ID_DECODE);
                 cookie.setMaxAge(-1);
                 cookie.setPath("/");
 

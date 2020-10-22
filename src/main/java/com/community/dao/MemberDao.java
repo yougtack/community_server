@@ -1,5 +1,6 @@
 package com.community.dao;
 
+import com.community.model.LoginModel;
 import com.community.model.MemberModel;
 import org.apache.ibatis.annotations.Param;
 
@@ -10,7 +11,7 @@ public interface MemberDao {
 
     Integer signUpProfile(@Param("userId") String userId, @Param("profile") byte[] profile);
 
-    MemberModel login(@Param("userId") String userId, @Param("userPw") String userPw);
+    LoginModel login(@Param("userId") String userId, @Param("userPw") String userPw);
 
     List<MemberModel> getMemberList();
 
