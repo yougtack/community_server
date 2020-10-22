@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.community.dao.MemberDao">
-    <resultMap id="loginMember" type="com.community.model.LoginModel">
-        <id property="userId" column="userId"/>
-        <result property="profile" column="profile"/>
-    </resultMap>
     <insert id="signUp" parameterType="com.community.model.MemberModel">
         INSERT INTO
             community_member(encode, userId, userPw)
@@ -21,7 +17,7 @@
             userId = #{userId}
     </update>
 
-    <select id="login" resultMap="loginMember">
+    <select id="login" resultType="com.community.model.LoginModel">
         SELECT
             userId, profile
         FROM
