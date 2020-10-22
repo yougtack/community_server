@@ -22,4 +22,6 @@ public interface MemberService {
     Integer updateProfile(MultipartHttpServletRequest multipartHttpServletRequest, String userId) throws IOException;
 
     Integer updateUser(MemberModel memberModel);
+
+    LoginModel getUserInfo(MemberModel memberModel);
 }

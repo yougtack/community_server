@@ -62,5 +62,14 @@
             userId = #{userId}
     </update>
 
+    <select id="getUserInfo" resultType="com.community.model.LoginModel">
+        SELECT
+            userId, profile
+        FROM
+            community_member
+        WHERE
+            encode = #{encode}
+    </select>
+
 
 </mapper>

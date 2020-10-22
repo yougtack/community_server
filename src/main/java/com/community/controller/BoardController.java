@@ -43,8 +43,11 @@ public class BoardController {
     //게시글 작성 하기
     @PostMapping(value = "/community")
     public Integer insert(@RequestBody ViewModel viewModel, HttpServletResponse response, HttpServletRequest request){
-        if(CheckUtil.loginCheck(viewModel.getUserId(), response, request) >= 1){
+        String status = CheckUtil.loginCheck(viewModel.getUserId(), response, request);
+        if(status.equals("1")){
             return 0;
+        }else{
+            viewModel.setUserId(status);
         }
         return  boardService.insert(viewModel);
     }
@@ -52,8 +55,11 @@ public class BoardController {
     //게시글 답글 작성 하기
     @PostMapping(value = "/community/second")
     public Integer secondInsert(@RequestBody ViewModel viewModel, HttpServletResponse response, HttpServletRequest request){
-        if(CheckUtil.loginCheck(viewModel.getUserId(), response, request) >= 1){
+        String status = CheckUtil.loginCheck(viewModel.getUserId(), response, request);
+        if(status.equals("1")){
             return 0;
+        }else{
+            viewModel.setUserId(status);
         }
         return  boardService.secondInsert(viewModel);
     }
@@ -61,8 +67,11 @@ public class BoardController {
     //게시글 수정하기
     @PutMapping(value = "/community/{b_id}")
     public Integer update(@RequestBody ViewModel viewModel, @PathVariable int b_id, HttpServletResponse response, HttpServletRequest request){
-        if(CheckUtil.loginCheck(viewModel.getUserId(), response, request) >= 1){
+        String status = CheckUtil.loginCheck(viewModel.getUserId(), response, request);
+        if(status.equals("1")){
             return 0;
+        }else{
+            viewModel.setUserId(status);
         }
         return  boardService.update(viewModel, b_id);
     }
@@ -70,8 +79,11 @@ public class BoardController {
     //게시글 삭제하기
     @DeleteMapping(value = "/community/{b_id}")
     public Integer delete(@PathVariable int b_id, @RequestBody CheckUserModel checkUserModel, HttpServletResponse response, HttpServletRequest request){
-        if(CheckUtil.loginCheck(checkUserModel.getUserId(), response, request) >= 1){
+        String status = CheckUtil.loginCheck(checkUserModel.getUserId(), response, request);
+        if(status.equals("1")){
             return 0;
+        }else{
+            checkUserModel.setUserId(status);
         }
         return boardService.delete(b_id);
     }
