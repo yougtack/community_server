@@ -44,7 +44,7 @@ const community = {
 
 
     for (let index of community.data) {
-        const time = new Date(index.b_date * 1000);
+        const time = new Date(index.b_date);
         if(index.b_id === index.b_recomment_id) {
             if (type === index.b_type) {
                 real_body +=

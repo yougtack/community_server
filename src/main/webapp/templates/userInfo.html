@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="#">
+    <link rel="stylesheet" type="text/css" href="../static/css.css"/>
+    <title>게시판</title>
+</head>
+<body>
+    <div>
+        <script src="js/sidebar.js"></script>
+    </div>
+    <section>
+        <div id="user_info_div" class="user_info_div">
+            <div id="user_profile_view" class="p_inline"></div>
+            <div class="user_info_userId p_inline">
+                <div id="userId"></div>
+            </div>
+            <div class="p_inline info_count_text">
+                <p class="p_inline info_count_border">작성한 게시글</p>
+                <p class="p_inline">작성한 댓글</p>
+            </div>
+            <div class="p_inline info_board_count">
+                <p id="community_count" class="p_inline"></p>
+            </div>
+            <div class="p_inline info_comment_count">
+                <p id="comment_count" class="p_inline"></p>
+            </div>
+        </div>
+        <div class="board_div info_js_div"></div>
+        <div class="comment_div info_js_div"></div>
+    </section>
+    <script src="js/word.js"></script>
+    <script src="js/userInfo.js"></script>
+</body>
+</html>
