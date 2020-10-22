@@ -264,7 +264,7 @@ let cnt = 0;
 
 (function printCommunity() {
     const txt = document.querySelector(".txt");
-    const time = new Date(community.data.b_date * 1000);
+    const time = new Date(community.data.b_date);
 
     for (let c_cnt of community.data.comments) {
         ++cnt

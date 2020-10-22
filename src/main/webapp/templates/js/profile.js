@@ -137,7 +137,7 @@ function profileChange() {
         '<p class="profile_p">내가 작성한 게시글</p>';
 
     for(let value of myBoard.data){
-        const time = new Date(value.b_date * 1000);
+        const time = new Date(value.b_date);
         my_board.innerHTML +=
             `<div class="index_box">` +
                 '<div class="index_item">' +
@@ -166,7 +166,7 @@ function profileChange() {
         '<p class="profile_p">내가 댓글을 작성한 게시글</p>';
 
     for(let value of myBoard.commentData){
-        const time = new Date(value.b_date * 1000);
+        const time = new Date(value.b_date);
         my_board.innerHTML +=
             `<div class="index_box">` +
                 '<div class="index_item">' +

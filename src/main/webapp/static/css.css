@@ -293,7 +293,8 @@ section {
 }
 
 .profile_p {
-    margin: 30px 0 0 0;
+    margin: 30px 0 10px 0;
+    font-size: 20px;
 }
 
 .box {
@@ -399,7 +400,7 @@ section {
 .board_arrow {
     width: 20px;
     height: 20px;
-    margin: 0 0 0 0;
+    margin: 0 0 0 20px;
 }
 
 .comment_box {
@@ -449,7 +450,7 @@ section {
 }
 
 .board_comment_title {
-    margin: 0 0 0 20px;
+    margin: 0 0 0 40px;
 }
 
 .board_comment_item {
@@ -487,4 +488,55 @@ section {
 /* user_info */
 .user_cursor {
     cursor: pointer;
+}
+
+.user_info_div {
+    width: 60%;
+    height: 150px;
+    border: 1px solid #ddd;
+    padding: 15px;
+}
+
+.user_info_userId {
+    top: 80px;
+    left: 490px;
+    position: absolute;
+    font-size: 30px;
+}
+
+.info_count_text {
+    top: 130px;
+    left: 490px;
+    position: absolute;
+}
+
+.p_inline {
+    display: inline-block;
+}
+
+.info_count_border {
+    border-right: 1px solid #ddd;
+    padding: 0 5px 0 0;
+}
+
+.info_board_count {
+    position: absolute;
+    top: 170px;
+    left: 530px;
+}
+
+.info_comment_count {
+    position: absolute;
+    top: 170px;
+    left: 620px;
+}
+
+.info_js_div {
+    width: 30%;
+    display: inline-grid;
+}
+
+.user_info_txt {
+    margin: 20px 0 10px 0;
+    font-size: 20px;
 }
