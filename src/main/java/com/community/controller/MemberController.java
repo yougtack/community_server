@@ -68,7 +68,7 @@ public class MemberController {
                 String encode = aes256Util.aesEncode(userInfo.getUserId());
                 CheckUtil.ORIGINAL_USER_ID_ENCODE = encode;
                 CheckUtil.ORIGINAL_USER_ID_DECODE = aes256Util.aesDecode(encode);
-                Cookie cookie = new Cookie("userId", CheckUtil.ORIGINAL_USER_ID_DECODE);
+                Cookie cookie = new Cookie("userId", encode);
                 cookie.setMaxAge(-1);
                 cookie.setPath("/");
 
@@ -107,8 +107,11 @@ public class MemberController {
     //회원탈퇴시키기
     @DeleteMapping
     public Integer kickMember(@RequestBody CheckUserModel checkUserModel, HttpServletResponse response, HttpServletRequest request){
-        if(CheckUtil.memberCheck(response, request) >= 1){
+        String status = CheckUtil.memberCheck(response, request);
+        if(status.equals("1")){
             return 0;
+        }else{
+            checkUserModel.setUserId(status);
         }
         //checkUserModel.userId는 강퇴시킬 아이디가 들어있음
         return memberService.kickMember(checkUserModel);
@@ -117,9 +120,18 @@ public class MemberController {
     //멤버 정보수정
     @PutMapping
     public Integer updateUser(@RequestBody MemberModel memberModel, HttpServletResponse response, HttpServletRequest request){
-        if(CheckUtil.loginCheck(memberModel.getUserId(), response, request) >= 1){
+        String status = CheckUtil.loginCheck(memberModel.getUserId(), response, request);
+        if(status.equals("1")){
             return 0;
+        }else{
+            memberModel.setUserId(status);
         }
         return memberService.updateUser(memberModel);
+    }
+
+    //유저 정보확인
+    @GetMapping(value = "/userInfo")
+    public LoginModel getUserInfo(@RequestBody MemberModel memberModel){
+        return memberService.getUserInfo(memberModel);
     }
 }

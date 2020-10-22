@@ -21,5 +21,7 @@ public interface MemberDao {
 
     Integer updateUser(@Param("userId") String userId, @Param("userPw") String userPw);
 
+    LoginModel getUserInfo(@Param("encode") String encode);
+
 }
 
