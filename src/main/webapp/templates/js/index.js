@@ -75,7 +75,7 @@ function timeForToday(value) {
             '<div style="width: 70%;">' +
                 '<p class="txt">인기게시글</p>';
     for (let value of indexData.rankData) {
-        let time = value.b_date * 1000;
+        let time = value.b_date;
         if (rank_length >= 10) {
             break;
         } else {
@@ -114,7 +114,7 @@ function timeForToday(value) {
             index_div += '<p class="txt">코딩게시판</p>';
         }
         for (let value of indexData.data) {
-            let time = value.b_date * 1000;
+            let time = value.b_date;
             if (value.b_type === "" + index_type) {
                 if (c_length >= 5) {
                     break;

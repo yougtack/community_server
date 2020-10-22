@@ -1,6 +1,7 @@
 package com.community.service;
 
 import com.community.model.CheckUserModel;
+import com.community.model.LoginModel;
 import com.community.model.MemberModel;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -12,7 +13,7 @@ public interface MemberService {
 
     Integer signUpProfile(MultipartHttpServletRequest multipartHttpServletRequest, String userId) throws IOException;
 
-    MemberModel login(MemberModel member);
+    LoginModel login(MemberModel member);
 
     List<MemberModel> getMemberList();
 
