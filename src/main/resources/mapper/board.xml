@@ -99,15 +99,17 @@
             m.profile,
             cc.c_id AS first_c_id, cc.b_id AS first_b_id, cc.recomment_id AS first_recomment_id, cc.c_content AS first_c_content,
             cc.c_date AS first_c_date, cc.userId AS first_userId, cc.updateCheck AS first_c_updateCheck,
-            m.profile AS first_profile
+            mm.profile AS first_profile
         from
             community AS c
         LEFT OUTER JOIN
             community_comment AS cc ON c.b_id = cc.b_id
 		LEFT OUTER JOIN
-			community_member AS m ON cc.userId = m.userId
+			community_member AS m ON c.userId = m.userId
+		LEFT OUTER JOIN
+			community_member AS mm ON cc.userId = mm.userId
         WHERE
-            c.b_id = #{b_id}
+            c.b_id = ${b_id}
         order by
             cc.b_id DESC, cc.recomment_id ASC, cc.c_date ASC
     </select>
