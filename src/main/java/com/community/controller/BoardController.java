@@ -201,10 +201,15 @@ public class BoardController {
 //        return 0;
 //    }
 
-//    @PostMapping(value = "/test")
-//    public Integer test(@RequestBody TestModel testModel){
-//        return boardService.Test(testModel);
-//    }
+    @PostMapping(value = "/test")
+    public Integer test(@RequestBody TestModel testModel){
+        return boardService.Test(testModel);
+    }
+
+    @PostMapping(value = "/test_second")
+    public Integer test_second(@RequestBody TestModel testModel){
+        return boardService.Test_second(testModel);
+    }
 ////        try { //파일정보
 //        // String sFileInfo = "";
 //        // 파일명을 받는다 - 일반 원본파일명

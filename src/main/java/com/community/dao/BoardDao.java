@@ -1,9 +1,6 @@
 package com.community.dao;
 
-import com.community.model.BoardModel;
-import com.community.model.CommentModel;
-import com.community.model.ImageModel;
-import com.community.model.ViewModel;
+import com.community.model.*;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -40,6 +37,13 @@ public interface BoardDao {
     Integer deleteImage(@Param("i_id") int i_id);
     int getB_id();
 
-//    Integer Test(@Param("article_id") int article_id, @Param("member_id ") String member_id, @Param())
+    Integer Test(@Param("article_id") int article_id, @Param("member_id") String member_id, @Param("description") String description);
 
+    Integer Test_second(@Param("article_id") int article_id, @Param("member_id") String member_id, @Param("description") String description,
+                        @Param("group_id") int group_id, @Param("parent_reply_id") int parent_reply_id, @Param("depth") int depth,
+                        @Param("order_no") int order_no);
+
+    TestModel checkComment(@Param("group_id") int group_id, @Param("order_no") int order_no);
+
+    Integer update_order(@Param("group_id") int group_id, @Param("order_no") int order_no);
 }

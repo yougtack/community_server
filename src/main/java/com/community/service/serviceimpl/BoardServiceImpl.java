@@ -130,10 +130,17 @@ public class BoardServiceImpl implements BoardService {
         return dao.getB_id();
     }
 
-//    @Override
-//    public Integer Test(TestModel testModel){
-//           return dao.Test(testModel.getArticle_id(), testModel.getMember_id(), testModel.getDescription(),
-//                   testModel.getGroup_id(), testModel.getOrder_no());
-//    }
+    @Override
+    public Integer Test(TestModel testModel){
+        return dao.Test(testModel.getArticle_id(), testModel.getMember_id(), testModel.getDescription());
+    }
 
+    @Override
+    public Integer Test_second(TestModel testModel){
+        if(dao.checkComment(testModel.getGroup_id(), testModel.getOrder_no()) != null) {
+            dao.update_order(testModel.getGroup_id(), testModel.getOrder_no());
+        }
+        return dao.Test_second(testModel.getArticle_id(), testModel.getMember_id(), testModel.getDescription(),
+                testModel.getGroup_id(), testModel.getParent_reply_id(), testModel.getDepth(), testModel.getOrder_no());
+    }
 }

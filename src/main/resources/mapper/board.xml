@@ -235,4 +235,37 @@
         FROM
             community
     </select>
+
+
+    <insert id="Test" parameterType="com.community.model.TestModel">
+        insert into test(article_id, member_id, description, group_id)
+        values (${article_id}, #{member_id}, #{description},
+                (SELECT AUTO_INCREMENT
+                    FROM information_schema.tables
+                    WHERE table_name = 'test'
+                    AND table_schema = DATABASE()))
+    </insert>
+
+    <insert id="Test_second" parameterType="com.community.model.TestModel">
+        insert into test(article_id, member_id, description, group_id, parent_reply_id, depth, order_no)
+        values (${article_id}, #{member_id}, #{description}, ${group_id}, ${parent_reply_id}, ${depth}+1, ${order_no}+1)
+    </insert>
+
+    <select id="checkComment" resultType="com.community.model.TestModel">
+        SELECT
+            reply_id, article_id, member_id, description, group_id, parent_reply_id, depth, order_no
+        FROM
+            test
+        where
+            group_id = ${group_id} and order_no = ${order_no}+1
+
+    </select>
+
+    <update id="update_order" parameterType="int">
+        update test set
+            order_no = order_no+1
+        where
+            order_no >= ${order_no}+1 and group_id = ${group_id}
+
+    </update>
 </mapper>
