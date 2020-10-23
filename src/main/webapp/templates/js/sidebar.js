@@ -27,26 +27,33 @@ const userCookie = document.cookie.substr(7,);
 })();
 
 (function userId() {
-    let xhttp = new XMLHttpRequest();
-    const url = "http://localhost:8080";
+    if(userCookie !== "") {
+        let xhttp = new XMLHttpRequest();
+        const url = "http://localhost:8080";
 
-    xhttp.open("GET", url + `/member/userInfo/${userCookie}`, false);
-
-    xhttp.onreadystatechange = () => {
-        if (xhttp.status !== 200) {
-            console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
-        }else {
-            const array = JSON.parse(xhttp.responseText);
-
-            for (let index of array) {
-                userInfo.user = array;
-            }
+        const data = {
+            encode: userCookie
         }
-    };
 
-    xhttp.send();
-    console.log(userCookie);
-    console.log(userInfo.user);
+        xhttp.open("POST", url + `/member/userInfo`, false);
+
+        xhttp.onreadystatechange = () => {
+            if (xhttp.status !== 200) {
+                console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
+            } else {
+                const array = JSON.parse(xhttp.responseText);
+
+                for (let index of array) {
+                    userInfo.user = array;
+                }
+            }
+        };
+
+        xhttp.setRequestHeader("Content-Type", "application/json");
+        xhttp.send(JSON.stringify(data));
+        console.log(JSON.stringify(data));
+        console.log(userInfo.user);
+    }
 })();
 
 function sideSearchEnter() {
