@@ -1,6 +1,9 @@
 const userInfo = {
-    data: []
+    data: [],
+    user:[]
 };
+
+const userCookie = document.cookie.substr(7,);
 
 (function init() {
     let xhttp = new XMLHttpRequest();
@@ -21,6 +24,29 @@ const userInfo = {
     };
 
     xhttp.send();
+})();
+
+(function userId() {
+    if(userCookie !== "") {
+        let xhttp = new XMLHttpRequest();
+        const url = "http://localhost:8080";
+
+        const data = {
+            encode: userCookie
+        }
+
+        xhttp.open("POST", url + `/member/userInfo`, false);
+
+        xhttp.onreadystatechange = () => {
+            if (xhttp.status !== 200) {
+                console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
+            }
+            userInfo.user  = JSON.parse(xhttp.responseText);
+        };
+
+        xhttp.setRequestHeader("Content-Type", "application/json");
+        xhttp.send(JSON.stringify(data));
+    }
 })();
 
 function sideSearchEnter() {
@@ -51,13 +77,9 @@ real_header +=
     '<div class="main_sidebar">' +
         '<a href="../templates/index.html"><img src="../static/home_icon.png" alt="HomeIcon" style="margin: 10px 0 0 10px;" /></a>';
 if (!!document.cookie) {
-    for (let value of userInfo.data) {
-        if (value.userId === document.cookie.substr(7,)) {
-            real_header += `<img class="profile" src="data:image/jpg;base64, ${value.profile}" alt="profile" />`;
-        }
-    }
+        real_header += `<img class="profile" src="data:image/jpg;base64, ${userInfo.user.profile}" alt="profile" />`;
     real_header +=
-        `${document.cookie.substr(7,)}님` +
+        `${userInfo.user.userId}님` +
         `<a href="profile.html"><img class="main_sidebar_icon" src="../static/settings.png" alt="Img"/></a>`;
 }
 real_header +=

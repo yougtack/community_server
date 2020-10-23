@@ -1,10 +1,34 @@
 const community = {
     data: [],
-    image: []
+    image: [],
+    user:[]
 };
 
 const b_id = location.search.substr(location.search.indexOf("=") + 1);
 const userId = document.cookie.substr(7,);
+
+(function userId() {
+    if(userCookie !== "") {
+        let xhttp = new XMLHttpRequest();
+        const url = "http://localhost:8080";
+
+        const data = {
+            encode: userCookie
+        }
+
+        xhttp.open("POST", url + `/member/userInfo`, false);
+
+        xhttp.onreadystatechange = () => {
+            if (xhttp.status !== 200) {
+                console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
+            }
+            community.user  = JSON.parse(xhttp.responseText);
+        };
+
+        xhttp.setRequestHeader("Content-Type", "application/json");
+        xhttp.send(JSON.stringify(data));
+    }
+})();
 
 function imageDownload(i_id) {
     const url = "http://localhost:8080";
@@ -309,7 +333,7 @@ let cnt = 0;
                 '<span onclick="infoBox()"><img src="../static/more_vert.png" class="icon" alt="img" style="cursor: pointer;" /></span>' +
             '<div class="community_info_box" style="float: right;">' +
                 `<a href="boardComment.html?b_id=${b_id}" class="comment_box_info_box_size">답글</a>`;
-    if (userId === community.data.userId) {
+    if (community.user.userId  === community.data.userId) {
         real_div +=
                 `<div class="comment_box_info_box_size">` +
                     `<a href="modify.html?b_id=${b_id}">수정</a>` +
@@ -406,7 +430,7 @@ let cnt = 0;
             real_comment +=
                         '</span>' +
                     '</div>';
-            if (userId === value.userId) {
+            if (community.user.userId === value.userId) {
                 real_comment +=
                     `<span><img class="icon" src="../static/delete.png" alt="deleteImg" onclick="commentDelete(${value.c_id})" /></span>` +
                     `<span><a href="commentModify.html?c_id=${value.c_id}&b_id=${b_id}"><img class="icon" src="../static/modify.png" alt="modifyImg" /></a></span>`;
@@ -441,7 +465,7 @@ let cnt = 0;
             real_comment +=
                         '</div>' +
                     '</div>';
-                if (userId === value.userId) {
+                if (community.user.userId === value.userId) {
                     real_comment +=
                         `<span><img class="icon" src="../static/delete.png" alt="deleteImg" onclick="secondDelete(${value.c_id})" /></span>` +
                         `<span>` +
