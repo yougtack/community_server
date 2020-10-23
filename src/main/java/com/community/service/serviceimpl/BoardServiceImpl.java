@@ -23,59 +23,59 @@ public class BoardServiceImpl implements BoardService {
     @Autowired
     BoardService boardService;
 
-       @Override
-    public List<BoardModel> getBoardList(){
+    @Override
+    public List<BoardModel> getBoardList() {
         return dao.getBoardList();
     }
 
     @Override
-    public List<BoardModel> getMyBoardList(String userId){
+    public List<BoardModel> getMyBoardList(String userId) {
         return dao.getMyBoardList(userId);
     }
 
     @Override
-    public List<BoardModel> getMyCommentBoards(String userId){
+    public List<BoardModel> getMyCommentBoards(String userId) {
         return dao.getMyCommentBoards(userId);
     }
 
     @Override
-    public Integer insert(ViewModel viewModel){
+    public Integer insert(ViewModel viewModel) {
         return dao.insert(viewModel.getB_type(), viewModel.getB_title(), viewModel.getB_content(), viewModel.getUserId());
     }
 
     @Override
-    public Integer secondInsert(ViewModel viewModel){
+    public Integer secondInsert(ViewModel viewModel) {
         return dao.secondInsert(viewModel.getB_recomment_id(), viewModel.getB_type(), viewModel.getB_title(), viewModel.getB_content(), viewModel.getUserId());
     }
 
     @Override
-    public Integer update(ViewModel model, int b_id){
+    public Integer update(ViewModel model, int b_id) {
         return dao.update(model.getB_type(), model.getB_title(), model.getB_content(), b_id);
     }
 
     @Override
-    public Integer delete(int b_id){
+    public Integer delete(int b_id) {
         return dao.delete(b_id);
     }
 
     @Override
-    public Integer count(int b_id){
+    public Integer count(int b_id) {
         return dao.count(b_id);
     }
 
     @Override
-    public ViewModel getView(int b_id){
+    public ViewModel getView(int b_id) {
         return dao.getView(b_id);
     }
 
 
     @Override
-    public List<BoardModel> search(String word){
+    public List<BoardModel> search(String word) {
         return dao.search(word);
     }
 
     @Override
-    public List<BoardModel> getRank(){
+    public List<BoardModel> getRank() {
         return dao.getRank();
     }
 
@@ -83,22 +83,22 @@ public class BoardServiceImpl implements BoardService {
     public Integer imageUpload(MultipartHttpServletRequest multipartHttpServletRequest) throws IOException {
         int result = 0;
         int b_id = boardService.getB_id();
-        List<MultipartFile>multipartFiles = multipartHttpServletRequest.getFiles("Files");
-        if(!multipartFiles.isEmpty()){
-            for(MultipartFile filePart : multipartFiles){
+        List<MultipartFile> multipartFiles = multipartHttpServletRequest.getFiles("Files");
+        if (!multipartFiles.isEmpty()) {
+            for (MultipartFile filePart : multipartFiles) {
                 result = dao.imageUpload(filePart.getBytes(), filePart.getOriginalFilename(), b_id);
             }
-        }else{
+        } else {
             return 0;
         }
         return result;
     }
 
     @Override
-    public Integer imageInsert(MultipartHttpServletRequest multipartHttpServletRequest, int b_id) throws IOException{
+    public Integer imageInsert(MultipartHttpServletRequest multipartHttpServletRequest, int b_id) throws IOException {
         int result = 0;
-        List<MultipartFile>multipartFiles = multipartHttpServletRequest.getFiles("Files");
-        if(!multipartFiles.isEmpty()) {
+        List<MultipartFile> multipartFiles = multipartHttpServletRequest.getFiles("Files");
+        if (!multipartFiles.isEmpty()) {
             for (MultipartFile filePart : multipartFiles) {
                 String genId = UUID.randomUUID().toString();
                 String saveFileName = genId + "." + getExtension(filePart.getOriginalFilename());
@@ -110,37 +110,43 @@ public class BoardServiceImpl implements BoardService {
         }
         return result;
     }
+
     @Override
-    public List<ImageModel> getImage(int b_id){
+    public List<ImageModel> getImage(int b_id) {
         return dao.getImage(b_id);
     }
 
     @Override
-    public ImageModel getViewImage(int i_id){
+    public ImageModel getViewImage(int i_id) {
         return dao.getViewImage(i_id);
     }
 
     @Override
-    public Integer deleteImage(int i_id){
+    public Integer deleteImage(int i_id) {
         return dao.deleteImage(i_id);
     }
 
     @Override
-    public int getB_id(){
+    public int getB_id() {
         return dao.getB_id();
     }
 
     @Override
-    public Integer Test(TestModel testModel){
-        return dao.Test(testModel.getArticle_id(), testModel.getMember_id(), testModel.getDescription());
+    public Integer Test(TestModel testModel) {
+        return dao.Test(testModel.getB_id(), testModel.getUserId(), testModel.getC_content());
     }
 
     @Override
-    public Integer Test_second(TestModel testModel){
-        if(dao.checkComment(testModel.getGroup_id(), testModel.getOrder_no()) != null) {
+    public Integer Test_second(TestModel testModel) {
+        if (dao.checkComment(testModel.getGroup_id(), testModel.getOrder_no()) != null) {
             dao.update_order(testModel.getGroup_id(), testModel.getOrder_no());
         }
-        return dao.Test_second(testModel.getArticle_id(), testModel.getMember_id(), testModel.getDescription(),
+        return dao.Test_second(testModel.getB_id(), testModel.getUserId(), testModel.getC_content(),
                 testModel.getGroup_id(), testModel.getParent_reply_id(), testModel.getDepth(), testModel.getOrder_no());
+    }
+
+        @Override
+    public TestBoardModel getTestBoard(int b_id){
+           return dao.getTestBoard(b_id);
     }
 }

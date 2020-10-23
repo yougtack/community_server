@@ -39,4 +39,6 @@ public interface BoardService {
     Integer Test(TestModel testModel);
 
     Integer Test_second(TestModel testModel);
+
+    TestBoardModel getTestBoard(int b_id);
 }

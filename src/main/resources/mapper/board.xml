@@ -46,6 +46,27 @@
         </collection>
     </resultMap>
 
+    <resultMap id="testMap" type="com.community.model.TestBoardModel">
+        <id property="b_id" column="b_id"/>
+        <result property="b_recomment_id" column="b_recomment_id"></result>
+        <result property="b_type" column="b_type"></result>
+        <result property="b_title" column="b_title"></result>
+        <result property="b_content" column="b_content"></result>
+        <result property="b_date" column="b_date"></result>
+        <result property="b_count" column="b_count"></result>
+        <result property="userId" column="userId"></result>
+        <collection property="comments" ofType="com.community.model.TestModel">
+            <id property="c_id" column="first_c_id"></id>
+            <result property="b_id" column="first_b_id"></result>
+            <result property="userId" column="first_userId"></result>
+            <result property="c_content" column="first_c_content"></result>
+            <result property="group_id" column="first_group_id"></result>
+            <result property="parent_reply_id" column="first_parent_reply_id"></result>
+            <result property="depth" column="first_depth"></result>
+            <result property="order_no" column="first_order_no"></result>
+        </collection>
+    </resultMap>
+
     <select id="getBoardList" resultMap="boardMap">
         SELECT
             c.b_id, c.b_recomment_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId, c.updateCheck,
@@ -238,8 +259,8 @@
 
 
     <insert id="Test" parameterType="com.community.model.TestModel">
-        insert into test(article_id, member_id, description, group_id)
-        values (${article_id}, #{member_id}, #{description},
+        insert into test(b_id, userId, c_content, group_id)
+        values (${b_id}, #{userId}, #{c_content},
                 (SELECT AUTO_INCREMENT
                     FROM information_schema.tables
                     WHERE table_name = 'test'
@@ -247,13 +268,13 @@
     </insert>
 
     <insert id="Test_second" parameterType="com.community.model.TestModel">
-        insert into test(article_id, member_id, description, group_id, parent_reply_id, depth, order_no)
-        values (${article_id}, #{member_id}, #{description}, ${group_id}, ${parent_reply_id}, ${depth}+1, ${order_no}+1)
+        insert into test(b_id, userId, c_content, group_id, parent_reply_id, depth, order_no)
+        values (${b_id}, #{userId}, #{c_content}, ${group_id}, ${parent_reply_id}, ${depth}+1, ${order_no}+1)
     </insert>
 
     <select id="checkComment" resultType="com.community.model.TestModel">
         SELECT
-            reply_id, article_id, member_id, description, group_id, parent_reply_id, depth, order_no
+            c_id, b_id, userId, c_content, group_id, parent_reply_id, depth, order_no
         FROM
             test
         where
@@ -266,6 +287,21 @@
             order_no = order_no+1
         where
             order_no >= ${order_no}+1 and group_id = ${group_id}
-
     </update>
+
+    <select id="getTestBoard" resultMap="testMap">
+        select
+            c.b_id, c.b_recomment_id, c.b_type, c.b_title, c.b_content, c.b_date, c.b_count, c.userId,
+            cc.c_id AS first_c_id, cc.b_id AS first_b_id,  cc.userId AS first_userId, cc.c_content AS first_c_content,
+            cc.group_id AS first_group_id, cc.parent_reply_id AS first_parent_reply_id, cc.depth AS first_depth, cc.order_no AS first_order_no
+        from
+            community AS c
+        LEFT OUTER JOIN
+            test AS cc ON c.b_id = cc.b_id
+        WHERE
+            c.b_id = ${b_id}
+        order by
+            cc.b_id DESC, group_id ASC, order_no;
+    </select>
+
 </mapper>

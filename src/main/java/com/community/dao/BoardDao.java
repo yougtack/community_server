@@ -37,13 +37,15 @@ public interface BoardDao {
     Integer deleteImage(@Param("i_id") int i_id);
     int getB_id();
 
-    Integer Test(@Param("article_id") int article_id, @Param("member_id") String member_id, @Param("description") String description);
+    Integer Test(@Param("b_id") int b_id, @Param("userId") String userId, @Param("c_content") String c_content);
 
-    Integer Test_second(@Param("article_id") int article_id, @Param("member_id") String member_id, @Param("description") String description,
+    Integer Test_second(@Param("b_id") int b_id, @Param("userId") String userId, @Param("c_content") String c_content,
                         @Param("group_id") int group_id, @Param("parent_reply_id") int parent_reply_id, @Param("depth") int depth,
                         @Param("order_no") int order_no);
 
     TestModel checkComment(@Param("group_id") int group_id, @Param("order_no") int order_no);
 
     Integer update_order(@Param("group_id") int group_id, @Param("order_no") int order_no);
+
+    TestBoardModel getTestBoard(@Param("b_id") int b_id);
 }
