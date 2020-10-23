@@ -1,6 +1,9 @@
 const userInfo = {
-    data: []
+    data: [],
+    user:[]
 };
+
+const userCookie = document.cookie.substr(7,);
 
 (function init() {
     let xhttp = new XMLHttpRequest();
@@ -21,6 +24,29 @@ const userInfo = {
     };
 
     xhttp.send();
+})();
+
+(function userId() {
+    let xhttp = new XMLHttpRequest();
+    const url = "http://localhost:8080";
+
+    xhttp.open("GET", url + `/member/userInfo/${userCookie}`, false);
+
+    xhttp.onreadystatechange = () => {
+        if (xhttp.status !== 200) {
+            console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
+        }else {
+            const array = JSON.parse(xhttp.responseText);
+
+            for (let index of array) {
+                userInfo.user = array;
+            }
+        }
+    };
+
+    xhttp.send();
+    console.log(userCookie);
+    console.log(userInfo.user);
 })();
 
 function sideSearchEnter() {
