@@ -190,17 +190,21 @@ public class BoardController {
         return boardService.deleteImage(i_id);
     }
 
-    @PostMapping(value = "/test")
-    public Integer file_upload(MultipartHttpServletRequest multipartHttpServletRequest, HttpServletResponse response, HttpServletRequest request) {
-        List<MultipartFile> multipartFiles = multipartHttpServletRequest.getFiles("editor");
-        for (MultipartFile filePart : multipartFiles) {
-            System.out.println(filePart.getOriginalFilename());
-            System.out.println(filePart.getName());
-            System.out.println("-----------------");
-        }
-        return 0;
-    }
-//
+//    @PostMapping(value = "/test")
+//    public Integer file_upload(MultipartHttpServletRequest multipartHttpServletRequest, HttpServletResponse response, HttpServletRequest request) {
+//        List<MultipartFile> multipartFiles = multipartHttpServletRequest.getFiles("editor");
+//        for (MultipartFile filePart : multipartFiles) {
+//            System.out.println(filePart.getOriginalFilename());
+//            System.out.println(filePart.getName());
+//            System.out.println("-----------------");
+//        }
+//        return 0;
+//    }
+
+//    @PostMapping(value = "/test")
+//    public Integer test(@RequestBody TestModel testModel){
+//        return boardService.Test(testModel);
+//    }
 ////        try { //파일정보
 //        // String sFileInfo = "";
 //        // 파일명을 받는다 - 일반 원본파일명

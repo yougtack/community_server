@@ -40,4 +40,6 @@ public interface BoardDao {
     Integer deleteImage(@Param("i_id") int i_id);
     int getB_id();
 
+//    Integer Test(@Param("article_id") int article_id, @Param("member_id ") String member_id, @Param())
+
 }
