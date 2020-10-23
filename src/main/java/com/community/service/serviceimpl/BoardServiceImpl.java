@@ -130,4 +130,10 @@ public class BoardServiceImpl implements BoardService {
         return dao.getB_id();
     }
 
+//    @Override
+//    public Integer Test(TestModel testModel){
+//           return dao.Test(testModel.getArticle_id(), testModel.getMember_id(), testModel.getDescription(),
+//                   testModel.getGroup_id(), testModel.getOrder_no());
+//    }
+
 }

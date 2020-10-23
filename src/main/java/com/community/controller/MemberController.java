@@ -130,7 +130,7 @@ public class MemberController {
     }
 
     //유저 정보확인
-    @GetMapping(value = "/userInfo")
+    @PostMapping(value = "/userInfo")
     public LoginModel getUserInfo(@RequestBody MemberModel memberModel){
         return memberService.getUserInfo(memberModel);
     }
