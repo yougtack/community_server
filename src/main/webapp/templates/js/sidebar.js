@@ -26,7 +26,7 @@ const userCookie = document.cookie.substr(7,);
     xhttp.send();
 })();
 
-(function userId() {
+(function userCookieId() {
     if(userCookie !== "") {
         let xhttp = new XMLHttpRequest();
         const url = "http://localhost:8080";

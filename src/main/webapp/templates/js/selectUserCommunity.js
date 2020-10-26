@@ -404,18 +404,21 @@ let cnt = 0;
     let  real_comment =
         '<div class="div_border" style="margin: 30px 0 0 0;">' +
             `<div class="div_border comment_title" style="margin: 0 0 20px 0;">댓글  ${cnt}</div>`;
-
+    let hr_count = 0;
     for (let value of community.data.comments) {
-        const time = new Date(value.c_date * 1000);
+        const time = new Date(value.c_date);
         if (value.c_id === value.recomment_id) {
+            if (hr_count !== 0){
+                real_comment +=
+                    '<hr style="width: 93%; border:1px solid #ddd">';
+            }
             real_comment +=
                     `<span>` +
                         `<img class="second_profile user_cursor" src="data:image/jpg;base64, ${value.profile}" alt="Image" onclick="location.href='userInfo.html?userId=${value.userId}'" />` +
                     `</span>` +
                     '<div style="display: inline-block;">' +
-                        `<span class="userId user_cursor" onclick="location.href='userInfo.html?userId=${value.userId}'">${value.userId}님` +
+                        `<span class="userId user_cursor" onclick="location.href='userInfo.html?userId=${value.userId}'">${value.userId}님</span>` +
                             `<span class="comment_txt" onclick="secondBox(${value.c_id})"> 댓글쓰기</span>` +
-                        `</span>` +
                         '<br>'
             real_comment +=
                         `<span class="info">` +
@@ -438,7 +441,6 @@ let cnt = 0;
             real_comment +=
                     `<br>` +
                     `<pre class="c_content">${value.c_content}</pre>` +
-                    '<hr style="width: 93%; border:1px solid #ddd">' +
                     /* 대댓글 입력 */
                     `<br>` +
                     `<div class="second_${value.c_id}" style="display:none; text-align: center;">` +
@@ -449,10 +451,11 @@ let cnt = 0;
         }else {
             /* 대댓글 */
                 real_comment +=
+                    '<hr style="width: 93%; border:1px solid #ddd">' +
                     `<img class="arrow_icon" src="../static/arrows.png" alt="img"/>` +
                     `<span><img class="second_profile user_cursor" src="data:image/jpg;base64, ${value.profile}" alt="Image" onclick="location.href='userInfo.html?userId=${value.userId}'" /></span>` +
                     '<div style="display: inline-block;">' +
-                        `<div class="userId user_cursor" onclick="location.href='userInfo.html?userId=${value.userId}'">${value.userId}님</div>` +
+                        `<span class="userId user_cursor" onclick="location.href='userInfo.html?userId=${value.userId}'">${value.userId}님</span>` +
                         `<div class="info">` +
                             `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
                             `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
@@ -478,6 +481,7 @@ let cnt = 0;
                     `<br>` +
                     `<pre class="c_content_second">${value.c_content}</pre>`;
             }
+        ++hr_count;
     }
     real_comment +=
             '</div>';

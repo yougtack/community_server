@@ -32,7 +32,7 @@
 	var welTextGuide = $Element(elTextGuide);
 	var welDropArea = $Element(elDropArea);
 	var welDropAreaUL = $Element(elDropAreaUL); 
-	var fnUploadImage = null;
+	var UploadImage = null;
 	
 	//File API 지원 여부로 결정
 	function checkDragAndDropAPI(){
