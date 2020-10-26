@@ -3,6 +3,7 @@ package com.community.controller;
 import com.community.model.*;
 import com.community.service.BoardService;
 import com.community.util.CheckUtil;
+import jdk.nashorn.internal.objects.annotations.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -201,10 +202,21 @@ public class BoardController {
 //        return 0;
 //    }
 
-//    @PostMapping(value = "/test")
-//    public Integer test(@RequestBody TestModel testModel){
-//        return boardService.Test(testModel);
-//    }
+    @PostMapping(value = "/test")
+    public Integer test(@RequestBody TestModel testModel){
+        return boardService.Test(testModel);
+    }
+
+    @PostMapping(value = "/test_second")
+    public Integer test_second(@RequestBody TestModel testModel){
+        return boardService.Test_second(testModel);
+    }
+
+
+    @GetMapping(value = "/getTestBoard/{b_id}")
+    public TestBoardModel TestBoard(@PathVariable int b_id){
+        return boardService.getTestBoard(b_id);
+    }
 ////        try { //파일정보
 //        // String sFileInfo = "";
 //        // 파일명을 받는다 - 일반 원본파일명
