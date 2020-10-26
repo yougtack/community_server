@@ -148,6 +148,32 @@ function profileChange() {
     xhttp.send();
 })();
 
+function timeForToday(value) {
+    const today = new Date();
+    const timeValue = new Date(value);
+
+    // Math.floor는 소수점 이하를 버림.
+    const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
+    if (betweenTime < 1) {
+        return '방금전';
+    }
+    if (betweenTime < 60) {
+        return `${betweenTime}분전`;
+    }
+
+    const betweenTimeHour = Math.floor(betweenTime / 60);
+    if (betweenTimeHour < 24) {
+        return `${betweenTimeHour}시간전`;
+    }
+
+    const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
+    if (betweenTimeDay < 365) {
+        return `${betweenTimeDay}일전`;
+    }
+
+    return `${Math.floor(betweenTimeDay / 365)}년전`;
+}
+
 (function profilePrint() {
     let my_board = document.getElementById("my_board");
 
@@ -163,12 +189,7 @@ function profileChange() {
                         `<a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a>` +
                     `<span class="cnt_size">[${value.commentCount}]</span>` +
                     `</span>` +
-                    `<span class="index_date">` +
-                        `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
-                        `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
-                        `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
-                        `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}` +
-                    `</span>` +
+                    `<span class="index_date">${timeForToday(time)}</span>` +
                     '<br>' +
                     `<span class="index_userId">${value.userId}</span>` +
                     `<span class="index_img"><img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${value.b_count}</span>` +
@@ -192,12 +213,7 @@ function profileChange() {
                     `<a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a>` +
                 `<span class="cnt_size">[${value.commentCount}]</span>` +
                 `</span>` +
-                `<span class="index_date">` +
-                    `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
-                    `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
-                    `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
-                    `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}` +
-                `</span>` +
+                `<span class="index_date">${timeForToday(time)}</span>` +
                 '<br>' +
                 `<span class="index_userId">${value.userId}</span>` +
                 `<span class="index_img"><img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${value.b_count}</span>` +

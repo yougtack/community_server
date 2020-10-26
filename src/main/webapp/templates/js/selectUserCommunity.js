@@ -232,7 +232,6 @@ function secondBox(c_id){
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
         }
-
         community.image = JSON.parse(xhttp.responseText);
     };
 
@@ -341,8 +340,12 @@ let cnt = 0;
     real_div +=
         '<div class="div_border">' +
             `<p class="b_id_size" style="margin: 10px 0 0 25px; color: #999">#${community.data.b_id}</p>` +
-            `<p class="title">${community.data.b_title}`+
-                `<img id="myBtn" class="modal_collections" src="../static/collections.png" alt="collections_icon"/>` +
+            `<p class="title">${community.data.b_title}`;
+    if (community.image.length > 0) {
+        real_div +=
+            `<img id="myBtn" class="modal_collections" src="../static/collections.png" alt="collections_icon"/>`;
+    }
+    real_div +=
             `</p>` +
             '<hr style="width: 93%; border-color: #ddd">' +
             `<pre class="content">${community.data.b_content}</pre>` +
@@ -373,7 +376,7 @@ let cnt = 0;
         }
                    real_div +=
                        `</div>` +
-                    `<img src="../static/right_arrow.png" alt="right_arrow" class="right_btn" onclick="rightBtn()"/>` +
+                        `<img src="../static/right_arrow.png" alt="right_arrow" class="right_btn" onclick="rightBtn()"/>` +
                     `</div>` +
                 `</div>`;
     }
