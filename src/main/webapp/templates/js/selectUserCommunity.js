@@ -239,27 +239,6 @@ function secondBox(c_id){
     xhttp.send();
 })();
 
-/* test functuon */
-let imgCnt = 0;
-
-function imgHI() {
-    const imgDiv = document.getElementsByClassName("imgDiv");
-
-    if(imgCnt !== 0){
-        imgDiv[imgCnt].style.display = "none";
-        imgDiv[--imgCnt].style.display = "block";
-    }
-
-}
-function imgBye() {
-    const imgDiv = document.getElementsByClassName("imgDiv");
-    if(imgCnt !== imgDiv.length -1){
-        imgDiv[imgCnt].style.display = "none";
-        imgDiv[++imgCnt].style.display = "block";
-    }
-}
-/*  */
-
 function download(){
     let downloadBox = document.getElementsByClassName(`download_box`);
 
@@ -362,37 +341,41 @@ let cnt = 0;
     real_div +=
         '<div class="div_border">' +
             `<p class="b_id_size" style="margin: 10px 0 0 25px; color: #999">#${community.data.b_id}</p>` +
-            `<p class="title">${community.data.b_title}</p>` +
+            `<p class="title">${community.data.b_title}`+
+                `<img id="myBtn" class="modal_collections" src="../static/collections.png" alt="collections_icon"/>` +
+            `</p>` +
             '<hr style="width: 93%; border-color: #ddd">' +
             `<pre class="content">${community.data.b_content}</pre>` +
         '</div>';
 
     if (community.image.length > 0) {
+        let imgOne = 0;
+
         real_div +=
-            '<button onclick="imgHI()"><</button>' +
-            `<div style="border: 1px solid black; width: 400px; height: 300px;">`;
-        let q = 0;
+            `<div id="myModal" class="modal">` +
+                `<div class="modal-content">` +
+                    `<span class="close">&times;</span>` +
+                    `<img src="../static/left_arrow.png" alt="left_arrow" class="left_btn" onclick="leftBtn()"/>` +
+                    `<div class="modal_img_div">` ;
         for (let index of community.image) {
-            // let c = index.fileName.split(".");
-            // c = c[1];
-            // if(c === "png" || c === "jpg" || c === "jpeg") {
-                if(q !== 0) {
-                    real_div +=
-                        `<span class="imgDiv" style="display: none;">` +
-                            `<img class="content_image" src="data:image/jpg;base64, ${index.image}" alt="Image"/>` +
-                        '</span>';
-                }else {
-                    real_div +=
-                        `<span class="imgDiv">` +
-                            `<img class="content_image" src="data:image/jpg;base64, ${index.image}" alt="Image"/>` +
-                        '</span>';
-                }
-                ++q;
-            // }
+            if(imgOne !== 0) {
+                real_div +=
+                    `<span class="imgDiv" style="display: none;">` +
+                        `<img class="content_image" src="data:image/jpg;base64, ${index.image}" alt="Image"/>` +
+                    '</span>';
+            }else {
+                real_div +=
+                    `<span class="imgDiv">` +
+                        `<img class="content_image" src="data:image/jpg;base64, ${index.image}" alt="Image"/>` +
+                    '</span>';
+            }
+            ++imgOne;
         }
-        real_div +=
-            '</div>' +
-            '<button onclick="imgBye()">></button>';
+                   real_div +=
+                       `</div>` +
+                    `<img src="../static/right_arrow.png" alt="right_arrow" class="right_btn" onclick="rightBtn()"/>` +
+                    `</div>` +
+                `</div>`;
     }
     real_div +=
         '</div>' ;
