@@ -1,7 +1,6 @@
 const myBoard = {
     data: [],
-    commentData: [],
-    userId: ""
+    commentData: []
 }
 
 function enter() {
@@ -39,7 +38,7 @@ function passwordChange(user_password) {
         const url = "http://localhost:8080";
 
         const passwordData = {
-            userId: userId,
+            userId: userCookie,
             userPw: user_password
         };
 
@@ -56,6 +55,7 @@ function passwordChange(user_password) {
         };
 
         xhttp.setRequestHeader("Content-Type", "application/json");
+        console.log(JSON.stringify(passwordData));
         xhttp.send(JSON.stringify(passwordData));
     }
 }
@@ -94,7 +94,7 @@ function profileChange() {
 
         formData.append('profile', files.files[0]);
 
-        xhttp.open("PUT", url + `/member/profile/${userId}`, false);
+        xhttp.open("PUT", url + `/member/profile/${myBoard.userId.userId}`, false);
 
         xhttp.onreadystatechange = () => {
             if (xhttp.status !== 200) {
