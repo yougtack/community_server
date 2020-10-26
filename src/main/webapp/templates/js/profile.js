@@ -3,13 +3,34 @@ const myBoard = {
     commentData: []
 }
 
-const userId = document.cookie.substr(7,);
-
 function enter() {
     if (window.event.keyCode === 13) {
         passwordCheck();
     }
 }
+
+(function userCookieId() {
+    if(userCookie !== "") {
+        let xhttp = new XMLHttpRequest();
+        const url = "http://localhost:8080";
+
+        const data = {
+            encode: userCookie
+        }
+
+        xhttp.open("POST", url + `/member/userInfo`, false);
+
+        xhttp.onreadystatechange = () => {
+            if (xhttp.status !== 200) {
+                console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
+            }
+            myBoard.userId = JSON.parse(xhttp.responseText);
+        };
+
+        xhttp.setRequestHeader("Content-Type", "application/json");
+        xhttp.send(JSON.stringify(data));
+    }
+})();
 
 function passwordChange(user_password) {
     if(confirm("비밀번호를 변경하시겠습니까?")) {
@@ -17,7 +38,7 @@ function passwordChange(user_password) {
         const url = "http://localhost:8080";
 
         const passwordData = {
-            userId: userId,
+            userId: userCookie,
             userPw: user_password
         };
 
@@ -34,6 +55,7 @@ function passwordChange(user_password) {
         };
 
         xhttp.setRequestHeader("Content-Type", "application/json");
+        console.log(JSON.stringify(passwordData));
         xhttp.send(JSON.stringify(passwordData));
     }
 }
@@ -72,7 +94,7 @@ function profileChange() {
 
         formData.append('profile', files.files[0]);
 
-        xhttp.open("PUT", url + `/member/profile/${userId}`, false);
+        xhttp.open("PUT", url + `/member/profile/${myBoard.userId.userId}`, false);
 
         xhttp.onreadystatechange = () => {
             if (xhttp.status !== 200) {
@@ -91,16 +113,12 @@ function profileChange() {
 (function myBoardInit() {
     const user_profile = document.getElementById("user_profile_view");
 
-    for (let profile of userInfo.data) {
-        if(profile.userId === userId) {
-            user_profile.innerHTML = `<img class="u_profile" id="test" src="data:image/jpg;base64, ${profile.profile}" alt="profile" />`;
-        }
-    }
+    user_profile.innerHTML = `<img class="u_profile" id="test" src="data:image/jpg;base64, ${myBoard.userId.profile}" alt="profile" />`;
 
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
 
-    xhttp.open("GET", url + `/board/myBoardList/${userId}`, false);
+    xhttp.open("GET", url + `/board/myBoardList/${myBoard.userId.userId}`, false);
 
     xhttp.onreadystatechange = () => {
         if (xhttp.status !== 200) {
@@ -117,7 +135,7 @@ function profileChange() {
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
 
-    xhttp.open("GET", url + `/board/myCommentBoards/${userId}`, false);
+    xhttp.open("GET", url + `/board/myCommentBoards/${myBoard.userId.userId}`, false);
 
     xhttp.onreadystatechange = () => {
         if (xhttp.status !== 200) {

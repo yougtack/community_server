@@ -1,7 +1,7 @@
-function deleteUser(userId) {
+function deleteUser(deleteUserId) {
     if (confirm("해당유저를 삭제시키겠습니까?")) {
         const deleteUser = {
-            userId: userId
+            userId: deleteUserId
         };
 
         let xhttp = new XMLHttpRequest();
@@ -48,7 +48,7 @@ function deleteUser(userId) {
         `<br>` +
         `<div style="margin: 30px 0 0 70px;">`;
     for (let index of userInfo.data) {
-        if(index.userId !== "admin"){
+        if(index.userId !== "admin") {
             real_table +=
                     `<div class="admin_div">` +
                         `<span class="admin_btn">` +

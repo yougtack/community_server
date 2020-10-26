@@ -239,27 +239,6 @@ function secondBox(c_id){
     xhttp.send();
 })();
 
-/* test functuon */
-let imgCnt = 0;
-
-function imgHI() {
-    const imgDiv = document.getElementsByClassName("imgDiv");
-
-    if(imgCnt !== 0){
-        imgDiv[imgCnt].style.display = "none";
-        imgDiv[--imgCnt].style.display = "block";
-    }
-
-}
-function imgBye() {
-    const imgDiv = document.getElementsByClassName("imgDiv");
-    if(imgCnt !== imgDiv.length -1){
-        imgDiv[imgCnt].style.display = "none";
-        imgDiv[++imgCnt].style.display = "block";
-    }
-}
-/*  */
-
 function download(){
     let downloadBox = document.getElementsByClassName(`download_box`);
 
@@ -362,37 +341,41 @@ let cnt = 0;
     real_div +=
         '<div class="div_border">' +
             `<p class="b_id_size" style="margin: 10px 0 0 25px; color: #999">#${community.data.b_id}</p>` +
-            `<p class="title">${community.data.b_title}</p>` +
+            `<p class="title">${community.data.b_title}`+
+                `<img id="myBtn" class="modal_collections" src="../static/collections.png" alt="collections_icon"/>` +
+            `</p>` +
             '<hr style="width: 93%; border-color: #ddd">' +
             `<pre class="content">${community.data.b_content}</pre>` +
         '</div>';
 
     if (community.image.length > 0) {
+        let imgOne = 0;
+
         real_div +=
-            '<button onclick="imgHI()"><</button>' +
-            `<div style="border: 1px solid black; width: 400px; height: 300px;">`;
-        let q = 0;
+            `<div id="myModal" class="modal">` +
+                `<div class="modal-content">` +
+                    `<span class="close">&times;</span>` +
+                    `<img src="../static/left_arrow.png" alt="left_arrow" class="left_btn" onclick="leftBtn()"/>` +
+                    `<div class="modal_img_div">` ;
         for (let index of community.image) {
-            // let c = index.fileName.split(".");
-            // c = c[1];
-            // if(c === "png" || c === "jpg" || c === "jpeg") {
-                if(q !== 0) {
-                    real_div +=
-                        `<span class="imgDiv" style="display: none;">` +
-                            `<img class="content_image" src="data:image/jpg;base64, ${index.image}" alt="Image"/>` +
-                        '</span>';
-                }else {
-                    real_div +=
-                        `<span class="imgDiv">` +
-                            `<img class="content_image" src="data:image/jpg;base64, ${index.image}" alt="Image"/>` +
-                        '</span>';
-                }
-                ++q;
-            // }
+            if(imgOne !== 0) {
+                real_div +=
+                    `<span class="imgDiv" style="display: none;">` +
+                        `<img class="content_image" src="data:image/jpg;base64, ${index.image}" alt="Image"/>` +
+                    '</span>';
+            }else {
+                real_div +=
+                    `<span class="imgDiv">` +
+                        `<img class="content_image" src="data:image/jpg;base64, ${index.image}" alt="Image"/>` +
+                    '</span>';
+            }
+            ++imgOne;
         }
-        real_div +=
-            '</div>' +
-            '<button onclick="imgBye()">></button>';
+                   real_div +=
+                       `</div>` +
+                    `<img src="../static/right_arrow.png" alt="right_arrow" class="right_btn" onclick="rightBtn()"/>` +
+                    `</div>` +
+                `</div>`;
     }
     real_div +=
         '</div>' ;
@@ -404,18 +387,21 @@ let cnt = 0;
     let  real_comment =
         '<div class="div_border" style="margin: 30px 0 0 0;">' +
             `<div class="div_border comment_title" style="margin: 0 0 20px 0;">댓글  ${cnt}</div>`;
-
+    let hr_count = 0;
     for (let value of community.data.comments) {
-        const time = new Date(value.c_date * 1000);
+        const time = new Date(value.c_date);
         if (value.c_id === value.recomment_id) {
+            if (hr_count !== 0){
+                real_comment +=
+                    '<hr style="width: 93%; border:1px solid #ddd">';
+            }
             real_comment +=
                     `<span>` +
                         `<img class="second_profile user_cursor" src="data:image/jpg;base64, ${value.profile}" alt="Image" onclick="location.href='userInfo.html?userId=${value.userId}'" />` +
                     `</span>` +
                     '<div style="display: inline-block;">' +
-                        `<span class="userId user_cursor" onclick="location.href='userInfo.html?userId=${value.userId}'">${value.userId}님` +
+                        `<span class="userId user_cursor" onclick="location.href='userInfo.html?userId=${value.userId}'">${value.userId}님</span>` +
                             `<span class="comment_txt" onclick="secondBox(${value.c_id})"> 댓글쓰기</span>` +
-                        `</span>` +
                         '<br>'
             real_comment +=
                         `<span class="info">` +
@@ -438,7 +424,6 @@ let cnt = 0;
             real_comment +=
                     `<br>` +
                     `<pre class="c_content">${value.c_content}</pre>` +
-                    '<hr style="width: 93%; border:1px solid #ddd">' +
                     /* 대댓글 입력 */
                     `<br>` +
                     `<div class="second_${value.c_id}" style="display:none; text-align: center;">` +
@@ -449,10 +434,11 @@ let cnt = 0;
         }else {
             /* 대댓글 */
                 real_comment +=
+                    '<hr style="width: 93%; border:1px solid #ddd">' +
                     `<img class="arrow_icon" src="../static/arrows.png" alt="img"/>` +
                     `<span><img class="second_profile user_cursor" src="data:image/jpg;base64, ${value.profile}" alt="Image" onclick="location.href='userInfo.html?userId=${value.userId}'" /></span>` +
                     '<div style="display: inline-block;">' +
-                        `<div class="userId user_cursor" onclick="location.href='userInfo.html?userId=${value.userId}'">${value.userId}님</div>` +
+                        `<span class="userId user_cursor" onclick="location.href='userInfo.html?userId=${value.userId}'">${value.userId}님</span>` +
                         `<div class="info">` +
                             `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
                             `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
@@ -478,6 +464,7 @@ let cnt = 0;
                     `<br>` +
                     `<pre class="c_content_second">${value.c_content}</pre>`;
             }
+        ++hr_count;
     }
     real_comment +=
             '</div>';

@@ -81,14 +81,15 @@ function valueCheck() {
     const title = document.getElementById("title"),
         files = document.getElementById("files").value;
 
-    let sHTML = oEditors.getById["ir1"].getIR();
+    oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
+    const content = document.getElementById("ir1").value;
 
     if (title.value.trim().length <= 0) {
         alert("제목을 작성해주세요.");
         title.focus();
         return false;
-    } else if ( sHTML === ""  || sHTML === null || sHTML === '&nbsp;' ||
-        sHTML === '<br>' || sHTML === '<br/>' || sHTML === '<p><br></p>' || sHTML === '<p>&nbsp;</p>') {
+    } else if ( content === "" || content === null || content === '&nbsp;' ||
+                content === '<br>' || content=== '<br/>' || content === '<p>&nbsp;</p>') {
         alert("내용을 작성해주세요.");
         return false;
     } else if (document.getElementById("title").value.length > 20) {
@@ -97,7 +98,7 @@ function valueCheck() {
         return false;
     }
 
-    insert(title,sHTML);
+    insert(title,content);
 
     if (files !== "") {
         imgInsert();
