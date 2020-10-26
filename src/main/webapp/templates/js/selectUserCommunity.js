@@ -289,7 +289,8 @@ let cnt = 0;
             `<a href="community.html?b_type=${community.data.b_type}"><img src="../static/list.png" alt="IMG" /></a>` +
         `</div>`;
 
-    let real_div = `<div>`;
+    let real_div = '';
+
     real_div +=
         `<div class="info_div div_border">`+
             '<div style="margin: 10px 0 0 0;">' +
@@ -309,14 +310,14 @@ let cnt = 0;
                     `<span class="info"><img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${community.data.b_count}</span>` +
                 '</div>' +
                 '<span onclick="infoBox()"><img src="../static/more_vert.png" class="icon" alt="img" style="cursor: pointer;" /></span>' +
-            '<div class="community_info_box" style="float: right;">' +
-                `<a href="boardComment.html?b_id=${b_id}" class="comment_box_info_box_size">답글</a>`;
+                '<div class="community_info_box" style="float: right;">' +
+                    `<a href="boardComment.html?b_id=${b_id}" class="comment_box_info_box_size">답글</a>`;
     if (community.user.userId  === community.data.userId) {
         real_div +=
-                `<div class="comment_box_info_box_size">` +
-                    `<a href="modify.html?b_id=${b_id}">수정</a>` +
-                `</div>` +
-                `<div class="comment_box_info_box_size" onclick="communityDelete()">삭제</div>`;
+                    `<div class="comment_box_info_box_size">` +
+                        `<a href="modify.html?b_id=${b_id}">수정</a>` +
+                    `</div>` +
+                    `<div class="comment_box_info_box_size" onclick="communityDelete()">삭제</div>`;
     }
     real_div +=
                 `</div>` +
@@ -330,12 +331,12 @@ let cnt = 0;
             '<div class="download_box">';
         for (let index of community.image) {
             real_div +=
-                    `<div> ${index.fileName} `+
-                // `<div style="width:70px;padding:0 5px; overflow:hidden;text-overflow:ellipsis;white-space:nowrap; display: inline-block">${index.fileName}</div>\` +
-                        `<img style="width: 20px; height: 20px;" src="../static/download.png" alt="Image" onclick="imageDownload(${index.i_id})">` +
-                    `</div>`;
+                `<div> ${index.fileName} `+
+                    `<img style="width: 20px; height: 20px;" src="../static/download.png" alt="Image" onclick="imageDownload(${index.i_id})">` +
+                `</div>`;
         }
-        real_div += '</div>';
+        real_div +=
+            '</div>';
     }
     real_div +=
         '<div class="div_border">' +
@@ -380,8 +381,7 @@ let cnt = 0;
                     `</div>` +
                 `</div>`;
     }
-    real_div +=
-        '</div>' ;
+
     document.write(real_div);
 })();
 
