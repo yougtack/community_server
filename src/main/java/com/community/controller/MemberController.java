@@ -117,7 +117,7 @@ public class MemberController {
         return memberService.kickMember(checkUserModel);
     }
 
-    //멤버 정보수정
+    //유저 패스워드 변경
     @PutMapping
     public Integer updateUser(@RequestBody MemberModel memberModel, HttpServletResponse response, HttpServletRequest request){
         String status = CheckUtil.loginCheck(memberModel.getUserId(), response, request);

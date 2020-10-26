@@ -48,4 +48,9 @@ public interface BoardDao {
     Integer update_order(@Param("group_id") int group_id, @Param("order_no") int order_no);
 
     TestBoardModel getTestBoard(@Param("b_id") int b_id);
+
+    Integer getDepth(@Param("depth") int depth, @Param("group_id") int group_id);
+    Integer getDepth_max(@Param("depth") int depth, @Param("parent_reply_id") int parent_reply_id, @Param("group_id") int group_id);
+
+    Integer max_order_no(@Param("group_id") int group_id);
 }

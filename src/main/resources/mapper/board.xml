@@ -278,7 +278,7 @@
         FROM
             test
         where
-            group_id = ${group_id} and order_no = ${order_no}+1
+            group_id = ${group_id} and order_no = ${order_no}
 
     </select>
 
@@ -286,7 +286,7 @@
         update test set
             order_no = order_no+1
         where
-            order_no >= ${order_no}+1 and group_id = ${group_id}
+            order_no > ${order_no} and group_id = ${group_id}
     </update>
 
     <select id="getTestBoard" resultMap="testMap">
@@ -301,7 +301,33 @@
         WHERE
             c.b_id = ${b_id}
         order by
-            cc.b_id DESC, group_id ASC, order_no;
+            cc.b_id DESC, group_id ASC, order_no
     </select>
 
+    <select id="getDepth" resultType="int">
+        SELECT
+            IFNULL(max(order_no), 1)
+        FROM
+            test
+        WHERE
+            depth = ${depth}+1 AND group_id = ${group_id}
+    </select>
+
+    <select id="getDepth_max" resultType="int">
+        SELECT
+            IFNULL(max(order_no), 1)
+        FROM
+            test
+        WHERE
+            depth = ${depth}+1 AND group_id = ${group_id} AND parent_reply_id = ${parent_reply_id}
+    </select>
+
+    <select id="max_order_no" resultType="int">
+        SELECT
+            MAX(order_no)
+        FROM
+            test
+        WHERE
+            group_id = ${group_id}
+    </select>
 </mapper>

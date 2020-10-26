@@ -138,12 +138,35 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public Integer Test_second(TestModel testModel) {
-        if (dao.checkComment(testModel.getGroup_id(), testModel.getOrder_no()) != null) {
-            dao.update_order(testModel.getGroup_id(), testModel.getOrder_no());
+        if (testModel.getDepth() == 0) {
+            testModel.setOrder_no(dao.getDepth(testModel.getDepth(), testModel.getGroup_id()));
+        }
+        else if(testModel.getDepth() == 1){
+            dao.update_order(testModel.getGroup_id(),testModel.getOrder_no()); //group_id = 1, order_no = 3
+            testModel.setOrder_no(dao.getDepth(testModel.getDepth(), testModel.getGroup_id()));
+            if(testModel.getOrder_no() == dao.max_order_no(testModel.getGroup_id())){
+                testModel.setOrder_no(testModel.getOrder_no()+1);
+            }
+        }
+        else{
+            System.out.println("sad:"+dao.getDepth_max(testModel.getDepth(), testModel.getParent_reply_id(), testModel.getGroup_id()));
+            dao.update_order(testModel.getGroup_id(),dao.getDepth_max(testModel.getDepth(), testModel.getParent_reply_id(), testModel.getGroup_id()));
+            testModel.setOrder_no(dao.checkComment(testModel.getGroup_id(), testModel.getOrder_no()).getOrder_no());
         }
         return dao.Test_second(testModel.getB_id(), testModel.getUserId(), testModel.getC_content(),
                 testModel.getGroup_id(), testModel.getParent_reply_id(), testModel.getDepth(), testModel.getOrder_no());
     }
+//        }else{//여기 들어옴
+//            //if(dao.checkComment = 값있음)
+//            //dao.update_order(45, dao.getDepth(dao.checkComment(2)))
+//            //dao.update_order(5)
+//            if (dao.checkComment(testModel.getGroup_id(), testModel.getOrder_no()) != null) {
+//                dao.update_order(testModel.getGroup_id(), dao.getDepth(dao.checkComment(testModel.getGroup_id(), testModel.getOrder_no()).getDepth(), testModel.getGroup_id()));
+//                testModel.setOrder_no(dao.getDepth_min(dao.checkComment(testModel.getGroup_id(), testModel.getOrder_no()-1).getDepth(), testModel.getGroup_id()));
+//            }
+//            return dao.Test_second(testModel.getB_id(), testModel.getUserId(), testModel.getC_content(),
+//                    testModel.getGroup_id(), testModel.getParent_reply_id(), testModel.getDepth(), testModel.getOrder_no());
+//        }
 
         @Override
     public TestBoardModel getTestBoard(int b_id){
