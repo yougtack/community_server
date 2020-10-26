@@ -110,8 +110,6 @@ public class MemberController {
         String status = CheckUtil.memberCheck(response, request);
         if(status.equals("1")){
             return 0;
-        }else{
-            checkUserModel.setUserId(status);
         }
         //checkUserModel.userId는 강퇴시킬 아이디가 들어있음
         return memberService.kickMember(checkUserModel);

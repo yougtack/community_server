@@ -105,7 +105,7 @@ real_header +=
 if (!!document.cookie) {
     real_header +=
         `<a href="" onclick="logout()"><img class="main_sidebar_icon" src="../static/logout.png" alt="HomeIcon" onclick="logout()" />Logout</a>`;
-    if (document.cookie.substr(7,) === "admin") {
+    if (userInfo.user.userId === "admin") {
         real_header +=
             `<a href="admin.html"><img class="main_sidebar_icon" src="../static/admin.png" alt="Img" />USER</a>`;
     }
