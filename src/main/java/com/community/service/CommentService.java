@@ -7,7 +7,7 @@ public interface CommentService {
 
     Integer insert(CommentModel commentModel);
 
-    Integer secondInsert(CommentModel CommentModel);
+    Integer replyInsert(CommentModel CommentModel);
 
     Integer update(CommentModel commentModel);
 

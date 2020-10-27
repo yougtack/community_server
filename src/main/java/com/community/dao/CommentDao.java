@@ -1,12 +1,11 @@
 package com.community.dao;
 
-import com.community.model.CommentModel;
 import org.apache.ibatis.annotations.Param;
 
 public interface CommentDao {
     Integer insert(@Param("b_id") int b_id, @Param("userId") String userId, @Param("c_content") String c_content);
 
-    Integer Test_second(@Param("b_id") int b_id, @Param("userId") String userId, @Param("c_content") String c_content,
+    Integer replyInsert(@Param("b_id") int b_id, @Param("userId") String userId, @Param("c_content") String c_content,
                         @Param("group_id") int group_id, @Param("parent_reply_id") int parent_reply_id, @Param("depth") int depth,
                         @Param("order_no") int order_no);
 
