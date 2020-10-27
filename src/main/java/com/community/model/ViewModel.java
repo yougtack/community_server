@@ -11,7 +11,6 @@ import java.util.List;
 @Setter
 public class ViewModel {
     private Integer b_id;
-    private int b_recomment_id;
     private String b_type;
     private String b_title;
     private String b_content;
@@ -20,6 +19,10 @@ public class ViewModel {
     private Date b_date;
     private int b_count;
     private String userId;
+    private int group_id;
+    private int parent_reply_id;
+    private int depth;
+    private int order_no;
     private byte[] profile;
 
     private List<CommentModel> comments;

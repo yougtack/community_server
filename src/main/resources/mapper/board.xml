@@ -3,29 +3,21 @@
 <mapper namespace="com.community.dao.BoardDao">
     <resultMap id="boardMap" type="com.community.model.BoardModel">
         <id property="b_id" column="b_id"/>
-        <result property="b_recomment_id" column="b_recomment_id"></result>
         <result property="b_type" column="b_type"></result>
         <result property="b_title" column="b_title"></result>
         <result property="b_date" column="b_date"></result>
         <result property="b_count" column="b_count"></result>
         <result property="userId" column="userId"></result>
+        <result property="group_id" column="group_id"></result>
+        <result property="parent_reply_id" column="parent_reply_id"></result>
+        <result property="depth" column="depth"></result>
+        <result property="order_no" column="order_no"></result>
         <result property="updateCheck" column="updateCheck"></result>
-        <result property="commentCount" column="commentCount1"></result>
-    </resultMap>
-
-    <resultMap id="rankMap" type="com.community.model.BoardModel">
-        <id property="b_id" column="b_id"/>
-        <result property="b_type" column="b_type"></result>
-        <result property="b_title" column="b_title"></result>
-        <result property="b_date" column="b_date"></result>
-        <result property="b_count" column="b_count"></result>
-        <result property="userId" column="userId"></result>
         <result property="commentCount" column="commentCount1"></result>
     </resultMap>
 
     <resultMap id="viewMap" type="com.community.model.ViewModel">
         <id property="b_id" column="b_id"/>
-        <result property="b_recomment_id" column="b_recomment_id"></result>
         <result property="b_type" column="b_type"></result>
         <result property="b_title" column="b_title"></result>
         <result property="b_content" column="b_content"></result>
@@ -51,7 +43,7 @@
 
     <select id="getBoardList" resultMap="boardMap">
         SELECT
-            c.b_id, c.b_recomment_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId, c.updateCheck,
+            c.b_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId, c.group_id, c.parent_reply_id, c.depth, c.order_no, c.updateCheck,
             count(cc.c_content) AS commentCount1
         FROM
             community AS c
@@ -60,12 +52,12 @@
 		group by
 			c.b_id
         ORDER BY
-			c.b_recomment_id DESC, c.b_date ASC
+            c.b_id DESC, c.group_id ASC, c.order_no ASC
     </select>
 
     <select id="getMyBoardList" resultMap="boardMap">
         SELECT
-            c.b_id, c.b_recomment_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId, c.updateCheck,
+            c.b_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId, c.group_id, c.parent_reply_id, c.depth, c.order_no, c.updateCheck,
             count(cc.c_content) AS commentCount1
         FROM
             community AS c
@@ -82,7 +74,7 @@
 
     <select id="getMyCommentBoards" resultMap="boardMap">
         SELECT
-            c.b_id, c.b_recomment_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId, c.updateCheck,
+            c.b_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId, c.group_id, c.parent_reply_id, c.depth, c.order_no, c.updateCheck,
             count(cc.c_content) AS commentCount1
         FROM
             community AS c
@@ -93,12 +85,12 @@
 		group by
 			c.b_id
         ORDER BY
-			c.b_id DESC, c.b_recomment_id ASC, c.b_date ASC
+			c.b_id DESC, c.group_id ASC, c.order_no ASC
     </select>
 
     <select id="getView" resultMap="viewMap">
         SELECT
-            c.b_id, c.b_recomment_id, c.b_type, c.b_title, c.b_content, c.b_date, c.b_count, c.userId,
+            c.b_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId, c.group_id, c.parent_reply_id, c.depth, c.order_no, c.updateCheck,
              m.profile,
             cc.c_id AS first_c_id, cc.b_id AS first_b_id, cc.userId AS first_userId, cc.c_content AS first_c_content, cc.c_date AS first_c_date,
             cc.group_id AS first_group_id, cc.parent_reply_id AS first_parent_reply_id, cc.depth AS first_depth, cc.order_no AS first_order_no,
@@ -120,26 +112,27 @@
 
     <insert id="insert" parameterType="String">
         INSERT INTO
-            community(b_recomment_id, b_type, b_title, b_date, b_content, userId)
+            community(b_type, b_title, b_date, b_content, userId, group_id)
         VALUES
-            ((SELECT AUTO_INCREMENT
+            (#{b_type}, #{b_title}, now(), #{b_content}, #{user_id},
+            (SELECT AUTO_INCREMENT
                 FROM information_schema.tables
                 WHERE table_name = 'community'
-                AND table_schema = DATABASE()), #{b_type}, #{b_title}, now(), #{b_content}, #{user_id})
+                AND table_schema = DATABASE()))
     </insert>
 
-    <insert id="secondInsert" parameterType="String">
+    <insert id="replyBoardInsert" parameterType="String">
         INSERT INTO
-            community(b_recomment_id, b_type, b_title, b_date, b_content, userId)
+            community(b_type, b_title, b_date, b_content, userId, group_id, parent_reply_id, depth, order_no)
         VALUES
-            (${b_recomment_id}, #{b_type}, #{b_title}, now(), #{b_content}, #{user_id})
+            (#{b_type}, #{b_title}, now(), #{b_content}, #{userId}, ${group_id}, ${parent_reply_id}, ${depth}+1, ${order_no}+1)
     </insert>
 
     <update id="update" parameterType="String">
         UPDATE
             community
         SET
-            b_type = #{b_type}, b_title = #{b_title}, b_content = #{b_content}, updateCheck = 1
+            b_type = #{b_type}, b_title = #{b_title}, b_content = #{b_content}, updateCheck = 1, b_date = now()
         WHERE
             b_id = ${b_id}
     </update>
@@ -161,7 +154,7 @@
 
     <select id="search" resultMap="boardMap">
          SELECT
-            c.b_id, c.b_recomment_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId, c.updateCheck,
+            c.b_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId, c.group_id, c.parent_reply_id, c.depth, c.order_no, c.updateCheck,
             count(cc.c_content) AS commentCount1
         FROM
             community AS c
@@ -172,20 +165,17 @@
         GROUP BY
 			c.b_id
         ORDER BY
-            c.b_id
-        DESC
+            c.b_id DESC, c.group_id ASC, c.order_no ASC
     </select>
 
-    <select id="getRank" resultMap="rankMap">
+    <select id="getRank" resultMap="boardMap">
          SELECT
-            c.b_id, c.b_recomment_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId, c.updateCheck,
+            c.b_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId, c.group_id, c.parent_reply_id, c.depth, c.order_no, c.updateCheck,
             count(cc.c_content) AS commentCount1
         FROM
             community AS c
 		LEFT OUTER JOIN
 			community_comment AS cc ON c.b_id = cc.b_id
-        WHERE
-            c.b_id = c.b_recomment_id
 		GROUP BY
 			c.b_id
         ORDER BY
@@ -240,5 +230,41 @@
             community
     </select>
 
-<!--ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ-->
+    <update id="update_order_no" parameterType="int">
+        UPDATE
+            community
+        SET
+            order_no = order_no + 1
+        WHERE
+            order_no > ${order_no}
+        AND
+            group_id = ${group_id}
+    </update>
+
+    <select id="order_no_max" resultType="int">
+        SELECT
+            max(order_no)
+        FROM
+            community
+        WHERE
+            group_id = ${group_id}
+    </select>
+
+    <select id="check_parent_reply_id" resultType="int">
+        SELECT
+            if(count(*) = 0, null, count(*))
+        FROM
+            community
+        WHERE
+            parent_reply_id = ${parent_reply_id}
+    </select>
+
+    <select id="get_max_order_no" resultType="int">
+        SELECT
+            max(order_no)
+        FROM
+            community
+        WHERE
+            parent_reply_id = ${parent_reply_id}
+    </select>
 </mapper>

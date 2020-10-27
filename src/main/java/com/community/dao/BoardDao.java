@@ -14,8 +14,9 @@ public interface BoardDao {
     List<BoardModel> getMyCommentBoards(@Param("userId") String userId);
 
     int insert(@Param("b_type") String b_type, @Param("b_title") String b_title, @Param("b_content") String b_content, @Param("user_id") String user_id);
-    int secondInsert(@Param("b_recomment_id") int b_recomment_id, @Param("b_type") String b_type, @Param("b_title") String b_title, @Param("b_content") String b_content, @Param("user_id") String user_id);
-
+    int replyBoardInsert(@Param("b_type") String b_type, @Param("b_title") String b_title, @Param("b_content") String b_content,
+                         @Param("userId") String userId, @Param("group_id") int group_id, @Param("parent_reply_id") int parent_reply_id,
+                         @Param("depth") int depth, @Param("order_no") int order_no);
     int update(@Param("b_type") String b_type, @Param("b_title") String b_title, @Param("b_content") String b_content, @Param("b_id") int b_id);
     int delete(@Param("b_id") int b_id);
 
@@ -36,4 +37,12 @@ public interface BoardDao {
 
     Integer deleteImage(@Param("i_id") int i_id);
     int getB_id();
+
+    Integer update_order_no(@Param("group_id") int group_id, @Param("order_no") int order_no);
+
+    Integer order_no_max(@Param("group_id") int group_id);
+
+    Integer check_parent_reply_id(@Param("parent_reply_id") int parent_reply_id);
+
+    Integer get_max_order_no(@Param("parent_reply_id") int parent_reply_id);
 }
