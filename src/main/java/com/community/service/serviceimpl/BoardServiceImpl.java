@@ -138,35 +138,21 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public Integer Test_second(TestModel testModel) {
-        if (testModel.getDepth() == 0) {
-            testModel.setOrder_no(dao.getDepth(testModel.getDepth(), testModel.getGroup_id()));
-        }
-        else if(testModel.getDepth() == 1){
-            dao.update_order(testModel.getGroup_id(),testModel.getOrder_no()); //group_id = 1, order_no = 3
-            testModel.setOrder_no(dao.getDepth(testModel.getDepth(), testModel.getGroup_id()));
-            if(testModel.getOrder_no() == dao.max_order_no(testModel.getGroup_id())){
-                testModel.setOrder_no(testModel.getOrder_no()+1);
+        //dao.update_order_no: group_id에 맞고 현재 order_no 보다 높은 order_no를 1씩 증가 시켜준다.
+        //dao.order_no_max: group_id에 맞는 MAX(order_no)값을 준다.
+
+        if(testModel.getDepth() == 0){
+            testModel.setOrder_no(dao.order_no_max(testModel.getGroup_id()));
+        }else{
+            //parent_reply_id에 해당하는 값이 없을때
+            if(dao.check_parent_reply_id(testModel.getParent_reply_id()) != null){ //parent_reply_id에 해당하는 값이 있을때
+                testModel.setOrder_no(dao.get_max_order_no(testModel.getParent_reply_id()));
             }
-        }
-        else{
-            System.out.println("sad:"+dao.getDepth_max(testModel.getDepth(), testModel.getParent_reply_id(), testModel.getGroup_id()));
-            dao.update_order(testModel.getGroup_id(),dao.getDepth_max(testModel.getDepth(), testModel.getParent_reply_id(), testModel.getGroup_id()));
-            testModel.setOrder_no(dao.checkComment(testModel.getGroup_id(), testModel.getOrder_no()).getOrder_no());
+            dao.update_order_no(testModel.getGroup_id(), testModel.getOrder_no());
         }
         return dao.Test_second(testModel.getB_id(), testModel.getUserId(), testModel.getC_content(),
                 testModel.getGroup_id(), testModel.getParent_reply_id(), testModel.getDepth(), testModel.getOrder_no());
-    }
-//        }else{//여기 들어옴
-//            //if(dao.checkComment = 값있음)
-//            //dao.update_order(45, dao.getDepth(dao.checkComment(2)))
-//            //dao.update_order(5)
-//            if (dao.checkComment(testModel.getGroup_id(), testModel.getOrder_no()) != null) {
-//                dao.update_order(testModel.getGroup_id(), dao.getDepth(dao.checkComment(testModel.getGroup_id(), testModel.getOrder_no()).getDepth(), testModel.getGroup_id()));
-//                testModel.setOrder_no(dao.getDepth_min(dao.checkComment(testModel.getGroup_id(), testModel.getOrder_no()-1).getDepth(), testModel.getGroup_id()));
-//            }
-//            return dao.Test_second(testModel.getB_id(), testModel.getUserId(), testModel.getC_content(),
-//                    testModel.getGroup_id(), testModel.getParent_reply_id(), testModel.getDepth(), testModel.getOrder_no());
-//        }
+        }
 
         @Override
     public TestBoardModel getTestBoard(int b_id){
