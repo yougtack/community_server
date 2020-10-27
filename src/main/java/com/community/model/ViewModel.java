@@ -23,5 +23,4 @@ public class ViewModel {
     private byte[] profile;
 
     private List<CommentModel> comments;
-
 }

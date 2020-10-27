@@ -37,29 +37,11 @@
         <collection property="comments" ofType="com.community.model.CommentModel">
             <id property="c_id" column="first_c_id"></id>
             <result property="b_id" column="first_b_id"></result>
-            <result property="recomment_id" column="first_recomment_id"></result>
+            <result property="userId" column="first_userId"></result>
             <result property="c_content" column="first_c_content"></result>
             <result property="c_date" column="first_c_date"></result>
-            <result property="userId" column="first_userId"></result>
             <result property="updateCheck" column="first_c_updateCheck"></result>
-            <result property="profile" column="first_profile"/>
-        </collection>
-    </resultMap>
-
-    <resultMap id="testMap" type="com.community.model.TestBoardModel">
-        <id property="b_id" column="b_id"/>
-        <result property="b_recomment_id" column="b_recomment_id"></result>
-        <result property="b_type" column="b_type"></result>
-        <result property="b_title" column="b_title"></result>
-        <result property="b_content" column="b_content"></result>
-        <result property="b_date" column="b_date"></result>
-        <result property="b_count" column="b_count"></result>
-        <result property="userId" column="userId"></result>
-        <collection property="comments" ofType="com.community.model.TestModel">
-            <id property="c_id" column="first_c_id"></id>
-            <result property="b_id" column="first_b_id"></result>
-            <result property="userId" column="first_userId"></result>
-            <result property="c_content" column="first_c_content"></result>
+            <result property="profile" column="first_profile"></result>
             <result property="group_id" column="first_group_id"></result>
             <result property="parent_reply_id" column="first_parent_reply_id"></result>
             <result property="depth" column="first_depth"></result>
@@ -115,24 +97,25 @@
     </select>
 
     <select id="getView" resultMap="viewMap">
-        select
+        SELECT
             c.b_id, c.b_recomment_id, c.b_type, c.b_title, c.b_content, c.b_date, c.b_count, c.userId,
-            m.profile,
-            cc.c_id AS first_c_id, cc.b_id AS first_b_id, cc.recomment_id AS first_recomment_id, cc.c_content AS first_c_content,
-            cc.c_date AS first_c_date, cc.userId AS first_userId, cc.updateCheck AS first_c_updateCheck,
+             m.profile,
+            cc.c_id AS first_c_id, cc.b_id AS first_b_id, cc.userId AS first_userId, cc.c_content AS first_c_content, cc.c_date AS first_c_date,
+            cc.group_id AS first_group_id, cc.parent_reply_id AS first_parent_reply_id, cc.depth AS first_depth, cc.order_no AS first_order_no,
+            cc.updateCheck AS first_c_updateCheck,
             mm.profile AS first_profile
-        from
+        FROM
             community AS c
         LEFT OUTER JOIN
             community_comment AS cc ON c.b_id = cc.b_id
-		LEFT OUTER JOIN
-			community_member AS m ON c.userId = m.userId
-		LEFT OUTER JOIN
-			community_member AS mm ON cc.userId = mm.userId
+        LEFT OUTER JOIN
+            community_member AS m ON c.userId = m.userId
+        LEFT OUTER JOIN
+            community_member AS mm ON cc.userId = mm.userId
         WHERE
             c.b_id = ${b_id}
         order by
-            cc.b_id DESC, cc.recomment_id ASC, cc.c_date ASC
+            cc.b_id DESC, cc.group_id ASC, cc.order_no ASC
     </select>
 
     <insert id="insert" parameterType="String">
@@ -257,51 +240,5 @@
             community
     </select>
 
-
-    <insert id="Test" parameterType="com.community.model.TestModel">
-        insert into test(b_id, userId, c_content, group_id)
-        values (${b_id}, #{userId}, #{c_content},
-                (SELECT AUTO_INCREMENT
-                    FROM information_schema.tables
-                    WHERE table_name = 'test'
-                    AND table_schema = DATABASE()))
-    </insert>
-
-    <insert id="Test_second" parameterType="com.community.model.TestModel">
-        insert into test(b_id, userId, c_content, group_id, parent_reply_id, depth, order_no)
-        values (${b_id}, #{userId}, #{c_content}, ${group_id}, ${parent_reply_id}, ${depth}+1, ${order_no}+1)
-    </insert>
-
-    <select id="checkComment" resultType="com.community.model.TestModel">
-        SELECT
-            c_id, b_id, userId, c_content, group_id, parent_reply_id, depth, order_no
-        FROM
-            test
-        where
-            group_id = ${group_id} and order_no = ${order_no}+1
-
-    </select>
-
-    <update id="update_order" parameterType="int">
-        update test set
-            order_no = order_no+1
-        where
-            order_no >= ${order_no}+1 and group_id = ${group_id}
-    </update>
-
-    <select id="getTestBoard" resultMap="testMap">
-        select
-            c.b_id, c.b_recomment_id, c.b_type, c.b_title, c.b_content, c.b_date, c.b_count, c.userId,
-            cc.c_id AS first_c_id, cc.b_id AS first_b_id,  cc.userId AS first_userId, cc.c_content AS first_c_content,
-            cc.group_id AS first_group_id, cc.parent_reply_id AS first_parent_reply_id, cc.depth AS first_depth, cc.order_no AS first_order_no
-        from
-            community AS c
-        LEFT OUTER JOIN
-            test AS cc ON c.b_id = cc.b_id
-        WHERE
-            c.b_id = ${b_id}
-        order by
-            cc.b_id DESC, group_id ASC, order_no;
-    </select>
-
+<!--ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ-->
 </mapper>

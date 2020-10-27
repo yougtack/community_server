@@ -9,14 +9,18 @@ import java.util.Date;
 @Getter
 @Setter
 public class CommentModel {
-    private Integer c_id;
-    private Integer b_id;
-    private Integer recomment_id;
+    private int c_id;
+    private int b_id;
+    private String userId;
     private String c_content;
 
     @JsonFormat(shape = JsonFormat.Shape.NUMBER)
     private Date c_date;
-    private String userId;
-    private int updateCheck;
     private byte[] profile;
+    private int group_id;
+    private int parent_reply_id;
+    private int depth;
+    private int order_no;
+    private int updateCheck;
 }
+

@@ -130,23 +130,4 @@ public class BoardServiceImpl implements BoardService {
     public int getB_id() {
         return dao.getB_id();
     }
-
-    @Override
-    public Integer Test(TestModel testModel) {
-        return dao.Test(testModel.getB_id(), testModel.getUserId(), testModel.getC_content());
-    }
-
-    @Override
-    public Integer Test_second(TestModel testModel) {
-        if (dao.checkComment(testModel.getGroup_id(), testModel.getOrder_no()) != null) {
-            dao.update_order(testModel.getGroup_id(), testModel.getOrder_no());
-        }
-        return dao.Test_second(testModel.getB_id(), testModel.getUserId(), testModel.getC_content(),
-                testModel.getGroup_id(), testModel.getParent_reply_id(), testModel.getDepth(), testModel.getOrder_no());
-    }
-
-        @Override
-    public TestBoardModel getTestBoard(int b_id){
-           return dao.getTestBoard(b_id);
-    }
 }
