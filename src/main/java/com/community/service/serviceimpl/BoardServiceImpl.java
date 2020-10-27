@@ -130,32 +130,4 @@ public class BoardServiceImpl implements BoardService {
     public int getB_id() {
         return dao.getB_id();
     }
-
-    @Override
-    public Integer Test(TestModel testModel) {
-        return dao.Test(testModel.getB_id(), testModel.getUserId(), testModel.getC_content());
-    }
-
-    @Override
-    public Integer Test_second(TestModel testModel) {
-        //dao.update_order_no: group_id에 맞고 현재 order_no 보다 높은 order_no를 1씩 증가 시켜준다.
-        //dao.order_no_max: group_id에 맞는 MAX(order_no)값을 준다.
-
-        if(testModel.getDepth() == 0){
-            testModel.setOrder_no(dao.order_no_max(testModel.getGroup_id()));
-        }else{
-            //parent_reply_id에 해당하는 값이 없을때
-            if(dao.check_parent_reply_id(testModel.getParent_reply_id()) != null){ //parent_reply_id에 해당하는 값이 있을때
-                testModel.setOrder_no(dao.get_max_order_no(testModel.getParent_reply_id()));
-            }
-            dao.update_order_no(testModel.getGroup_id(), testModel.getOrder_no());
-        }
-        return dao.Test_second(testModel.getB_id(), testModel.getUserId(), testModel.getC_content(),
-                testModel.getGroup_id(), testModel.getParent_reply_id(), testModel.getDepth(), testModel.getOrder_no());
-        }
-
-        @Override
-    public TestBoardModel getTestBoard(int b_id){
-           return dao.getTestBoard(b_id);
-    }
 }

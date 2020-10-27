@@ -3,7 +3,6 @@ package com.community.controller;
 
 import com.community.model.CommentModel;
 import com.community.model.CheckUserModel;
-import com.community.model.SecondCommentModel;
 import com.community.service.CommentService;
 import com.community.util.CheckUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,25 +21,25 @@ public class CommentController {
     //댓글 입력
     @PostMapping
     public Integer insert(@RequestBody CommentModel commentModel, HttpServletResponse response, HttpServletRequest request){
-        String status = CheckUtil.loginCheck(commentModel.getUserId(), response, request);
-        if(status.equals("1")){
-            return 0;
-        }else{
-            commentModel.setUserId(status);
-        }
+//        String status = CheckUtil.loginCheck(commentModel.getUserId(), response, request);
+//        if(status.equals("1")){
+//            return 0;
+//        }else{
+//            commentModel.setUserId(status);
+//        }
         return commentService.insert(commentModel);
     }
 
-    //2번째 댓글 입력
+    //답글달기
     @PostMapping(value = "/second")
-    public Integer secondInsert(@RequestBody SecondCommentModel secondCommentModel, HttpServletResponse response, HttpServletRequest request){
-        String status = CheckUtil.loginCheck(secondCommentModel.getUserId(), response, request);
-        if(status.equals("1")){
-            return 0;
-        }else{
-            secondCommentModel.setUserId(status);
-        }
-        return commentService.secondInsert(secondCommentModel);
+    public Integer secondInsert(@RequestBody CommentModel commentModel, HttpServletResponse response, HttpServletRequest request){
+//        String status = CheckUtil.loginCheck(commentModel.getUserId(), response, request);
+//        if(status.equals("1")){
+//            return 0;
+//        }else{
+//            commentModel.setUserId(status);
+//        }
+        return commentService.secondInsert(commentModel);
     }
 
     //댓글 수정

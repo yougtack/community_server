@@ -10,22 +10,20 @@
 <!--            b_id = ${b_id}-->
 <!--    </select>-->
 
-    <insert id="insert" parameterType="String">
-        INSERT INTO
-            community_comment(b_id, recomment_id, c_content, c_date, userId)
-        VALUES
-            (${b_id}, (SELECT AUTO_INCREMENT
-                        FROM information_schema.tables
-                        WHERE table_name = 'community_comment'
-                        AND table_schema = DATABASE()),
-            #{c_content}, now(), #{userId})
+    <insert id="insert" parameterType="com.community.model.CommentModel">
+        INSERT INTO community_comment(b_id, userId, c_content, c_date, group_id)
+        VALUES (${b_id}, #{userId}, #{c_content}, now(),
+                (SELECT AUTO_INCREMENT
+                    FROM information_schema.tables
+                    WHERE table_name = 'community_comment'
+                    AND table_schema = DATABASE()))
     </insert>
 
-    <insert id="secondInsert" parameterType="String">
+    <insert id="Test_second" parameterType="com.community.model.CommentModel">
         INSERT INTO
-            community_comment(b_id, recomment_id, c_content, c_date, userId)
+            community_comment(b_id, userId, c_content, c_date, group_id, parent_reply_id, depth, order_no)
         VALUES
-            (${b_id}, ${recomment_id}, #{c_content}, now(), #{userId})
+            (${b_id}, #{userId}, #{c_content}, now(), ${group_id}, ${parent_reply_id}, ${depth}+1, ${order_no}+1)
     </insert>
 
     <update id="update" parameterType="String">
@@ -43,4 +41,42 @@
         WHERE
             c_id = ${c_id}
     </delete>
+
+    <update id="update_order_no" parameterType="int">
+        UPDATE
+            community_comment
+        SET
+            order_no = order_no + 1
+        WHERE
+            order_no > ${order_no}
+        AND
+            group_id = ${group_id}
+    </update>
+
+    <select id="order_no_max" resultType="int">
+        SELECT
+            max(order_no)
+        FROM
+            community_comment
+        WHERE
+            group_id = ${group_id}
+    </select>
+
+    <select id="check_parent_reply_id" resultType="int">
+        SELECT
+            if(count(*) = 0, null, count(*))
+        FROM
+            community_comment
+        WHERE
+            parent_reply_id = ${parent_reply_id}
+    </select>
+
+    <select id="get_max_order_no" resultType="int">
+        SELECT
+            max(order_no)
+        FROM
+            community_comment
+        WHERE
+            parent_reply_id = ${parent_reply_id}
+    </select>
 </mapper>
