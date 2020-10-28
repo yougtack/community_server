@@ -44,6 +44,7 @@ public class BoardServiceImpl implements BoardService {
         return dao.insert(viewModel.getB_type(), viewModel.getB_title(), viewModel.getB_content(), viewModel.getUserId());
     }
 
+    @Transactional
     @Override
     public Integer replyBoardInsert(ViewModel viewModel) {
         if(viewModel.getDepth() == 0){
