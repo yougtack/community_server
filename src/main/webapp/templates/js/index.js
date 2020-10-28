@@ -41,7 +41,6 @@ let c_length = 0;
     };
 
     xhttp.send();
-    console.log(indexData.data);
 })();
 
 function timeForToday(value) {

@@ -328,9 +328,9 @@ let cnt = 0;
                         `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
                         `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
                         `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
-                        `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}` +
+                        `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()} ` +
                     `</span>` +
-                    `<span class="info"><img class="index_img_size" src="../static/comment.png" alt="eyeIcon" />${cnt}</span>` +
+                    `<span class="info"><img class="index_img_size" src="../static/comment.png" alt="eyeIcon" />${cnt} </span>` +
                     `<span class="info"><img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${community.data.b_count}</span>` +
                 '</div>' +
                 '<span onclick="infoBox()"><img src="../static/more_vert.png" class="icon" alt="img" style="cursor: pointer;" /></span>' +
@@ -429,16 +429,19 @@ let cnt = 0;
         if (value.depth > 0){
             let margin_left_value = 30 * value.depth;
             real_comment +=
-                `<img class="arrow_icon" src="../static/arrows.png" style="margin: 0 0 0 ${margin_left_value}px;" alt="img"/>`;
+                // `<img class="arrow_icon" src="../static/arrows.png" style="margin: 0 0 0 ${margin_left_value}px;" alt="img"/>`;
+                `<span>` +
+                    `<img class="second_profile user_cursor" style="margin: 0 0 0 ${margin_left_value}px;" src="data:image/jpg;base64, ${value.profile}" alt="Image" onclick="location.href='userInfo.html?userId=${value.userId}'" />` +
+                `</span>`;
         } else {
             real_comment +=
-                `<img class="arrow_icon" src="../static/arrows.png" style="visibility: hidden;" alt="img"/>`;
+                // `<img class="arrow_icon" src="../static/arrows.png" style="visibility: hidden;" alt="img"/>`;
+                `<span>` +
+                `<img class="second_profile user_cursor" src="data:image/jpg;base64, ${value.profile}" alt="Image" onclick="location.href='userInfo.html?userId=${value.userId}'" />` +
+                `</span>` ;
         }
 
             real_comment +=
-                    `<span>` +
-                        `<img class="second_profile user_cursor" src="data:image/jpg;base64, ${value.profile}" alt="Image" onclick="location.href='userInfo.html?userId=${value.userId}'" />` +
-                    `</span>` +
                     '<div style="display: inline-block;">' +
                         `<span class="userId user_cursor" onclick="location.href='userInfo.html?userId=${value.userId}'">${value.userId}님</span>` +
                             `<span class="comment_txt" onclick="secondBox(${value.c_id})"> 댓글쓰기</span>` +
