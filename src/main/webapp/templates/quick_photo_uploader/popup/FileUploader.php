@@ -14,7 +14,7 @@ if (bSuccessUpload) { //성공 시 파일 사이즈와 URL 전송
 	$url .= "&sFileName=".urlencode(urlencode($name));
 	//$url .= "&size=". $_FILES['Filedata']['size'];
 	//아래 URL을 변경하시면 됩니다.
-	$url .= "&sFileURL=/upload".urlencode(urlencode($name));
+	$url .= "&sFileURL=http://localhost:8080/board/community".urlencode(urlencode($name));
 } else { //실패시 errstr=error 전송
 	$url .= '&errstr=error';
 }

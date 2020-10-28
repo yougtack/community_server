@@ -221,6 +221,7 @@ function secondBox(c_id){
     };
 
     xhttp.send();
+    console.log(community.data);
 })();
 
 (function image() {

@@ -41,6 +41,7 @@ let c_length = 0;
     };
 
     xhttp.send();
+    console.log(indexData.data);
 })();
 
 function timeForToday(value) {
@@ -120,7 +121,7 @@ function timeForToday(value) {
                 if (c_length >= 5) {
                     break;
                 } else {
-                    if (value.b_id === value.b_recomment_id) {
+                    if (value.depth === 0) {
                         index_div +=
                             `<div class="index_box">` +
                                 '<div class="index_item">' +

@@ -21,16 +21,42 @@ nhn.husky.EZCreator.createInIFrame({
     fCreator: "createSEditor2"
 });
 
+function imgInsert() {
+    const img = document.getElementById("files");
+    let files = img;
+    let formData = new FormData();
+
+    let xhttp = new XMLHttpRequest();
+    const url = "http://localhost:8080";
+
+    for (let value of files.files){
+        formData.append('Files', value);
+    }
+
+    xhttp.open("POST", url + `/board/upload`, false);
+
+    xhttp.onreadystatechange = () => {
+        if (xhttp.status !== 200) {
+            console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
+        }
+    };
+
+    xhttp.send(formData);
+}
+
 function boardCommentInsert(title,content) {
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
 
     const boardCommentData = {
-        b_recomment_id: boardComment.data.b_recomment_id,
         b_type: boardComment.data.b_type,
         b_title: title.value,
         b_content: content,
-        userId: document.cookie.substr(7,)
+        userId: document.cookie.substr(7,),
+        group_id: boardComment.data.group_id,
+        parent_reply_id: boardComment.data.b_id,
+        depth: boardComment.data.depth,
+        order_no: boardComment.data.order_no
     }
 
 
@@ -70,6 +96,12 @@ function valueCheck() {
     }
 
     boardCommentInsert(title, sHTML);
+
+    const img = document.getElementById("files");
+
+    if (img !== "") {
+        imgInsert();
+    }
 }
 
 (function init() {
@@ -87,6 +119,14 @@ function valueCheck() {
     };
 
     xhttp.send();
+    console.log(boardComment.data);
 
     document.getElementById("title").value = boardComment.data.b_title;
+})();
+
+(function boardCommentLimit(){
+    if (boardComment.data.depth === 5){
+        alert("게시글의 답글은 최대 5번까지 가능합니다.");
+        location.href = `userCommunity.html?b_id=${b_id}`;
+    }
 })();

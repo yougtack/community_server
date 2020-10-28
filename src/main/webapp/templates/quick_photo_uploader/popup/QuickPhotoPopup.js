@@ -2,9 +2,9 @@
 	var nImageInfoCnt = 0;
 	var htImageInfo = [];		//image file정보 저장
 	var aResult = [];
-	
-	var rFilter = /^(image\/bmp|image\/gif|image\/jpg|image\/jpeg|image\/png)$/i;  
-	var rFilter2 = /^(bmp|gif|jpg|jpeg|png)$/i; 
+
+	var rFilter = /^(image\/bmp|image\/gif|image\/jpg|image\/jpeg|image\/png)$/i;
+	var rFilter2 = /^(bmp|gif|jpg|jpeg|png)$/i;
 	var nTotalSize = 0;
 	var nMaxImageSize = 10*1024*1024;
 	var nMaxTotalImageSize = 50*1024*1024;
@@ -15,12 +15,12 @@
 	var bAttachEvent = false;
 
 	//마크업에 따른 할당
-	var elContent= $("pop_content");  
+	var elContent= $Element("pop_content");
 	var elDropArea = jindo.$$.getSingle(".drag_area",elContent);
 	var elDropAreaUL = jindo.$$.getSingle(".lst_type",elContent);
 	var elCountTxtTxt = jindo.$$.getSingle("#imageCountTxt",elContent);
 	var elTotalSizeTxt = jindo.$$.getSingle("#totalSizeTxt",elContent);
-	var elTextGuide = $("guide_text");
+	var elTextGuide = $Element("guide_text");
 	var welUploadInputBox = $Element("uploadInputBox");
 	var oNavigator = jindo.$Agent().navigator();
 	
@@ -31,7 +31,7 @@
 	//진도로 랩핑된 element
 	var welTextGuide = $Element(elTextGuide);
 	var welDropArea = $Element(elDropArea);
-	var welDropAreaUL = $Element(elDropAreaUL); 
+	var welDropAreaUL = $Element(elDropAreaUL);
 	var UploadImage = null;
 	
 	//File API 지원 여부로 결정
@@ -330,12 +330,12 @@
      * HTML5 DragAndDrop으로 사진을 추가하고, 확인버튼을 누른 경우에 동작한다.
      * @return
      */
-    function html5Upload() {	
+    function html5Upload() {
     	var tempFile,
     		sUploadURL;
     	
     	// sUploadURL= 'http://test.naver.com/popup/quick_photo/FileUploader_html5.php'; 	//upload URL
-    	sUploadURL= 'FileUploader_html5.php'; 	//upload URL
+    	sUploadURL= 'http://localhost:8080/board/community'; 	//upload URL
 
     	//파일을 하나씩 보내고, 결과를 받음.
     	for(var j=0, k=0; j < nImageInfoCnt; j++) {
@@ -455,9 +455,10 @@
  	/**
  	 * jindo에 파일 업로드 사용.(iframe에 Form을 Submit하여 리프레시없이 파일을 업로드하는 컴포넌트)
  	 */
+
  	function callFileUploader (){
  		oFileUploader = new jindo.FileUploader(jindo.$("uploadInputBox"),{
- 			sUrl  : 'http://localhost:8080/board/test',	//샘플 URL입니다.
+ 			sUrl  : 'http://localhost:8080/board/community',	//샘플 URL입니다.
  	        sCallback : 'callback.html',	//업로드 이후에 iframe이 redirect될 콜백페이지의 주소
  	    	sFiletype : "*.jpg;*.png;*.bmp;*.gif",						//허용할 파일의 형식. ex) "*", "*.*", "*.jpg", 구분자(;)	
  	    	sMsgNotAllowedExt : 'JPG, GIF, PNG, BMP 확장자만 가능합니다',	//허용할 파일의 형식이 아닌경우에 띄워주는 경고창의 문구
@@ -471,8 +472,8 @@
 // 	    			bAllowed (Boolean) 선택된 파일의 형식이 허용되는 형식인지 여부
 // 	    			sMsgNotAllowedExt (String) 허용되지 않는 파일 형식인 경우 띄워줄 경고메세지
 // 	    		}
-//  				선택된 파일의 형식이 허용되는 경우만 처리 
-console.log(1);
+//  				선택된 파일의 형식이 허용되는 경우만 처리
+				console.log(1);
  	    		if(oCustomEvent.bAllowed === true){
  		    		goStartMode();
  		    	}else{
@@ -489,7 +490,7 @@ console.log(1);
  	    		// oCustomEvent(이벤트 객체) = {
  	    		//	htResult (Object) 서버에서 전달해주는 결과 객체 (서버 설정에 따라 유동적으로 선택가능)
  	    		// }
- 	    		var aResult = []; 
+ 	    		var aResult = [];
  	    		aResult[0] = oCustomEvent.htResult;
  	    		setPhotoToEditor(aResult); 
  	    		//버튼 비활성화
@@ -524,15 +525,15 @@ console.log(1);
     
 	window.onload = function(){
   		checkDragAndDropAPI();
-  		
-  		
+
+
   		if(bSupportDragAndDropAPI){
   			$Element("pop_container2").hide();
   			$Element("pop_container").show();
-  			
+
   			welTextGuide.removeClass("nobg");
   			welTextGuide.className("bg");
-  			
+
   			addEvent();
   		} else {
   			$Element("pop_container").hide();

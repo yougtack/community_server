@@ -226,12 +226,6 @@ section {
     width: 90%;
 }
 
-.board_comments_box {
-    border: 1px solid #ddd;
-    border-left: 5px solid #0059ab;
-    width: 90%;
-}
-
 .index_item {
     margin: 10px 0 0 0;
     padding: 0 0 0 10px;
@@ -400,7 +394,7 @@ section {
 .board_arrow {
     width: 20px;
     height: 20px;
-    margin: 0 0 0 20px;
+    margin: 0 0 0 10px;
 }
 
 .comment_box {
@@ -447,10 +441,6 @@ section {
 .comment_box_info_box_size {
     cursor: pointer;
     margin: 4px 0 0 0;
-}
-
-.board_comment_title {
-    margin: 0 0 0 40px;
 }
 
 .board_comment_item {

@@ -45,11 +45,29 @@ const community = {
 
     for (let index of community.data) {
         const time = new Date(index.b_date);
-        if(index.b_id === index.b_recomment_id) {
             if (type === index.b_type) {
                 real_body +=
-                    `<div class="index_box">` +
-                        '<div class="index_item">' +
+                    `<div class="index_box">`;
+                if(index.depth > 0) {
+                    real_body +=
+                        '<div class="board_comment_item">';
+                } else {
+                    real_body +=
+                        '<div class="index_item">';
+                }
+                if (index.depth > 1){
+                    for(let i = 1; i < index.depth; i++){
+                        real_body +=
+                            `<img class="board_arrow" src="../static/arrows.png" style="visibility: hidden;" alt="img"/>`;
+                    }
+                    real_body +=
+                        `<img class="board_arrow" src="../static/arrows.png" alt="img"/>`;
+
+                } else if (index.depth === 1) {
+                    real_body +=
+                        `<img class="board_arrow" src="../static/arrows.png" alt="img"/>`;
+                }
+                real_body +=
                         `<span class="b_id_size">#${index.b_id} `;
                 if(index.updateCheck > 0) {
                     real_body +=
@@ -58,10 +76,19 @@ const community = {
                 real_body +=
                         `</span>` +
                         `<span class="community_info">${index.userId}</span>` +
-                        '<br>' +
+                        '<br>' ;
+                if (index.depth > 0){
+                    let margin_left_value = 30 * index.depth;
+                    real_body +=
                         `<span>` +
-                            `<a class="index_title" href="userCommunity.html?b_id=${index.b_id}">${index.b_title}</a>` +
-                        `<span class="cnt_size">[${index.commentCount}]</span>` +
+                            `<a class="index_title" style="margin: 0 0 0 ${margin_left_value}px;" href="userCommunity.html?b_id=${index.b_id}">${index.b_title}</a>`;
+                } else {
+                    real_body +=
+                        `<span>` +
+                            `<a class="index_title" href="userCommunity.html?b_id=${index.b_id}">${index.b_title}</a>`;
+                }
+                real_body +=
+                            `<span class="cnt_size">[${index.commentCount}]</span>` +
                         `</span>` +
                         `<span class="community_info" style="font-size: 12px;">` +
                             `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
@@ -73,37 +100,6 @@ const community = {
                         '</div>' +
                     '</div>';
             }
-        }else {
-            if (type === index.b_type) {
-                real_body +=
-                    `<div class="board_comments_box" style="display: inline-block;">` +
-                        '<div class="board_comment_item">' +
-                            `<img class="board_arrow" src="../static/arrows.png" alt="img"/>` +
-                            `<span class="b_id_size">#${index.b_id} `;
-                if(index.updateCheck > 0) {
-                    real_body +=
-                                '<span class="update_check">(수정됨)</span>';
-                }
-                real_body +=
-                            `</span>` +
-                            `<span class="community_info">${index.userId}</span>` +
-                            '<br>' +
-                            `<span>` +
-                                `<a class="index_title board_comment_title" href="userCommunity.html?b_id=${index.b_id}">${index.b_title}</a>` +
-                            `<span class="cnt_size">[${index.commentCount}]</span>` +
-                            `</span>` +
-                            `<span class="community_info" style="font-size: 12px;">` +
-                                `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
-                                `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
-                                `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
-                                `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}` +
-                            `</span>` +
-                            `<span class="index_img"><img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${index.b_count}</span>` +
-                        '</div>' +
-                    '</div>' +
-                    '<br>';
-            }
-        }
     }
     document.write(real_body);
 })();
