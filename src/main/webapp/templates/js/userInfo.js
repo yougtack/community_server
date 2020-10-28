@@ -20,7 +20,6 @@ const userId = location.search.substr(location.search.indexOf("=") + 1);
     };
 
     xhttp.send();
-    console.log(userInfoProfile.boardData);
 })();
 
 function timeForToday(value) {
@@ -64,7 +63,6 @@ function timeForToday(value) {
     };
 
     xhttp.send();
-    console.log("comment : ", userInfoProfile.commentData);
 })();
 
 (function info() {

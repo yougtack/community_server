@@ -55,6 +55,8 @@ const community = {
                     real_body +=
                         '<div class="index_item">';
                 }
+
+                // 답글일 때 arrow 아이콘 출력
                 if (index.depth > 1){
                     for(let i = 1; i < index.depth; i++){
                         real_body +=
@@ -67,16 +69,22 @@ const community = {
                     real_body +=
                         `<img class="board_arrow" src="../static/arrows.png" alt="img"/>`;
                 }
+
                 real_body +=
                         `<span class="b_id_size">#${index.b_id} `;
+
+                // 수정되면 (수정됨) 출력
                 if(index.updateCheck > 0) {
                     real_body +=
                         '<span class="update_check">(수정됨)</span>';
                 }
+
                 real_body +=
                         `</span>` +
                         `<span class="community_info">${index.userId}</span>` +
                         '<br>' ;
+
+                // 답글일 때 제목 margin값 넣기
                 if (index.depth > 0){
                     let margin_left_value = 30 * index.depth;
                     real_body +=
@@ -87,6 +95,7 @@ const community = {
                         `<span>` +
                             `<a class="index_title" href="userCommunity.html?b_id=${index.b_id}">${index.b_title}</a>`;
                 }
+
                 real_body +=
                             `<span class="cnt_size">[${index.commentCount}]</span>` +
                         `</span>` +

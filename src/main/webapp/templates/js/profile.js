@@ -55,7 +55,6 @@ function passwordChange(user_password) {
         };
 
         xhttp.setRequestHeader("Content-Type", "application/json");
-        console.log(JSON.stringify(passwordData));
         xhttp.send(JSON.stringify(passwordData));
     }
 }
