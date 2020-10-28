@@ -86,7 +86,7 @@ public class MemberController {
     //로그아웃
     @GetMapping(value = "/logout")
     public void logout(HttpServletResponse response){
-        Cookie cookie = new Cookie("userId", "i'm logout!! nice to meet you");
+        Cookie cookie = new Cookie("userId", "tmp");
         cookie.setMaxAge(0);
         cookie.setPath("/");
 
