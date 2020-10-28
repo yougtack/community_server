@@ -118,7 +118,12 @@
             (SELECT AUTO_INCREMENT
                 FROM information_schema.tables
                 WHERE table_name = 'community'
-                AND table_schema = DATABASE()), 0)
+                AND table_schema = DATABASE()),
+
+                (SELECT AUTO_INCREMENT
+                FROM information_schema.tables
+                WHERE table_name = 'community'
+                AND table_schema = DATABASE()))
     </insert>
 
     <insert id="replyBoardInsert" parameterType="String">
