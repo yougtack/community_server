@@ -24,8 +24,11 @@
         <result property="b_date" column="b_date"></result>
         <result property="b_count" column="b_count"></result>
         <result property="userId" column="userId"></result>
+        <result property="group_id" column="group_id"></result>
+        <result property="parent_reply_id" column="parent_reply_id"></result>
+        <result property="depth" column="depth"></result>
+        <result property="order_no" column="order_no"></result>
         <result property="profile" column="profile"/>
-
         <collection property="comments" ofType="com.community.model.CommentModel">
             <id property="c_id" column="first_c_id"></id>
             <result property="b_id" column="first_b_id"></result>
@@ -87,8 +90,8 @@
 
     <select id="getView" resultMap="viewMap">
         SELECT
-            c.b_id, c.b_type, c.b_title, c.b_content, c.b_date, c.b_count, c.userId, c.group_id, c.parent_reply_id, c.depth, c.order_no, c.updateCheck,
-             m.profile,
+            c.b_id, c.b_type, c.b_title, c.b_content, c.b_date, c.b_count, c.userId, c.group_id, c.parent_reply_id, c.depth, c.order_no,
+            m.profile,
             cc.c_id AS first_c_id, cc.b_id AS first_b_id, cc.userId AS first_userId, cc.c_content AS first_c_content, cc.c_date AS first_c_date,
             cc.group_id AS first_group_id, cc.parent_reply_id AS first_parent_reply_id, cc.depth AS first_depth, cc.order_no AS first_order_no,
             cc.updateCheck AS first_c_updateCheck,

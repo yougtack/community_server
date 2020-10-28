@@ -5,6 +5,7 @@ import com.community.model.CommentModel;
 import com.community.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -17,6 +18,7 @@ public class CommentServiceImpl implements CommentService {
         return dao.insert(commentModel.getB_id(), commentModel.getUserId(), commentModel.getC_content());
     }
 
+    @Transactional
     @Override
     public Integer replyInsert(CommentModel commentModel) {
         //dao.update_order_no: group_id에 맞고 현재 order_no 보다 높은 order_no를 1씩 증가 시켜준다.
