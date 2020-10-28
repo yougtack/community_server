@@ -19,7 +19,6 @@ public interface BoardService {
     Integer update(ViewModel model, int b_id);
     Integer delete(int b_id);
 
-    Integer count(int b_id);
     ViewModel getView(int b_id);
 
     List<BoardModel> search(String word);
