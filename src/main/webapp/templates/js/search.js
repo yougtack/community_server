@@ -39,7 +39,7 @@ function searchEnter() {
 
     txt.innerText = "검색결과";
     txt.innerHTML +=
-        '<a href="../templates/insert.html" style="margin-left: 80%;"><img src="../static/create.png" alt="HomeIcon" /></a>';
+        '<a href="../templates/insert.html" style="margin-left: 80%;"><img src="../static/edit.png" alt="HomeIcon" /></a>';
 
     if(searchList.data.length === 0) {
         real_body =

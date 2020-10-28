@@ -32,7 +32,7 @@
 	var welTextGuide = $Element(elTextGuide);
 	var welDropArea = $Element(elDropArea);
 	var welDropAreaUL = $Element(elDropAreaUL);
-	var UploadImage = null;
+	var uploadImage = null;
 	
 	//File API 지원 여부로 결정
 	function checkDragAndDropAPI(){
@@ -528,16 +528,16 @@
 
 
   		if(bSupportDragAndDropAPI){
-  			$Element("pop_container2").hide();
-  			$Element("pop_container").show();
+  			document.getElementById("pop_container2").hide();
+			document.getElementById("pop_container").show();
 
   			welTextGuide.removeClass("nobg");
   			welTextGuide.className("bg");
 
   			addEvent();
   		} else {
-  			$Element("pop_container").hide();
-  			$Element("pop_container2").show();
+			document.getElementById("pop_container").hide();
+			document.getElementById("pop_container2").show();
   			callFileUploader();
   		}
   		fnUploadImage = $Fn(uploadImage,this);

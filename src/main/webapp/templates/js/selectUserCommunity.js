@@ -207,9 +207,15 @@ function secondInsert(c_id) {
     xhttp.send(JSON.stringify(secondData));
 }
 
-function second_enter(c_id) {
+function secondEnter(c_id) {
     if (window.event.keyCode === 13) {
         secondInsert(c_id);
+    }
+}
+
+function commentEnter() {
+    if (window.event.keyCode === 13) {
+        commentInsert();
     }
 }
 
@@ -416,25 +422,23 @@ let cnt = 0;
     /* 댓글 */
     let  real_comment =
         '<div class="div_border" style="margin: 30px 0 0 0;">' +
-            `<div class="div_border comment_title" style="margin: 0 0 20px 0;">댓글  ${cnt}</div>`;
+            `<div class="div_border comment_title" style="margin: 0 0 0 0;">댓글  ${cnt}</div>`;
     let hr_count = 0;
     for (let value of community.data.comments) {
         const time = new Date(value.c_date);
-            if (hr_count !== 0 && value.depth === 0){
-                real_comment +=
-                    '<hr style="width: 93%; border:1px solid #ddd">';
-            }
 
         // 답글일 때 제목 margin값 넣기
         if (value.depth > 0){
-            let margin_left_value = 30 * value.depth;
+            let margin_left_value = 40 * value.depth;
             real_comment +=
-                `<span>` +
-                    `<img class="second_profile user_cursor" style="margin: 0 0 0 ${margin_left_value}px;"
+                `<div style="border: 1px solid #ddd;">` +
+                `<span style="margin:0 0 0 ${margin_left_value}px;">` +
+                    `<img class="second_profile user_cursor"
                         src="data:image/jpg;base64, ${value.profile}" alt="Image" onclick="location.href='userInfo.html?userId=${value.userId}'" />` +
                 `</span>`;
         } else {
             real_comment +=
+                '<div style="border: 1px solid #ddd; margin: 0;">' +
                 `<span>` +
                     `<img class="second_profile user_cursor" src="data:image/jpg;base64, ${value.profile}"
                         alt="Image" onclick="location.href='userInfo.html?userId=${value.userId}'" />` +
@@ -445,7 +449,7 @@ let cnt = 0;
                     '<div style="display: inline-block;">' +
                         `<span class="userId user_cursor" onclick="location.href='userInfo.html?userId=${value.userId}'">${value.userId}님</span>` +
                             `<span class="comment_txt" onclick="secondBox(${value.c_id})"> 댓글쓰기</span>` +
-                        '<br>'
+                        '<br>';
             real_comment +=
                         `<span class="info">` +
                             `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
@@ -462,25 +466,25 @@ let cnt = 0;
             if (community.user.userId === value.userId) {
                 real_comment +=
                     `<span><img class="icon" src="../static/delete.png" alt="deleteImg" onclick="commentDelete(${value.c_id})" /></span>` +
-                    `<span><a href="commentModify.html?c_id=${value.c_id}&b_id=${b_id}"><img class="icon" src="../static/modify.png" alt="modifyImg" /></a></span>`;
+                    `<span><a href="commentModify.html?c_id=${value.c_id}&b_id=${b_id}"><img class="icon" src="../static/edit.png" alt="modifyImg" /></a></span>`;
             }
         if (value.depth > 0){
-            let margin_left_value = 30 * (value.depth + 2);
+            let margin_left_value = 35 * (value.depth + 2);
             real_comment +=
                 `<pre class="c_content" style="margin: 20px 0 0 ${margin_left_value}px;">${value.c_content}</pre>` ;
         } else {
             real_comment +=
                 `<pre class="c_content" style="margin: 20px 0 0 65px;">${value.c_content}</pre>` ;
         }
+        real_comment +=
+            '</div>';
                     /* 대댓글 입력 */
             real_comment +=
-                    `<br>` +
                     `<div class="second_${value.c_id}" style="display:none; text-align: center;">` +
                         `<p id="second_length" style="text-align: left; margin: 0 0 0 100px;"></p>` +
-                        `<input id="second_content_${value.c_id}" type="text" class="comment_box" onkeyup="second_enter(${value.c_id})"/>` +
+                        `<input id="second_content_${value.c_id}" type="text" class="comment_box" onkeypress="secondEnter(${value.c_id})"/>` +
                         `<button class="comment_btn" onclick="secondInsert(${value.c_id})">등록</button>` +
-                    `</div>` +
-                '<br>';
+                    `</div>`;
         ++hr_count;
     }
     real_comment +=
@@ -493,7 +497,7 @@ let cnt = 0;
         real_comment +=
             `<p id="comment_length" class="comment_length"></p>` +
                 `<div style=" margin: 30px 0 0 100px;">` +
-                    `<textarea id="c_content" class="comment_box textarea_resize"></textarea>` +
+                    `<textarea id="c_content" class="comment_box textarea_resize" onkeypress="commentEnter()"></textarea>` +
                     `<span><button class="comment_btn" style="position: absolute;" onclick="commentInsert()">등록</button></span>` +
                     '<p id="warning_message" class="warning_message"></p>' +
                 `</div>`;
