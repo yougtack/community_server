@@ -87,7 +87,7 @@
 
     <select id="getView" resultMap="viewMap">
         SELECT
-            c.b_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId, c.group_id, c.parent_reply_id, c.depth, c.order_no, c.updateCheck,
+            c.b_id, c.b_type, c.b_title, c.b_content, c.b_date, c.b_count, c.userId, c.group_id, c.parent_reply_id, c.depth, c.order_no, c.updateCheck,
              m.profile,
             cc.c_id AS first_c_id, cc.b_id AS first_b_id, cc.userId AS first_userId, cc.c_content AS first_c_content, cc.c_date AS first_c_date,
             cc.group_id AS first_group_id, cc.parent_reply_id AS first_parent_reply_id, cc.depth AS first_depth, cc.order_no AS first_order_no,

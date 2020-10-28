@@ -5,6 +5,7 @@ import com.community.model.*;
 import com.community.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -68,13 +69,10 @@ public class BoardServiceImpl implements BoardService {
         return dao.delete(b_id);
     }
 
-    @Override
-    public Integer count(int b_id) {
-        return dao.count(b_id);
-    }
-
+    @Transactional
     @Override
     public ViewModel getView(int b_id) {
+        dao.count(b_id);
         return dao.getView(b_id);
     }
 
