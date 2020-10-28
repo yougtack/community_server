@@ -429,15 +429,15 @@ let cnt = 0;
         if (value.depth > 0){
             let margin_left_value = 30 * value.depth;
             real_comment +=
-                // `<img class="arrow_icon" src="../static/arrows.png" style="margin: 0 0 0 ${margin_left_value}px;" alt="img"/>`;
                 `<span>` +
-                    `<img class="second_profile user_cursor" style="margin: 0 0 0 ${margin_left_value}px;" src="data:image/jpg;base64, ${value.profile}" alt="Image" onclick="location.href='userInfo.html?userId=${value.userId}'" />` +
+                    `<img class="second_profile user_cursor" style="margin: 0 0 0 ${margin_left_value}px;"
+                        src="data:image/jpg;base64, ${value.profile}" alt="Image" onclick="location.href='userInfo.html?userId=${value.userId}'" />` +
                 `</span>`;
         } else {
             real_comment +=
-                // `<img class="arrow_icon" src="../static/arrows.png" style="visibility: hidden;" alt="img"/>`;
                 `<span>` +
-                `<img class="second_profile user_cursor" src="data:image/jpg;base64, ${value.profile}" alt="Image" onclick="location.href='userInfo.html?userId=${value.userId}'" />` +
+                    `<img class="second_profile user_cursor" src="data:image/jpg;base64, ${value.profile}"
+                        alt="Image" onclick="location.href='userInfo.html?userId=${value.userId}'" />` +
                 `</span>` ;
         }
 
