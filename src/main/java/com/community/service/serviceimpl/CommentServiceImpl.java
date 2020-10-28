@@ -44,8 +44,6 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Integer delete(int c_id) {
-        CommentModel commentModel = dao.getComment(c_id);
-        dao.delete(c_id);
-        return  dao.update_order_no_delete(commentModel.getGroup_id(), commentModel.getOrder_no());
+        return dao.delete(c_id);
     }
 }
