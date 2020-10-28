@@ -149,6 +149,20 @@ function commentDelete(c_id) {
 }
 
 function secondInsert(c_id) {
+
+    // 대댓글 limit
+    let limit;
+    for(let value of community.data.comments){
+        if (value.c_id === c_id){
+            limit = value;
+        }
+    }
+    if (limit.depth === 5){
+        alert("대댓글은 최대 5번까지 가능합니다.");
+        location.href = `userCommunity.html?b_id=${b_id}`;
+        return false;
+    }
+
     if (document.getElementById(`second_content_${c_id}`).value.trim().length <= 0) {
         alert("댓글에 내용을 작성해주세요.");
         document.getElementById(`second_content_${c_id}`).focus();
@@ -158,14 +172,24 @@ function secondInsert(c_id) {
         document.getElementById(`second_content_${c_id}`).focus();
         return false;
     }
+    let commentInfo;
+
+    for(let value of community.data.comments){
+        if (value.c_id === c_id){
+            commentInfo = value;
+        }
+    }
 
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
     const secondData = {
-        b_id, b_id,
-        recomment_id: c_id,
+        b_id: b_id,
         userId: userId,
-        c_content: document.getElementById(`second_content_${c_id}`).value
+        c_content: document.getElementById(`second_content_${c_id}`).value,
+        group_id : commentInfo.group_id,
+        parent_reply_id: c_id,
+        depth: commentInfo.depth,
+        order_no : commentInfo.order_no
     };
 
     xhttp.open("POST", url + `/comment/second`, false);
@@ -221,7 +245,6 @@ function secondBox(c_id){
     };
 
     xhttp.send();
-    console.log(community.data);
 })();
 
 (function image() {
@@ -346,6 +369,9 @@ let cnt = 0;
     if (community.image.length > 0) {
         real_div +=
             `<img id="myBtn" class="modal_collections" src="../static/collections.png" alt="collections_icon"/>`;
+    } else {
+        real_div +=
+            `<img id="myBtn" class="modal_collections" style="visibility: hidden;" src="../static/collections.png" alt="collections_icon"/>`;
     }
     real_div +=
             `</p>` +
@@ -394,11 +420,21 @@ let cnt = 0;
     let hr_count = 0;
     for (let value of community.data.comments) {
         const time = new Date(value.c_date);
-        if (value.c_id === value.recomment_id) {
-            if (hr_count !== 0){
+            if (hr_count !== 0 && value.depth === 0){
                 real_comment +=
                     '<hr style="width: 93%; border:1px solid #ddd">';
             }
+
+        // 답글일 때 제목 margin값 넣기
+        if (value.depth > 0){
+            let margin_left_value = 30 * value.depth;
+            real_comment +=
+                `<img class="arrow_icon" src="../static/arrows.png" style="margin: 0 0 0 ${margin_left_value}px;" alt="img"/>`;
+        } else {
+            real_comment +=
+                `<img class="arrow_icon" src="../static/arrows.png" style="visibility: hidden;" alt="img"/>`;
+        }
+
             real_comment +=
                     `<span>` +
                         `<img class="second_profile user_cursor" src="data:image/jpg;base64, ${value.profile}" alt="Image" onclick="location.href='userInfo.html?userId=${value.userId}'" />` +
@@ -425,49 +461,23 @@ let cnt = 0;
                     `<span><img class="icon" src="../static/delete.png" alt="deleteImg" onclick="commentDelete(${value.c_id})" /></span>` +
                     `<span><a href="commentModify.html?c_id=${value.c_id}&b_id=${b_id}"><img class="icon" src="../static/modify.png" alt="modifyImg" /></a></span>`;
             }
+        if (value.depth > 0){
+            let margin_left_value = 30 * (value.depth + 2);
             real_comment +=
-                    `<br>` +
-                    `<pre class="c_content">${value.c_content}</pre>` +
+                `<pre class="c_content" style="margin: 20px 0 0 ${margin_left_value}px;">${value.c_content}</pre>` ;
+        } else {
+            real_comment +=
+                `<pre class="c_content" style="margin: 20px 0 0 65px;">${value.c_content}</pre>` ;
+        }
                     /* 대댓글 입력 */
+            real_comment +=
                     `<br>` +
                     `<div class="second_${value.c_id}" style="display:none; text-align: center;">` +
                         `<p id="second_length" style="text-align: left; margin: 0 0 0 100px;"></p>` +
                         `<input id="second_content_${value.c_id}" type="text" class="comment_box" onkeyup="second_enter(${value.c_id})"/>` +
                         `<button class="comment_btn" onclick="secondInsert(${value.c_id})">등록</button>` +
-                    `</div>`;
-        }else {
-            /* 대댓글 */
-                real_comment +=
-                    '<hr style="width: 93%; border:1px solid #ddd">' +
-                    `<img class="arrow_icon" src="../static/arrows.png" alt="img"/>` +
-                    `<span><img class="second_profile user_cursor" src="data:image/jpg;base64, ${value.profile}" alt="Image" onclick="location.href='userInfo.html?userId=${value.userId}'" /></span>` +
-                    '<div style="display: inline-block;">' +
-                        `<span class="userId user_cursor" onclick="location.href='userInfo.html?userId=${value.userId}'">${value.userId}님</span>` +
-                        `<div class="info">` +
-                            `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
-                            `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
-                            `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
-                            `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}`;
-            if(value.updateCheck > 0) {
-                real_comment +=
-                    '<span class="update_check"> (수정됨)</span>';
-            }
-            real_comment +=
-                        '</div>' +
-                    '</div>';
-                if (community.user.userId === value.userId) {
-                    real_comment +=
-                        `<span><img class="icon" src="../static/delete.png" alt="deleteImg" onclick="secondDelete(${value.c_id})" /></span>` +
-                        `<span>` +
-                            `<a href="secondModify.html?c_id=${value.c_id}&recomment_id=${value.recomment_id}&b_id=${b_id}">` +
-                                `<img class="icon" src="../static/modify.png" alt="modifyImg" />` +
-                            `</a>` +
-                        `</span>`;
-                }
-                real_comment +=
-                    `<br>` +
-                    `<pre class="c_content_second">${value.c_content}</pre>`;
-            }
+                    `</div>` +
+                '<br>';
         ++hr_count;
     }
     real_comment +=

@@ -318,7 +318,6 @@ section {
 }
 
 .info {
-    margin: 0 10px 0 0;
     font-size: 12px;
 }
 
@@ -360,8 +359,6 @@ section {
 }
 
 .c_content {
-    margin-top: 20px;
-    margin-left: 30px;
     white-space: pre-wrap;
     min-height: 20px;
 }
