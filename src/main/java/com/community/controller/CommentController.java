@@ -2,7 +2,6 @@ package com.community.controller;
 
 
 import com.community.model.CommentModel;
-import com.community.model.CheckUserModel;
 import com.community.service.CommentService;
 import com.community.util.CheckUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,12 +55,12 @@ public class CommentController {
 
     //댓글 삭제
     @DeleteMapping(value = "/{c_id}")
-    public Integer delete(@PathVariable int c_id, @RequestBody CheckUserModel checkUserModel, HttpServletResponse response, HttpServletRequest request){
-        String status = CheckUtil.loginCheck(checkUserModel.getUserId(), response, request);
+    public Integer delete(@PathVariable int c_id, @RequestBody CommentModel commentModel, HttpServletResponse response, HttpServletRequest request){
+        String status = CheckUtil.loginCheck(commentModel.getUserId(), response, request);
         if(status.equals("1")){
             return 0;
         }else{
-            checkUserModel.setUserId(status);
+            commentModel.setUserId(status);
         }
         return commentService.delete(c_id);
     }

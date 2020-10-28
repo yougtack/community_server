@@ -8,14 +8,13 @@ import javax.servlet.http.HttpServletResponse;
 public class CheckUtil {
     public static String ORIGINAL_USER_ID_ENCODE=""; //암호화
     public static String ORIGINAL_USER_ID_DECODE=""; //복호화
-    public static String NOW_LOGIN_USER=""; //현재 로그인 유저
+    public static String NOW_LOGIN_USER=""; //현재 로그인 유저(암호화 상태임)
 
     //board, comment 영역
     public static String loginCheck(String userId, HttpServletResponse response, HttpServletRequest request){
-        NOW_LOGIN_USER = LoginUtil.getCheckLogin(request);
-
 
         if(!LoginUtil.isApp(request)){ //web일때 false
+            NOW_LOGIN_USER = LoginUtil.getCheckLogin(request);
             if(NOW_LOGIN_USER == null){
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());
                 return "1";
@@ -24,11 +23,11 @@ public class CheckUtil {
                 return "1";
             }
         }else{//app일때 true
-            if(ORIGINAL_USER_ID_DECODE == null){
-                response.setStatus(HttpStatus.UNAUTHORIZED.value());
+            if(ORIGINAL_USER_ID_ENCODE == null){
+                response.setStatus(HttpStatus.UNAUTHORIZED.value()); //401
                 return "1";
             }else if(!ORIGINAL_USER_ID_DECODE.equals(userId)) {
-                response.setStatus(HttpStatus.FORBIDDEN.value());
+                response.setStatus(HttpStatus.FORBIDDEN.value()); // 403
                 return "1";
             }
         }
@@ -44,7 +43,7 @@ public class CheckUtil {
                 count++;
             }
         }else{//app일때 true
-            if(ORIGINAL_USER_ID_DECODE == null){
+            if(ORIGINAL_USER_ID_ENCODE == null){
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());
                 count++;
             }

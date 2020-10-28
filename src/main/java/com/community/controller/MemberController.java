@@ -1,6 +1,5 @@
 package com.community.controller;
 
-import com.community.model.CheckUserModel;
 import com.community.model.LoginModel;
 import com.community.model.MemberModel;
 import com.community.service.MemberService;
@@ -59,15 +58,16 @@ public class MemberController {
 
     //로그인
     @PostMapping(value = "/login")
-    public LoginModel Login(@RequestBody MemberModel member, HttpServletResponse response, HttpServletRequest request) throws NoSuchPaddingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, UnsupportedEncodingException {
+    public LoginModel Login(@RequestBody MemberModel memberModel, HttpServletResponse response, HttpServletRequest request) throws NoSuchPaddingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, UnsupportedEncodingException {
         boolean isApp = LoginUtil.isApp(request);
-        LoginModel userInfo = memberService.login(member);
+        LoginModel userInfo = memberService.login(memberModel);
         AES256Util aes256Util = new AES256Util();
+
+        String encode = aes256Util.aesEncode(userInfo.getUserId()); //encode 안에 받아온 아이디값 넣어서 암호화 시키기
+        CheckUtil.ORIGINAL_USER_ID_ENCODE = encode; //checkUtil.ENCODE 안에 암호화된 값 넣기
+        CheckUtil.ORIGINAL_USER_ID_DECODE = aes256Util.aesDecode(encode); //checkUtil.DECODE 안에 복호된 값 넣기
         if(userInfo != null){
             if(!isApp){
-                String encode = aes256Util.aesEncode(userInfo.getUserId());
-                CheckUtil.ORIGINAL_USER_ID_ENCODE = encode;
-                CheckUtil.ORIGINAL_USER_ID_DECODE = aes256Util.aesDecode(encode);
                 Cookie cookie = new Cookie("userId", encode);
                 cookie.setMaxAge(-1);
                 cookie.setPath("/");
@@ -75,11 +75,7 @@ public class MemberController {
                 response.addCookie(cookie);
             }else{
                 System.out.println("is app!!");
-
-                String encode = aes256Util.aesEncode(userInfo.getUserId());
-                CheckUtil.ORIGINAL_USER_ID_ENCODE = encode;
-                CheckUtil.ORIGINAL_USER_ID_DECODE = aes256Util.aesDecode(encode);
-//                System.out.println(LoginUtil.getAuthorization(request));
+                CheckUtil.NOW_LOGIN_USER = encode;
             }
         }else {
             response.setStatus(HttpStatus.FORBIDDEN.value());
@@ -89,13 +85,12 @@ public class MemberController {
 
     //로그아웃
     @GetMapping(value = "/logout")
-    public String logout(HttpServletResponse response){
-        Cookie cookie = new Cookie("userId", "tmp");
+    public void logout(HttpServletResponse response){
+        Cookie cookie = new Cookie("userId", "i'm logout!! nice to meet you");
         cookie.setMaxAge(0);
         cookie.setPath("/");
 
         response.addCookie(cookie);
-        return "logout!!";
     }
 
     //회원리스트가져오기
@@ -106,13 +101,13 @@ public class MemberController {
 
     //회원탈퇴시키기
     @DeleteMapping
-    public Integer kickMember(@RequestBody CheckUserModel checkUserModel, HttpServletResponse response, HttpServletRequest request){
+    public Integer kickMember(@RequestBody MemberModel memberModel, HttpServletResponse response, HttpServletRequest request){
         String status = CheckUtil.memberCheck(response, request);
         if(status.equals("1")){
             return 0;
         }
         //checkUserModel.userId는 강퇴시킬 아이디가 들어있음
-        return memberService.kickMember(checkUserModel);
+        return memberService.kickMember(memberModel);
     }
 
     //유저 패스워드 변경

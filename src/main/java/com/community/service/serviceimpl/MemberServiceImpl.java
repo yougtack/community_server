@@ -1,11 +1,9 @@
 package com.community.service.serviceimpl;
 
 import com.community.dao.MemberDao;
-import com.community.model.CheckUserModel;
 import com.community.model.LoginModel;
 import com.community.model.MemberModel;
 import com.community.service.MemberService;
-import com.community.util.AES256Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -70,8 +68,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Integer kickMember(CheckUserModel checkUserModel){
-        return dao.kickMember(checkUserModel.getUserId());
+    public Integer kickMember(MemberModel memberModel){
+        return dao.kickMember(memberModel.getUserId());
 
     }
 
