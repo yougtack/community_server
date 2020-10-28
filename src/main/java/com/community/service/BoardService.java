@@ -32,6 +32,4 @@ public interface BoardService {
     ImageModel getViewImage(int i_id);
 
     Integer deleteImage(int i_id);
-
-    int getB_id();
 }

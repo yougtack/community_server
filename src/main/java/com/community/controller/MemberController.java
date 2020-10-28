@@ -103,7 +103,7 @@ public class MemberController {
     @DeleteMapping
     public Integer kickMember(@RequestBody MemberModel memberModel, HttpServletResponse response, HttpServletRequest request){
         String status = CheckUtil.memberCheck(response, request);
-        if(status.equals("1")){
+        if(status.equals("http status 401") || status.equals("http status 403")){
             return 0;
         }
         //checkUserModel.userId는 강퇴시킬 아이디가 들어있음
@@ -114,7 +114,7 @@ public class MemberController {
     @PutMapping
     public Integer updateUser(@RequestBody MemberModel memberModel, HttpServletResponse response, HttpServletRequest request){
         String status = CheckUtil.loginCheck(memberModel.getUserId(), response, request);
-        if(status.equals("1")){
+        if(status.equals("http status 401") || status.equals("http status 403")){
             return 0;
         }else{
             memberModel.setUserId(status);

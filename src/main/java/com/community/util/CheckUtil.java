@@ -15,20 +15,20 @@ public class CheckUtil {
 
         if(!LoginUtil.isApp(request)){ //web일때 false
             NOW_LOGIN_USER = LoginUtil.getCheckLogin(request);
-            if(NOW_LOGIN_USER == null){
+            if(NOW_LOGIN_USER == null){ //현재 로그인되어있는 상태가 null면 이라
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());
-                return "1";
+                return "http status 401";
             }else if(!ORIGINAL_USER_ID_ENCODE.equals(userId)) {
                 response.setStatus(HttpStatus.FORBIDDEN.value());
-                return "1";
+                return "http status 403";
             }
         }else{//app일때 true
             if(ORIGINAL_USER_ID_ENCODE == null){
                 response.setStatus(HttpStatus.UNAUTHORIZED.value()); //401
-                return "1";
+                return "http status 401";
             }else if(!ORIGINAL_USER_ID_DECODE.equals(userId)) {
                 response.setStatus(HttpStatus.FORBIDDEN.value()); // 403
-                return "1";
+                return "http status 403";
             }
         }
         return ORIGINAL_USER_ID_DECODE;
@@ -57,19 +57,19 @@ public class CheckUtil {
         if(!LoginUtil.isApp(request)){
             if(NOW_LOGIN_USER == null){
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());
-                return "1";
+                return "http status 401";
             }else if(!ORIGINAL_USER_ID_DECODE.equals("admin")){
                 response.setStatus(HttpStatus.FORBIDDEN.value());
-                return "1";
+                return "http status 403";
             }
         }else{
             if(ORIGINAL_USER_ID_DECODE == null){
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());
-                return "1";
+                return "http status 401";
 
             }else if(!ORIGINAL_USER_ID_DECODE.equals("admin")) {
                 response.setStatus(HttpStatus.FORBIDDEN.value());
-                return "1";
+                return "http status 403";
             }
         }
 

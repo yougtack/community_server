@@ -1,5 +1,6 @@
 package com.community.dao;
 
+import com.community.model.CommentModel;
 import org.apache.ibatis.annotations.Param;
 
 public interface CommentDao {
@@ -15,9 +16,13 @@ public interface CommentDao {
 
     Integer update_order_no(@Param("group_id") int group_id, @Param("order_no") int order_no);
 
+    CommentModel getComment(@Param("c_id") int c_id);
+
     Integer order_no_max(@Param("group_id") int group_id);
 
     Integer check_parent_reply_id(@Param("parent_reply_id") int parent_reply_id);
 
     Integer get_max_order_no(@Param("parent_reply_id") int parent_reply_id);
+
+    Integer update_order_no_delete(@Param("group_id") int group_id, @Param("order_no") int order_no);
 }
