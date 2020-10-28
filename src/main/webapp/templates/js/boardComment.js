@@ -26,11 +26,11 @@ function boardCommentInsert(title,content) {
     const url = "http://localhost:8080";
 
     const boardCommentData = {
-        b_recomment_id: boardComment.data.b_recomment_id,
         b_type: boardComment.data.b_type,
         b_title: title.value,
         b_content: content,
-        userId: document.cookie.substr(7,)
+        userId: document.cookie.substr(7,),
+        groupId: ""
     }
 
 
@@ -87,6 +87,7 @@ function valueCheck() {
     };
 
     xhttp.send();
+    console.log(boardComment.data);
 
     document.getElementById("title").value = boardComment.data.b_title;
 })();
