@@ -52,7 +52,7 @@
 		group by
 			c.b_id
         ORDER BY
-            c.b_id DESC, c.group_id ASC, c.order_no ASC
+            c.group_id DESC, c.order_no ASC
     </select>
 
     <select id="getMyBoardList" resultMap="boardMap">
