@@ -21,7 +21,7 @@ public class CommentController {
     @PostMapping
     public Integer insert(@RequestBody CommentModel commentModel, HttpServletResponse response, HttpServletRequest request){
         String status = CheckUtil.loginCheck(commentModel.getUserId(), response, request);
-        if(status.equals("1")){
+        if(status.equals("http status 401") || status.equals("http status 403")){
             return 0;
         }else{
             commentModel.setUserId(status);
@@ -33,7 +33,7 @@ public class CommentController {
     @PostMapping(value = "/second")
     public Integer replyInsert(@RequestBody CommentModel commentModel, HttpServletResponse response, HttpServletRequest request){
         String status = CheckUtil.loginCheck(commentModel.getUserId(), response, request);
-        if(status.equals("1")){
+        if(status.equals("http status 401") || status.equals("http status 403")){
             return 0;
         }else{
             commentModel.setUserId(status);
@@ -45,7 +45,7 @@ public class CommentController {
     @PutMapping
     public Integer update(@RequestBody CommentModel commentModel, HttpServletResponse response, HttpServletRequest request){
         String status = CheckUtil.loginCheck(commentModel.getUserId(), response, request);
-        if(status.equals("1")){
+        if(status.equals("http status 401") || status.equals("http status 403")){
             return 0;
         }else{
             commentModel.setUserId(status);
@@ -57,7 +57,7 @@ public class CommentController {
     @DeleteMapping(value = "/{c_id}")
     public Integer delete(@PathVariable int c_id, @RequestBody CommentModel commentModel, HttpServletResponse response, HttpServletRequest request){
         String status = CheckUtil.loginCheck(commentModel.getUserId(), response, request);
-        if(status.equals("1")){
+        if(status.equals("http status 401") || status.equals("http status 403")){
             return 0;
         }else{
             commentModel.setUserId(status);

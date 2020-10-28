@@ -112,13 +112,13 @@
 
     <insert id="insert" parameterType="String">
         INSERT INTO
-            community(b_type, b_title, b_date, b_content, userId, group_id)
+            community(b_type, b_title, b_date, b_content, userId, group_id, parent_reply_id)
         VALUES
             (#{b_type}, #{b_title}, now(), #{b_content}, #{user_id},
             (SELECT AUTO_INCREMENT
                 FROM information_schema.tables
                 WHERE table_name = 'community'
-                AND table_schema = DATABASE()))
+                AND table_schema = DATABASE()), 0)
     </insert>
 
     <insert id="replyBoardInsert" parameterType="String">

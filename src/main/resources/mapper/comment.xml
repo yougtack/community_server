@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.community.dao.CommentDao">
-<!--    <select id="getComment" resultType="com.community.model.CommentModel">-->
-<!--        SELECT-->
-<!--            c_id, b_id, c_content, userId-->
-<!--        FROM-->
-<!--            community_comment-->
-<!--        WHERE-->
-<!--            b_id = ${b_id}-->
-<!--    </select>-->
-
     <insert id="insert" parameterType="com.community.model.CommentModel">
         INSERT INTO community_comment(b_id, userId, c_content, c_date, group_id)
         VALUES (${b_id}, #{userId}, #{c_content}, now(),
@@ -79,4 +70,24 @@
         WHERE
             parent_reply_id = ${parent_reply_id}
     </select>
+
+    <select id="getComment" resultType="com.community.model.CommentModel">
+        SELECT
+            *
+        FROM
+            community_comment
+        WHERE
+            c_id = ${c_id}
+    </select>
+
+    <update id="update_order_no_delete" parameterType="int">
+           UPDATE
+            community_comment
+        SET
+            order_no = order_no + 1
+        WHERE
+            order_no > ${order_no}
+        AND
+            group_id = ${group_id}
+    </update>
 </mapper>

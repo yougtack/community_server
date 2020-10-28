@@ -50,8 +50,8 @@ public class BoardServiceImpl implements BoardService {
         if(viewModel.getDepth() == 0){
             viewModel.setOrder_no(dao.order_no_max(viewModel.getGroup_id()));
         }else{
-            //parent_reply_id에 해당하는 값이 없을때
-            if(dao.check_parent_reply_id(viewModel.getParent_reply_id()) != null){ //parent_reply_id에 해당하는 값이 있을때
+            //parent_reply_id에 해당하는 값이 있을때
+            if(dao.check_parent_reply_id(viewModel.getParent_reply_id()) != null){
                  viewModel.setOrder_no(dao.get_max_order_no(viewModel.getParent_reply_id()));
             }
             dao.update_order_no(viewModel.getGroup_id(), viewModel.getOrder_no());

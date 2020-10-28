@@ -43,7 +43,7 @@ public class BoardController {
     @PostMapping(value = "/community")
     public Integer insert(@RequestBody ViewModel viewModel, HttpServletResponse response, HttpServletRequest request){
         String status = CheckUtil.loginCheck(viewModel.getUserId(), response, request);
-        if(status.equals("1")){
+        if(status.equals("http status 401") || status.equals("http status 403")){
             return 0;
         }else{
             viewModel.setUserId(status);
@@ -55,7 +55,7 @@ public class BoardController {
     @PostMapping(value = "/community/second")
     public Integer replyBoardInsert(@RequestBody ViewModel viewModel, HttpServletResponse response, HttpServletRequest request){
         String status = CheckUtil.loginCheck(viewModel.getUserId(), response, request);
-        if(status.equals("1")){
+        if(status.equals("http status 401") || status.equals("http status 403")){
             return 0;
         }else{
             viewModel.setUserId(status);
@@ -67,7 +67,7 @@ public class BoardController {
     @PutMapping(value = "/community/{b_id}")
     public Integer update(@RequestBody ViewModel viewModel, @PathVariable int b_id, HttpServletResponse response, HttpServletRequest request){
         String status = CheckUtil.loginCheck(viewModel.getUserId(), response, request);
-        if(status.equals("1")){
+        if(status.equals("http status 401") || status.equals("http status 403")){
             return 0;
         }else{
             viewModel.setUserId(status);
@@ -79,7 +79,7 @@ public class BoardController {
     @DeleteMapping(value = "/community/{b_id}")
     public Integer delete(@PathVariable int b_id, @RequestBody BoardModel boardModel, HttpServletResponse response, HttpServletRequest request){
         String status = CheckUtil.loginCheck(boardModel.getUserId(), response, request);
-        if(status.equals("1")){
+        if(status.equals("http status 401") || status.equals("http status 403")){
             return 0;
         }else{
             boardModel.setUserId(status);
