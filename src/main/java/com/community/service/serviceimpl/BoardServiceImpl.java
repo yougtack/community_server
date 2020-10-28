@@ -91,7 +91,7 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public Integer imageUpload(MultipartHttpServletRequest multipartHttpServletRequest) throws IOException {
         int result = 0;
-        int b_id = boardService.getB_id();
+        int b_id = dao.getB_id();
         List<MultipartFile> multipartFiles = multipartHttpServletRequest.getFiles("Files");
         if (!multipartFiles.isEmpty()) {
             for (MultipartFile filePart : multipartFiles) {
@@ -133,10 +133,5 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public Integer deleteImage(int i_id) {
         return dao.deleteImage(i_id);
-    }
-
-    @Override
-    public int getB_id() {
-        return dao.getB_id();
     }
 }
