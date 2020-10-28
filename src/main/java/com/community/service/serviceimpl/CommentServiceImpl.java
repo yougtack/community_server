@@ -18,7 +18,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Integer secondInsert(CommentModel commentModel) {
+    public Integer replyInsert(CommentModel commentModel) {
         //dao.update_order_no: group_id에 맞고 현재 order_no 보다 높은 order_no를 1씩 증가 시켜준다.
         //dao.order_no_max: group_id에 맞는 MAX(order_no)값을 준다.
 
@@ -31,7 +31,7 @@ public class CommentServiceImpl implements CommentService {
             }
             dao.update_order_no(commentModel.getGroup_id(), commentModel.getOrder_no());
         }
-        return dao.Test_second(commentModel.getB_id(), commentModel.getUserId(), commentModel.getC_content(),
+        return dao.replyInsert(commentModel.getB_id(), commentModel.getUserId(), commentModel.getC_content(),
                 commentModel.getGroup_id(), commentModel.getParent_reply_id(), commentModel.getDepth(), commentModel.getOrder_no());
     }
 

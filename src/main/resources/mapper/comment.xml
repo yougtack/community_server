@@ -19,7 +19,7 @@
                     AND table_schema = DATABASE()))
     </insert>
 
-    <insert id="Test_second" parameterType="com.community.model.CommentModel">
+    <insert id="replyInsert" parameterType="com.community.model.CommentModel">
         INSERT INTO
             community_comment(b_id, userId, c_content, c_date, group_id, parent_reply_id, depth, order_no)
         VALUES
@@ -30,7 +30,7 @@
         UPDATE
             community_comment
         SET
-            c_content = #{c_content}, updateCheck = 1
+            c_content = #{c_content}, c_date = now(), updateCheck = 1
         WHERE
             c_id = ${c_id}
     </update>

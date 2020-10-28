@@ -44,8 +44,18 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public Integer secondInsert(ViewModel viewModel) {
-        return dao.secondInsert(viewModel.getB_recomment_id(), viewModel.getB_type(), viewModel.getB_title(), viewModel.getB_content(), viewModel.getUserId());
+    public Integer replyBoardInsert(ViewModel viewModel) {
+        if(viewModel.getDepth() == 0){
+            viewModel.setOrder_no(dao.order_no_max(viewModel.getGroup_id()));
+        }else{
+            //parent_reply_id에 해당하는 값이 없을때
+            if(dao.check_parent_reply_id(viewModel.getParent_reply_id()) != null){ //parent_reply_id에 해당하는 값이 있을때
+                 viewModel.setOrder_no(dao.get_max_order_no(viewModel.getParent_reply_id()));
+            }
+            dao.update_order_no(viewModel.getGroup_id(), viewModel.getOrder_no());
+        }
+        return dao.replyBoardInsert(viewModel.getB_type(), viewModel.getB_title(), viewModel.getB_content(), viewModel.getUserId(),
+                viewModel.getGroup_id(), viewModel.getParent_reply_id(),  viewModel.getDepth(), viewModel.getOrder_no());
     }
 
     @Override

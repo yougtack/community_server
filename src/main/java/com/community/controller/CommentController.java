@@ -21,25 +21,25 @@ public class CommentController {
     //댓글 입력
     @PostMapping
     public Integer insert(@RequestBody CommentModel commentModel, HttpServletResponse response, HttpServletRequest request){
-//        String status = CheckUtil.loginCheck(commentModel.getUserId(), response, request);
-//        if(status.equals("1")){
-//            return 0;
-//        }else{
-//            commentModel.setUserId(status);
-//        }
+        String status = CheckUtil.loginCheck(commentModel.getUserId(), response, request);
+        if(status.equals("1")){
+            return 0;
+        }else{
+            commentModel.setUserId(status);
+        }
         return commentService.insert(commentModel);
     }
 
     //답글달기
     @PostMapping(value = "/second")
-    public Integer secondInsert(@RequestBody CommentModel commentModel, HttpServletResponse response, HttpServletRequest request){
-//        String status = CheckUtil.loginCheck(commentModel.getUserId(), response, request);
-//        if(status.equals("1")){
-//            return 0;
-//        }else{
-//            commentModel.setUserId(status);
-//        }
-        return commentService.secondInsert(commentModel);
+    public Integer replyInsert(@RequestBody CommentModel commentModel, HttpServletResponse response, HttpServletRequest request){
+        String status = CheckUtil.loginCheck(commentModel.getUserId(), response, request);
+        if(status.equals("1")){
+            return 0;
+        }else{
+            commentModel.setUserId(status);
+        }
+        return commentService.replyInsert(commentModel);
     }
 
     //댓글 수정

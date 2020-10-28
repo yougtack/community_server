@@ -53,14 +53,14 @@ public class BoardController {
 
     //게시글 답글 작성 하기
     @PostMapping(value = "/community/second")
-    public Integer secondInsert(@RequestBody ViewModel viewModel, HttpServletResponse response, HttpServletRequest request){
+    public Integer replyBoardInsert(@RequestBody ViewModel viewModel, HttpServletResponse response, HttpServletRequest request){
         String status = CheckUtil.loginCheck(viewModel.getUserId(), response, request);
         if(status.equals("1")){
             return 0;
         }else{
             viewModel.setUserId(status);
         }
-        return  boardService.secondInsert(viewModel);
+        return  boardService.replyBoardInsert(viewModel);
     }
 
     //게시글 수정하기
