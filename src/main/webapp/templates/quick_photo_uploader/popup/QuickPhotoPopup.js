@@ -15,18 +15,18 @@
 	var bAttachEvent = false;
 
 	//마크업에 따른 할당
-	var elContent= document.getElementById("pop_content");
+	var elContent= $Element("pop_content");
 	var elDropArea = jindo.$$.getSingle(".drag_area",elContent);
 	var elDropAreaUL = jindo.$$.getSingle(".lst_type",elContent);
 	var elCountTxtTxt = jindo.$$.getSingle("#imageCountTxt",elContent);
 	var elTotalSizeTxt = jindo.$$.getSingle("#totalSizeTxt",elContent);
-	var elTextGuide = document.getElementById("guide_text");
-	var welUploadInputBox = document.getElementById("uploadInputBox");
+	var elTextGuide = $Element("guide_text");
+	var welUploadInputBox = $Element("uploadInputBox");
 	var oNavigator = jindo.$Agent().navigator();
 	
 	//마크업-공통 
-	var welBtnConfirm = document.getElementById("btn_confirm");				//확인 버튼
-	var welBtnCancel= document.getElementById("btn_cancel");				//취소 버튼
+	var welBtnConfirm = $Element("btn_confirm");				//확인 버튼
+	var welBtnCancel= $Element("btn_cancel");				//취소 버튼
 	
 	//진도로 랩핑된 element
 	var welTextGuide = $Element(elTextGuide);

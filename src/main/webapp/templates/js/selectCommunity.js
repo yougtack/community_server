@@ -67,7 +67,6 @@ const community = {
                     real_body +=
                         `<img class="board_arrow" src="../static/arrows.png" alt="img"/>`;
                 }
-                console.log(index);
                 real_body +=
                         `<span class="b_id_size">#${index.b_id} `;
                 if(index.updateCheck > 0) {
