@@ -63,10 +63,10 @@ public class MemberController {
         LoginModel userInfo = memberService.login(memberModel);
         AES256Util aes256Util = new AES256Util();
 
-        String encode = aes256Util.aesEncode(userInfo.getUserId()); //encode 안에 받아온 아이디값 넣어서 암호화 시키기
-        CheckUtil.ORIGINAL_USER_ID_ENCODE = encode; //checkUtil.ENCODE 안에 암호화된 값 넣기
-        CheckUtil.ORIGINAL_USER_ID_DECODE = aes256Util.aesDecode(encode); //checkUtil.DECODE 안에 복호된 값 넣기
         if(userInfo != null){
+            String encode = aes256Util.aesEncode(userInfo.getUserId()); //encode 안에 받아온 아이디값 넣어서 암호화 시키기
+            CheckUtil.ORIGINAL_USER_ID_ENCODE = encode; //checkUtil.ENCODE 안에 암호화된 값 넣기
+            CheckUtil.ORIGINAL_USER_ID_DECODE = aes256Util.aesDecode(encode); //checkUtil.DECODE 안에 복호된 값 넣기
             if(!isApp){
                 Cookie cookie = new Cookie("userId", encode);
                 cookie.setMaxAge(-1);

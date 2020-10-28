@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class LoginModel {
+    private String encode;
     private String userId;
     private byte[] profile;
 }
