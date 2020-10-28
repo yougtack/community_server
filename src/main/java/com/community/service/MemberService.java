@@ -1,6 +1,5 @@
 package com.community.service;
 
-import com.community.model.CheckUserModel;
 import com.community.model.LoginModel;
 import com.community.model.MemberModel;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -17,7 +16,7 @@ public interface MemberService {
 
     List<MemberModel> getMemberList();
 
-    Integer kickMember(CheckUserModel checkUserModel);
+    Integer kickMember(MemberModel memberModel);
 
     Integer updateProfile(MultipartHttpServletRequest multipartHttpServletRequest, String userId) throws IOException;
 

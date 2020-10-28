@@ -77,12 +77,12 @@ public class BoardController {
 
     //게시글 삭제하기
     @DeleteMapping(value = "/community/{b_id}")
-    public Integer delete(@PathVariable int b_id, @RequestBody CheckUserModel checkUserModel, HttpServletResponse response, HttpServletRequest request){
-        String status = CheckUtil.loginCheck(checkUserModel.getUserId(), response, request);
+    public Integer delete(@PathVariable int b_id, @RequestBody BoardModel boardModel, HttpServletResponse response, HttpServletRequest request){
+        String status = CheckUtil.loginCheck(boardModel.getUserId(), response, request);
         if(status.equals("1")){
             return 0;
         }else{
-            checkUserModel.setUserId(status);
+            boardModel.setUserId(status);
         }
         return boardService.delete(b_id);
     }
