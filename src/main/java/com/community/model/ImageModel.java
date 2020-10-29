@@ -8,7 +8,6 @@ import lombok.Setter;
 public class ImageModel {
     private Integer i_id;
     private Integer b_id;
-    private byte[] image;
-    private String fileName;
-    private String UUID_fileName;
+    private String file_name;
+    private String file_path;
 }

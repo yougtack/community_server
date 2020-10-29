@@ -4,11 +4,14 @@ import com.community.dao.BoardDao;
 import com.community.model.*;
 import com.community.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
@@ -88,41 +91,73 @@ public class BoardServiceImpl implements BoardService {
         return dao.getRank();
     }
 
+//    @Override
+//    public Integer imageUpload(MultipartHttpServletRequest multipartHttpServletRequest) throws IOException {
+//        int result = 0;
+//        int b_id = dao.getB_id();
+//        List<MultipartFile> multipartFiles = multipartHttpServletRequest.getFiles("Files");
+//        if (!multipartFiles.isEmpty()) {
+//            for (MultipartFile filePart : multipartFiles) {
+//                result = dao.imageUpload(filePart.getBytes(), filePart.getOriginalFilename(), b_id);
+//            }
+//        } else {
+//            return 0;
+//        }
+//        return result;
+//    }
+
     @Override
-    public Integer imageUpload(MultipartHttpServletRequest multipartHttpServletRequest) throws IOException {
-        int result = 0;
-        int b_id = dao.getB_id();
+    public Integer uploadImage(MultipartHttpServletRequest multipartHttpServletRequest, int b_id, HttpServletRequest request) throws IOException {
+        String filePath = null;
+
         List<MultipartFile> multipartFiles = multipartHttpServletRequest.getFiles("Files");
         if (!multipartFiles.isEmpty()) {
+            UUID uuid = UUID.randomUUID();
             for (MultipartFile filePart : multipartFiles) {
-                result = dao.imageUpload(filePart.getBytes(), filePart.getOriginalFilename(), b_id);
+
+                String root_path = request.getSession().getServletContext().getRealPath("/");
+                String attach_path = "static/images/";
+                String filename = uuid+"_"+filePart.getOriginalFilename();
+
+                File saveFile = new File(root_path+attach_path+filename);
+                filePart.transferTo(saveFile);
+
+                return dao.uploadImage(b_id, uuid+"_"+filePart.getOriginalFilename(), "localhost:8080/static/images/"+uuid+"_"+filePart.getOriginalFilename());
             }
-        } else {
-            return 0;
         }
-        return result;
+    return 0;
+    }
+
+
+    @Override
+    public Integer updateImage(MultipartHttpServletRequest multipartHttpServletRequest, int i_id, HttpServletRequest request) throws IOException {
+        String filePath = null;
+
+        ImageModel imageModel = dao.getImageInfo(i_id);
+        System.out.println("asd:"+imageModel.getFile_name());
+        String root_path = request.getSession().getServletContext().getRealPath("/");
+        String attach_path = "static/images/";
+        File file = new File(root_path+attach_path+imageModel.getFile_name());
+        file.delete();
+
+        List<MultipartFile> multipartFiles = multipartHttpServletRequest.getFiles("Files");
+        if (!multipartFiles.isEmpty()) {
+            UUID uuid = UUID.randomUUID();
+            for (MultipartFile filePart : multipartFiles) {
+                String filename = uuid+"_"+filePart.getOriginalFilename();
+
+                File saveFile = new File(root_path+attach_path+filename);
+                filePart.transferTo(saveFile);
+
+                return dao.updateImage(i_id, uuid+"_"+filePart.getOriginalFilename(), "localhost:8080/static/images/"+uuid+"_"+filePart.getOriginalFilename());
+            }
+        }
+        return 0;
     }
 
     @Override
-    public Integer imageInsert(MultipartHttpServletRequest multipartHttpServletRequest, int b_id) throws IOException {
-        int result = 0;
-        List<MultipartFile> multipartFiles = multipartHttpServletRequest.getFiles("Files");
-        if (!multipartFiles.isEmpty()) {
-            for (MultipartFile filePart : multipartFiles) {
-                String genId = UUID.randomUUID().toString();
-                String saveFileName = genId + "." + getExtension(filePart.getOriginalFilename());
-                if (filePart.getOriginalFilename().equals("")) {
-                    return 0;
-                }
-                result = dao.imageInsert(filePart.getBytes(), filePart.getOriginalFilename(), saveFileName, b_id);
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public List<ImageModel> getImage(int b_id) {
-        return dao.getImage(b_id);
+    public List<ImageModel> getImages(int b_id) {
+        return dao.getImages(b_id);
     }
 
     @Override
@@ -131,7 +166,12 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public Integer deleteImage(int i_id) {
-        return dao.deleteImage(i_id);
+    public Integer deleteImage(ImageModel imageModel, HttpServletRequest request) {
+
+        String root_path = request.getSession().getServletContext().getRealPath("/");
+        String attach_path = "static/images/";
+        File file = new File(root_path+attach_path+imageModel.getFile_name());
+        file.delete();
+        return dao.deleteImage(imageModel.getFile_name());
     }
 }

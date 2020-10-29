@@ -150,6 +150,7 @@
         WHERE
             b_id = ${b_id}
     </update>
+
     <delete id="delete" parameterType="String">
         DELETE FROM
             community
@@ -174,7 +175,7 @@
     </select>
 
     <select id="getRank" resultMap="boardMap">
-         SELECT
+        SELECT
             c.b_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId, c.group_id, c.parent_reply_id, c.depth, c.order_no, c.updateCheck,
             count(cc.c_content) AS commentCount1
         FROM
@@ -188,24 +189,35 @@
         DESC
     </select>
 
-    <insert id="imageInsert" parameterType="com.community.model.ImageModel">
+    <update id="updateImage" parameterType="int">
+        UPDATE
+            community_image
+        SET
+            file_name=#{file_name}, file_path=#{file_path}
+        WHERE
+            i_id = ${i_id}
+    </update>
+
+
+    <insert id="uploadImage" parameterType="com.community.model.ImageModel">
         INSERT INTO
-            community_image(b_id, image, fileName, UUID_fileName)
+            community_image(b_id, file_name, file_path)
         VALUES
-            (${b_id}, #{image}, #{fileName}, #{saveFileName})
+            (${b_id}, #{file_name}, #{file_path})
     </insert>
 
-
-    <insert id="imageUpload" parameterType="com.community.model.ImageModel">
-        INSERT INTO
-            community_image(b_id, image, fileName)
-        VALUES
-            (${b_id}, #{image}, #{fileName})
-    </insert>
-
-    <select id="getImage" resultType="com.community.model.ImageModel">
+    <select id="getImageInfo" resultType="com.community.model.ImageModel">
         SELECT
-            i_id, b_id, image, fileName
+            *
+        FROM
+            community_image
+        WHERE
+            i_id = ${i_id}
+    </select>
+
+    <select id="getImages" resultType="com.community.model.ImageModel">
+        SELECT
+            i_id, b_id, file_name, file_path
         FROM
             community_image
         WHERE
@@ -214,18 +226,18 @@
 
     <select id="getViewImage" resultType="com.community.model.ImageModel">
         SELECT
-            i_id, b_id, image, fileName
+            i_id, b_id, file_name, file_path
         FROM
             community_image
         WHERE
             i_id = ${i_id}
     </select>
 
-    <delete id="deleteImage" parameterType="Integer">
+    <delete id="deleteImage" parameterType="String">
         DELETE FROM
             community_image
         WHERE
-            i_id = ${i_id}
+            file_name = #{file_name}
     </delete>
 
     <select id="getB_id" resultType="int">
