@@ -47,7 +47,7 @@ nhn.husky.SE2M_AttachQuickPhoto = jindo.$Class({
 	 * nhn.husky.SE2M_AttachQuickPhoto.prototype.makePopupURL로 덮어써서 사용하시면 됨.
 	 */
 	makePopupURL : function(){
-		var sPopupUrl = "./popup/Photo_Quick_UploadPopup.html";
+		var sPopupUrl = "quick_photo_uploader/popup/Photo_Quick_UploadPopup.html";
 		return sPopupUrl;
 	},
 	

@@ -19,7 +19,7 @@
 	if(file_put_contents($newPath, $file->content)) {
 		$sFileInfo .= "&bNewLine=true";
 		$sFileInfo .= "&sFileName=".$file->name;
-		$sFileInfo .= "&sFileURL=http://localhost:8080/board/community".$file->name;
+		$sFileInfo .= "&sFileURL=".$file->name;
 	}
 	echo $sFileInfo;
  ?>
