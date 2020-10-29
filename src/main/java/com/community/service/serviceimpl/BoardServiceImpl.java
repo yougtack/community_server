@@ -91,21 +91,6 @@ public class BoardServiceImpl implements BoardService {
         return dao.getRank();
     }
 
-//    @Override
-//    public Integer imageUpload(MultipartHttpServletRequest multipartHttpServletRequest) throws IOException {
-//        int result = 0;
-//        int b_id = dao.getB_id();
-//        List<MultipartFile> multipartFiles = multipartHttpServletRequest.getFiles("Files");
-//        if (!multipartFiles.isEmpty()) {
-//            for (MultipartFile filePart : multipartFiles) {
-//                result = dao.imageUpload(filePart.getBytes(), filePart.getOriginalFilename(), b_id);
-//            }
-//        } else {
-//            return 0;
-//        }
-//        return result;
-//    }
-
     @Override
     public Integer uploadImage(MultipartHttpServletRequest multipartHttpServletRequest, int b_id, HttpServletRequest request) throws IOException {
         String filePath = null;
@@ -122,7 +107,7 @@ public class BoardServiceImpl implements BoardService {
                 File saveFile = new File(root_path+attach_path+filename);
                 filePart.transferTo(saveFile);
 
-                return dao.uploadImage(b_id, uuid+"_"+filePart.getOriginalFilename(), "localhost:8080/static/images/"+uuid+"_"+filePart.getOriginalFilename());
+                return dao.uploadImage(b_id, uuid+"_"+filePart.getOriginalFilename(), "/static/images/"+uuid+"_"+filePart.getOriginalFilename());
             }
         }
     return 0;
@@ -134,7 +119,6 @@ public class BoardServiceImpl implements BoardService {
         String filePath = null;
 
         ImageModel imageModel = dao.getImageInfo(i_id);
-        System.out.println("asd:"+imageModel.getFile_name());
         String root_path = request.getSession().getServletContext().getRealPath("/");
         String attach_path = "static/images/";
         File file = new File(root_path+attach_path+imageModel.getFile_name());
@@ -149,7 +133,7 @@ public class BoardServiceImpl implements BoardService {
                 File saveFile = new File(root_path+attach_path+filename);
                 filePart.transferTo(saveFile);
 
-                return dao.updateImage(i_id, uuid+"_"+filePart.getOriginalFilename(), "localhost:8080/static/images/"+uuid+"_"+filePart.getOriginalFilename());
+                return dao.updateImage(i_id, uuid+"_"+filePart.getOriginalFilename(), "/static/images/"+uuid+"_"+filePart.getOriginalFilename());
             }
         }
         return 0;
