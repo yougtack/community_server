@@ -4,6 +4,7 @@
     <link rel="shortcut icon" href="#">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>게시판</title>
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="naverJs/HuskyEZCreator.js" charset="utf-8"></script>
     <link rel="stylesheet" type="text/css" href="../static/css.css"/>
 </head>
@@ -19,8 +20,21 @@
             <br>
             <br>
             <p id="content_length" class="insert_content_length"></p>
-            <textarea name="ir1" id="ir1" rows="10" cols="100" style="width:766px; height:412px; display:none;"></textarea>
-            <input type="file" multiple="multiple" id="files" name="files" accept="image/png, image/jpeg, image/jpg" class="insert_file" />
+            <textarea
+                    name="ir1"
+                    id="ir1"
+                    rows="10"
+                    cols="100"
+                    style="width:766px; height:412px; display:none;">
+            </textarea>
+            <input
+                    type="file"
+                    multiple="multiple"
+                    id="files"
+                    name="files"
+                    accept="image/png, image/jpeg, image/jpg"
+                    class="insert_file"
+            />
             <br>
             <input type="button" class="insert_btn" value="등록" onclick="valueCheck()"/>
             <input type="button" class="cancel_btn" value="취소" onclick="valueCheck()"/>

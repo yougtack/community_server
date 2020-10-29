@@ -207,9 +207,15 @@ function secondInsert(c_id) {
     xhttp.send(JSON.stringify(secondData));
 }
 
-function second_enter(c_id) {
+function secondEnter(c_id) {
     if (window.event.keyCode === 13) {
         secondInsert(c_id);
+    }
+}
+
+function commentEnter() {
+    if (window.event.keyCode === 13) {
+        commentInsert();
     }
 }
 
@@ -310,7 +316,9 @@ let cnt = 0;
     //<input type="button" value="목록" class="list_btn" />
     txt.innerHTML +=
         `<div style="text-align: right;">` +
-            `<a href="community.html?b_type=${community.data.b_type}"><img src="../static/list.png" alt="IMG" /></a>` +
+            `<a href="community.html?b_type=${community.data.b_type}">` +
+                `<img src="../static/list.png" alt="IMG" />` +
+            `</a>` +
         `</div>`;
 
     let real_div = '';
@@ -319,10 +327,18 @@ let cnt = 0;
         `<div class="info_div div_border">`+
             '<div style="margin: 10px 0 0 0;">' +
                 `<span>` +
-                    `<img class="community_profile user_cursor" src="data:image/jpg;base64, ${community.data.profile}" alt="Image" onclick="location.href='userInfo.html?userId=${community.data.userId}'" />` +
+                    `<img 
+                            class="community_profile user_cursor" 
+                            src="data:image/jpg;base64, ${community.data.profile}" 
+                            alt="Image" 
+                            onclick="location.href='userInfo.html?userId=${community.data.userId}'" 
+                     />` +
                 `</span>` +
                 '<div style="display: inline-block;">' +
-                    `<span class="userId user_cursor" onclick="location.href='userInfo.html?userId=${community.data.userId}'">${community.data.userId}</span>` +
+                    `<span 
+                        class="userId user_cursor" 
+                        onclick="location.href='userInfo.html?userId=${community.data.userId}'">${community.data.userId}
+                     </span>` +
                     `<br>` +
                     `<span class="info">` +
                         `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
@@ -330,10 +346,16 @@ let cnt = 0;
                         `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
                         `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()} ` +
                     `</span>` +
-                    `<span class="info"><img class="index_img_size" src="../static/comment.png" alt="eyeIcon" />${cnt} </span>` +
-                    `<span class="info"><img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${community.data.b_count}</span>` +
+                    `<span class="info">` +
+                        `<img class="index_img_size" src="../static/comment.png" alt="eyeIcon" />${cnt} `+
+                    `</span>` +
+                    `<span class="info">` +
+                        `<img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${community.data.b_count}` +
+                    `</span>` +
                 '</div>' +
-                '<span onclick="infoBox()"><img src="../static/more_vert.png" class="icon" alt="img" style="cursor: pointer;" /></span>' +
+                `<span onclick="infoBox()">` +
+                    `<img src="../static/more_vert.png" class="icon" alt="img" style="cursor: pointer;" />` +
+                `</span>` +
                 '<div class="community_info_box" style="float: right;">' +
                     `<a href="boardComment.html?b_id=${b_id}" class="comment_box_info_box_size">답글</a>`;
     if (community.user.userId  === community.data.userId) {
@@ -350,13 +372,22 @@ let cnt = 0;
     if (community.image.length > 0) {
         real_div +=
             `<div style="text-align: right; margin: 10px 0 0 0; cursor: pointer;" onclick="download()">` +
-                `<img src="../static/folder.png" alt="folder" style="width: 20px; height: 20px;"/>첨부파일[${community.image.length}]` +
+                `<img 
+                    src="../static/folder.png" 
+                    alt="folder" 
+                    style="width: 20px; height: 20px;"
+                 />첨부파일[${community.image.length}]` +
             `</div>` +
             '<div class="download_box">';
         for (let index of community.image) {
             real_div +=
                 `<div> ${index.fileName} `+
-                    `<img style="width: 20px; height: 20px;" src="../static/download.png" alt="Image" onclick="imageDownload(${index.i_id})">` +
+                    `<img 
+                        style="width: 20px; height: 20px;" 
+                        src="../static/download.png" 
+                        alt="Image" 
+                        onclick="imageDownload(${index.i_id})"
+                     >` +
                 `</div>`;
         }
         real_div +=
@@ -371,7 +402,13 @@ let cnt = 0;
             `<img id="myBtn" class="modal_collections" src="../static/collections.png" alt="collections_icon"/>`;
     } else {
         real_div +=
-            `<img id="myBtn" class="modal_collections" style="visibility: hidden;" src="../static/collections.png" alt="collections_icon"/>`;
+            `<img 
+                id="myBtn" 
+                class="modal_collections" 
+                style="visibility: hidden;" 
+                src="../static/collections.png" 
+                alt="collections_icon"
+             />`;
     }
     real_div +=
             `</p>` +
@@ -404,7 +441,12 @@ let cnt = 0;
         }
                    real_div +=
                        `</div>` +
-                        `<img src="../static/right_arrow.png" alt="right_arrow" class="right_btn" onclick="rightBtn()"/>` +
+                        `<img 
+                            src="../static/right_arrow.png"
+                            alt="right_arrow" 
+                            class="right_btn" 
+                            onclick="rightBtn()"
+                         />` +
                     `</div>` +
                 `</div>`;
     }
@@ -416,25 +458,27 @@ let cnt = 0;
     /* 댓글 */
     let  real_comment =
         '<div class="div_border" style="margin: 30px 0 0 0;">' +
-            `<div class="div_border comment_title" style="margin: 0 0 20px 0;">댓글  ${cnt}</div>`;
+            `<div class="div_border comment_title" style="margin: 0 0 0 0;">댓글  ${cnt}</div>`;
     let hr_count = 0;
     for (let value of community.data.comments) {
         const time = new Date(value.c_date);
-            if (hr_count !== 0 && value.depth === 0){
-                real_comment +=
-                    '<hr style="width: 93%; border:1px solid #ddd">';
-            }
 
         // 답글일 때 제목 margin값 넣기
         if (value.depth > 0){
-            let margin_left_value = 30 * value.depth;
+            let margin_left_value = 40 * value.depth;
             real_comment +=
-                `<span>` +
-                    `<img class="second_profile user_cursor" style="margin: 0 0 0 ${margin_left_value}px;"
-                        src="data:image/jpg;base64, ${value.profile}" alt="Image" onclick="location.href='userInfo.html?userId=${value.userId}'" />` +
+                `<div style="border: 1px solid #ddd;">` +
+                `<span style="margin:0 0 0 ${margin_left_value}px;">` +
+                    `<img 
+                        class="second_profile user_cursor"
+                        src="data:image/jpg;base64, ${value.profile}"
+                         alt="Image" 
+                         onclick="location.href='userInfo.html?userId=${value.userId}'" 
+                     />` +
                 `</span>`;
         } else {
             real_comment +=
+                '<div style="border: 1px solid #ddd; margin: 0;">' +
                 `<span>` +
                     `<img class="second_profile user_cursor" src="data:image/jpg;base64, ${value.profile}"
                         alt="Image" onclick="location.href='userInfo.html?userId=${value.userId}'" />` +
@@ -443,9 +487,12 @@ let cnt = 0;
 
             real_comment +=
                     '<div style="display: inline-block;">' +
-                        `<span class="userId user_cursor" onclick="location.href='userInfo.html?userId=${value.userId}'">${value.userId}님</span>` +
+                        `<span 
+                            class="userId user_cursor" 
+                            onclick="location.href='userInfo.html?userId=${value.userId}'">${value.userId}님
+                         </span>` +
                             `<span class="comment_txt" onclick="secondBox(${value.c_id})"> 댓글쓰기</span>` +
-                        '<br>'
+                        '<br>';
             real_comment +=
                         `<span class="info">` +
                             `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
@@ -461,26 +508,42 @@ let cnt = 0;
                     '</div>';
             if (community.user.userId === value.userId) {
                 real_comment +=
-                    `<span><img class="icon" src="../static/delete.png" alt="deleteImg" onclick="commentDelete(${value.c_id})" /></span>` +
-                    `<span><a href="commentModify.html?c_id=${value.c_id}&b_id=${b_id}"><img class="icon" src="../static/modify.png" alt="modifyImg" /></a></span>`;
+                    `<span>` +
+                        `<img 
+                            class="icon" 
+                            src="../static/delete.png" 
+                            alt="deleteImg" 
+                            onclick="commentDelete(${value.c_id})" 
+                         />` +
+                    `</span>` +
+                    `<span>` +
+                        `<a href="commentModify.html?c_id=${value.c_id}&b_id=${b_id}">` +
+                            `<img class="icon" src="../static/edit.png" alt="modifyImg" />` +
+                        `</a>` +
+                    `</span>`;
             }
         if (value.depth > 0){
-            let margin_left_value = 30 * (value.depth + 2);
+            let margin_left_value = 35 * (value.depth + 2);
             real_comment +=
                 `<pre class="c_content" style="margin: 20px 0 0 ${margin_left_value}px;">${value.c_content}</pre>` ;
         } else {
             real_comment +=
                 `<pre class="c_content" style="margin: 20px 0 0 65px;">${value.c_content}</pre>` ;
         }
+        real_comment +=
+            '</div>';
                     /* 대댓글 입력 */
             real_comment +=
-                    `<br>` +
                     `<div class="second_${value.c_id}" style="display:none; text-align: center;">` +
                         `<p id="second_length" style="text-align: left; margin: 0 0 0 100px;"></p>` +
-                        `<input id="second_content_${value.c_id}" type="text" class="comment_box" onkeyup="second_enter(${value.c_id})"/>` +
+                        `<input 
+                            id="second_content_${value.c_id}" 
+                            type="text" 
+                            class="comment_box" 
+                            onkeypress="secondEnter(${value.c_id})"
+                         />` +
                         `<button class="comment_btn" onclick="secondInsert(${value.c_id})">등록</button>` +
-                    `</div>` +
-                '<br>';
+                    `</div>`;
         ++hr_count;
     }
     real_comment +=
@@ -493,8 +556,14 @@ let cnt = 0;
         real_comment +=
             `<p id="comment_length" class="comment_length"></p>` +
                 `<div style=" margin: 30px 0 0 100px;">` +
-                    `<textarea id="c_content" class="comment_box textarea_resize"></textarea>` +
-                    `<span><button class="comment_btn" style="position: absolute;" onclick="commentInsert()">등록</button></span>` +
+                    `<textarea 
+                        id="c_content" 
+                        class="comment_box textarea_resize" 
+                        onkeypress="commentEnter()">
+                     </textarea>` +
+                    `<span>` +
+                        `<button class="comment_btn" style="position: absolute;" onclick="commentInsert()">등록</button>` +
+                    `</span>` +
                     '<p id="warning_message" class="warning_message"></p>' +
                 `</div>`;
     } else {

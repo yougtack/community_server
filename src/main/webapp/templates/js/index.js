@@ -83,14 +83,23 @@ function timeForToday(value) {
                 `<div class="index_box">` +
                     '<div class="index_item">' +
                         `<span>` +
-                            `<a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a>` +
+                            `<a 
+                                class="index_title" 
+                                href="userCommunity.html?b_id=${value.b_id}">${value.b_title}
+                             </a>` +
                             `<span class="cnt_size">[${value.commentCount}]</span>` +
                         `</span>` +
                         `<span>` +
                         `<span class="index_date">${timeForToday(time)}</span>` +
                         '<br>' +
                         `<span class="index_userId">${value.userId}</span>` +
-                        `<span class="index_img"><img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${value.b_count}</span>` +
+                        `<span class="index_img">` +
+                            `<img 
+                                class="index_img_size" 
+                                src="../static/eye.png" 
+                                alt="eyeIcon" 
+                             />${value.b_count}` +
+                        `</span>` +
                     '</div>' +
                 '</div>';
         }
@@ -125,13 +134,22 @@ function timeForToday(value) {
                             `<div class="index_box">` +
                                 '<div class="index_item">' +
                                     `<span>` +
-                                        `<a class="index_title" href="userCommunity.html?b_id=${value.b_id}">${value.b_title}</a>` +
+                                        `<a 
+                                            class="index_title" 
+                                            href="userCommunity.html?b_id=${value.b_id}">${value.b_title}
+                                         </a>` +
                                     `<span class="cnt_size">[${value.commentCount}]</span>` +
                                     `<span>` +
                                     `<span class="index_date">${timeForToday(time)}</span>` +
                                     '<br>' +
                                     `<span class="index_userId">${value.userId}</span>` +
-                                    `<span class="index_img"><img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${value.b_count}</span>` +
+                                    `<span class="index_img">` +
+                                        `<img 
+                                            class="index_img_size" 
+                                            src="../static/eye.png" 
+                                            alt="eyeIcon"
+                                         />${value.b_count}` +
+                                    `</span>` +
                                 '</div>' +
                             '</div>';
                         ++c_length;

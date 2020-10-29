@@ -12,12 +12,20 @@
     </div>
         <section>
             <p class="txt">댓글 수정</p>
-            <p id="comment_length"></p>
-            <textarea class="textarea_resize" rows="5" cols="50" id="c_content" style="width: 500px; height: 400px;"></textarea>
-            <br>
-            <br>
-            <input type="button" value="수정" onclick="commentModify()"/>
-            <input type="button" value="취소" onclick="cancel()">
+            <div class="comment_edit_div">
+                <p id="comment_length"></p>
+                <textarea
+                        class="textarea_resize"
+                        rows="5"
+                        cols="50"
+                        id="c_content"
+                        style="width: 500px; height: 400px;">
+                </textarea>
+                <br>
+                <br>
+                <input type="button" class="insert_btn" value="수정" onclick="commentModify()"/>
+                <input type="button" class="cancel_btn" value="취소" onclick="cancel()">
+            </div>
         </section>
     <script src="js/commentModify.js"></script>
     <script>

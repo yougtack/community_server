@@ -39,7 +39,9 @@ function searchEnter() {
 
     txt.innerText = "검색결과";
     txt.innerHTML +=
-        '<a href="../templates/insert.html" style="margin-left: 80%;"><img src="../static/create.png" alt="HomeIcon" /></a>';
+        '<a href="../templates/insert.html" style="margin-left: 80%;">' +
+            '<img src="../static/edit.png" alt="HomeIcon" />' +
+        '</a>';
 
     if(searchList.data.length === 0) {
         real_body =
@@ -54,14 +56,21 @@ function searchEnter() {
                             `<span style="font-size: 14px;">#${index.b_id}</span>` +
                             `<span class="community_info">${index.userId}</span>` +
                             '<br>' +
-                            `<span><a class="index_title" href="userCommunity.html?b_id=${index.b_id}">${index.b_title}</a><span class="cnt_size">[${index.commentCount}]</span></span>` +
+                            `<span>` +
+                                `<a class="index_title" href="userCommunity.html?b_id=${index.b_id}">
+                                    ${index.b_title}
+                                    </a>` +
+                                `<span class="cnt_size">[${index.commentCount}]</span>` +
+                            `</span>` +
                             `<span class="community_info" style="font-size: 12px;">` +
                                 `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
                                 `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
                                 `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
                                 `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}` +
                             `</span>` +
-                            `<span class="index_img"><img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${index.b_count}</span>` +
+                            `<span class="index_img">` +
+                                `<img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${index.b_count}` +
+                            `</span>` +
                         '</div>' +
                     '</div>';
             }
