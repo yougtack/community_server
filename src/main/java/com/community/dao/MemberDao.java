@@ -9,7 +9,7 @@ import java.util.List;
 public interface MemberDao {
     Integer signUp(@Param("encode") String encode, @Param("userId") String userId, @Param("userPw") String userPw);
 
-    Integer signUpProfile(@Param("userId") String userId, @Param("profile") byte[] profile);
+    Integer signUpProfile(@Param("userId") String userId, @Param("file_path") String file_path);
 
     LoginModel login(@Param("userId") String userId, @Param("userPw") String userPw);
 

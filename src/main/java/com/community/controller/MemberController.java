@@ -31,7 +31,7 @@ public class MemberController {
     @Autowired
     MemberService memberService;
 
-    static String userId = "";
+    static String userId = "qwer";
 
     //회원가입
     @PostMapping(value = "/signUp")
@@ -39,13 +39,14 @@ public class MemberController {
         userId = memberModel.getUserId();
         AES256Util aes256Util = new AES256Util();
         String encode = aes256Util.aesEncode(memberModel.getUserId());
+
         return  memberService.signUp(memberModel, encode);
     }
 
     //회원프로핆
     @PutMapping(value = "/signUpProfile")
-    public Integer SignUpProfile(MultipartHttpServletRequest multipartHttpServletRequest) throws IOException {
-        int result =  memberService.signUpProfile(multipartHttpServletRequest, userId);
+    public Integer SignUpProfile(MultipartHttpServletRequest multipartHttpServletRequest, HttpServletRequest request) throws IOException {
+        int result =  memberService.signUpProfile(multipartHttpServletRequest, userId, request);
         userId = "";
         return result;
     }

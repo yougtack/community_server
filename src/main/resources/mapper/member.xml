@@ -12,7 +12,7 @@
         UPDATE
             community_member
         SET
-            profile = #{profile}
+            file_path = #{file_path}
         WHERE
             userId = #{userId}
     </update>
