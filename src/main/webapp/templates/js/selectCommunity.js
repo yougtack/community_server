@@ -60,7 +60,12 @@ const community = {
                 if (index.depth > 1){
                     for(let i = 1; i < index.depth; i++){
                         real_body +=
-                            `<img class="board_arrow" src="../static/arrows.png" style="visibility: hidden;" alt="img"/>`;
+                            `<img 
+                                class="board_arrow" 
+                                src="../static/arrows.png" 
+                                style="visibility: hidden;"
+                                 alt="img"
+                             />`;
                     }
                     real_body +=
                         `<img class="board_arrow" src="../static/arrows.png" alt="img"/>`;
@@ -89,7 +94,11 @@ const community = {
                     let margin_left_value = 30 * index.depth;
                     real_body +=
                         `<span>` +
-                            `<a class="index_title" style="margin: 0 0 0 ${margin_left_value}px;" href="userCommunity.html?b_id=${index.b_id}">${index.b_title}</a>`;
+                            `<a class="index_title" 
+                                style="margin: 0 0 0 ${margin_left_value}px;" 
+                                href="userCommunity.html?b_id=${index.b_id}">
+                                ${index.b_title}
+                             </a>`;
                 } else {
                     real_body +=
                         `<span>` +
@@ -105,7 +114,9 @@ const community = {
                             `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
                             `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}` +
                         `</span>` +
-                        `<span class="index_img"><img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${index.b_count}</span>` +
+                        `<span class="index_img">` +
+                            `<img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${index.b_count}` +
+                        `</span>` +
                         '</div>' +
                     '</div>';
             }

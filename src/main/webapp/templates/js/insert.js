@@ -13,7 +13,7 @@ nhn.husky.EZCreator.createInIFrame({
     sSkinURI: "SmartEditor2Skin.html",
     htParams : {bUseToolbar : true,
         fOnBeforeUnload : function(){
-            alert("아싸!");
+            //alert("아싸!");
         }
     }, //boolean
     fOnAppLoad : function(){

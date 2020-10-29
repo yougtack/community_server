@@ -135,7 +135,13 @@ function image() {
     if (community.image.length > 0) {
         for (let index of community.image) {
             real_delBtn.innerHTML +=
-                `${index.fileName}<img src="../static/delete.png" alt="delIcon" style="width: 20px; height: 20px;" onclick="imgDelete(${index.i_id})" />`;
+                `${index.fileName}` +
+                `<img 
+                    src="../static/delete.png" 
+                    alt="delIcon" 
+                    style="width: 20px; height: 20px;" 
+                    onclick="imgDelete(${index.i_id})"
+                 />`;
         }
     }
 

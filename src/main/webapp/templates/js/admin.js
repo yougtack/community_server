@@ -52,13 +52,23 @@ function deleteUser(deleteUserId) {
             real_table +=
                     `<div class="admin_div">` +
                         `<span class="admin_btn">` +
-                            `<img class="admin_del" src="../static/delete.png" alt="icon" onclick="deleteUser('${index.userId}')"/>` +
+                            `<img 
+                                class="admin_del" 
+                                src="../static/delete.png"
+                                alt="icon"
+                                onclick="deleteUser('${index.userId}')"
+                             />` +
                         `</span>` +
                         `<img class="admin_img" src="data:image/jpg;base64, ${index.profile}" alt="profile" />` +
                         `<br>` +
-                        `<span><strong>USER_ID</strong> : ${index.userId}</span>` +
+                        `<span>` +
+                            `<strong>USER_ID</strong> : ${index.userId}` +
+                        `</span>` +
                         `<br>` +
-                        `<span><strong>USER_PW</strong> : ${index.userPw}</span>` +
+                        `<span>` +
+                            `<strong>USER_PW</strong> : ${index.userPw}` +
+                        `</span>` +
+                        `<img src="../webapp/static/images/facebook.png" alt="image" />`+
                     `</div>`;
         }
     }
