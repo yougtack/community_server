@@ -28,14 +28,16 @@ public interface BoardDao {
     List<BoardModel> search(@Param("word") String word);
     List<BoardModel> getRank();
 
-    Integer imageUpload(@Param("image") byte[] image, @Param("fileName") String fileName, @Param("b_id") int b_id);
-    Integer imageInsert(@Param("image") byte[] image, @Param("fileName") String fileName, @Param("saveFileName") String saveFileName, @Param("b_id") int b_id);
+    Integer uploadImage(@Param("b_id") int b_id, @Param("file_name") String file_name, @Param("file_path") String file_path);
+    Integer updateImage(@Param("i_id") int i_id, @Param("file_name") String file_name, @Param("file_path") String file_path);
 
-    List<ImageModel> getImage(@Param("b_id") int b_id);
+    ImageModel getImageInfo(@Param("i_id") int i_id);
+
+    List<ImageModel> getImages(@Param("b_id") int b_id);
 
     ImageModel getViewImage(@Param("i_id") int i_id);
 
-    Integer deleteImage(@Param("i_id") int i_id);
+    Integer deleteImage(@Param("file_name") String file_name);
     int getB_id();
 
     Integer update_order_no(@Param("group_id") int group_id, @Param("order_no") int order_no);

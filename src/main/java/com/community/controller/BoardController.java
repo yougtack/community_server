@@ -4,13 +4,25 @@ import com.community.model.*;
 import com.community.service.BoardService;
 import com.community.util.CheckUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 
@@ -25,6 +37,7 @@ public class BoardController {
     @GetMapping(value = "/boardList")
     public List<BoardModel> boardList(){
         return boardService.getBoardList();
+
     }
 
     //내가쓴 글
@@ -106,61 +119,48 @@ public class BoardController {
     }
 
     //사진 업로드
-    @PostMapping("/upload")
+    @PostMapping("/image/{b_id}")
     @ResponseBody
-    public Integer upload(MultipartHttpServletRequest multipartHttpServletRequest, HttpServletResponse response, HttpServletRequest request) throws IOException {
+    public Integer upload(MultipartHttpServletRequest multipartHttpServletRequest, @PathVariable int b_id, HttpServletResponse response, HttpServletRequest request) throws IOException {
         if(CheckUtil.imageCheck(response, request) >= 1){
             return 0;
         }
-        return boardService.imageUpload(multipartHttpServletRequest);
+        return boardService.uploadImage(multipartHttpServletRequest, b_id, request);
     }
 
     //게시글 수정시 사진 업로드
-    @PostMapping("/upload/{b_id}")
+    @PutMapping("/image/{i_id}")
     @ResponseBody
-    public Integer insertUpload(MultipartHttpServletRequest multipartHttpServletRequest, @PathVariable int b_id, HttpServletResponse response, HttpServletRequest request) throws IOException {
+    public Integer updateImage(MultipartHttpServletRequest multipartHttpServletRequest, @PathVariable int i_id, HttpServletResponse response, HttpServletRequest request) throws IOException {
         if(CheckUtil.imageCheck(response, request) >= 1){
             return 0;
         }
-        return boardService.imageInsert(multipartHttpServletRequest, b_id);
+        return boardService.updateImage(multipartHttpServletRequest, i_id, request);
     }
 
-    //상세번호로 사가져오기 (바이너리 상태)
-    @GetMapping(value = "/getImage/{b_id}")
+    //상세번호로 사가져오기
+    @GetMapping(value = "/image/{b_id}")
     public List<ImageModel> get(@PathVariable int b_id){
-        return boardService.getImage(b_id);
+        return boardService.getImages(b_id);
     }
 
-    //다운로드
-    @GetMapping(value = "/download/{i_id}")
-    public String download(@PathVariable int i_id, HttpServletResponse response) throws IOException {
+    @GetMapping("/download/{i_id}")
+    public ResponseEntity<Resource> download(@PathVariable int i_id) throws IOException {
         ImageModel imageModel = boardService.getViewImage(i_id);
-        String result = imageModel.getFileName();
+        Path path = Paths.get("./src/main/webapp/static/images/"+imageModel.getFile_name());
 
-        result = URLEncoder.encode(result, "UTF-8");
-        result = result.replaceAll("\\+", "%20");
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + path.getFileName().toString());
 
-        byte[] input = imageModel.getImage();
-        try{
-            response.setContentType("application/octet-stream");
-            response.setContentLength(input.length);
-            response.setHeader("Content-Disposition", "attachment; fileName=\"" + result + "\";");
-            response.setHeader("Content-Transfer-Encoding", "binary");
-            response.getOutputStream().write(input);
-            response.getOutputStream().flush();
-            response.getOutputStream().close();
-
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return "야호!";
+        Resource resource = new InputStreamResource(Files.newInputStream(path));
+        return new ResponseEntity<>(resource, headers, HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/{i_id}")
-    public Integer deleteImage(@PathVariable("i_id") int i_id, HttpServletResponse response, HttpServletRequest request){
+    @DeleteMapping(value = "/image")
+    public Integer deleteImage(@RequestBody ImageModel imageModel, HttpServletResponse response, HttpServletRequest request){
         if(CheckUtil.imageCheck(response, request) >= 1){
             return 0;
         }
-        return boardService.deleteImage(i_id);
+        return boardService.deleteImage(imageModel, request);
     }
 }
