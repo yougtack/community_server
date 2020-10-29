@@ -270,6 +270,14 @@ section {
     left: 1050px;
 }
 
+.download_image_name {
+    display:inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100px;
+}
+
 .cnt_size {
     font-size: 12px;
 }
@@ -342,7 +350,7 @@ section {
 }
 
 .content_image {
-[ if ] width: 800 px;
+    width: 800px;
     height: 600px;
 }
 

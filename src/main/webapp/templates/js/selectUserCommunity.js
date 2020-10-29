@@ -256,7 +256,7 @@ function secondBox(c_id){
 (function image() {
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";
-    xhttp.open("GET", url + `/board/getImage/${b_id}`, false);
+    xhttp.open("GET", url + `/board/image/${b_id}`, false);
 
     xhttp.onreadystatechange = () => {
         if (xhttp.status !== 200) {
@@ -266,6 +266,7 @@ function secondBox(c_id){
     };
 
     xhttp.send();
+    console.log(community.image);
 })();
 
 function download(){
@@ -337,7 +338,8 @@ let cnt = 0;
                 '<div style="display: inline-block;">' +
                     `<span 
                         class="userId user_cursor" 
-                        onclick="location.href='userInfo.html?userId=${community.data.userId}'">${community.data.userId}
+                        onclick="location.href='userInfo.html?userId=${community.data.userId}'"
+                     >${community.data.userId}
                      </span>` +
                     `<br>` +
                     `<span class="info">` +
@@ -350,7 +352,11 @@ let cnt = 0;
                         `<img class="index_img_size" src="../static/comment.png" alt="eyeIcon" />${cnt} `+
                     `</span>` +
                     `<span class="info">` +
-                        `<img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${community.data.b_count}` +
+                        `<img 
+                            class="index_img_size"
+                            src="../static/eye.png"
+                            alt="eyeIcon"
+                             />${community.data.b_count}` +
                     `</span>` +
                 '</div>' +
                 `<span onclick="infoBox()">` +
@@ -381,7 +387,7 @@ let cnt = 0;
             '<div class="download_box">';
         for (let index of community.image) {
             real_div +=
-                `<div> ${index.fileName} `+
+                `<div><p class="download_image_name">${index.file_name} </p>`+
                     `<img 
                         style="width: 20px; height: 20px;" 
                         src="../static/download.png" 
@@ -426,15 +432,16 @@ let cnt = 0;
                     `<img src="../static/left_arrow.png" alt="left_arrow" class="left_btn" onclick="leftBtn()"/>` +
                     `<div class="modal_img_div">` ;
         for (let index of community.image) {
+            console.log(index);
             if(imgOne !== 0) {
                 real_div +=
                     `<span class="imgDiv" style="display: none;">` +
-                        `<img class="content_image" src="data:image/jpg;base64, ${index.image}" alt="Image"/>` +
+                        `<img class="content_image" src="${index.file_path}" alt="Image"/>` +
                     '</span>';
             }else {
                 real_div +=
                     `<span class="imgDiv">` +
-                        `<img class="content_image" src="data:image/jpg;base64, ${index.image}" alt="Image"/>` +
+                        `<img class="content_image" src="${index.file_path}" alt="Image"/>` +
                     '</span>';
             }
             ++imgOne;
@@ -535,7 +542,7 @@ let cnt = 0;
                     /* 대댓글 입력 */
             real_comment +=
                     `<div class="second_${value.c_id}" style="display:none; text-align: center;">` +
-                        `<p id="second_length" style="text-align: left; margin: 0 0 0 100px;"></p>` +
+                        `<p id="second_length" style="text-align: left; margin: 20px 0 0 100px;"></p>` +
                         `<input 
                             id="second_content_${value.c_id}" 
                             type="text" 
@@ -559,8 +566,7 @@ let cnt = 0;
                     `<textarea 
                         id="c_content" 
                         class="comment_box textarea_resize" 
-                        onkeypress="commentEnter()">
-                     </textarea>` +
+                        onkeypress="commentEnter()"></textarea>` +
                     `<span>` +
                         `<button class="comment_btn" style="position: absolute;" onclick="commentInsert()">등록</button>` +
                     `</span>` +
