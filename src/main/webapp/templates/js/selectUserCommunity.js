@@ -535,7 +535,7 @@ let cnt = 0;
                     /* 대댓글 입력 */
             real_comment +=
                     `<div class="second_${value.c_id}" style="display:none; text-align: center;">` +
-                        `<p id="second_length" style="text-align: left; margin: 0 0 0 100px;"></p>` +
+                        `<p id="second_length" style="text-align: left; margin: 20px 0 0 100px;"></p>` +
                         `<input 
                             id="second_content_${value.c_id}" 
                             type="text" 
@@ -559,8 +559,7 @@ let cnt = 0;
                     `<textarea 
                         id="c_content" 
                         class="comment_box textarea_resize" 
-                        onkeypress="commentEnter()">
-                     </textarea>` +
+                        onkeypress="commentEnter()"></textarea>` +
                     `<span>` +
                         `<button class="comment_btn" style="position: absolute;" onclick="commentInsert()">등록</button>` +
                     `</span>` +
