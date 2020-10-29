@@ -23,7 +23,7 @@ public class ViewModel {
     private int parent_reply_id;
     private int depth;
     private int order_no;
-    private byte[] profile;
+    private String file_path;
 
     private List<CommentModel> comments;
 }

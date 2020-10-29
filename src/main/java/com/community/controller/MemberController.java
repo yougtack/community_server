@@ -1,6 +1,7 @@
 package com.community.controller;
 
 import com.community.model.LoginModel;
+import com.community.model.MemberListModel;
 import com.community.model.MemberModel;
 import com.community.service.MemberService;
 import com.community.util.AES256Util;
@@ -31,7 +32,7 @@ public class MemberController {
     @Autowired
     MemberService memberService;
 
-    static String userId = "qwer";
+    static String userId = "";
 
     //회원가입
     @PostMapping(value = "/signUp")
@@ -53,8 +54,8 @@ public class MemberController {
 
     //회원프로핆 변경
     @PutMapping(value = "/profile/{userId}")
-    public Integer updateProfile(MultipartHttpServletRequest multipartHttpServletRequest, @PathVariable String userId) throws IOException {
-        return  memberService.updateProfile(multipartHttpServletRequest, userId);
+    public Integer updateProfile(MultipartHttpServletRequest multipartHttpServletRequest, @PathVariable String userId, HttpServletRequest request) throws IOException {
+        return  memberService.updateProfile(multipartHttpServletRequest, userId, request);
     }
 
     //로그인
@@ -96,7 +97,7 @@ public class MemberController {
 
     //회원리스트가져오기
     @GetMapping(value = "/memberList")
-    public List<MemberModel> memberList(){
+    public List<MemberListModel> memberList(){
         return memberService.getMemberList();
     }
 
