@@ -383,12 +383,11 @@ let cnt = 0;
                     alt="folder" 
                     style="width: 20px; height: 20px;"
                  />첨부파일[${community.image.length}]` +
-            `<img src="localhost:8080/static/images/c4b85951-d0b9-42b0-b98d-eb4b1cdd4052_22.jpeg" alt="img" />` +
             `</div>` +
             '<div class="download_box">';
         for (let index of community.image) {
             real_div +=
-                `<div> ${index.fileName} `+
+                `<div><p class="download_image_name">${index.file_name} </p>`+
                     `<img 
                         style="width: 20px; height: 20px;" 
                         src="../static/download.png" 
