@@ -5,8 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class LoginModel {
-    private String encode;
+public class MemberListModel {
     private String userId;
     private String file_path;
 }

@@ -9,5 +9,6 @@ public class MemberModel {
     private String encode;
     private String userId;
     private String userPw;
-    private byte[] profile;
+    private String file_path;
+    private String file_name;
 }

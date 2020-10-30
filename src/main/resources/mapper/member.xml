@@ -12,23 +12,23 @@
         UPDATE
             community_member
         SET
-            file_path = #{file_path}
+            file_path = #{file_path}, file_name = #{file_name}
         WHERE
             userId = #{userId}
     </update>
 
     <select id="login" resultType="com.community.model.LoginModel">
         SELECT
-            encode, userId, profile
+            encode, userId, file_path
         FROM
             community_member
         WHERE
             userId = #{userId} and userPw = #{userPw}
     </select>
 
-    <select id="getMemberList" resultType="com.community.model.MemberModel">
+    <select id="getMemberList" resultType="com.community.model.MemberListModel">
         SELECT
-            userId, userPw, profile
+            userId, file_path
         FROM
             community_member
     </select>
@@ -40,6 +40,14 @@
             userId = #{userId}
     </delete>
 
+    <select id="getUserFileImage" resultType="com.community.model.MemberModel">
+        SELECT
+            *
+        FROM
+            community_member
+        WHERE
+            userId = #{userId}
+    </select>
     <update id="updateProfile" parameterType="com.community.model.MemberModel">
         UPDATE
             community_member

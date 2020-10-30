@@ -1,6 +1,7 @@
 package com.community.service;
 
 import com.community.model.LoginModel;
+import com.community.model.MemberListModel;
 import com.community.model.MemberModel;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -15,11 +16,11 @@ public interface MemberService {
 
     LoginModel login(MemberModel member);
 
-    List<MemberModel> getMemberList();
+    List<MemberListModel> getMemberList();
 
     Integer kickMember(MemberModel memberModel);
 
-    Integer updateProfile(MultipartHttpServletRequest multipartHttpServletRequest, String userId) throws IOException;
+    Integer updateProfile(MultipartHttpServletRequest multipartHttpServletRequest, String userId, HttpServletRequest request) throws IOException;
 
     Integer updateUser(MemberModel memberModel);
 

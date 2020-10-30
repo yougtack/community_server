@@ -1,7 +1,9 @@
 package com.community.service.serviceimpl;
 
 import com.community.dao.MemberDao;
+import com.community.model.ImageModel;
 import com.community.model.LoginModel;
+import com.community.model.MemberListModel;
 import com.community.model.MemberModel;
 import com.community.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
@@ -28,61 +28,28 @@ public class MemberServiceImpl implements MemberService {
         return dao.signUp(encode, memberModel.getUserId(), memberModel.getUserPw());
     }
 
-//    @Override
-//    public Integer signUpProfile(MultipartHttpServletRequest multipartHttpServletRequest, String userId) throws IOException{
-//        int result = 0;
-//        File file = new File("./src/main/webapp/static/default.png");
-//        FileInputStream in = new FileInputStream(file);
-//        ByteArrayOutputStream bout = new ByteArrayOutputStream();
-//
-//        byte[] by = new byte[(int)file.length()];
-//        int len = 0;
-//
-//        while((len=in.read(by)) != -1) {
-//            bout.write(by, 0, len);
-//        }
-//
-//        byte[] imgbuf = bout.toByteArray();
-//        bout.close();
-//        in.close();
-//
-//        byte[] profile = new byte[0];
-//
-//        List<MultipartFile>multipartFiles = multipartHttpServletRequest.getFiles("profile");
-//        if(!multipartFiles.isEmpty()) {
-//            for (MultipartFile filePart : multipartFiles) {
-//                profile = filePart.getBytes();
-//            }
-//        }else{
-//            profile = imgbuf;
-//        }
-//        return dao.signUpProfile(userId, profile);
-//    }
-
-
     @Override
     public Integer signUpProfile(MultipartHttpServletRequest multipartHttpServletRequest, String userId, HttpServletRequest request) throws IOException{
         String file_path = null;
-
+        String filename = null;
         UUID uuid = UUID.randomUUID();
         List<MultipartFile>multipartFiles = multipartHttpServletRequest.getFiles("profile");
-        if(multipartFiles != null) {
-            System.out.println("in if!");
+        if(!multipartFiles.isEmpty()) {
             for (MultipartFile filePart : multipartFiles) {
                 String root_path = request.getSession().getServletContext().getRealPath("/");
                 String attach_path = "member_images/";
-                String filename = uuid+"_"+filePart.getOriginalFilename();
+                filename = uuid+"_"+filePart.getOriginalFilename();
 
                 File saveFile = new File(root_path+attach_path+filename);
                 filePart.transferTo(saveFile);
 
-                file_path = "localhost:8080/static/images/"+filename;
+                file_path = "/member_images/"+filename;
             }
         }else{
-            System.out.println("in else!");
-            file_path = "localhost:8080/member_images/default.png";
+            file_path = "/member_images/default.png";
+            filename = uuid+"_default_png";
         }
-        return dao.signUpProfile(userId, file_path);
+        return dao.signUpProfile(userId, file_path, filename);
     }
     @Override
     public LoginModel login(MemberModel member){
@@ -90,7 +57,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<MemberModel> getMemberList(){
+    public List<MemberListModel> getMemberList(){
         return dao.getMemberList();
     }
 
@@ -101,20 +68,33 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Integer updateProfile(MultipartHttpServletRequest multipartHttpServletRequest, String userId) throws IOException{
-        int result = 0;
+    public Integer updateProfile(MultipartHttpServletRequest multipartHttpServletRequest, String userId, HttpServletRequest request) throws IOException{
+        String file_path = null;
+        String filename = null;
+        UUID uuid = UUID.randomUUID();
+
+        MemberModel memberModel = dao.getUserFileImage(userId);
+        String root_path = request.getSession().getServletContext().getRealPath("/");
+        String attach_path = "member_images/";
+        File file = new File(root_path+attach_path+memberModel.getFile_name());
+        file.delete();
+
 
         List<MultipartFile>multipartFiles = multipartHttpServletRequest.getFiles("profile");
         if(!multipartFiles.isEmpty()) {
             for (MultipartFile filePart : multipartFiles) {
-                if (filePart.getOriginalFilename().equals("")) {
-                    return result;
-                }else{
-                    result = dao.updateProfile(userId, filePart.getBytes());
-                }
+                filename = uuid+"_"+filePart.getOriginalFilename();
+                file_path = "/member_images/"+filename;
+
+                File saveFile = new File(root_path+attach_path+filename);
+                filePart.transferTo(saveFile);
+
             }
+        }else{
+            file_path = "/member_images/default.png";
+            filename = uuid+"_default_png";
         }
-        return result;
+        return dao.signUpProfile(userId, file_path, filename);
     }
 
     @Override

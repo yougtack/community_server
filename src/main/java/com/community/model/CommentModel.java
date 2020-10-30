@@ -16,7 +16,7 @@ public class CommentModel {
 
     @JsonFormat(shape = JsonFormat.Shape.NUMBER)
     private Date c_date;
-    private byte[] profile;
+    private String file_path;
     private int group_id;
     private int parent_reply_id;
     private int depth;
