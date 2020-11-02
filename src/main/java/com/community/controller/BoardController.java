@@ -122,6 +122,7 @@ public class BoardController {
     @PostMapping("/image")
     @ResponseBody
     public Integer upload(Model model, MultipartHttpServletRequest multipartHttpServletRequest, HttpServletResponse response, HttpServletRequest request) throws IOException {
+        System.out.println("HI");
         if(CheckUtil.imageCheck(response, request) >= 1){
             return 0;
         }

@@ -59,9 +59,9 @@ function goStartMode(){
 	welBtnConfirm = (document.getElementById("btn_confirm"));
 	// let sSrc = welBtnConfirm.attr("src")|| "";
 	// if(sSrc.indexOf("btn_confirm2.png") < 0 ){
-		// welBtnConfirm.attr("src","../img/photoQuickPopup/btn_confirm2.png");
-		// fnUploadImage.attach(welBtnConfirm, "click");
-
+	// 	welBtnConfirm.attr("src","../img/photoQuickPopup/btn_confirm2.png");
+	// 	fnUploadImage.attach(welBtnConfirm, "click");
+	//
 	// }
 }
 /**
@@ -338,7 +338,7 @@ function html5Upload() {
 		sUploadURL;
 
 	// sUploadURL= 'http://test.naver.com/popup/quick_photo/FileUploader_html5.php'; 	//upload URL
-	sUploadURL= 'http://localhost:8080/smartEditor/fileUpload'; 	//upload URL
+	sUploadURL= 'http://localhost:8080/board/image'; 	//upload URL
 
 	//파일을 하나씩 보내고, 결과를 받음.
 	for(let j=0, k=0; j < nImageInfoCnt; j++) {
@@ -452,9 +452,8 @@ function addEvent() {
  */
 
 function callFileUploader (){
-	console.log(jindo.$("uploadInputBox"));
 	oFileUploader = new jindo.FileUploader(jindo.$("uploadInputBox"),{
-		sUrl  : 'http://localhost:8080/smartEditor/fileUpload',	//샘플 URL입니다.
+		sUrl  : 'http://localhost:8080/board/image',	//샘플 URL입니다.
 		sCallback : 'callback.html',	//업로드 이후에 iframe이 redirect될 콜백페이지의 주소
 		sFiletype : "*.jpg;*.png;*.bmp;*.gif",						//허용할 파일의 형식. ex) "*", "*.*", "*.jpg", 구분자(;)
 		sMsgNotAllowedExt : 'JPG, GIF, PNG, BMP 확장자만 가능합니다',	//허용할 파일의 형식이 아닌경우에 띄워주는 경고창의 문구
@@ -469,12 +468,9 @@ function callFileUploader (){
 // 	    			sMsgNotAllowedExt (String) 허용되지 않는 파일 형식인 경우 띄워줄 경고메세지
 // 	    		}
 //  				선택된 파일의 형식이 허용되는 경우만 처리
-			console.log("attach");
 			if(oCustomEvent.bAllowed === true){
-				console.log("Start");
 				goStartMode();
 			}else{
-				console.log("ReadyMode");
 				goReadyMode();
 				oFileUploader.reset();
 			}
@@ -482,19 +478,20 @@ function callFileUploader (){
 // 	    		oCustomEvent.stop(); 수행시 bAllowed 가 false이더라도 alert이 수행되지 않음
 		},
 		success : function(oCustomEvent) {
-			// console.log("success");
-			// // alert("success");
-			// // 업로드가 성공적으로 완료되었을 때 발생
-			// // oCustomEvent(이벤트 객체) = {
-			// //	htResult (Object) 서버에서 전달해주는 결과 객체 (서버 설정에 따라 유동적으로 선택가능)
-			// // }
-			// let aResult = [];
-			// aResult[0] = oCustomEvent.htResult;
-			// setPhotoToEditor(aResult);
-			// //버튼 비활성화
-			// goReadyMode();
-			// oFileUploader.reset();
-			// //window.close();
+			console.log("success");
+			// alert("success");
+			// 업로드가 성공적으로 완료되었을 때 발생
+			// oCustomEvent(이벤트 객체) = {
+			//	htResult (Object) 서버에서 전달해주는 결과 객체 (서버 설정에 따라 유동적으로 선택가능)
+			// }
+			let aResult = [];
+			aResult[0] = oCustomEvent.htResult;
+			alert(aResult[0]);
+			setPhotoToEditor(aResult);
+			//버튼 비활성화
+			goReadyMode();
+			oFileUploader.reset();
+			//window.close();
 		},
 		error : function(oCustomEvent) {
 			console.log("error");
@@ -515,7 +512,6 @@ function callFileUploader (){
  * 페이지 닫기 버튼 클릭
  */
 function closeWindow(){
-	console.log("close");
 	window.close();
 }
 
@@ -557,9 +553,9 @@ window.onload = function(){
  * ]
  */
 function setPhotoToEditor(oFileInfo){
-	alert("1");
-	opener.nhn.husky.PopUpManager.setCallback(window, 'SET_PHOTO', `<img src="upload/home_icon.png" alt="image" />`);
-
+	let url = oFileInfo;
+	opener.nhn.husky.PopUpManager.setCallback(window, 'SET_PHOTO', `<img src="${url}" alt="imageURL" />`);
+	console.log(oFileInfo);
 	// if (!!opener && !!opener.nhn && !!opener.nhn.husky && !!opener.nhn.husky.PopUpManager) {
 	// 	alert("2");
 	// 	//스마트 에디터 플러그인을 통해서 넣는 방법 (oFileInfo는 Array)
@@ -678,8 +674,34 @@ jindo.$Ajax.prototype.request = function(oData) {
 	return this;
 };
 
-function BtnConfirmClick() {
-	setPhotoToEditor(document.getElementById("uploadInputBox").value)
+function imageURL() {
+	let files = document.getElementById("uploadInputBox");
+	let formData = new FormData();
+
+	let xhttp = new XMLHttpRequest();
+	const url = "http://localhost:8080";
+
+	for (let value of files.files){
+		formData.append('Files', value);
+	}
+
+	xhttp.open("POST", url + `/board/image`, false);
+
+	xhttp.onreadystatechange = () => {
+		if (xhttp.status !== 200) {
+			console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
+		}
+		console.log(xhttp.responseText);
+	};
+
+	xhttp.send(formData);
+
+	return "/static/images/ed4731a9-1f00-4b21-9eb7-6e839c96b1c7_good.jpeg";
+}
+
+function btnConfirmClick() {
+	let imageRealUrl = imageURL();
+	setPhotoToEditor(imageRealUrl)
 	oFileUploader.reset();
-	window.close();
+	// window.close();
 }
