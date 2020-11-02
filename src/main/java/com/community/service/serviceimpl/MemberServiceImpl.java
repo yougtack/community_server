@@ -61,7 +61,13 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Integer kickMember(MemberModel memberModel){
+    public Integer kickMember(MemberModel memberModel, HttpServletRequest request){
+        memberModel = dao.getUserFileImage(memberModel.getUserId());
+        String root_path = request.getSession().getServletContext().getRealPath("/");
+        String attach_path = "member_images/";
+        File file = new File(root_path+attach_path+memberModel.getFile_name());
+        file.delete();
+
         return dao.kickMember(memberModel.getUserId());
 
     }

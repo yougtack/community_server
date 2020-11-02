@@ -18,7 +18,7 @@ public interface MemberService {
 
     List<MemberListModel> getMemberList();
 
-    Integer kickMember(MemberModel memberModel);
+    Integer kickMember(MemberModel memberModel, HttpServletRequest request);
 
     Integer updateProfile(MultipartHttpServletRequest multipartHttpServletRequest, String userId, HttpServletRequest request) throws IOException;
 
