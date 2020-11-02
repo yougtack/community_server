@@ -72,7 +72,7 @@ function timeForToday(value) {
         if(profile.userId === userId) {
             user_profile.innerHTML =
                 `<img style="width: 150px; height: 150px; border-radius: 80px; border:1px solid #ddd;"
-                        src="data:image/jpg;base64, ${profile.profile}" alt="profile" />`;
+                        src="${profile.file_path}" alt="profile" />`;
         }
     }
 

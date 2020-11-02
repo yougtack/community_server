@@ -266,7 +266,6 @@ function secondBox(c_id){
     };
 
     xhttp.send();
-    console.log(community.image);
 })();
 
 function download(){
@@ -330,7 +329,7 @@ let cnt = 0;
                 `<span>` +
                     `<img 
                             class="community_profile user_cursor" 
-                            src="data:image/jpg;base64, ${community.data.profile}" 
+                            src="${community.user.file_path}" 
                             alt="Image" 
                             onclick="location.href='userInfo.html?userId=${community.data.userId}'" 
                      />` +
@@ -478,16 +477,16 @@ let cnt = 0;
                 `<span style="margin:0 0 0 ${margin_left_value}px;">` +
                     `<img 
                         class="second_profile user_cursor"
-                        src="data:image/jpg;base64, ${value.profile}"
-                         alt="Image" 
-                         onclick="location.href='userInfo.html?userId=${value.userId}'" 
+                        src="${value.file_path}"
+                        alt="Image" 
+                        onclick="location.href='userInfo.html?userId=${value.userId}'" 
                      />` +
                 `</span>`;
         } else {
             real_comment +=
                 '<div style="border: 1px solid #ddd; margin: 0;">' +
                 `<span>` +
-                    `<img class="second_profile user_cursor" src="data:image/jpg;base64, ${value.profile}"
+                    `<img class="second_profile user_cursor" src=" ${value.file_path}"
                         alt="Image" onclick="location.href='userInfo.html?userId=${value.userId}'" />` +
                 `</span>` ;
         }

@@ -1,43 +1,38 @@
 //변수 선언 및 초기화
-var nImageInfoCnt = 0;
-var htImageInfo = [];		//image file정보 저장
-var aResult = [];
+let nImageInfoCnt = 0;
+let htImageInfo = [];		//image file정보 저장
+let aResult = [];
 
-var rFilter = /^(image\/bmp|image\/gif|image\/jpg|image\/jpeg|image\/png)$/i;
-var rFilter2 = /^(bmp|gif|jpg|jpeg|png)$/i;
-var nTotalSize = 0;
-var nMaxImageSize = 10*1024*1024;
-var nMaxTotalImageSize = 50*1024*1024;
-var nMaxImageCount = 10;
-var nImageFileCount = 0;
-var bSupportDragAndDropAPI = false;
-var oFileUploader;
-var bAttachEvent = false;
+let rFilter = /^(image\/bmp|image\/gif|image\/jpg|image\/jpeg|image\/png)$/i;
+let rFilter2 = /^(bmp|gif|jpg|jpeg|png)$/i;
+let nTotalSize = 0;
+let nMaxImageSize = 10*1024*1024;
+let nMaxTotalImageSize = 50*1024*1024;
+let nMaxImageCount = 10;
+let nImageFileCount = 0;
+let bSupportDragAndDropAPI = false;
+let oFileUploader;
+let bAttachEvent = false;
 
 //마크업에 따른 할당
-var elContent= $Element("pop_content");
-console.log("elContent : ", elContent);
-var elDropArea = jindo.$$.getSingle(".drag_area",elContent);
-var elDropAreaUL = jindo.$$.getSingle(".lst_type",elContent);
-var elCountTxtTxt = jindo.$$.getSingle("#imageCountTxt",elContent);
-var elTotalSizeTxt = jindo.$$.getSingle("#totalSizeTxt",elContent);
-var elTextGuide = $Element("guide_text");
-console.log("elTextGuide : ", elTextGuide);
-var welUploadInputBox = $Element("uploadInputBox");
-console.log("welUploadInputBox : ", welUploadInputBox);
-var oNavigator = jindo.$Agent().navigator();
+let elContent= $Element("pop_content");
+let elDropArea = jindo.$$.getSingle(".drag_area",elContent);
+let elDropAreaUL = jindo.$$.getSingle(".lst_type",elContent);
+let elCountTxtTxt = jindo.$$.getSingle("#imageCountTxt",elContent);
+let elTotalSizeTxt = jindo.$$.getSingle("#totalSizeTxt",elContent);
+let elTextGuide = $Element("guide_text");
+let welUploadInputBox = $Element("uploadInputBox");
+let oNavigator = jindo.$Agent().navigator();
 
 //마크업-공통
-var welBtnConfirm = document.getElementById("btn_confirm");				//확인 버튼
-console.log("welBtnConfirm : ", document.getElementById("btn_confirm"));
-var welBtnCancel= document.getElementById("btn_cancel");				//취소 버튼
-console.log("welBtnCancel : ", welBtnCancel);
+let welBtnConfirm = $Element("btn_confirm");				//확인 버튼
+let welBtnCancel= $Element("btn_cancel");				//취소 버튼
 
 //진도로 랩핑된 element
-var welTextGuide = $Element(elTextGuide);
-var welDropArea = $Element(elDropArea);
-var welDropAreaUL = $Element(elDropAreaUL);
-var uploadImage = null;
+let welTextGuide = $Element(elTextGuide);
+let welDropArea = $Element(elDropArea);
+let welDropAreaUL = $Element(elDropAreaUL);
+let uploadImage = null;
 
 //File API 지원 여부로 결정
 function checkDragAndDropAPI(){
@@ -61,19 +56,20 @@ function checkDragAndDropAPI(){
  * 이미지를 첨부 후 활성화된 버튼 상태
  */
 function goStartMode(){
-	console.log("attr : ", welBtnConfirm);
-	var sSrc = welBtnConfirm.attr("src")|| "";
-	if(sSrc.indexOf("btn_confirm2.png") < 0 ){
-		welBtnConfirm.attr("src","../../img/photoQuickPopup/btn_confirm2.png");
-		fnUploadImage.attach(welBtnConfirm.$value(), "click");
-	}
+	welBtnConfirm = (document.getElementById("btn_confirm"));
+	// let sSrc = welBtnConfirm.attr("src")|| "";
+	// if(sSrc.indexOf("btn_confirm2.png") < 0 ){
+	console.log(document.getElementById("uploadInputBox").value);
+		// welBtnConfirm.attr("src","../img/photoQuickPopup/btn_confirm2.png");
+		fnUploadImage.attach(welBtnConfirm.value, "click");
+	// }
 }
 /**
  * 이미지를 첨부 전 비활성화된 버튼 상태
  * @return
  */
 function goReadyMode(){
-	var sSrc = welBtnConfirm.attr("src")|| "";
+	let sSrc = welBtnConfirm.attr("src")|| "";
 	if(sSrc.indexOf("btn_confirm2.png") >= 0 ){
 		fnUploadImage.detach(welBtnConfirm.$value(), "click");
 		welBtnConfirm.attr("src","../../img/photoQuickPopup/btn_confirm.png");
@@ -93,7 +89,7 @@ function generalUpload(){
  * @return
  */
 function readyModeBG (){
-	var sClass = welTextGuide.className();
+	let sClass = welTextGuide.className();
 	if(sClass.indexOf('nobg') >= 0){
 		welTextGuide.removeClass('nobg');
 		welTextGuide.className('bg');
@@ -105,7 +101,7 @@ function readyModeBG (){
  * @return
  */
 function startModeBG (){
-	var sClass = welTextGuide.className();
+	let sClass = welTextGuide.className();
 	if(sClass.indexOf('nobg') < 0){
 		welTextGuide.removeClass('bg');
 		welTextGuide.className('nobg');
@@ -116,10 +112,10 @@ function startModeBG (){
 /**
  * 팝업에 노출될 업로드 예정 사진의 수.
  * @param {Object} nCount 현재 업로드 예정인 사진 장수
- * @param {Object} nVariable 삭제되는 수
+ * @param {Object} nletiable 삭제되는 수
  */
-function updateViewCount (nCount, nVariable){
-	var nCnt = nCount + nVariable;
+function updateViewCount (nCount, nletiable){
+	let nCnt = nCount + nletiable;
 	elCountTxtTxt.innerHTML = nCnt +"장";
 	nImageFileCount = nCnt;
 	return nCnt;
@@ -129,7 +125,7 @@ function updateViewCount (nCount, nVariable){
  * 팝업에 노출될 업로드될 사진 총 용량
  */
 function updateViewTotalSize(){
-	var nViewTotalSize = Number(parseInt((nTotalSize || 0), 10) / (1024*1024));
+	let nViewTotalSize = Number(parseInt((nTotalSize || 0), 10) / (1024*1024));
 	elTotalSizeTxt.innerHTML = nViewTotalSize.toFixed(2) +"MB";
 }
 
@@ -138,7 +134,7 @@ function updateViewTotalSize(){
  * @param {Object} sParentId
  */
 function refreshTotalImageSize(sParentId){
-	var nDelImgSize = htImageInfo[sParentId].size;
+	let nDelImgSize = htImageInfo[sParentId].size;
 	if(nTotalSize - nDelImgSize > -1 ){
 		nTotalSize = nTotalSize - nDelImgSize;
 	}
@@ -159,8 +155,8 @@ function removeImageInfo (sParentId){
  * @param {Object} nByte
  */
 function setUnitString (nByte) {
-	var nImageSize;
-	var sUnit;
+	let nImageSize;
+	let sUnit;
 
 	if(nByte < 0 ){
 		nByte = 0;
@@ -187,7 +183,7 @@ function setUnitString (nByte) {
  * @param {Object} nMaxLng 최대 길이
  */
 function cuttingNameByLength (sName, nMaxLng) {
-	var sTemp, nIndex;
+	let sTemp, nIndex;
 	if(sName.length > nMaxLng){
 		nIndex = sName.indexOf(".");
 		sTemp = sName.substring(0,nMaxLng) + "..." + sName.substring(nIndex,sName.length) ;
@@ -243,7 +239,7 @@ function drop(ev) {
 		alert("HTML5 지원이 정상적으로 이루어지지 않는 브라우저입니다.");
 	}else{
 		//변수 선언
-		var wel,
+		let wel,
 			files,
 			nCount,
 			sListTag = '';
@@ -258,7 +254,7 @@ function drop(ev) {
 			return ;
 		}
 
-		for (var i = 0, j = nImageFileCount ; i < nCount ; i++){
+		for (let i = 0, j = nImageFileCount ; i < nCount ; i++){
 			if (!rFilter.test(files[i].type)) {
 				alert("이미지파일 (jpg,gif,png,bmp)만 업로드 가능합니다.");
 			} else if(files[i].size > nMaxImageSize){
@@ -303,22 +299,22 @@ function drop(ev) {
  */
 function addImage(ofile){
 	//파일 사이즈
-	var ofile = ofile,
+	let ofile2 = ofile,
 		sFileSize = 0,
 		sFileName = "",
 		sLiTag = "",
 		bExceedLimitTotalSize = false,
 		aFileList = [];
 
-	sFileSize = setUnitString(ofile.size);
-	sFileName = cuttingNameByLength(ofile.name, 15);
-	bExceedLimitTotalSize = checkTotalImageSize(ofile.size);
+	sFileSize = setUnitString(ofile2.size);
+	sFileName = cuttingNameByLength(ofile2.name, 15);
+	bExceedLimitTotalSize = checkTotalImageSize(ofile2.size);
 
 	if( !!bExceedLimitTotalSize ){
 		alert("전체 이미지 용량이 50MB를 초과하여 등록할 수 없습니다. \n\n (파일명 : "+sFileName+", 사이즈 : "+sFileSize+")");
 	} else {
 		//이미지 정보 저장
-		htImageInfo['img'+nImageInfoCnt] = ofile;
+		htImageInfo['img'+nImageInfoCnt] = ofile2;
 
 		//List 마크업 생성하기
 		aFileList.push('	<li id="img'+nImageInfoCnt+'" class="imgLi"><span>'+ sFileName +'</span>');
@@ -337,14 +333,14 @@ function addImage(ofile){
  * @return
  */
 function html5Upload() {
-	var tempFile,
+	let tempFile,
 		sUploadURL;
 
 	// sUploadURL= 'http://test.naver.com/popup/quick_photo/FileUploader_html5.php'; 	//upload URL
 	sUploadURL= 'http://localhost:8080/smartEditor'; 	//upload URL
 
 	//파일을 하나씩 보내고, 결과를 받음.
-	for(var j=0, k=0; j < nImageInfoCnt; j++) {
+	for(let j=0, k=0; j < nImageInfoCnt; j++) {
 		tempFile = htImageInfo['img'+j];
 		try{
 			if(!!tempFile){
@@ -362,7 +358,7 @@ function html5Upload() {
 
 
 function callAjaxForHTML5 (tempFile, sUploadURL){
-	var oAjax = jindo.$Ajax(sUploadURL, {
+	let oAjax = jindo.$Ajax(sUploadURL, {
 		type: 'xhr',
 		method : "post",
 		onload : function(res){ // 요청이 완료되면 실행될 콜백 함수
@@ -382,7 +378,7 @@ function callAjaxForHTML5 (tempFile, sUploadURL){
 }
 
 function makeArrayFromString(sResString){
-	var	aTemp = [],
+	let	aTemp = [],
 		aSubTemp = [],
 		htTemp = {}
 	aResultleng = 0;
@@ -392,7 +388,7 @@ function makeArrayFromString(sResString){
 			return ;
 		}
 		aTemp = sResString.split("&");
-		for (var i = 0; i < aTemp.length ; i++){
+		for (let i = 0; i < aTemp.length ; i++){
 			if( !!aTemp[i] && aTemp[i] != "" && aTemp[i].indexOf("=") > 0){
 				aSubTemp = aTemp[i].split("=");
 				htTemp[aSubTemp[0]] = aSubTemp[1];
@@ -415,7 +411,7 @@ function makeArrayFromString(sResString){
  * @param {Object} sParentId
  */
 function delImage (sParentId){
-	var elLi = jindo.$$.getSingle("#"+sParentId);
+	let elLi = jindo.$$.getSingle("#"+sParentId);
 
 	refreshTotalImageSize(sParentId);
 
@@ -450,20 +446,11 @@ function addEvent() {
 	elDropArea.addEventListener("drop", drop, false);
 }
 
-function removeEvent(){
-	bAttachEvent = false;
-	elDropArea.removeEventListener("dragenter", dragEnter, false);
-	elDropArea.removeEventListener("dragexit", dragExit, false);
-	elDropArea.removeEventListener("dragover", dragOver, false);
-	elDropArea.removeEventListener("drop", drop, false);
-}
-
 /**
  * jindo에 파일 업로드 사용.(iframe에 Form을 Submit하여 리프레시없이 파일을 업로드하는 컴포넌트)
  */
 
 function callFileUploader (){
-	console.log("callFileUplader");
 	oFileUploader = new jindo.FileUploader(jindo.$("uploadInputBox"),{
 		sUrl  : 'http://localhost:8080/smartEditor',	//샘플 URL입니다.
 		sCallback : 'callback.html',	//업로드 이후에 iframe이 redirect될 콜백페이지의 주소
@@ -480,7 +467,7 @@ function callFileUploader (){
 // 	    			sMsgNotAllowedExt (String) 허용되지 않는 파일 형식인 경우 띄워줄 경고메세지
 // 	    		}
 //  				선택된 파일의 형식이 허용되는 경우만 처리
-			console.log(1);
+			console.log("attach");
 			if(oCustomEvent.bAllowed === true){
 				console.log("Start");
 				goStartMode();
@@ -493,13 +480,13 @@ function callFileUploader (){
 // 	    		oCustomEvent.stop(); 수행시 bAllowed 가 false이더라도 alert이 수행되지 않음
 		},
 		success : function(oCustomEvent) {
-			console.log(2);
+			console.log("success");
 			// alert("success");
 			// 업로드가 성공적으로 완료되었을 때 발생
 			// oCustomEvent(이벤트 객체) = {
 			//	htResult (Object) 서버에서 전달해주는 결과 객체 (서버 설정에 따라 유동적으로 선택가능)
 			// }
-			var aResult = [];
+			let aResult = [];
 			aResult[0] = oCustomEvent.htResult;
 			setPhotoToEditor(aResult);
 			//버튼 비활성화
@@ -508,14 +495,14 @@ function callFileUploader (){
 			//window.close();
 		},
 		error : function(oCustomEvent) {
-			console.log(3);
+			console.log("error");
 			//업로드가 실패했을 때 발생
 			//oCustomEvent(이벤트 객체) = {
 			//	htResult : { (Object) 서버에서 전달해주는 결과 객체. 에러발생시 errstr 프로퍼티를 반드시 포함하도록 서버 응답을 설정하여야한다.
 			//		errstr : (String) 에러메시지
 			// 	}
 			//}
-			//var wel = jindo.$Element("info");
+			//let wel = jindo.$Element("info");
 			//wel.html(oCustomEvent.htResult.errstr);
 			alert(oCustomEvent.htResult.errstr);
 		}
@@ -527,9 +514,7 @@ function callFileUploader (){
  */
 function closeWindow(){
 	console.log("close");
-	if(bSupportDragAndDropAPI){
-		removeEvent();
-	}
+	window.close();
 }
 
 window.onload = function(){
@@ -545,8 +530,8 @@ window.onload = function(){
 	//
 	// 	addEvent();
 	// } else {
-		$Element("#pop_container").hide();
-		$Element("#pop_container2").show();
+		$Element("pop_container").hide();
+		$Element("pop_container2").show();
 		callFileUploader();
 	// }
 	fnUploadImage = $Fn(uploadImage,this);
@@ -583,12 +568,12 @@ jindo.$Ajax.prototype.request = function(oData) {
 	console.log('in photo');
 	console.log(oData);
 	this._status++;
-	var t   = this;
-	var req = this._request;
-	var opt = this._options;
+	let t   = this;
+	let req = this._request;
+	let opt = this._options;
 	var data, v,a = [], data = "";
-	var _timer = null;
-	var url = this._url;
+	let _timer = null;
+	let url = this._url;
 	this._is_abort = false;
 
 	console.log(1);
@@ -620,7 +605,7 @@ jindo.$Ajax.prototype.request = function(oData) {
 			req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
 		}
 		req.setRequestHeader("charset", "utf-8");
-		for (var x in this._headers) {
+		for (let x in this._headers) {
 			if(this._headers.hasOwnProperty(x)){
 				if (typeof this._headers[x] == "function")
 					continue;
@@ -628,7 +613,7 @@ jindo.$Ajax.prototype.request = function(oData) {
 			}
 		}
 	}
-	var navi = navigator.userAgent;
+	let navi = navigator.userAgent;
 	if(req.addEventListener&&!(navi.indexOf("Opera") > -1)&&!(navi.indexOf("MSIE") > -1)){
 		/*
          * opera 10.60에서 XMLHttpRequest에 addEventListener기 추가되었지만 정상적으로 동작하지 않아 opera는 무조건 dom1방식으로 지원함.
@@ -657,7 +642,7 @@ jindo.$Ajax.prototype.request = function(oData) {
 
              */
 			if(window.navigator.userAgent.match(/(?:MSIE) ([0-9.]+)/)[1]==6&&opt.async){
-				var onreadystatechange = function(rq){
+				let onreadystatechange = function(rq){
 					if(req.readyState == 4 && !t._is_abort){
 						if(_timer){
 							clearTimeout(_timer);

@@ -46,7 +46,6 @@ const userCookie = document.cookie.substr(7,);
 
         xhttp.setRequestHeader("Content-Type", "application/json");
         xhttp.send(JSON.stringify(data));
-        console.log(userInfo.user);
     }
 })();
 
@@ -81,7 +80,7 @@ real_header +=
         '</a>';
 if (!!document.cookie) {
         real_header +=
-            `<img class="profile" src="${userInfo.user.path}" alt="profile" />`;
+            `<img class="profile" src="${userInfo.user.file_path}" alt="profile" />`;
     real_header +=
         `${userInfo.user.userId}님` +
         `<a href="profile.html">` +

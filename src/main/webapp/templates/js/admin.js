@@ -59,16 +59,11 @@ function deleteUser(deleteUserId) {
                                 onclick="deleteUser('${index.userId}')"
                              />` +
                         `</span>` +
-                        `<img class="admin_img" src="data:image/jpg;base64, ${index.profile}" alt="profile" />` +
+                        `<img class="admin_img" src="${index.file_path}" alt="profile" />` +
                         `<br>` +
                         `<span>` +
                             `<strong>USER_ID</strong> : ${index.userId}` +
                         `</span>` +
-                        `<br>` +
-                        `<span>` +
-                            `<strong>USER_PW</strong> : ${index.userPw}` +
-                        `</span>` +
-                        `<img src="../webapp/static/images/facebook.png" alt="image" />`+
                     `</div>`;
         }
     }

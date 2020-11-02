@@ -116,7 +116,7 @@ function profileChange() {
         `<img 
             class="u_profile" 
             id="test" 
-            src="data:image/jpg;base64, ${myBoard.userId.profile}" 
+            src="${myBoard.userId.file_path}" 
             alt="profile" 
          />`;
 
