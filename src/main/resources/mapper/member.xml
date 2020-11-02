@@ -68,7 +68,7 @@
 
     <select id="getUserInfo" resultType="com.community.model.LoginModel">
         SELECT
-            userId, profile
+            userId, file_path
         FROM
             community_member
         WHERE
