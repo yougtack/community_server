@@ -121,10 +121,9 @@ public class BoardController {
     //사진 업로드
     @PostMapping("/image")
     @ResponseBody
-    public Integer upload(Model model, MultipartHttpServletRequest multipartHttpServletRequest, HttpServletResponse response, HttpServletRequest request) throws IOException {
-        System.out.println("HI");
+    public String upload(Model model, MultipartHttpServletRequest multipartHttpServletRequest, HttpServletResponse response, HttpServletRequest request) throws IOException {
         if(CheckUtil.imageCheck(response, request) >= 1){
-            return 0;
+            return "0";
         }
         return boardService.uploadImage(model, multipartHttpServletRequest, request);
     }

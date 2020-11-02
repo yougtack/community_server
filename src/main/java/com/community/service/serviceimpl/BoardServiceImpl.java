@@ -3,6 +3,7 @@ package com.community.service.serviceimpl;
 import com.community.dao.BoardDao;
 import com.community.model.*;
 import com.community.service.BoardService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +14,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -90,25 +94,26 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public Integer uploadImage(Model model, MultipartHttpServletRequest multipartHttpServletRequest, HttpServletRequest request) throws IOException {
-        int result = 0;
+    public String uploadImage(Model model, MultipartHttpServletRequest multipartHttpServletRequest, HttpServletRequest request) throws IOException {
+        ArrayList<String> path = new ArrayList<>();
         List<MultipartFile> multipartFiles = multipartHttpServletRequest.getFiles("Files");
         if (!multipartFiles.isEmpty()) {
-            UUID uuid = UUID.randomUUID();
             for (MultipartFile filePart : multipartFiles) {
+                UUID uuid = UUID.randomUUID();
                 String root_path = request.getSession().getServletContext().getRealPath("/");
                 String attach_path = "static/images/";
                 String filename = uuid+"_"+filePart.getOriginalFilename();
 
                 File saveFile = new File(root_path+attach_path+filename);
                 filePart.transferTo(saveFile);
-                model.addAttribute("path","/static/images/"+uuid+"_"+filePart.getOriginalFilename());
-                result +=1;
+                path.add("/static/images/"+uuid+"_"+filePart.getOriginalFilename());
 //                result =  dao.uploadImage(b_id, uuid+"_"+filePart.getOriginalFilename(), "/static/images/"+uuid+"_"+filePart.getOriginalFilename());
             }
         }
-        System.out.println(model.getAttribute("path"));
-    return result;
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonStr = mapper.writeValueAsString(path);
+
+    return jsonStr;
     }
 
 
