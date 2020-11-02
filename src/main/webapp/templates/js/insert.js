@@ -13,7 +13,7 @@ nhn.husky.EZCreator.createInIFrame({
     sSkinURI: "SmartEditor2Skin.html",
     htParams : {bUseToolbar : true,
         fOnBeforeUnload : function(){
-            alert("아싸!");
+            // alert("아싸!");
         }
     }, //boolean
     fOnAppLoad : function(){
@@ -23,10 +23,11 @@ nhn.husky.EZCreator.createInIFrame({
     fCreator: "createSEditor2"
 });
 
-// function pasteHTML() {
-//     var sHTML = "<span style='color:#FF0000;'>이미지도 같은 방식으로 삽입합니다.<\/span>";
-//     oEditors.getById["ir1"].exec("PASTE_HTML", [sHTML]);
-// }
+function pasteHTML(filepath) {
+    console.log(filepath);
+    let sHTML = `<img src="${filepath}">`;
+    oEditors.getById["textAreaContent"].exec("PASTE_HTML", [sHTML]);
+}
 
 function insert(title, content) {
     let xhttp = new XMLHttpRequest();

@@ -59,9 +59,9 @@ function goStartMode(){
 	welBtnConfirm = (document.getElementById("btn_confirm"));
 	// let sSrc = welBtnConfirm.attr("src")|| "";
 	// if(sSrc.indexOf("btn_confirm2.png") < 0 ){
-	console.log(document.getElementById("uploadInputBox").value);
 		// welBtnConfirm.attr("src","../img/photoQuickPopup/btn_confirm2.png");
-		fnUploadImage.attach(welBtnConfirm.value, "click");
+		// fnUploadImage.attach(welBtnConfirm, "click");
+
 	// }
 }
 /**
@@ -69,11 +69,12 @@ function goStartMode(){
  * @return
  */
 function goReadyMode(){
-	let sSrc = welBtnConfirm.attr("src")|| "";
-	if(sSrc.indexOf("btn_confirm2.png") >= 0 ){
-		fnUploadImage.detach(welBtnConfirm.$value(), "click");
-		welBtnConfirm.attr("src","../../img/photoQuickPopup/btn_confirm.png");
-	}
+	welBtnConfirm = (document.getElementById("btn_confirm"));
+	// let sSrc = welBtnConfirm.attr("src")|| "";
+	// if(sSrc.indexOf("btn_confirm2.png") >= 0 ){
+		fnUploadImage.detach(welBtnConfirm.value, "click");
+	// 	welBtnConfirm.attr("src","../../img/photoQuickPopup/btn_confirm.png");
+	// }
 }
 
 /**
@@ -337,7 +338,7 @@ function html5Upload() {
 		sUploadURL;
 
 	// sUploadURL= 'http://test.naver.com/popup/quick_photo/FileUploader_html5.php'; 	//upload URL
-	sUploadURL= 'http://localhost:8080/smartEditor'; 	//upload URL
+	sUploadURL= 'http://localhost:8080/smartEditor/fileUpload'; 	//upload URL
 
 	//파일을 하나씩 보내고, 결과를 받음.
 	for(let j=0, k=0; j < nImageInfoCnt; j++) {
@@ -357,54 +358,54 @@ function html5Upload() {
 
 
 
-function callAjaxForHTML5 (tempFile, sUploadURL){
-	let oAjax = jindo.$Ajax(sUploadURL, {
-		type: 'xhr',
-		method : "post",
-		onload : function(res){ // 요청이 완료되면 실행될 콜백 함수
-			if (res.readyState() == 4) {
-				//성공 시에  responseText를 가지고 array로 만드는 부분.
-				makeArrayFromString(res._response.responseText);
-			}
-		},
-		timeout : 3,
-		onerror :  jindo.$Fn(onAjaxError, this).bind()
-	});
-	oAjax.header("contentType","multipart/form-data");
-	oAjax.header("file-name",encodeURIComponent(tempFile.name));
-	oAjax.header("file-size",tempFile.size);
-	oAjax.header("file-Type",tempFile.type);
-	oAjax.request(tempFile);
-}
-
-function makeArrayFromString(sResString){
-	let	aTemp = [],
-		aSubTemp = [],
-		htTemp = {}
-	aResultleng = 0;
-
-	try{
-		if(!sResString || sResString.indexOf("sFileURL") < 0){
-			return ;
-		}
-		aTemp = sResString.split("&");
-		for (let i = 0; i < aTemp.length ; i++){
-			if( !!aTemp[i] && aTemp[i] != "" && aTemp[i].indexOf("=") > 0){
-				aSubTemp = aTemp[i].split("=");
-				htTemp[aSubTemp[0]] = aSubTemp[1];
-			}
-		}
-	}catch(e){}
-
-	aResultleng = aResult.length;
-	aResult[aResultleng] = htTemp;
-
-	if(aResult.length == nImageFileCount){
-		setPhotoToEditor(aResult);
-		aResult = null;
-		window.close();
-	}
-}
+// function callAjaxForHTML5 (tempFile, sUploadURL){
+// 	let oAjax = jindo.$Ajax(sUploadURL, {
+// 		type: 'xhr',
+// 		method : "post",
+// 		onload : function(res){ // 요청이 완료되면 실행될 콜백 함수
+// 			if (res.readyState() == 4) {
+// 				//성공 시에  responseText를 가지고 array로 만드는 부분.
+// 				makeArrayFromString(res._response.responseText);
+// 			}
+// 		},
+// 		timeout : 3,
+// 		onerror :  jindo.$Fn(onAjaxError, this).bind()
+// 	});
+// 	oAjax.header("contentType","multipart/form-data");
+// 	oAjax.header("file-name",encodeURIComponent(tempFile.name));
+// 	oAjax.header("file-size",tempFile.size);
+// 	oAjax.header("file-Type",tempFile.type);
+// 	oAjax.request(tempFile);
+// }
+//
+// function makeArrayFromString(sResString){
+// 	let	aTemp = [],
+// 		aSubTemp = [],
+// 		htTemp = {}
+// 	aResultleng = 0;
+//
+// 	try{
+// 		if(!sResString || sResString.indexOf("sFileURL") < 0){
+// 			return ;
+// 		}
+// 		aTemp = sResString.split("&");
+// 		for (let i = 0; i < aTemp.length ; i++){
+// 			if( !!aTemp[i] && aTemp[i] != "" && aTemp[i].indexOf("=") > 0){
+// 				aSubTemp = aTemp[i].split("=");
+// 				htTemp[aSubTemp[0]] = aSubTemp[1];
+// 			}
+// 		}
+// 	}catch(e){}
+//
+// 	aResultleng = aResult.length;
+// 	aResult[aResultleng] = htTemp;
+//
+// 	if(aResult.length == nImageFileCount){
+// 		setPhotoToEditor(aResult);
+// 		aResult = null;
+// 		window.close();
+// 	}
+// }
 
 /**
  * 사진 삭제 시에 호출되는 함수
@@ -451,8 +452,9 @@ function addEvent() {
  */
 
 function callFileUploader (){
+	console.log(jindo.$("uploadInputBox"));
 	oFileUploader = new jindo.FileUploader(jindo.$("uploadInputBox"),{
-		sUrl  : 'http://localhost:8080/smartEditor',	//샘플 URL입니다.
+		sUrl  : 'http://localhost:8080/smartEditor/fileUpload',	//샘플 URL입니다.
 		sCallback : 'callback.html',	//업로드 이후에 iframe이 redirect될 콜백페이지의 주소
 		sFiletype : "*.jpg;*.png;*.bmp;*.gif",						//허용할 파일의 형식. ex) "*", "*.*", "*.jpg", 구분자(;)
 		sMsgNotAllowedExt : 'JPG, GIF, PNG, BMP 확장자만 가능합니다',	//허용할 파일의 형식이 아닌경우에 띄워주는 경고창의 문구
@@ -480,19 +482,19 @@ function callFileUploader (){
 // 	    		oCustomEvent.stop(); 수행시 bAllowed 가 false이더라도 alert이 수행되지 않음
 		},
 		success : function(oCustomEvent) {
-			console.log("success");
-			// alert("success");
-			// 업로드가 성공적으로 완료되었을 때 발생
-			// oCustomEvent(이벤트 객체) = {
-			//	htResult (Object) 서버에서 전달해주는 결과 객체 (서버 설정에 따라 유동적으로 선택가능)
-			// }
-			let aResult = [];
-			aResult[0] = oCustomEvent.htResult;
-			setPhotoToEditor(aResult);
-			//버튼 비활성화
-			goReadyMode();
-			oFileUploader.reset();
-			//window.close();
+			// console.log("success");
+			// // alert("success");
+			// // 업로드가 성공적으로 완료되었을 때 발생
+			// // oCustomEvent(이벤트 객체) = {
+			// //	htResult (Object) 서버에서 전달해주는 결과 객체 (서버 설정에 따라 유동적으로 선택가능)
+			// // }
+			// let aResult = [];
+			// aResult[0] = oCustomEvent.htResult;
+			// setPhotoToEditor(aResult);
+			// //버튼 비활성화
+			// goReadyMode();
+			// oFileUploader.reset();
+			// //window.close();
 		},
 		error : function(oCustomEvent) {
 			console.log("error");
@@ -555,12 +557,16 @@ window.onload = function(){
  * ]
  */
 function setPhotoToEditor(oFileInfo){
-	if (!!opener && !!opener.nhn && !!opener.nhn.husky && !!opener.nhn.husky.PopUpManager) {
-		//스마트 에디터 플러그인을 통해서 넣는 방법 (oFileInfo는 Array)
-		opener.nhn.husky.PopUpManager.setCallback(window, 'SET_PHOTO', [oFileInfo]);
-		//본문에 바로 tag를 넣는 방법 (oFileInfo는 String으로 <img src=....> )
-		//opener.nhn.husky.PopUpManager.setCallback(window, 'PASTE_HTML', [oFileInfo]);
-	}
+	alert("1");
+	opener.nhn.husky.PopUpManager.setCallback(window, 'SET_PHOTO', `<img src="upload/home_icon.png" alt="image" />`);
+
+	// if (!!opener && !!opener.nhn && !!opener.nhn.husky && !!opener.nhn.husky.PopUpManager) {
+	// 	alert("2");
+	// 	//스마트 에디터 플러그인을 통해서 넣는 방법 (oFileInfo는 Array)
+	// 	opener.nhn.husky.PopUpManager.setCallback(window, 'SET_PHOTO', oFileInfo);
+	// 	//본문에 바로 tag를 넣는 방법 (oFileInfo는 String으로 <img src=....> )
+	// 	//opener.nhn.husky.PopUpManager.setCallback(window, 'PASTE_HTML', [oFileInfo]);
+	// }
 }
 
 // 2012.05 현재] jindo.$Ajax.prototype.request에서 file과 form을 지원하지 안함.
@@ -671,3 +677,9 @@ jindo.$Ajax.prototype.request = function(oData) {
 	req.send(data);
 	return this;
 };
+
+function BtnConfirmClick() {
+	setPhotoToEditor(document.getElementById("uploadInputBox").value)
+	oFileUploader.reset();
+	window.close();
+}

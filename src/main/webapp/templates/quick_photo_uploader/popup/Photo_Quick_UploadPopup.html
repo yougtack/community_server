@@ -5,6 +5,7 @@
     <link rel="shortcut icon" href="#">
     <meta http-equiv="Content-Script-Type" content="text/javascript">
     <meta http-equiv="Content-Style-Type" content="text/css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="jindo.min.js" charset="UTF-8"></script>
     <script type="text/javascript" src="jindo_fileUpload.js" charset="utf-8"></script>
     <script type="text/javascript" src="QuickPhotoPopup.js" charset="UTF-8"></script>
@@ -90,7 +91,7 @@
     <!-- footer -->
     <div id="pop_footer">
         <div class="btn_area">
-            <a href="#"><img src="../../img/photoQuickPopup/btn_confirm.png" width="49" height="28" alt="확인" id="btn_confirm"></a>
+            <a href="#"><img src="../../img/photoQuickPopup/btn_confirm.png" width="49" height="28" alt="확인" id="btn_confirm" onclick="BtnConfirmClick()"></a>
             <a href="#"><img src="../../img/photoQuickPopup/btn_cancel.png" width="48" height="28" alt="취소" id="btn_cancel" onclick="closeWindow()"></a>
         </div>
     </div>

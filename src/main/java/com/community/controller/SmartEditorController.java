@@ -17,6 +17,7 @@ import java.util.Calendar;
 public class SmartEditorController {
     @RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
     public String fileUpload(Model model, MultipartRequest multipartRequest, HttpServletRequest request) throws IOException {
+        System.out.println("Plz");
         MultipartFile imgfile = multipartRequest.getFile("Filedata");
         Calendar cal = Calendar.getInstance();
         String fileName = imgfile.getOriginalFilename();
