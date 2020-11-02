@@ -28,7 +28,7 @@ public interface BoardService {
     List<BoardModel> search(String word);
     List<BoardModel> getRank();
 
-    Integer uploadImage(Model model, MultipartHttpServletRequest multipartHttpServletRequest, HttpServletRequest request) throws IOException;
+    String uploadImage(Model model, MultipartHttpServletRequest multipartHttpServletRequest, HttpServletRequest request) throws IOException;
 
     Integer updateImage(MultipartHttpServletRequest multipartHttpServletRequest, int i_id, HttpServletRequest request) throws IOException;
 
