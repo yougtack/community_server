@@ -25,7 +25,9 @@ public class SmartEditorController {
 
         String path = request.getSession().getServletContext().getRealPath("/")+ File.separator+"resources/upload";
         FileUpload.fileUpload(imgfile, path, replaceName);
+        System.out.println("asd:"+File.separator);
         model.addAttribute("path", path);
+        System.out.println(model.getAttribute(path));
         model.addAttribute("filename", replaceName);
         return "file_upload";
     }
