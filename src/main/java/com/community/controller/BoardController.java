@@ -10,6 +10,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -118,13 +119,13 @@ public class BoardController {
     }
 
     //사진 업로드
-    @PostMapping("/image/{b_id}")
+    @PostMapping("/image")
     @ResponseBody
-    public Integer upload(MultipartHttpServletRequest multipartHttpServletRequest, @PathVariable int b_id, HttpServletResponse response, HttpServletRequest request) throws IOException {
+    public Integer upload(Model model, MultipartHttpServletRequest multipartHttpServletRequest, HttpServletResponse response, HttpServletRequest request) throws IOException {
         if(CheckUtil.imageCheck(response, request) >= 1){
             return 0;
         }
-        return boardService.uploadImage(multipartHttpServletRequest, b_id, request);
+        return boardService.uploadImage(model, multipartHttpServletRequest, request);
     }
 
     //게시글 수정시 사진 업로드

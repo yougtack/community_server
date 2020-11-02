@@ -6,6 +6,7 @@ import com.community.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -89,23 +90,24 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public Integer uploadImage(MultipartHttpServletRequest multipartHttpServletRequest, int b_id, HttpServletRequest request) throws IOException {
+    public Integer uploadImage(Model model, MultipartHttpServletRequest multipartHttpServletRequest, HttpServletRequest request) throws IOException {
         int result = 0;
         List<MultipartFile> multipartFiles = multipartHttpServletRequest.getFiles("Files");
         if (!multipartFiles.isEmpty()) {
             UUID uuid = UUID.randomUUID();
             for (MultipartFile filePart : multipartFiles) {
-
                 String root_path = request.getSession().getServletContext().getRealPath("/");
                 String attach_path = "static/images/";
                 String filename = uuid+"_"+filePart.getOriginalFilename();
 
                 File saveFile = new File(root_path+attach_path+filename);
                 filePart.transferTo(saveFile);
-
-                result =  dao.uploadImage(b_id, uuid+"_"+filePart.getOriginalFilename(), "/static/images/"+uuid+"_"+filePart.getOriginalFilename());
+                model.addAttribute("path","/static/images/"+uuid+"_"+filePart.getOriginalFilename());
+                result +=1;
+//                result =  dao.uploadImage(b_id, uuid+"_"+filePart.getOriginalFilename(), "/static/images/"+uuid+"_"+filePart.getOriginalFilename());
             }
         }
+        System.out.println(model.getAttribute("path"));
     return result;
     }
 
