@@ -109,7 +109,7 @@ public class MemberController {
             return 0;
         }
         //checkUserModel.userId는 강퇴시킬 아이디가 들어있음
-        return memberService.kickMember(memberModel);
+        return memberService.kickMember(memberModel, request);
     }
 
     //유저 패스워드 변경

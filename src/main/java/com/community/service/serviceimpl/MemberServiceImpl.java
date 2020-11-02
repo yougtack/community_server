@@ -1,7 +1,6 @@
 package com.community.service.serviceimpl;
 
 import com.community.dao.MemberDao;
-import com.community.model.ImageModel;
 import com.community.model.LoginModel;
 import com.community.model.MemberListModel;
 import com.community.model.MemberModel;
@@ -62,7 +61,13 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Integer kickMember(MemberModel memberModel){
+    public Integer kickMember(MemberModel memberModel, HttpServletRequest request){
+        memberModel = dao.getUserFileImage(memberModel.getUserId());
+        String root_path = request.getSession().getServletContext().getRealPath("/");
+        String attach_path = "member_images/";
+        File file = new File(root_path+attach_path+memberModel.getFile_name());
+        file.delete();
+
         return dao.kickMember(memberModel.getUserId());
 
     }
@@ -92,7 +97,7 @@ public class MemberServiceImpl implements MemberService {
             }
         }else{
             file_path = "/member_images/default.png";
-            filename = uuid+"_default_png";
+            filename = uuid+"_default.png";
         }
         return dao.signUpProfile(userId, file_path, filename);
     }
