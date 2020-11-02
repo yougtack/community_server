@@ -81,7 +81,7 @@ real_header +=
         '</a>';
 if (!!document.cookie) {
         real_header +=
-            `<img class="profile" src="data:image/jpg;base64, ${userInfo.user.profile}" alt="profile" />`;
+            `<img class="profile" src="${userInfo.user.path}" alt="profile" />`;
     real_header +=
         `${userInfo.user.userId}님` +
         `<a href="profile.html">` +
@@ -125,7 +125,12 @@ real_header +=
 if (!!document.cookie) {
     real_header +=
         `<a href="" onclick="logout()">` +
-            `<img class="main_sidebar_icon" src="../static/logout.png" alt="HomeIcon" onclick="logout()" />Logout` +
+            `<img 
+                class="main_sidebar_icon" 
+                src="../static/logout.png" 
+                alt="HomeIcon"
+                 onclick="logout()"
+             />Logout` +
         `</a>`;
     if (userInfo.user.userId === "admin") {
         real_header +=
