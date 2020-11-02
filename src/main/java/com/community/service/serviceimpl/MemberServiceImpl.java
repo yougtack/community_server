@@ -1,7 +1,6 @@
 package com.community.service.serviceimpl;
 
 import com.community.dao.MemberDao;
-import com.community.model.ImageModel;
 import com.community.model.LoginModel;
 import com.community.model.MemberListModel;
 import com.community.model.MemberModel;
@@ -92,7 +91,7 @@ public class MemberServiceImpl implements MemberService {
             }
         }else{
             file_path = "/member_images/default.png";
-            filename = uuid+"_default_png";
+            filename = uuid+"_default.png";
         }
         return dao.signUpProfile(userId, file_path, filename);
     }

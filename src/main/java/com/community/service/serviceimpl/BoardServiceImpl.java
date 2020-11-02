@@ -4,7 +4,6 @@ import com.community.dao.BoardDao;
 import com.community.model.*;
 import com.community.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,8 +14,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
-
-import static org.apache.commons.io.FilenameUtils.getExtension;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -93,8 +90,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public Integer uploadImage(MultipartHttpServletRequest multipartHttpServletRequest, int b_id, HttpServletRequest request) throws IOException {
-        String filePath = null;
-
+        int result = 0;
         List<MultipartFile> multipartFiles = multipartHttpServletRequest.getFiles("Files");
         if (!multipartFiles.isEmpty()) {
             UUID uuid = UUID.randomUUID();
@@ -107,16 +103,16 @@ public class BoardServiceImpl implements BoardService {
                 File saveFile = new File(root_path+attach_path+filename);
                 filePart.transferTo(saveFile);
 
-                return dao.uploadImage(b_id, uuid+"_"+filePart.getOriginalFilename(), "/static/images/"+uuid+"_"+filePart.getOriginalFilename());
+                result =  dao.uploadImage(b_id, uuid+"_"+filePart.getOriginalFilename(), "/static/images/"+uuid+"_"+filePart.getOriginalFilename());
             }
         }
-    return 0;
+    return result;
     }
 
 
     @Override
     public Integer updateImage(MultipartHttpServletRequest multipartHttpServletRequest, int i_id, HttpServletRequest request) throws IOException {
-        String filePath = null;
+        int result = 0;
 
         ImageModel imageModel = dao.getImageInfo(i_id);
         String root_path = request.getSession().getServletContext().getRealPath("/");
@@ -133,10 +129,10 @@ public class BoardServiceImpl implements BoardService {
                 File saveFile = new File(root_path+attach_path+filename);
                 filePart.transferTo(saveFile);
 
-                return dao.updateImage(i_id, uuid+"_"+filePart.getOriginalFilename(), "/static/images/"+uuid+"_"+filePart.getOriginalFilename());
+                result =  dao.updateImage(i_id, uuid+"_"+filePart.getOriginalFilename(), "/static/images/"+uuid+"_"+filePart.getOriginalFilename());
             }
         }
-        return 0;
+        return result ;
     }
 
     @Override
