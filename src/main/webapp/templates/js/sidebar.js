@@ -46,6 +46,7 @@ const userCookie = document.cookie.substr(7,);
 
         xhttp.setRequestHeader("Content-Type", "application/json");
         xhttp.send(JSON.stringify(data));
+        console.log(userInfo.user);
     }
 })();
 

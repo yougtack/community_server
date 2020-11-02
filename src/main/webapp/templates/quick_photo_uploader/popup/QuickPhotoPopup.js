@@ -16,17 +16,22 @@ var bAttachEvent = false;
 
 //마크업에 따른 할당
 var elContent= $Element("pop_content");
+console.log("elContent : ", elContent);
 var elDropArea = jindo.$$.getSingle(".drag_area",elContent);
 var elDropAreaUL = jindo.$$.getSingle(".lst_type",elContent);
 var elCountTxtTxt = jindo.$$.getSingle("#imageCountTxt",elContent);
 var elTotalSizeTxt = jindo.$$.getSingle("#totalSizeTxt",elContent);
 var elTextGuide = $Element("guide_text");
+console.log("elTextGuide : ", elTextGuide);
 var welUploadInputBox = $Element("uploadInputBox");
+console.log("welUploadInputBox : ", welUploadInputBox);
 var oNavigator = jindo.$Agent().navigator();
 
 //마크업-공통
-var welBtnConfirm = $Element("btn_confirm");				//확인 버튼
-var welBtnCancel= $Element("btn_cancel");				//취소 버튼
+var welBtnConfirm = document.getElementById("btn_confirm");				//확인 버튼
+console.log("welBtnConfirm : ", document.getElementById("btn_confirm"));
+var welBtnCancel= document.getElementById("btn_cancel");				//취소 버튼
+console.log("welBtnCancel : ", welBtnCancel);
 
 //진도로 랩핑된 element
 var welTextGuide = $Element(elTextGuide);
@@ -56,6 +61,7 @@ function checkDragAndDropAPI(){
  * 이미지를 첨부 후 활성화된 버튼 상태
  */
 function goStartMode(){
+	console.log("attr : ", welBtnConfirm);
 	var sSrc = welBtnConfirm.attr("src")|| "";
 	if(sSrc.indexOf("btn_confirm2.png") < 0 ){
 		welBtnConfirm.attr("src","../../img/photoQuickPopup/btn_confirm2.png");
@@ -335,7 +341,7 @@ function html5Upload() {
 		sUploadURL;
 
 	// sUploadURL= 'http://test.naver.com/popup/quick_photo/FileUploader_html5.php'; 	//upload URL
-	sUploadURL= 'http://localhost:8080/board/image'; 	//upload URL
+	sUploadURL= 'http://localhost:8080/smartEditor'; 	//upload URL
 
 	//파일을 하나씩 보내고, 결과를 받음.
 	for(var j=0, k=0; j < nImageInfoCnt; j++) {
@@ -457,8 +463,9 @@ function removeEvent(){
  */
 
 function callFileUploader (){
+	console.log("callFileUplader");
 	oFileUploader = new jindo.FileUploader(jindo.$("uploadInputBox"),{
-		sUrl  : 'http://localhost:8080/board/image',	//샘플 URL입니다.
+		sUrl  : 'http://localhost:8080/smartEditor',	//샘플 URL입니다.
 		sCallback : 'callback.html',	//업로드 이후에 iframe이 redirect될 콜백페이지의 주소
 		sFiletype : "*.jpg;*.png;*.bmp;*.gif",						//허용할 파일의 형식. ex) "*", "*.*", "*.jpg", 구분자(;)
 		sMsgNotAllowedExt : 'JPG, GIF, PNG, BMP 확장자만 가능합니다',	//허용할 파일의 형식이 아닌경우에 띄워주는 경고창의 문구
@@ -475,8 +482,10 @@ function callFileUploader (){
 //  				선택된 파일의 형식이 허용되는 경우만 처리
 			console.log(1);
 			if(oCustomEvent.bAllowed === true){
+				console.log("Start");
 				goStartMode();
 			}else{
+				console.log("ReadyMode");
 				goReadyMode();
 				oFileUploader.reset();
 			}
@@ -517,31 +526,31 @@ function callFileUploader (){
  * 페이지 닫기 버튼 클릭
  */
 function closeWindow(){
+	console.log("close");
 	if(bSupportDragAndDropAPI){
 		removeEvent();
 	}
-	//  	window.close();
 }
 
 window.onload = function(){
 	checkDragAndDropAPI();
 
 
-	if(bSupportDragAndDropAPI){
-		document.getElementById("pop_container2").hide();
-		document.getElementById("pop_container").show();
-
-		welTextGuide.removeClass("nobg");
-		welTextGuide.className("bg");
-
-		addEvent();
-	} else {
-		document.getElementById("pop_container").hide();
-		document.getElementById("pop_container2").show();
+	// if(bSupportDragAndDropAPI){
+	// 	$Element("pop_container2").hide();
+	// 	$Element("pop_container").show();
+	//
+	// 	welTextGuide.removeClass("nobg");
+	// 	welTextGuide.className("bg");
+	//
+	// 	addEvent();
+	// } else {
+		$Element("#pop_container").hide();
+		$Element("#pop_container2").show();
 		callFileUploader();
-	}
+	// }
 	fnUploadImage = $Fn(uploadImage,this);
-	$Fn(closeWindow,this).attach(welBtnCancel.$value(), "click");
+	$Fn(closeWindow,this).attach(welBtnCancel, "click");
 };
 
 /**

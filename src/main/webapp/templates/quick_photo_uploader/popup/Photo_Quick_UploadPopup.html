@@ -5,6 +5,10 @@
     <link rel="shortcut icon" href="#">
     <meta http-equiv="Content-Script-Type" content="text/javascript">
     <meta http-equiv="Content-Style-Type" content="text/css">
+    <script type="text/javascript" src="jindo.min.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="jindo_fileUpload.js" charset="utf-8"></script>
+    <script type="text/javascript" src="QuickPhotoPopup.js" charset="utf-8"></script>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <title>사진 첨부하기 :: SmartEditor2</title>
     <style type="text/css">
         /* NHN Web Standard 1Team JJS 120106 */
@@ -88,14 +92,10 @@
     <div id="pop_footer">
         <div class="btn_area">
             <a href="#"><img src="../../img/photoQuickPopup/btn_confirm.png" width="49" height="28" alt="확인" id="btn_confirm"></a>
-            <a href="#"><img src="../../img/photoQuickPopup/btn_cancel.png" width="48" height="28" alt="취소" id="btn_cancel"></a>
+            <a href="#"><img src="../../img/photoQuickPopup/btn_cancel.png" width="48" height="28" alt="취소" id="btn_cancel" onclick="closeWindow()"></a>
         </div>
     </div>
     <!-- //footer -->
 </div>
-<script type="text/javascript" src="jindo.min.js" charset="utf-8"></script>
-<script type="text/javascript" src="jindo_fileUpload.js" charset="utf-8"></script>
-<script type="text/javascript" src="QuickPhotoPopup.js" charset="utf-8"></script>
-
 </body>
 </html>
