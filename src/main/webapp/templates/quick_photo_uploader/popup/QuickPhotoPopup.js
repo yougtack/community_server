@@ -13,6 +13,7 @@ let nImageFileCount = 0;
 let bSupportDragAndDropAPI = false;
 let oFileUploader;
 let bAttachEvent = false;
+let imageTagCnt = 0;
 
 //마크업에 따른 할당
 let elContent= $Element("pop_content");
@@ -72,7 +73,7 @@ function goReadyMode(){
 	welBtnConfirm = (document.getElementById("btn_confirm"));
 	// let sSrc = welBtnConfirm.attr("src")|| "";
 	// if(sSrc.indexOf("btn_confirm2.png") >= 0 ){
-		fnUploadImage.detach(welBtnConfirm.value, "click");
+	// 	fnUploadImage.detach(welBtnConfirm.value, "click");
 	// 	welBtnConfirm.attr("src","../../img/photoQuickPopup/btn_confirm.png");
 	// }
 }
@@ -300,22 +301,21 @@ function drop(ev) {
  */
 function addImage(ofile){
 	//파일 사이즈
-	let ofile2 = ofile,
-		sFileSize = 0,
+	let sFileSize = 0,
 		sFileName = "",
 		sLiTag = "",
 		bExceedLimitTotalSize = false,
 		aFileList = [];
 
-	sFileSize = setUnitString(ofile2.size);
-	sFileName = cuttingNameByLength(ofile2.name, 15);
-	bExceedLimitTotalSize = checkTotalImageSize(ofile2.size);
+	sFileSize = setUnitString(ofile.size);
+	sFileName = cuttingNameByLength(ofile.name, 15);
+	bExceedLimitTotalSize = checkTotalImageSize(ofile.size);
 
 	if( !!bExceedLimitTotalSize ){
 		alert("전체 이미지 용량이 50MB를 초과하여 등록할 수 없습니다. \n\n (파일명 : "+sFileName+", 사이즈 : "+sFileSize+")");
 	} else {
 		//이미지 정보 저장
-		htImageInfo['img'+nImageInfoCnt] = ofile2;
+		htImageInfo['img'+nImageInfoCnt] = ofile;
 
 		//List 마크업 생성하기
 		aFileList.push('	<li id="img'+nImageInfoCnt+'" class="imgLi"><span>'+ sFileName +'</span>');
@@ -338,7 +338,7 @@ function html5Upload() {
 		sUploadURL;
 
 	// sUploadURL= 'http://test.naver.com/popup/quick_photo/FileUploader_html5.php'; 	//upload URL
-	sUploadURL= 'http://localhost:8080/board/image'; 	//upload URL
+	sUploadURL= '/board/image'; 	//upload URL
 
 	//파일을 하나씩 보내고, 결과를 받음.
 	for(let j=0, k=0; j < nImageInfoCnt; j++) {
@@ -358,54 +358,54 @@ function html5Upload() {
 
 
 
-// function callAjaxForHTML5 (tempFile, sUploadURL){
-// 	let oAjax = jindo.$Ajax(sUploadURL, {
-// 		type: 'xhr',
-// 		method : "post",
-// 		onload : function(res){ // 요청이 완료되면 실행될 콜백 함수
-// 			if (res.readyState() == 4) {
-// 				//성공 시에  responseText를 가지고 array로 만드는 부분.
-// 				makeArrayFromString(res._response.responseText);
-// 			}
-// 		},
-// 		timeout : 3,
-// 		onerror :  jindo.$Fn(onAjaxError, this).bind()
-// 	});
-// 	oAjax.header("contentType","multipart/form-data");
-// 	oAjax.header("file-name",encodeURIComponent(tempFile.name));
-// 	oAjax.header("file-size",tempFile.size);
-// 	oAjax.header("file-Type",tempFile.type);
-// 	oAjax.request(tempFile);
-// }
-//
-// function makeArrayFromString(sResString){
-// 	let	aTemp = [],
-// 		aSubTemp = [],
-// 		htTemp = {}
-// 	aResultleng = 0;
-//
-// 	try{
-// 		if(!sResString || sResString.indexOf("sFileURL") < 0){
-// 			return ;
-// 		}
-// 		aTemp = sResString.split("&");
-// 		for (let i = 0; i < aTemp.length ; i++){
-// 			if( !!aTemp[i] && aTemp[i] != "" && aTemp[i].indexOf("=") > 0){
-// 				aSubTemp = aTemp[i].split("=");
-// 				htTemp[aSubTemp[0]] = aSubTemp[1];
-// 			}
-// 		}
-// 	}catch(e){}
-//
-// 	aResultleng = aResult.length;
-// 	aResult[aResultleng] = htTemp;
-//
-// 	if(aResult.length == nImageFileCount){
-// 		setPhotoToEditor(aResult);
-// 		aResult = null;
-// 		window.close();
-// 	}
-// }
+function callAjaxForHTML5 (tempFile, sUploadURL){
+	let oAjax = jindo.$Ajax(sUploadURL, {
+		type: 'xhr',
+		method : "post",
+		onload : function(res){ // 요청이 완료되면 실행될 콜백 함수
+			if (res.readyState() == 4) {
+				//성공 시에  responseText를 가지고 array로 만드는 부분.
+				makeArrayFromString(res._response.responseText);
+			}
+		},
+		timeout : 3,
+		onerror :  jindo.$Fn(onAjaxError, this).bind()
+	});
+	oAjax.header("contentType","multipart/form-data");
+	oAjax.header("file-name",encodeURIComponent(tempFile.name));
+	oAjax.header("file-size",tempFile.size);
+	oAjax.header("file-Type",tempFile.type);
+	oAjax.request(tempFile);
+}
+
+function makeArrayFromString(sResString){
+	let	aTemp = [],
+		aSubTemp = [],
+		htTemp = {}
+	aResultleng = 0;
+
+	try{
+		if(!sResString || sResString.indexOf("sFileURL") < 0){
+			return ;
+		}
+		aTemp = sResString.split("&");
+		for (let i = 0; i < aTemp.length ; i++){
+			if( !!aTemp[i] && aTemp[i] != "" && aTemp[i].indexOf("=") > 0){
+				aSubTemp = aTemp[i].split("=");
+				htTemp[aSubTemp[0]] = aSubTemp[1];
+			}
+		}
+	}catch(e){}
+
+	aResultleng = aResult.length;
+	aResult[aResultleng] = htTemp;
+
+	if(aResult.length == nImageFileCount){
+		setPhotoToEditor(aResult);
+		aResult = null;
+		window.close();
+	}
+}
 
 /**
  * 사진 삭제 시에 호출되는 함수
@@ -453,7 +453,7 @@ function addEvent() {
 
 function callFileUploader (){
 	oFileUploader = new jindo.FileUploader(jindo.$("uploadInputBox"),{
-		sUrl  : 'http://localhost:8080/board/image',	//샘플 URL입니다.
+		sUrl  : '/board/image',	//샘플 URL입니다.
 		sCallback : 'callback.html',	//업로드 이후에 iframe이 redirect될 콜백페이지의 주소
 		sFiletype : "*.jpg;*.png;*.bmp;*.gif",						//허용할 파일의 형식. ex) "*", "*.*", "*.jpg", 구분자(;)
 		sMsgNotAllowedExt : 'JPG, GIF, PNG, BMP 확장자만 가능합니다',	//허용할 파일의 형식이 아닌경우에 띄워주는 경고창의 문구
@@ -469,7 +469,7 @@ function callFileUploader (){
 // 	    		}
 //  				선택된 파일의 형식이 허용되는 경우만 처리
 			if(oCustomEvent.bAllowed === true){
-				goStartMode();
+				// goStartMode();
 			}else{
 				goReadyMode();
 				oFileUploader.reset();
@@ -484,14 +484,13 @@ function callFileUploader (){
 			// oCustomEvent(이벤트 객체) = {
 			//	htResult (Object) 서버에서 전달해주는 결과 객체 (서버 설정에 따라 유동적으로 선택가능)
 			// }
-			let aResult = [];
-			aResult[0] = oCustomEvent.htResult;
-			alert(aResult[0]);
-			setPhotoToEditor(aResult);
-			//버튼 비활성화
-			goReadyMode();
-			oFileUploader.reset();
-			//window.close();
+			// let aResult = [];
+			// aResult[0] = oCustomEvent.htResult;
+			// setPhotoToEditor(aResult[0]);
+			// // //버튼 비활성화
+			// goReadyMode();
+			// oFileUploader.reset();
+			// window.close();
 		},
 		error : function(oCustomEvent) {
 			console.log("error");
@@ -553,16 +552,12 @@ window.onload = function(){
  * ]
  */
 function setPhotoToEditor(oFileInfo){
-	let url = oFileInfo;
-	opener.nhn.husky.PopUpManager.setCallback(window, 'SET_PHOTO', `<img src="${url}" alt="imageURL" />`);
-	console.log(oFileInfo);
-	// if (!!opener && !!opener.nhn && !!opener.nhn.husky && !!opener.nhn.husky.PopUpManager) {
-	// 	alert("2");
-	// 	//스마트 에디터 플러그인을 통해서 넣는 방법 (oFileInfo는 Array)
-	// 	opener.nhn.husky.PopUpManager.setCallback(window, 'SET_PHOTO', oFileInfo);
-	// 	//본문에 바로 tag를 넣는 방법 (oFileInfo는 String으로 <img src=....> )
-	// 	//opener.nhn.husky.PopUpManager.setCallback(window, 'PASTE_HTML', [oFileInfo]);
-	// }
+	if (!!opener && !!opener.nhn && !!opener.nhn.husky && !!opener.nhn.husky.PopUpManager) {
+		//스마트 에디터 플러그인을 통해서 넣는 방법 (oFileInfo는 Array)
+		opener.nhn.husky.PopUpManager.setCallback(window, 'SET_PHOTO', oFileInfo);
+		// opener.nhn.husky.PopUpManager.setCallback(window, 'SET_PHOTO', `<!--<img class="content_image" src="${oFileInfo}" alt="image" />-->`);
+		// 본문에 바로 tag를 넣는 방법 (oFileInfo는 String으로 <img src=....> )
+	}
 }
 
 // 2012.05 현재] jindo.$Ajax.prototype.request에서 file과 form을 지원하지 안함.
@@ -678,6 +673,8 @@ function imageURL() {
 	let files = document.getElementById("uploadInputBox");
 	let formData = new FormData();
 
+	let imageRealUrl;
+
 	let xhttp = new XMLHttpRequest();
 	const url = "http://localhost:8080";
 
@@ -691,17 +688,16 @@ function imageURL() {
 		if (xhttp.status !== 200) {
 			console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
 		}
-		console.log(xhttp.responseText);
+		imageRealUrl = (JSON.parse(xhttp.responseText));
 	};
 
 	xhttp.send(formData);
-
-	return "/static/images/ed4731a9-1f00-4b21-9eb7-6e839c96b1c7_good.jpeg";
+	return imageRealUrl;
 }
 
 function btnConfirmClick() {
 	let imageRealUrl = imageURL();
-	setPhotoToEditor(imageRealUrl)
+	setPhotoToEditor(imageRealUrl);
 	oFileUploader.reset();
-	// window.close();
+	window.close();
 }

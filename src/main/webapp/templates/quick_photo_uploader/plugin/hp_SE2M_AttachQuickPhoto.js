@@ -5,9 +5,8 @@
  * @ 팝업 마크업은 SimplePhotoUpload.html과 SimplePhotoUpload_html5.html이 있습니다. 
  */
 
-nhn.husky.SE2M_AttachQuickPhoto = jindo.$Class({		
+nhn.husky.SE2M_AttachQuickPhoto = jindo.$Class({
 	name : "SE2M_AttachQuickPhoto",
-
 	$init : function(){},
 	
 	$ON_MSG_APP_READY : function(){
@@ -55,36 +54,31 @@ nhn.husky.SE2M_AttachQuickPhoto = jindo.$Class({
 	 * 팝업에서 호출되는 메세지.
 	 */
 	$ON_SET_PHOTO : function(aPhotoData){
-		var sContents, 
-			aPhotoInfo,
-			htData;
-		
-		if( !aPhotoData ){ 
-			return; 
-		}
-		
-		try{
-			sContents = "";
-			for(var i = 0; i <aPhotoData.length; i++){				
-				htData = aPhotoData[i];
-				
-				if(!htData.sAlign){
-					htData.sAlign = "";
-				}
-				
-				aPhotoInfo = {
-				    sName : htData.sFileName || "",
-				    sOriginalImageURL : htData.sFileURL,
-					bNewLine : htData.bNewLine || false 
-				};
-				
-				sContents += this._getPhotoTag(aPhotoInfo);
+		if(imageTagCnt === 0 ) {
+			var sContents,
+				aPhotoInfo,
+				htData;
+
+			if (!aPhotoData) {
+				return;
 			}
 
-			this.oApp.exec("PASTE_HTML", [sContents]); // 위즐 첨부 파일 부분 확인
-		}catch(e){
-			// upload시 error발생에 대해서 skip함
-			return false;
+			try {
+				sContents = "";
+
+				aPhotoInfo = {
+					sOriginalImageURL: aPhotoData,
+				};
+				sContents += this._getPhotoTag(aPhotoInfo);
+
+				this.oApp.exec("PASTE_HTML", [sContents]); // 위즐 첨부 파일 부분 확인
+				++imageTagCnt;
+			} catch (e) {
+				// upload시 error발생에 대해서 skip함
+				return false;
+			}
+		}else {
+			imageTagCnt = 0;
 		}
 	},
 
@@ -92,13 +86,12 @@ nhn.husky.SE2M_AttachQuickPhoto = jindo.$Class({
 	 * @use 일반 포토 tag 생성
 	 */
 	_getPhotoTag : function(htPhotoInfo){
-		// id와 class는 썸네일과 연관이 많습니다. 수정시 썸네일 영역도 Test
-		var sTag = '<img src="{=sOriginalImageURL}" title="{=sName}" alt="image" >';
-		if(htPhotoInfo.bNewLine){
-			sTag += '<br style="clear:both;">';
-		}
-		sTag = jindo.$Template(sTag).process(htPhotoInfo);
-		
+			// id와 class는 썸네일과 연관이 많습니다. 수정시 썸네일 영역도 Test
+			var sTag = `<img id="mybtn" class="image" src="{=sOriginalImageURL}" alt="image" >`;
+			if(htPhotoInfo.bNewLine){
+				sTag += '<br style="clear:both;">';
+			}
+			sTag = jindo.$Template(sTag).process(htPhotoInfo);
 		return sTag;
 	}
 });

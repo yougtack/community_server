@@ -328,10 +328,10 @@ let cnt = 0;
             '<div style="margin: 10px 0 0 0;">' +
                 `<span>` +
                     `<img 
-                            class="community_profile user_cursor" 
-                            src="${community.user.file_path}" 
-                            alt="Image" 
-                            onclick="location.href='userInfo.html?userId=${community.data.userId}'" 
+                        class="community_profile user_cursor" 
+                        src="${community.data.file_path}" 
+                        alt="Image" 
+                        onclick="location.href='userInfo.html?userId=${community.data.userId}'" 
                      />` +
                 `</span>` +
                 '<div style="display: inline-block;">' +
@@ -374,6 +374,7 @@ let cnt = 0;
                 `</div>` +
             '</div>' +
         '</div>';
+    console.log(community.data);
     if (community.image.length > 0) {
         real_div +=
             `<div style="text-align: right; margin: 10px 0 0 0; cursor: pointer;" onclick="download()">` +
@@ -409,8 +410,7 @@ let cnt = 0;
         real_div +=
             `<img 
                 id="myBtn" 
-                class="modal_collections" 
-                style="visibility: hidden;" 
+                class="modal_collections"                
                 src="../static/collections.png" 
                 alt="collections_icon"
              />`;
@@ -421,7 +421,6 @@ let cnt = 0;
             `<pre class="content">${community.data.b_content}</pre>` +
         '</div>';
 
-    if (community.image.length > 0) {
         let imgOne = 0;
 
         real_div +=
@@ -455,7 +454,6 @@ let cnt = 0;
                          />` +
                     `</div>` +
                 `</div>`;
-    }
 
     document.write(real_div);
 })();

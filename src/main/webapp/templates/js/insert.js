@@ -23,12 +23,6 @@ nhn.husky.EZCreator.createInIFrame({
     fCreator: "createSEditor2"
 });
 
-// function pasteHTML(filepath) {
-//     console.log(filepath);
-//     let sHTML = `<img src="${filepath}">`;
-//     oEditors.getById["textAreaContent"].exec("PASTE_HTML", [sHTML]);
-// }
-
 function insert(title, content) {
     let xhttp = new XMLHttpRequest();
     const url = "http://localhost:8080";

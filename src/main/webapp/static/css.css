@@ -606,3 +606,9 @@ section {
     width: 30px;
     height: 30px;
 }
+
+.image {
+    cursor: pointer;
+    width: 250px;
+    height: 250px;
+}
