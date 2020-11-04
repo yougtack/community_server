@@ -12,12 +12,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Array;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -102,11 +99,13 @@ public class BoardServiceImpl implements BoardService {
                 UUID uuid = UUID.randomUUID();
                 String root_path = request.getSession().getServletContext().getRealPath("/");
                 String attach_path = "static/images/";
-                String filename = uuid+"_"+filePart.getOriginalFilename();
+//                String filename = uuid+"_"+filePart.getOriginalFilename();
+                String exc = filePart.getOriginalFilename().substring(filePart.getOriginalFilename().lastIndexOf(".")+1);
 
-                File saveFile = new File(root_path+attach_path+filename);
+                File saveFile = new File(root_path+attach_path+uuid+"."+exc);
                 filePart.transferTo(saveFile);
-                path.add("/static/images/"+uuid+"_"+filePart.getOriginalFilename());
+                path.add("/static/images/"+uuid+"."+exc);
+
 //                result =  dao.uploadImage(b_id, uuid+"_"+filePart.getOriginalFilename(), "/static/images/"+uuid+"_"+filePart.getOriginalFilename());
             }
         }

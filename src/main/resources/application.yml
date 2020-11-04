@@ -15,3 +15,4 @@ spring:
 custom:
   path:
     upload_images: ./src/main/webapp/static/images
+
