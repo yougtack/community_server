@@ -65,15 +65,15 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public Integer update(ViewModel model, int b_id) {
         int result = 0;
-//        String patten1 = "<img id=\"mybtn\" class=\"image\" src=\"/static/images/";
-//        String patten2 = "<img id=\"mybtn\" class=\"image\"";
+        String patten1 = "<img id=\"mybtn\" width=\"200px;\" height=\"200px;\" class=\"image\" src=\"/static/images/";
+        String patten2 = "<img id=\"mybtn\" width=\"200px;\" height=\"200px;\" class=\"image\"";
 //        int count1 = dao.imageCount(b_id, patten2);
 //        String[] images_1 = new String[count1];
 //
 //        for(int i = 0; i<count1; i++) {
 //            images_1[i] = dao.getImagePath(b_id, patten1, patten2, i + 1);
-//            System.out.println("images_1:"+images_1[i]);
-//        }
+//            System.out.println(i+"번째 images_1:"+images_1[i]);
+//        }System.out.println();
 
         result = dao.update(model.getB_type(), model.getB_title(), model.getB_content(), b_id); //실제 업데이트 하는 곳
 //        int count2 = dao.imageCount(b_id, patten2);
@@ -81,30 +81,33 @@ public class BoardServiceImpl implements BoardService {
 //        String[] images_2 = new String[count2];
 //        for(int i = 0; i<count2; i++) {
 //            images_2[i] = dao.getImagePath(b_id, patten1, patten2, i + 1);
-//            System.out.println("images_2:"+images_2[i]);
-//        }
+//            System.out.println(i+"번째 images_2:"+images_2[i]);
+//        }System.out.println();
 //-----------------------
-        //count1 = 업데이트 전에 사진 갯수
-        //count2 = 업데이트 후에 사진 갯수
+//        String[] images_3 = new String[count2];
+//        //count1 = 업데이트 전에 사진 갯수
+//        //count2 = 업데이트 후에 사진 갯수
 //        if(count1 > count2){
+//            for(int i=0;i<count1; i++){
+//                for(int j=0; j<count2; j++){
+//                    if(images_1[i].equals(images_2[j])){
+//                        images_3[i] = images_1[i];
+//                    }
+//                }
+//            }
 //        }else if(count1 == count2){
 //        }else {
 //        }
 
 
-//        for(int i=0;i<count; i++){
-//            if(!images_1[i].equals(images_2[i])){
-//                System.out.println(i+"번째가 다르네용");
-//            }
-//        }
         return result;
     }
 
     @Transactional
     @Override
     public Integer delete(int b_id, HttpServletRequest request) {
-        String patten1 = "<img id=\"mybtn\" class=\"image\" src=\"/static/images/";
-        String patten2 = "<img id=\"mybtn\" class=\"image\"";
+        String patten1 = "<img id=\"mybtn\" width=\"200px;\" height=\"200px;\" class=\"image\" src=\"/static/images/";
+        String patten2 = "<img id=\"mybtn\" width=\"200px;\" height=\"200px;\" class=\"image\"";
         int count = dao.imageCount(b_id, patten2);
         System.out.println(count);
         for(int i = 0; i<count; i++){
@@ -211,8 +214,8 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public String getImagePath(int b_id) throws IOException{
         ArrayList<String> path = new ArrayList<>();
-        String patten1 = "<img id=\"mybtn\" class=\"image\" src=\"/static/images/";
-        String patten2 = "<img id=\"mybtn\" class=\"image\"";
+        String patten1 = "<img id=\"mybtn\" width=\"200px;\" height=\"200px;\" class=\"image\" src=\"/static/images/";
+        String patten2 = "<img id=\"mybtn\" width=\"200px;\" height=\"200px;\" class=\"image\"";
         int count = dao.imageCount(b_id, patten2);
         System.out.println(count);
         for(int i = 0; i<count; i++) {
