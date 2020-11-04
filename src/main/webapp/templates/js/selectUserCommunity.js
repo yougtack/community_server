@@ -256,7 +256,7 @@ function secondBox(c_id){
 (function image() {
     let xhttp = new XMLHttpRequest();
     const URL = "http://localhost:8080";
-    xhttp.open("GET", URL + `/board/image/${B_ID}`, false);
+    xhttp.open("GET", URL + `/board/imagePath/${B_ID}`, false);
 
     xhttp.onreadystatechange = () => {
         if (xhttp.status !== 200) {
@@ -432,12 +432,12 @@ let cnt = 0;
             if(img_one !== 0) {
                 real_div +=
                     `<span class="imgDiv" style="display: none;">` +
-                        `<img class="content_image" src="${index.file_path}" alt="Image"/>` +
+                        `<img class="content_image" src="${index}" alt="Image"/>` +
                     '</span>';
             }else {
                 real_div +=
                     `<span class="imgDiv">` +
-                        `<img class="content_image" src="${index.file_path}" alt="Image"/>` +
+                        `<img class="content_image" src="${index}" alt="Image"/>` +
                     '</span>';
             }
             ++img_one;
