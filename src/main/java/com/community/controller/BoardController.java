@@ -161,4 +161,10 @@ public class BoardController {
         }
         return boardService.deleteImage(imageModel, request);
     }
+
+    @GetMapping(value = "/test/{b_id}")
+    public void Test(@PathVariable int b_id){
+        String tmp = boardService.test(b_id);
+        System.out.println("tmp:"+tmp);
+    }
 }
