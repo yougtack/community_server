@@ -374,7 +374,6 @@ let cnt = 0;
                 `</div>` +
             '</div>' +
         '</div>';
-    console.log(community.data);
     if (community.image.length > 0) {
         real_div +=
             `<div style="text-align: right; margin: 10px 0 0 0; cursor: pointer;" onclick="download()">` +
