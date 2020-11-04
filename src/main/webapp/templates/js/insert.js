@@ -49,32 +49,8 @@ function insert(title, content) {
     xhttp.send(JSON.stringify(data));
 }
 
-function imgInsert() {
-    const img = document.getElementById("files");
-    let files = img;
-    let formData = new FormData();
-
-    let xhttp = new XMLHttpRequest();
-    const url = "http://localhost:8080";
-
-    for (let value of files.files){
-        formData.append('Files', value);
-    }
-
-    xhttp.open("POST", url + `/board/upload`, false);
-
-    xhttp.onreadystatechange = () => {
-        if (xhttp.status !== 200) {
-            console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
-        }
-    };
-
-    xhttp.send(formData);
-}
-
 function valueCheck() {
-    const title = document.getElementById("title"),
-        files = document.getElementById("files").value;
+    const title = document.getElementById("title");
 
     oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
     const content = document.getElementById("ir1").value;
@@ -94,8 +70,4 @@ function valueCheck() {
     }
 
     insert(title,content);
-
-    if (files !== "") {
-        imgInsert();
-    }
 }
