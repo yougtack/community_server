@@ -1,86 +1,86 @@
-const userInfoProfile = {
+const USER_INFO_PROFILE = {
     boardData : [],
     commentDate : []
 }
 
-const userId = location.search.substr(location.search.indexOf("=") + 1);
+const USER_ID = location.search.substr(location.search.indexOf("=") + 1);
 
 (function myBoardInit() {
     let xhttp = new XMLHttpRequest();
-    const url = "http://localhost:8080";
+    const URL = "http://localhost:8080";
 
-    xhttp.open("GET", url + `/board/myBoardList/${userId}`, false);
+    xhttp.open("GET", URL + `/board/myBoardList/${USER_ID}`, false);
 
     xhttp.onreadystatechange = () => {
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
         }
 
-        userInfoProfile.boardData = JSON.parse(xhttp.responseText);
+        USER_INFO_PROFILE.boardData = JSON.parse(xhttp.responseText);
     };
 
     xhttp.send();
 })();
 
 function timeForToday(value) {
-    const today = new Date();
-    const timeValue = new Date(value);
+    const TODAY = new Date();
+    const TIME_VALUE = new Date(value);
 
     // Math.floor는 소수점 이하를 버림.
-    const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
-    if (betweenTime < 1) {
+    const BETWEEN_TIME = Math.floor((TODAY.getTime() - TIME_VALUE.getTime()) / 1000 / 60);
+    if (BETWEEN_TIME < 1) {
         return '방금전';
     }
-    if (betweenTime < 60) {
-        return `${betweenTime}분전`;
+    if (BETWEEN_TIME < 60) {
+        return `${BETWEEN_TIME}분전`;
     }
 
-    const betweenTimeHour = Math.floor(betweenTime / 60);
-    if (betweenTimeHour < 24) {
-        return `${betweenTimeHour}시간전`;
+    const BETWEEN_TIME_HOUR = Math.floor(BETWEEN_TIME / 60);
+    if (BETWEEN_TIME_HOUR < 24) {
+        return `${BETWEEN_TIME_HOUR}시간전`;
     }
 
-    const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
-    if (betweenTimeDay < 365) {
-        return `${betweenTimeDay}일전`;
+    const BETWEEN_TIME_DAY = Math.floor(BETWEEN_TIME / 60 / 24);
+    if (BETWEEN_TIME_DAY < 365) {
+        return `${BETWEEN_TIME_DAY}일전`;
     }
 
-    return `${Math.floor(betweenTimeDay / 365)}년전`;
+    return `${Math.floor(BETWEEN_TIME_DAY / 365)}년전`;
 }
 
 (function myCommentInit(){
     let xhttp = new XMLHttpRequest();
-    const url = "http://localhost:8080";
+    const URL = "http://localhost:8080";
 
-    xhttp.open("GET", url + `/board/myCommentBoards/${userId}`, false);
+    xhttp.open("GET", URL + `/board/myCommentBoards/${USER_ID}`, false);
 
     xhttp.onreadystatechange = () => {
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
         }
 
-        userInfoProfile.commentData = JSON.parse(xhttp.responseText);
+        USER_INFO_PROFILE.commentData = JSON.parse(xhttp.responseText);
     };
 
     xhttp.send();
 })();
 
 (function info() {
-    const user_profile = document.getElementById("user_profile_view");
+    const USER_PROFILE = document.getElementById("user_profile_view");
 
     for (let profile of userInfo.data) {
-        if(profile.userId === userId) {
-            user_profile.innerHTML =
+        if(profile.userId === USER_ID) {
+            USER_PROFILE.innerHTML =
                 `<img style="width: 150px; height: 150px; border-radius: 80px; border:1px solid #ddd;"
                         src="${profile.file_path}" alt="profile" />`;
         }
     }
 
-    const user_info_userId = document.querySelector(".user_info_userId");
-    user_info_userId.innerText = userId;
+    const USER_INFO_USERID = document.querySelector(".user_info_userId");
+    USER_INFO_USERID.innerText = USER_ID;
 
-    const community_count = document.getElementById("community_count");
-    const comment_count = document.getElementById("comment_count");
+    const COMMUNITY_COUNT = document.getElementById("community_count");
+    const COMMENT_COUNT = document.getElementById("comment_count");
 
     let count = 0;
 
@@ -89,7 +89,7 @@ function timeForToday(value) {
 
     board_div.innerHTML =
         '<p class="user_info_txt">작성한 게시글</p>';
-    for(let value of userInfoProfile.boardData) {
+    for(let value of USER_INFO_PROFILE.boardData) {
         let time = new Date(value.b_date);
         ++count;
         board_div.innerHTML +=
@@ -108,14 +108,14 @@ function timeForToday(value) {
                 '</div>' +
             '</div>';
     }
-    community_count.innerText = count;
+    COMMUNITY_COUNT.innerText = count;
 
     comment_div.innerHTML =
         '<p class="user_info_txt">작성한 댓글</p>';
     count = 0;
-    for(let value of userInfoProfile.commentData) {
+    for(let value of USER_INFO_PROFILE.commentData) {
         ++count;
-            const time = new Date(value.b_date);
+            let time = new Date(value.b_date);
             comment_div.innerHTML +=
                 `<div class="index_box">` +
                     '<div class="index_item">' +
@@ -136,5 +136,5 @@ function timeForToday(value) {
                 '</div>';
         }
 
-    comment_count.innerText = count;
+    COMMENT_COUNT.innerText = count;
 })();

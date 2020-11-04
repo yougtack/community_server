@@ -1,14 +1,14 @@
-const community = {
+const COMMUNITY = {
     data: []
 };
 
-const c_id = location.search.substr(6, 2).split("&");
-const b_id = location.search.substr(location.search.indexOf("b_id=") + 5);
-const userId = document.cookie.substr(7,);
+const C_ID = location.search.substr(6, 2).split("&");
+const B_ID = location.search.substr(location.search.indexOf("b_id=") + 5);
+const USER_ID = document.cookie.substr(7,);
 
 function commentModify() {
     let xhttp = new XMLHttpRequest();
-    const url = "http://localhost:8080";
+    const URL = "http://localhost:8080";
 
     if (confirm("댓글을 수정합니다.")) {
         if (document.getElementById("c_content").value.trim().length <= 0) {
@@ -20,44 +20,44 @@ function commentModify() {
             document.getElementById("c_content").focus();
             return false;
         }
-        const modifyData = {
-            c_id: c_id[0],
+        const MODIFY_DATA = {
+            c_id: C_ID[0],
             c_content: document.getElementById("c_content").value,
-            userId: userId
+            userId: USER_ID
         };
 
-        xhttp.open("PUT", url + `/comment`, false);
+        xhttp.open("PUT", URL + `/comment`, false);
 
         xhttp.onreadystatechange = () => {
             if (xhttp.status !== 200) {
                 console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
                 alert("댓글 수정중 오류가 발생했습니다. 다시 시도해주세요.");
             } else {
-                location.href = `userCommunity.html?b_id=${b_id}`;
+                location.href = `userCommunity.html?b_id=${B_ID}`;
             }
         };
 
         xhttp.setRequestHeader("Content-Type", "application/json");
-        xhttp.send(JSON.stringify(modifyData));
+        xhttp.send(JSON.stringify(MODIFY_DATA));
     }
 }
 
 function cancel() {
-    location.href = `userCommunity.html?b_id=${b_id}`;
+    location.href = `userCommunity.html?b_id=${B_ID}`;
 }
 
 (function init() {
     let xhttp = new XMLHttpRequest();
-    const url = "http://localhost:8080";
+    const URL = "http://localhost:8080";
 
-    xhttp.open("GET", url + `/board/view/${b_id}`, false);
+    xhttp.open("GET", URL + `/board/view/${B_ID}`, false);
 
     xhttp.onreadystatechange = () => {
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
         }
 
-        community.data = JSON.parse(xhttp.responseText);
+        COMMUNITY.data = JSON.parse(xhttp.responseText);
     };
 
     xhttp.send();
@@ -66,9 +66,9 @@ function cancel() {
 (function commentValue() {
     let c_comment;
 
-    for (let index of community.data.comments) {
+    for (let index of COMMUNITY.data.comments) {
         let value_id = "" + index.c_id;
-        if (c_id[0] === value_id) {
+        if (C_ID[0] === value_id) {
             c_comment = index.c_content;
             break;
         }

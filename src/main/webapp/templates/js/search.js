@@ -1,30 +1,30 @@
-const searchList = {
+const SEARCH_LIST = {
     data: []
 };
 
-const word = location.search.substr(location.search.indexOf("=") + 1);
+const WORD = location.search.substr(location.search.indexOf("=") + 1);
 
 (function init() {
     let xhttp = new XMLHttpRequest();
-    const url = "http://localhost:8080";
+    const URL = "http://localhost:8080";
 
-    xhttp.open("GET", url + `/board/search/${word}`, false);
+    xhttp.open("GET", URL + `/board/search/${WORD}`, false);
 
     xhttp.onreadystatechange = () => {
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
         }
 
-        const array = JSON.parse(xhttp.responseText);
+        const ARRAY = JSON.parse(xhttp.responseText);
 
-        for (let index of array) {
-            searchList.data = array;
+        for (let index of ARRAY) {
+            SEARCH_LIST.data = ARRAY;
         }
     };
 
     xhttp.send();
 
-    document.getElementById("search_word").value = decodeURI(word);
+    document.getElementById("search_word").value = decodeURI(WORD);
 })();
 
 function searchEnter() {
@@ -34,21 +34,21 @@ function searchEnter() {
 }
 
 (function printCommunity() {
-    const txt = document.querySelector(".txt");
+    const TXT = document.querySelector(".txt");
     let real_body = '';
 
-    txt.innerText = "검색결과";
-    txt.innerHTML +=
+    TXT.innerText = "검색결과";
+    TXT.innerHTML +=
         '<a href="../templates/insert.html" style="margin-left: 80%;">' +
             '<img src="../static/edit.png" alt="HomeIcon" />' +
         '</a>';
 
-    if(searchList.data.length === 0) {
+    if(SEARCH_LIST.data.length === 0) {
         real_body =
             "<div style='margin-top: 20px;'>검색하신 내용이 존재하지 않습니다.</div>";
         document.write(real_body);
     }else {
-        for (let index of searchList.data) {
+        for (let index of SEARCH_LIST.data) {
             const time = new Date(index.b_date * 1000);
                 real_body +=
                     `<div class="index_box">` +

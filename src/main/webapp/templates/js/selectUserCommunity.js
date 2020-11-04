@@ -1,39 +1,39 @@
-const community = {
+const COMMUNITY = {
     data: [],
     image: [],
     user:[]
 };
 
-const b_id = location.search.substr(location.search.indexOf("=") + 1);
-const userId = document.cookie.substr(7,);
+const B_ID = location.search.substr(location.search.indexOf("=") + 1);
+const USER_ID = document.cookie.substr(7,);
 
 (function userId() {
     if(userCookie !== "") {
         let xhttp = new XMLHttpRequest();
-        const url = "http://localhost:8080";
+        const URL = "http://localhost:8080";
 
-        const data = {
+        const DATA = {
             encode: userCookie
         }
 
-        xhttp.open("POST", url + `/member/userInfo`, false);
+        xhttp.open("POST", URL + `/member/userInfo`, false);
 
         xhttp.onreadystatechange = () => {
             if (xhttp.status !== 200) {
                 console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
             }
-            community.user  = JSON.parse(xhttp.responseText);
+            COMMUNITY.user  = JSON.parse(xhttp.responseText);
         };
 
         xhttp.setRequestHeader("Content-Type", "application/json");
-        xhttp.send(JSON.stringify(data));
+        xhttp.send(JSON.stringify(DATA));
     }
 })();
 
 function imageDownload(i_id) {
-    const url = "http://localhost:8080";
+    const URL = "http://localhost:8080";
 
-    location.href = url + `/board/download/${i_id}`;
+    location.href = URL + `/board/download/${i_id}`;
 }
 
 function commentInsert() {
@@ -48,39 +48,39 @@ function commentInsert() {
     }
 
     let xhttp = new XMLHttpRequest();
-    const url = "http://localhost:8080";
+    const URL = "http://localhost:8080";
 
-    const commentData = {
-        userId: userId,
-        b_id: b_id,
+    const COMMENT_DATA = {
+        userId: USER_ID,
+        b_id: B_ID,
         c_content: document.getElementById("c_content").value
     };
 
-    xhttp.open("POST", url + `/comment`, false);
+    xhttp.open("POST", URL + `/comment`, false);
 
     xhttp.onreadystatechange = () => {
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
             alert("댓글 작성 중 오류가 발생했습니다. 다시 시도해주세요.");
         } else {
-            location.href = `userCommunity.html?b_id=${b_id}`;
+            location.href = `userCommunity.html?b_id=${B_ID}`;
         }
     };
 
     xhttp.setRequestHeader("Content-Type", "application/json");
-    xhttp.send(JSON.stringify(commentData));
+    xhttp.send(JSON.stringify(COMMENT_DATA));
 }
 
 function communityDelete() {
     if (confirm("해당 게시글을 삭제하시겠습니까?")) {
         let xhttp = new XMLHttpRequest();
-        const url = "http://localhost:8080";
-        const deleteData = {
-            userId: userId,
-            b_id: community.data.b_id
+        const URL = "http://localhost:8080";
+        const DELETE_DATA = {
+            userId: USER_ID,
+            b_id: COMMUNITY.data.b_id
         };
 
-        xhttp.open("DELETE", url + `/board/community/${b_id}`, false);
+        xhttp.open("DELETE", URL + `/board/community/${B_ID}`, false);
 
         xhttp.onreadystatechange = () => {
             if (xhttp.status !== 200) {
@@ -93,20 +93,20 @@ function communityDelete() {
         };
 
         xhttp.setRequestHeader("Content-Type", "application/json");
-        xhttp.send(JSON.stringify(deleteData));
+        xhttp.send(JSON.stringify(DELETE_DATA));
     }
 }
 
 function secondDelete(c_id) {
     if (confirm("해당 댓글을 삭제하시겠습니까?")) {
         let xhttp = new XMLHttpRequest();
-        const url = "http://localhost:8080";
-        const deleteData = {
+        const URL = "http://localhost:8080";
+        const DELETE_DATA = {
             c_id: c_id,
-            userId: userId
+            userId: USER_ID
         };
 
-        xhttp.open("DELETE", url + `/comment/${c_id}`, false);
+        xhttp.open("DELETE", URL + `/comment/${c_id}`, false);
 
         xhttp.onreadystatechange = () => {
             if (xhttp.status !== 200) {
@@ -114,25 +114,25 @@ function secondDelete(c_id) {
                 alert("대댓글 삭제 중 오류가 발생했습니다. 다시 시도해주세요.");
             } else {
                 alert("삭제하였습니다.");
-                location.href = `userCommunity.html?b_id=${b_id}`;
+                location.href = `userCommunity.html?b_id=${B_ID}`;
             }
         };
 
         xhttp.setRequestHeader("Content-Type", "application/json");
-        xhttp.send(JSON.stringify(deleteData));
+        xhttp.send(JSON.stringify(DELETE_DATA));
     }
 }
 
 function commentDelete(c_id) {
     if (confirm("해당 댓글을 삭제하시겠습니까?")) {
         let xhttp = new XMLHttpRequest();
-        const url = "http://localhost:8080";
-        const deleteData = {
+        const URL = "http://localhost:8080";
+        const DELETE_DATA = {
             c_id: c_id,
-            userId: userId
+            userId: USER_ID
         };
 
-        xhttp.open("DELETE", url + `/comment/${deleteData.c_id}`, false);
+        xhttp.open("DELETE", URL + `/comment/${DELETE_DATA.c_id}`, false);
 
         xhttp.onreadystatechange = () => {
             if (xhttp.status !== 200) {
@@ -140,11 +140,11 @@ function commentDelete(c_id) {
                 alert("댓글 삭제 중 오류가 발생했습니다. 다시 시도해주세요.");
             } else {
                 alert("삭제하였습니다.");
-                location.href = `userCommunity.html?b_id=${b_id}`;
+                location.href = `userCommunity.html?b_id=${B_ID}`;
             }
         };
         xhttp.setRequestHeader("Content-Type", "application/json");
-        xhttp.send(JSON.stringify(deleteData));
+        xhttp.send(JSON.stringify(DELETE_DATA));
     }
 }
 
@@ -152,14 +152,14 @@ function secondInsert(c_id) {
 
     // 대댓글 limit
     let limit;
-    for(let value of community.data.comments){
+    for(let value of COMMUNITY.data.comments){
         if (value.c_id === c_id){
             limit = value;
         }
     }
     if (limit.depth === 5){
         alert("대댓글은 최대 5번까지 가능합니다.");
-        location.href = `userCommunity.html?b_id=${b_id}`;
+        location.href = `userCommunity.html?b_id=${B_ID}`;
         return false;
     }
 
@@ -174,17 +174,17 @@ function secondInsert(c_id) {
     }
     let commentInfo;
 
-    for(let value of community.data.comments){
+    for(let value of COMMUNITY.data.comments){
         if (value.c_id === c_id){
             commentInfo = value;
         }
     }
 
     let xhttp = new XMLHttpRequest();
-    const url = "http://localhost:8080";
-    const secondData = {
-        b_id: b_id,
-        userId: userId,
+    const URL = "http://localhost:8080";
+    const SECOND_DATA = {
+        b_id: B_ID,
+        userId: USER_ID,
         c_content: document.getElementById(`second_content_${c_id}`).value,
         group_id : commentInfo.group_id,
         parent_reply_id: c_id,
@@ -192,19 +192,19 @@ function secondInsert(c_id) {
         order_no : commentInfo.order_no
     };
 
-    xhttp.open("POST", url + `/comment/second`, false);
+    xhttp.open("POST", URL + `/comment/second`, false);
 
     xhttp.onreadystatechange = () => {
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
             alert("대댓글 작성 중 오류가 발생했습니다. 다시 시도해주세요.");
         } else{
-            location.href = `userCommunity.html?b_id=${b_id}`;
+            location.href = `userCommunity.html?b_id=${B_ID}`;
         }
     };
 
     xhttp.setRequestHeader("Content-Type", "application/json");
-    xhttp.send(JSON.stringify(secondData));
+    xhttp.send(JSON.stringify(SECOND_DATA));
 }
 
 function secondEnter(c_id) {
@@ -238,16 +238,16 @@ function secondBox(c_id){
 
 (function init() {
     let xhttp = new XMLHttpRequest();
-    const url = "http://localhost:8080";
+    const URL = "http://localhost:8080";
 
-    xhttp.open("GET", url + `/board/view/${b_id}`, false);
+    xhttp.open("GET", URL + `/board/view/${B_ID}`, false);
 
     xhttp.onreadystatechange = () => {
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
         }
 
-        community.data = JSON.parse(xhttp.responseText);
+        COMMUNITY.data = JSON.parse(xhttp.responseText);
     };
 
     xhttp.send();
@@ -255,14 +255,14 @@ function secondBox(c_id){
 
 (function image() {
     let xhttp = new XMLHttpRequest();
-    const url = "http://localhost:8080";
-    xhttp.open("GET", url + `/board/image/${b_id}`, false);
+    const URL = "http://localhost:8080";
+    xhttp.open("GET", URL + `/board/image/${B_ID}`, false);
 
     xhttp.onreadystatechange = () => {
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
         }
-        community.image = JSON.parse(xhttp.responseText);
+        COMMUNITY.image = JSON.parse(xhttp.responseText);
     };
 
     xhttp.send();
@@ -295,28 +295,28 @@ function infoBox() {
 let cnt = 0;
 
 (function printCommunity() {
-    const txt = document.querySelector(".txt");
-    const time = new Date(community.data.b_date);
+    const TXT = document.querySelector(".txt");
+    const TIME = new Date(COMMUNITY.data.b_date);
 
-    for (let c_cnt of community.data.comments) {
+    for (let c_cnt of COMMUNITY.data.comments) {
         ++cnt
     }
 
 
     /* 본문  */
-    if (community.data.b_type === "1") {
-        txt.innerText = "자유게시판";
-    } else if (community.data.b_type === "2") {
-        txt.innerText = "게임게시판";
-    } else if (community.data.b_type === "3") {
-        txt.innerText = "음식게시판";
+    if (COMMUNITY.data.b_type === "1") {
+        TXT.innerText = "자유게시판";
+    } else if (COMMUNITY.data.b_type === "2") {
+        TXT.innerText = "게임게시판";
+    } else if (COMMUNITY.data.b_type === "3") {
+        TXT.innerText = "음식게시판";
     } else {
-        txt.innerText = "코딩게시판";
+        TXT.innerText = "코딩게시판";
     }
     //<input type="button" value="목록" class="list_btn" />
-    txt.innerHTML +=
+    TXT.innerHTML +=
         `<div style="text-align: right;">` +
-            `<a href="community.html?b_type=${community.data.b_type}">` +
+            `<a href="community.html?b_type=${COMMUNITY.data.b_type}">` +
                 `<img src="../static/list.png" alt="IMG" />` +
             `</a>` +
         `</div>`;
@@ -329,23 +329,23 @@ let cnt = 0;
                 `<span>` +
                     `<img 
                         class="community_profile user_cursor" 
-                        src="${community.data.file_path}" 
+                        src="${COMMUNITY.data.file_path}" 
                         alt="Image" 
-                        onclick="location.href='userInfo.html?userId=${community.data.userId}'" 
+                        onclick="location.href='userInfo.html?userId=${COMMUNITY.data.userId}'" 
                      />` +
                 `</span>` +
                 '<div style="display: inline-block;">' +
                     `<span 
                         class="userId user_cursor" 
-                        onclick="location.href='userInfo.html?userId=${community.data.userId}'"
-                     >${community.data.userId}
+                        onclick="location.href='userInfo.html?userId=${COMMUNITY.data.userId}'"
+                     >${COMMUNITY.data.userId}
                      </span>` +
                     `<br>` +
                     `<span class="info">` +
-                        `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
-                        `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
-                        `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
-                        `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()} ` +
+                        `${TIME.getFullYear()}-${TIME.getMonth() + 1}-${TIME.getDate()} ` +
+                        `${TIME.getHours() < 10 ? `0${TIME.getHours()}` : TIME.getHours()}:` +
+                        `${TIME.getMinutes() < 10 ? `0${TIME.getMinutes()}` : TIME.getMinutes()}:` +
+                        `${TIME.getSeconds() < 10 ? `0${TIME.getSeconds()}` : TIME.getSeconds()} ` +
                     `</span>` +
                     `<span class="info">` +
                         `<img class="index_img_size" src="../static/comment.png" alt="eyeIcon" />${cnt} `+
@@ -355,18 +355,18 @@ let cnt = 0;
                             class="index_img_size"
                             src="../static/eye.png"
                             alt="eyeIcon"
-                             />${community.data.b_count}` +
+                             />${COMMUNITY.data.b_count}` +
                     `</span>` +
                 '</div>' +
                 `<span onclick="infoBox()">` +
                     `<img src="../static/more_vert.png" class="icon" alt="img" style="cursor: pointer;" />` +
                 `</span>` +
                 '<div class="community_info_box" style="float: right;">' +
-                    `<a href="boardComment.html?b_id=${b_id}" class="comment_box_info_box_size">답글</a>`;
-    if (community.user.userId  === community.data.userId) {
+                    `<a href="boardComment.html?b_id=${B_ID}" class="comment_box_info_box_size">답글</a>`;
+    if (COMMUNITY.user.userId  === COMMUNITY.data.userId) {
         real_div +=
                     `<div class="comment_box_info_box_size">` +
-                        `<a href="modify.html?b_id=${b_id}">수정</a>` +
+                        `<a href="modify.html?b_id=${B_ID}">수정</a>` +
                     `</div>` +
                     `<div class="comment_box_info_box_size" onclick="communityDelete()">삭제</div>`;
     }
@@ -374,17 +374,17 @@ let cnt = 0;
                 `</div>` +
             '</div>' +
         '</div>';
-    if (community.image.length > 0) {
+    if (COMMUNITY.image.length > 0) {
         real_div +=
             `<div style="text-align: right; margin: 10px 0 0 0; cursor: pointer;" onclick="download()">` +
                 `<img 
                     src="../static/folder.png" 
                     alt="folder" 
                     style="width: 20px; height: 20px;"
-                 />첨부파일[${community.image.length}]` +
+                 />첨부파일[${COMMUNITY.image.length}]` +
             `</div>` +
             '<div class="download_box">';
-        for (let index of community.image) {
+        for (let index of COMMUNITY.image) {
             real_div +=
                 `<div><p class="download_image_name">${index.file_name} </p>`+
                     `<img 
@@ -400,27 +400,27 @@ let cnt = 0;
     }
     real_div +=
         '<div class="div_border">' +
-            `<p class="b_id_size" style="margin: 10px 0 0 25px; color: #999">#${community.data.b_id}</p>` +
-            `<p class="title">${community.data.b_title}`;
-    // if (community.image.length > 0) {
-    //     real_div +=
-    //         `<img id="myBtn" class="modal_collections" src="../static/collections.png" alt="collections_icon"/>`;
-    // } else {
-    //     real_div +=
-    //         `<img
-    //             id="myBtn"
-    //             class="modal_collections"
-    //             src="../static/collections.png"
-    //             alt="collections_icon"
-    //          />`;
-    // }
+            `<p class="b_id_size" style="margin: 10px 0 0 25px; color: #999">#${COMMUNITY.data.b_id}</p>` +
+            `<p class="title">${COMMUNITY.data.b_title}`;
+    if (COMMUNITY.image.length > 0) {
+        real_div +=
+            `<img id="myBtn" class="modal_collections" src="../static/collections.png" alt="collections_icon"/>`;
+    } else {
+        real_div +=
+            `<img
+                id="myBtn"
+                class="modal_collections"
+                src="../static/collections.png"
+                alt="collections_icon"
+             />`;
+    }
     real_div +=
             `</p>` +
             '<hr style="width: 93%; border-color: #ddd">' +
-            `<pre class="content">${community.data.b_content}</pre>` +
+            `<pre class="content">${COMMUNITY.data.b_content}</pre>` +
         '</div>';
 
-        let imgOne = 0;
+        let img_one = 0;
 
         real_div +=
             `<div id="myModal" class="modal">` +
@@ -428,8 +428,8 @@ let cnt = 0;
                     `<span class="close">&times;</span>` +
                     `<img src="../static/left_arrow.png" alt="left_arrow" class="left_btn" onclick="leftBtn()"/>` +
                     `<div class="modal_img_div">` ;
-        for (let index of community.image) {
-            if(imgOne !== 0) {
+        for (let index of COMMUNITY.image) {
+            if(img_one !== 0) {
                 real_div +=
                     `<span class="imgDiv" style="display: none;">` +
                         `<img class="content_image" src="${index.file_path}" alt="Image"/>` +
@@ -440,7 +440,7 @@ let cnt = 0;
                         `<img class="content_image" src="${index.file_path}" alt="Image"/>` +
                     '</span>';
             }
-            ++imgOne;
+            ++img_one;
         }
                    real_div +=
                        `</div>` +
@@ -462,8 +462,8 @@ let cnt = 0;
         '<div class="div_border" style="margin: 30px 0 0 0;">' +
             `<div class="div_border comment_title" style="margin: 0 0 0 0;">댓글  ${cnt}</div>`;
     let hr_count = 0;
-    for (let value of community.data.comments) {
-        const time = new Date(value.c_date);
+    for (let value of COMMUNITY.data.comments) {
+        const TIME = new Date(value.c_date);
 
         // 답글일 때 제목 margin값 넣기
         if (value.depth > 0){
@@ -497,10 +497,10 @@ let cnt = 0;
                         '<br>';
             real_comment +=
                         `<span class="info">` +
-                            `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
-                            `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
-                            `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
-                            `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}`;
+                            `${TIME.getFullYear()}-${TIME.getMonth() + 1}-${TIME.getDate()} ` +
+                            `${TIME.getHours() < 10 ? `0${TIME.getHours()}` : TIME.getHours()}:` +
+                            `${TIME.getMinutes() < 10 ? `0${TIME.getMinutes()}` : TIME.getMinutes()}:` +
+                            `${TIME.getSeconds() < 10 ? `0${TIME.getSeconds()}` : TIME.getSeconds()}`;
             if(value.updateCheck > 0) {
                 real_comment +=
                     '<span class="update_check"> (수정됨)</span>';
@@ -508,7 +508,7 @@ let cnt = 0;
             real_comment +=
                         '</span>' +
                     '</div>';
-            if (community.user.userId === value.userId) {
+            if (COMMUNITY.user.userId === value.userId) {
                 real_comment +=
                     `<span>` +
                         `<img 
@@ -519,7 +519,7 @@ let cnt = 0;
                          />` +
                     `</span>` +
                     `<span>` +
-                        `<a href="commentModify.html?c_id=${value.c_id}&b_id=${b_id}">` +
+                        `<a href="commentModify.html?c_id=${value.c_id}&b_id=${B_ID}">` +
                             `<img class="icon" src="../static/edit.png" alt="modifyImg" />` +
                         `</a>` +
                     `</span>`;
@@ -554,7 +554,7 @@ let cnt = 0;
     /* 댓글 */
     real_comment +=
         '<div class="div_border" style="height: 130px;">';
-    if (userId !== "") {
+    if (USER_ID !== "") {
         real_comment +=
             `<p id="comment_length" class="comment_length"></p>` +
                 `<div style=" margin: 30px 0 0 100px;">` +

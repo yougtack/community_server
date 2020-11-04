@@ -1,13 +1,13 @@
-function deleteUser(deleteUserId) {
+function deleteUser(delete_user_id) {
     if (confirm("해당유저를 삭제시키겠습니까?")) {
-        const deleteUser = {
-            userId: deleteUserId
+        const DELETE_USER = {
+            userId: delete_user_id
         };
 
         let xhttp = new XMLHttpRequest();
-        const url = "http://localhost:8080";
+        const URL = "http://localhost:8080";
 
-        xhttp.open("DELETE", url + `/member`, false);
+        xhttp.open("DELETE", URL + `/member`, false);
 
         xhttp.onreadystatechange = () => {
             if (xhttp.status !== 200) {
@@ -20,16 +20,16 @@ function deleteUser(deleteUserId) {
         };
 
         xhttp.setRequestHeader("Content-Type", "application/json");
-        xhttp.send(JSON.stringify(deleteUser));
+        xhttp.send(JSON.stringify(DELETE_USER));
     }
 }
 
 
 (function init() {
     let xhttp = new XMLHttpRequest();
-    const url = "http://localhost:8080";
+    const URL = "http://localhost:8080";
 
-    xhttp.open("GET", url + "/member/memberList", false);
+    xhttp.open("GET", URL + "/member/memberList", false);
 
     xhttp.onreadystatechange = () => {
         if (xhttp.status !== 200) {
