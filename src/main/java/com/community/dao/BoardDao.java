@@ -48,5 +48,9 @@ public interface BoardDao {
 
     Integer get_max_order_no(@Param("parent_reply_id") int parent_reply_id);
 
-    String test(@Param("b_id") int b_id, @Param("a") String a, @Param("b") String b);
+    String getImagePath(@Param("b_id") int b_id, @Param("a") String a, @Param("b") String b, @Param("i") int i);
+
+    int imageCount(@Param("b_id") int b_id, @Param("a") String a);
+
+
 }

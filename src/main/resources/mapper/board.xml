@@ -285,11 +285,19 @@
             parent_reply_id = ${parent_reply_id}
     </select>
 
-    <select id="test" resultType="String">
+    <select id="getImagePath" resultType="string">
         select
-            substring_index(substring_index(b_content, #{a}, 1)
-        from community
-        where b_id = ${b_id}
-        and b_content like #{b}
+            substring_index(substring_index(b_content, #{a}, -${i}), '" alt="image"', 1)
+        from
+            community
+        where
+            b_id = ${b_id} and b_content like CONCAT('%',#{b},'%')
+    </select>
+
+    <select id="imageCount" resultType="int">
+        SELECT (LENGTH(b_content) - LENGTH(REPLACE(b_content, #{a}, ''))) / LENGTH(#{a})
+        FROM community
+        where
+        b_id = ${b_id};
     </select>
 </mapper>

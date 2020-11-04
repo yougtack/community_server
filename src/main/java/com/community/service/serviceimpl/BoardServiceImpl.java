@@ -64,11 +64,58 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public Integer update(ViewModel model, int b_id) {
-        return dao.update(model.getB_type(), model.getB_title(), model.getB_content(), b_id);
+        int result = 0;
+//        String patten1 = "<img id=\"mybtn\" class=\"image\" src=\"/static/images/";
+//        String patten2 = "<img id=\"mybtn\" class=\"image\"";
+//        int count1 = dao.imageCount(b_id, patten2);
+//        String[] images_1 = new String[count1];
+//
+//        for(int i = 0; i<count1; i++) {
+//            images_1[i] = dao.getImagePath(b_id, patten1, patten2, i + 1);
+//            System.out.println("images_1:"+images_1[i]);
+//        }
+
+        result = dao.update(model.getB_type(), model.getB_title(), model.getB_content(), b_id); //실제 업데이트 하는 곳
+//        int count2 = dao.imageCount(b_id, patten2);
+//
+//        String[] images_2 = new String[count2];
+//        for(int i = 0; i<count2; i++) {
+//            images_2[i] = dao.getImagePath(b_id, patten1, patten2, i + 1);
+//            System.out.println("images_2:"+images_2[i]);
+//        }
+//-----------------------
+        //count1 = 업데이트 전에 사진 갯수
+        //count2 = 업데이트 후에 사진 갯수
+//        if(count1 > count2){
+//        }else if(count1 == count2){
+//        }else {
+//        }
+
+
+//        for(int i=0;i<count; i++){
+//            if(!images_1[i].equals(images_2[i])){
+//                System.out.println(i+"번째가 다르네용");
+//            }
+//        }
+        return result;
     }
 
+    @Transactional
     @Override
-    public Integer delete(int b_id) {
+    public Integer delete(int b_id, HttpServletRequest request) {
+        String patten1 = "<img id=\"mybtn\" class=\"image\" src=\"/static/images/";
+        String patten2 = "<img id=\"mybtn\" class=\"image\"";
+        int count = dao.imageCount(b_id, patten2);
+        System.out.println(count);
+        for(int i = 0; i<count; i++){
+            String tmp = dao.getImagePath(b_id, patten1, patten2, i+1);
+            System.out.println("tmp:"+tmp);
+
+            String root_path = request.getSession().getServletContext().getRealPath("/");
+            String attach_path = "static/images/";
+            File file = new File(root_path+attach_path+tmp);
+            file.delete();
+        }
         return dao.delete(b_id);
     }
 
@@ -162,9 +209,17 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public String test(int b_id){
-        String a = "<img id=\"mybtn\" class=\"image\" src=\"/static/images/";
-        String b = "<img id=\"mybtn\" class=\"image\"";
-        return dao.test(b_id, a ,b);
+    public String getImagePath(int b_id) throws IOException{
+        ArrayList<String> path = new ArrayList<>();
+        String patten1 = "<img id=\"mybtn\" class=\"image\" src=\"/static/images/";
+        String patten2 = "<img id=\"mybtn\" class=\"image\"";
+        int count = dao.imageCount(b_id, patten2);
+        System.out.println(count);
+        for(int i = 0; i<count; i++) {
+            path.add("/static/images/"+dao.getImagePath(b_id, patten1, patten2, i + 1));
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonStr = mapper.writeValueAsString(path);
+        return jsonStr;
     }
 }

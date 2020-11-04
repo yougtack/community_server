@@ -21,7 +21,7 @@ public interface BoardService {
     Integer replyBoardInsert(ViewModel viewModel);
 
     Integer update(ViewModel model, int b_id);
-    Integer delete(int b_id);
+    Integer delete(int b_id, HttpServletRequest request);
 
     ViewModel getView(int b_id);
 
@@ -38,5 +38,5 @@ public interface BoardService {
 
     Integer deleteImage(ImageModel imageModel, HttpServletRequest request);
 
-    String test(int b_id);
+    String getImagePath(int b_id) throws IOException;
 }

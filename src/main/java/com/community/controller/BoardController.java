@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -93,7 +94,7 @@ public class BoardController {
         }else{
             boardModel.setUserId(status);
         }
-        return boardService.delete(b_id);
+        return boardService.delete(b_id, request);
     }
 
     //게시글 상세보기
@@ -162,9 +163,8 @@ public class BoardController {
         return boardService.deleteImage(imageModel, request);
     }
 
-    @GetMapping(value = "/test/{b_id}")
-    public void Test(@PathVariable int b_id){
-        String tmp = boardService.test(b_id);
-        System.out.println("tmp:"+tmp);
+    @GetMapping(value = "/imagePath/{b_id}")
+    public String imagePath(@PathVariable int b_id) throws IOException{
+        return boardService.getImagePath(b_id);
     }
 }
