@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="#">
+    <link rel="stylesheet" type="text/css" href="../static/css.css"/>
+    <title>게시판</title>
+</head>
+<body>
+    <div>
+        <script src="js/sidebar.js"></script>
+    </div>
+        <section>
+            <p class="txt">댓글 수정</p>
+            <div class="comment_edit_div">
+                <p id="comment_length"></p>
+                <textarea
+                        class="textarea_resize"
+                        rows="5"
+                        cols="50"
+                        id="c_content"
+                        style="width: 500px; height: 400px;">
+                </textarea>
+                <br>
+                <br>
+                <input type="button" class="insert_btn" value="수정" onclick="commentModify()"/>
+                <input type="button" class="cancel_btn" value="취소" onclick="cancel()">
+            </div>
+        </section>
+    <script src="js/commentModify.js"></script>
+    <script>
+        let comment_length = document.getElementById("comment_length");
+        comment_length.innerText = document.getElementById("c_content").value.length + "/50"
+        const commentKey = document.getElementById("c_content");
+        function commentCount(){
+            comment_length.innerText = document.getElementById("c_content").value.length + "/50";
+        }
+        commentKey.addEventListener("keyup",commentCount);
+    </script>
+</body>
+</html>

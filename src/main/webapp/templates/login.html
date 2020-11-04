@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="#">
+    <link rel="stylesheet" type="text/css" href="../static/css.css"/>
+    <title>게시판</title>
+</head>
+<body>
+    <div>
+        <script src="js/sidebar.js"></script>
+    </div>
+    <section>
+        <p class="txt">로그인</p>
+        <div class="input_div">
+            <input type="text" class="input_box" id="userId" placeholder="아이디" onkeyup="enter()"/>
+            <br>
+            <input type="password" class="input_box" id="userPw" placeholder="비밀번호" onkeyup="enter()"/>
+            <br>
+            <br>
+            <input type="button" value="로그인" class="input_button" onclick="loginCheck()"/>
+        </div>
+    </section>
+    <script src="js/login.js"></script>
+    <script src="js/word.js"></script>
+</body>
+</html>

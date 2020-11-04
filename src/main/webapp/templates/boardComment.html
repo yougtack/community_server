@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+    <link rel="shortcut icon" href="#">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>게시판</title>
+    <script type="text/javascript" src="naverJs/HuskyEZCreator.js" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="../static/css.css"/>
+</head>
+<body>
+    <div>
+        <script src="js/sidebar.js"></script>
+    </div>
+    <section>
+        <p class="txt">답글 쓰기</p>
+        <div class="insert_div">
+        <p id="title_length" class="insert_title_length"></p>
+            <input type="text" id="title" class="insert_title" placeholder="제목"/>
+            <br>
+            <br>
+            <p id="content_length" class="insert_content_length"></p>
+            <textarea name="ir1" id="ir1" rows="10" cols="100" style="width:766px; height:412px; display:none;"></textarea>
+            <input
+                    type="file"
+                    multiple="multiple"
+                    id="files"
+                    name="files"
+                    accept="image/png, image/jpeg, image/jpg"
+                    class="insert_file" />
+            <br>
+            <input type="button" class="insert_btn" value="등록" onclick="valueCheck()"/>
+            <input type="button" class="cancel_btn" value="취소" onclick="cancel()"/>
+        </div>
+    </section>
+    <script src="js/boardComment.js"></script>
+    <script src="js/word.js"></script>
+    <script>
+        /* title */
+        let title_length = document.getElementById("title_length");
+        title_length.innerText = document.getElementById("title").value.length + "/20"
+        const titleKey = document.getElementById("title");
+        function titleCount(){
+            title_length.innerText = document.getElementById("title").value.length + "/20";
+        }
+        titleKey.addEventListener("keyup",titleCount);
+    </script>
+</body>
+</html>
