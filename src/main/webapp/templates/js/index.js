@@ -1,32 +1,32 @@
-const indexData = {
+const INDEX_DATA = {
     rankData: [],
     data:[]
 };
 
 let c_length = 0;
 
-(function rank_init() {
+(function rankInit() {
     let xhttp = new XMLHttpRequest();
-    const url = "http://localhost:8080";
+    const URL = "http://localhost:8080";
 
-    xhttp.open("GET", url + `/board/rank`, false);
+    xhttp.open("GET", URL + `/board/rank`, false);
 
     xhttp.onreadystatechange = () => {
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
         }
 
-        indexData.rankData = JSON.parse(xhttp.responseText);
+        INDEX_DATA.rankData = JSON.parse(xhttp.responseText);
     };
 
     xhttp.send();
 })();
 
-(function index_init() {
+(function indexInit() {
     let xhttp = new XMLHttpRequest();
-    const url = "http://localhost:8080";
+    const URL = "http://localhost:8080";
 
-    xhttp.open("GET", url + "/board/boardList", false);
+    xhttp.open("GET", URL + "/board/boardList", false);
 
     xhttp.onreadystatechange = () => {
         if (xhttp.status !== 200) {
@@ -36,7 +36,7 @@ let c_length = 0;
         const array = JSON.parse(xhttp.responseText);
 
         for (let index of array) {
-            indexData.data = array;
+            INDEX_DATA.data = array;
         }
     };
 
@@ -44,29 +44,29 @@ let c_length = 0;
 })();
 
 function timeForToday(value) {
-    const today = new Date();
-    const timeValue = new Date(value);
+    const TODAY = new Date();
+    const TIME_VALUE = new Date(value);
 
     // Math.floor는 소수점 이하를 버림.
-    const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
-    if (betweenTime < 1) {
+    const BETWEEN_TIME = Math.floor((TODAY.getTime() - TIME_VALUE.getTime()) / 1000 / 60);
+    if (BETWEEN_TIME < 1) {
         return '방금전';
     }
-    if (betweenTime < 60) {
-        return `${betweenTime}분전`;
+    if (BETWEEN_TIME < 60) {
+        return `${BETWEEN_TIME}분전`;
     }
 
-    const betweenTimeHour = Math.floor(betweenTime / 60);
-    if (betweenTimeHour < 24) {
-        return `${betweenTimeHour}시간전`;
+    const BETWEEN_TIME_HOUR = Math.floor(BETWEEN_TIME / 60);
+    if (BETWEEN_TIME_HOUR < 24) {
+        return `${BETWEEN_TIME_HOUR}시간전`;
     }
 
-    const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
-    if (betweenTimeDay < 365) {
-        return `${betweenTimeDay}일전`;
+    const BETWEEN_TIME_DAY = Math.floor(BETWEEN_TIME / 60 / 24);
+    if (BETWEEN_TIME_DAY < 365) {
+        return `${BETWEEN_TIME_DAY}일전`;
     }
 
-    return `${Math.floor(betweenTimeDay / 365)}년전`;
+    return `${Math.floor(BETWEEN_TIME_DAY / 365)}년전`;
 }
 
 (function rankPrint() {
@@ -74,7 +74,7 @@ function timeForToday(value) {
     let rank_div =
             '<div style="width: 70%;">' +
                 '<p class="txt">인기게시글</p>';
-    for (let value of indexData.rankData) {
+    for (let value of INDEX_DATA.rankData) {
         let time = value.b_date;
         if (rank_length >= 10) {
             break;
@@ -123,7 +123,7 @@ function timeForToday(value) {
         } else {
             index_div += '<p class="txt">코딩게시판</p>';
         }
-        for (let value of indexData.data) {
+        for (let value of INDEX_DATA.data) {
             let time = value.b_date;
             if (value.b_type === "" + index_type) {
                 if (c_length >= 5) {

@@ -1,4 +1,4 @@
-const myBoard = {
+const MY_BOARD = {
     data: [],
     commentData: []
 }
@@ -12,37 +12,37 @@ function enter() {
 (function userCookieId() {
     if(userCookie !== "") {
         let xhttp = new XMLHttpRequest();
-        const url = "http://localhost:8080";
+        const URL = "http://localhost:8080";
 
-        const data = {
+        const DATA = {
             encode: userCookie
         }
 
-        xhttp.open("POST", url + `/member/userInfo`, false);
+        xhttp.open("POST", URL + `/member/userInfo`, false);
 
         xhttp.onreadystatechange = () => {
             if (xhttp.status !== 200) {
                 console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
             }
-            myBoard.userId = JSON.parse(xhttp.responseText);
+            MY_BOARD.userId = JSON.parse(xhttp.responseText);
         };
 
         xhttp.setRequestHeader("Content-Type", "application/json");
-        xhttp.send(JSON.stringify(data));
+        xhttp.send(JSON.stringify(DATA));
     }
 })();
 
 function passwordChange(user_password) {
     if(confirm("비밀번호를 변경하시겠습니까?")) {
         let xhttp = new XMLHttpRequest();
-        const url = "http://localhost:8080";
+        const URL = "http://localhost:8080";
 
-        const passwordData = {
+        const PASSWORD_DATA = {
             userId: userCookie,
             userPw: user_password
         };
 
-        xhttp.open("PUT", url + `/member`, false);
+        xhttp.open("PUT", URL + `/member`, false);
 
         xhttp.onreadystatechange = () => {
             if (xhttp.status !== 200) {
@@ -55,45 +55,44 @@ function passwordChange(user_password) {
         };
 
         xhttp.setRequestHeader("Content-Type", "application/json");
-        xhttp.send(JSON.stringify(passwordData));
+        xhttp.send(JSON.stringify(PASSWORD_DATA));
     }
 }
 
 function passwordCheck(){
-    const user_password = document.getElementById("user_password").value;
-    const user_password_check = document.getElementById("user_password_check").value;
+    const USER_PASSWORD = document.getElementById("user_password").value;
+    const USER_PASSWORD_CHECK = document.getElementById("user_password_check").value;
 
     const pwPattern = /^(?=.*[A-Z])(?=.*[!@#$%^&*+=-]).{4,10}$/;
-    if (user_password.trim().length <= 0) {
+    if (USER_PASSWORD.trim().length <= 0) {
         alert("비밀번호를 입력해주세요.");
-        user_password.focus();
+        USER_PASSWORD.focus();
         return false;
-    } else if (!pwPattern.test(user_password)) {
+    } else if (!pwPattern.test(USER_PASSWORD)) {
         alert("비밀번호 4 ~ 10 글자\n" +
             "대문자 1개 이상 포함 특수문자 1개 이상 포함시켜주세요.");
-        user_password.focus();
+        USER_PASSWORD.focus();
         return false;
-    } else if (user_password !== user_password_check) {
+    } else if (USER_PASSWORD !== USER_PASSWORD_CHECK) {
         alert("비밀번호가 일치하지않습니다.");
-        user_password_check.focus();
+        USER_PASSWORD_CHECK.focus();
         return false;
     }
 
-    passwordChange(user_password);
+    passwordChange(USER_PASSWORD);
 }
 
 function profileChange() {
     if(confirm("프로필 사진을 변경하시겠습니까?")) {
         let xhttp = new XMLHttpRequest();
-        const url = "http://localhost:8080";
+        const URL = "http://localhost:8080";
 
-        const img = document.getElementById("user_profile");
-        let files = img;
+        let files = document.getElementById("user_profile");
         let formData = new FormData();
 
         formData.append('profile', files.files[0]);
 
-        xhttp.open("PUT", url + `/member/profile/${myBoard.userId.userId}`, false);
+        xhttp.open("PUT", URL + `/member/profile/${MY_BOARD.userId.userId}`, false);
 
         xhttp.onreadystatechange = () => {
             if (xhttp.status !== 200) {
@@ -110,27 +109,27 @@ function profileChange() {
 }
 
 (function myBoardInit() {
-    const user_profile = document.getElementById("user_profile_view");
+    const USER_PROFILE = document.getElementById("user_profile_view");
 
-    user_profile.innerHTML =
+    USER_PROFILE.innerHTML =
         `<img 
             class="u_profile" 
             id="test" 
-            src="${myBoard.userId.file_path}" 
+            src="${MY_BOARD.userId.file_path}" 
             alt="profile" 
          />`;
 
     let xhttp = new XMLHttpRequest();
-    const url = "http://localhost:8080";
+    const URL = "http://localhost:8080";
 
-    xhttp.open("GET", url + `/board/myBoardList/${myBoard.userId.userId}`, false);
+    xhttp.open("GET", URL + `/board/myBoardList/${MY_BOARD.userId.userId}`, false);
 
     xhttp.onreadystatechange = () => {
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
         }
 
-        myBoard.data = JSON.parse(xhttp.responseText);
+        MY_BOARD.data = JSON.parse(xhttp.responseText);
     };
 
     xhttp.send();
@@ -138,45 +137,45 @@ function profileChange() {
 
 (function myCommentInit(){
     let xhttp = new XMLHttpRequest();
-    const url = "http://localhost:8080";
+    const URL = "http://localhost:8080";
 
-    xhttp.open("GET", url + `/board/myCommentBoards/${myBoard.userId.userId}`, false);
+    xhttp.open("GET", URL + `/board/myCommentBoards/${MY_BOARD.userId.userId}`, false);
 
     xhttp.onreadystatechange = () => {
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
         }
 
-        myBoard.commentData = JSON.parse(xhttp.responseText);
+        MY_BOARD.commentData = JSON.parse(xhttp.responseText);
     };
 
     xhttp.send();
 })();
 
 function timeForToday(value) {
-    const today = new Date();
-    const timeValue = new Date(value);
+    const TODAY = new Date();
+    const TIME_VALUE = new Date(value);
 
     // Math.floor는 소수점 이하를 버림.
-    const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
-    if (betweenTime < 1) {
+    const BETWEEN_TIME = Math.floor((TODAY.getTime() - TIME_VALUE.getTime()) / 1000 / 60);
+    if (BETWEEN_TIME < 1) {
         return '방금전';
     }
-    if (betweenTime < 60) {
-        return `${betweenTime}분전`;
+    if (BETWEEN_TIME < 60) {
+        return `${BETWEEN_TIME}분전`;
     }
 
-    const betweenTimeHour = Math.floor(betweenTime / 60);
-    if (betweenTimeHour < 24) {
-        return `${betweenTimeHour}시간전`;
+    const BETWEEN_TIME_HOUR = Math.floor(BETWEEN_TIME / 60);
+    if (BETWEEN_TIME_HOUR < 24) {
+        return `${BETWEEN_TIME_HOUR}시간전`;
     }
 
-    const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
-    if (betweenTimeDay < 365) {
-        return `${betweenTimeDay}일전`;
+    const BETWEEN_TIME_DAY = Math.floor(BETWEEN_TIME / 60 / 24);
+    if (BETWEEN_TIME_DAY < 365) {
+        return `${BETWEEN_TIME_DAY}일전`;
     }
 
-    return `${Math.floor(betweenTimeDay / 365)}년전`;
+    return `${Math.floor(BETWEEN_TIME_DAY / 365)}년전`;
 }
 
 (function profilePrint() {
@@ -185,7 +184,7 @@ function timeForToday(value) {
     my_board.innerHTML +=
         '<p class="profile_p">내가 작성한 게시글</p>';
 
-    for(let value of myBoard.data){
+    for(let value of MY_BOARD.data){
         const time = new Date(value.b_date);
         my_board.innerHTML +=
             `<div class="index_box">` +
@@ -214,7 +213,7 @@ function timeForToday(value) {
     my_board.innerHTML +=
         '<p class="profile_p">내가 댓글을 작성한 게시글</p>';
 
-    for(let value of myBoard.commentData){
+    for(let value of MY_BOARD.commentData){
         const time = new Date(value.b_date);
         my_board.innerHTML +=
             `<div class="index_box">` +

@@ -1,12 +1,12 @@
-const community = {
+const COMMUNITY = {
     data: []
 };
 
 (function init() {
     let xhttp = new XMLHttpRequest();
-    const url = "http://localhost:8080";
+    const URL = "http://localhost:8080";
 
-    xhttp.open("GET", url + "/board/boardList", false);
+    xhttp.open("GET", URL + "/board/boardList", false);
 
     xhttp.onreadystatechange = () => {
         if (xhttp.status !== 200) {
@@ -16,7 +16,7 @@ const community = {
         const array = JSON.parse(xhttp.responseText);
 
         for (let index of array) {
-            community.data = array;
+            COMMUNITY.data = array;
         }
     };
 
@@ -24,28 +24,28 @@ const community = {
 })();
 
 (function printCommunity() {
-    const type = location.search.substr(location.search.indexOf("=") + 1);
-    const txt = document.querySelector(".txt");
+    const TYPE = location.search.substr(location.search.indexOf("=") + 1);
+    const TXT = document.querySelector(".txt");
     let real_body = '';
 
-    if (type === "1") {
-        txt.innerText = "자유게시판";
-    } else if (type === "2") {
-        txt.innerText = "게임게시판";
-    } else if (type === "3") {
-        txt.innerText = "음식게시판";
+    if (TYPE === "1") {
+        TXT.innerText = "자유게시판";
+    } else if (TYPE === "2") {
+        TXT.innerText = "게임게시판";
+    } else if (TYPE === "3") {
+        TXT.innerText = "음식게시판";
     } else {
-        txt.innerText = "코딩게시판";
+        TXT.innerText = "코딩게시판";
     }
-    txt.innerHTML +=
-        `<a href="../templates/insert.html?type=${type}" style="margin-left: 80%;">` +
+    TXT.innerHTML +=
+        `<a href="../templates/insert.html?type=${TYPE}" style="margin-left: 80%;">` +
             `<img src="../static/create.png" alt="HomeIcon" />` +
         `</a>`;
 
 
-    for (let index of community.data) {
-        const time = new Date(index.b_date);
-            if (type === index.b_type) {
+    for (let index of COMMUNITY.data) {
+        const TIME = new Date(index.b_date);
+            if (TYPE === index.b_type) {
                 real_body +=
                     `<div class="index_box">`;
                 if(index.depth > 0) {
@@ -109,10 +109,10 @@ const community = {
                             `<span class="cnt_size">[${index.commentCount}]</span>` +
                         `</span>` +
                         `<span class="community_info" style="font-size: 12px;">` +
-                            `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ` +
-                            `${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:` +
-                            `${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}:` +
-                            `${time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds()}` +
+                            `${TIME.getFullYear()}-${TIME.getMonth() + 1}-${TIME.getDate()} ` +
+                            `${TIME.getHours() < 10 ? `0${TIME.getHours()}` : TIME.getHours()}:` +
+                            `${TIME.getMinutes() < 10 ? `0${TIME.getMinutes()}` : TIME.getMinutes()}:` +
+                            `${TIME.getSeconds() < 10 ? `0${TIME.getSeconds()}` : TIME.getSeconds()}` +
                         `</span>` +
                         `<span class="index_img">` +
                             `<img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${index.b_count}` +

@@ -1,17 +1,16 @@
-const user = {
+const USER = {
     data: []
 };
 
 function profile() {
-    const img = document.getElementById("profile");
-    let files = img;
+    let files = document.getElementById("profile");
     let formData = new FormData();
     formData.append('profile', files.files[0]);
 
     let xhttp = new XMLHttpRequest();
-    const url = "http://localhost:8080";
+    const URL = "http://localhost:8080";
 
-    xhttp.open("PUT", url + `/member/signUpProfile`, false);
+    xhttp.open("PUT", URL + `/member/signUpProfile`, false);
 
     xhttp.onreadystatechange = () => {
         if (xhttp.status !== 200) {
@@ -25,13 +24,13 @@ function profile() {
 function signUp(userId, userPw) {
     let xhttp = new XMLHttpRequest();
 
-    const url = "http://localhost:8080";
-    const data = {
+    const URL = "http://localhost:8080";
+    const DATA = {
         userId: userId.value,
         userPw: userPw.value
     };
 
-    xhttp.open("POST", url + `/member/signUp`, false);
+    xhttp.open("POST", URL + `/member/signUp`, false);
 
     xhttp.onreadystatechange = () => {
         if (xhttp.status !== 200) {
@@ -44,50 +43,50 @@ function signUp(userId, userPw) {
     };
 
     xhttp.setRequestHeader("Content-Type", "application/json");
-    xhttp.send(JSON.stringify(data));
+    xhttp.send(JSON.stringify(DATA));
 }
 
 
 function signUpCheck() {
-    const userId = document.getElementById("userId"),
-        userPw = document.getElementById("userPw"),
-        userPwCheck = document.getElementById("userPwCheck");
+    const USER_ID = document.getElementById("userId"),
+        USER_PW = document.getElementById("userPw"),
+        USER_PW_CHECK = document.getElementById("userPwCheck");
 
-    const idPattern = /^.{4,10}$/;
-    const pwPattern = /^(?=.*[A-Z])(?=.*[!@#$%^&*+=-]).{4,10}$/;
+    const ID_PATTERN = /^.{4,10}$/;
+    const PW_PATTERN = /^(?=.*[A-Z])(?=.*[!@#$%^&*+=-]).{4,10}$/;
 
-    if (userId.value.trim().length <= 0) {
+    if (USER_ID.value.trim().length <= 0) {
         alert("아이디을 입력해주세요.");
-        userId.focus();
+        USER_ID.focus();
         return false;
-    } else if (!idPattern.test(userId.value)) {
+    } else if (!ID_PATTERN.test(USER_ID.value)) {
         alert("아이디를 4자 이상 ~ 10자 이하로 입력해주세요.");
-        userId.focus();
+        USER_ID.focus();
         return false;
     }
-    for (let index of user.data) {
-        if (index.userId === userId.value) {
+    for (let index of USER.data) {
+        if (index.userId === USER_ID.value) {
             alert("이미 존재하는 아이디입니다.");
             userId.focus();
             return false;
         }
     }
-    if (userPw.value.trim().length <= 0) {
+    if (USER_PW.value.trim().length <= 0) {
         alert("비밀번호를 입력해주세요.");
-        userPw.focus();
+        USER_PW.focus();
         return false;
-    } else if (!pwPattern.test(userPw.value)) {
+    } else if (!PW_PATTERN.test(USER_PW.value)) {
         alert("비밀번호 4 ~ 10 글자\n" +
             "대문자 1개 이상 포함 특수문자 1개 이상 포함시켜주세요.");
-        userPw.focus();
+        USER_PW.focus();
         return false;
-    } else if (userPw.value !== userPwCheck.value) {
+    } else if (USER_PW.value !== USER_PW_CHECK.value) {
         alert("비밀번호가 일치하지않습니다.");
-        userPw.focus();
+        USER_PW.focus();
         return false;
     }
 
-    signUp(userId, userPw);
+    signUp(USER_ID, USER_PW);
     profile();
 }
 
@@ -99,19 +98,19 @@ function enter() {
 
 (function init() {
     let xhttp = new XMLHttpRequest();
-    const url = "http://localhost:8080";
+    const URL = "http://localhost:8080";
 
-    xhttp.open("GET", url + `/member/memberList`, false);
+    xhttp.open("GET", URL + `/member/memberList`, false);
 
     xhttp.onreadystatechange = () => {
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
         }
 
-        const array = JSON.parse(xhttp.responseText);
+        const ARRAY = JSON.parse(xhttp.responseText);
 
-        for (let index of array) {
-            user.data = array;
+        for (let index of ARRAY) {
+            USER.data = ARRAY;
         }
     };
 

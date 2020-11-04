@@ -25,49 +25,49 @@ nhn.husky.EZCreator.createInIFrame({
 
 function insert(title, content) {
     let xhttp = new XMLHttpRequest();
-    const url = "http://localhost:8080";
+    const URL = "http://localhost:8080";
 
-    const data = {
+    const DATA = {
         b_type: location.search.substr(location.search.indexOf("=") + 1),
         b_title: title.value,
         b_content: content,
         userId: document.cookie.substr(7,)
     };
 
-    xhttp.open("POST", url + `/board/community`, false);
+    xhttp.open("POST", URL + `/board/community`, false);
 
     xhttp.onreadystatechange = () => {
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
             alert("게시글 작성 중 오류가 발생했습니다. 다시 시도해주세요.");
         } else {
-            location.href = `community.html?b_type=${data.b_type}`;
+            location.href = `community.html?b_type=${DATA.b_type}`;
         }
     };
 
     xhttp.setRequestHeader("Content-Type", "application/json");
-    xhttp.send(JSON.stringify(data));
+    xhttp.send(JSON.stringify(DATA));
 }
 
 function valueCheck() {
-    const title = document.getElementById("title");
+    const TITLE = document.getElementById("title");
 
     oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
-    const content = document.getElementById("ir1").value;
+    const CONTENT = document.getElementById("ir1").value;
 
-    if (title.value.trim().length <= 0) {
+    if (TITLE.value.trim().length <= 0) {
         alert("제목을 작성해주세요.");
-        title.focus();
+        TITLE.focus();
         return false;
-    } else if ( content === "" || content === null || content === '&nbsp;' ||
-                content === '<br>' || content=== '<br/>' || content === '<p>&nbsp;</p>') {
+    } else if ( CONTENT === "" || CONTENT === null || CONTENT === '&nbsp;' ||
+            CONTENT === '<br>' || CONTENT=== '<br/>' || CONTENT === '<p>&nbsp;</p>') {
         alert("내용을 작성해주세요.");
         return false;
     } else if (document.getElementById("title").value.length > 20) {
         alert("글자 제한 수를 초과하였습니다.");
-        title.focus();
+        TITLE.focus();
         return false;
     }
 
-    insert(title,content);
+    insert(TITLE,CONTENT);
 }

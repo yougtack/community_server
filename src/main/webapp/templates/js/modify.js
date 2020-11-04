@@ -1,10 +1,10 @@
-const community = {
+const COMMUNITY = {
     data: [],
     image: []
 };
 
-const userId = document.cookie.substr(7,);
-const b_id = location.search.substr(location.search.indexOf("=") + 1);
+const USER_ID = document.cookie.substr(7,);
+const B_ID = location.search.substr(location.search.indexOf("=") + 1);
 
 let oEditors = [];
 nhn.husky.EZCreator.createInIFrame({
@@ -23,50 +23,11 @@ nhn.husky.EZCreator.createInIFrame({
     fCreator: "createSEditor2"
 });
 
-function imgDelete(i_id) {
-    let xhttp = new XMLHttpRequest();
-    const url = "http://localhost:8080";
-    xhttp.open("DELETE", url + `/board/${i_id}`, false);
-
-    xhttp.onreadystatechange = () => {
-        if (xhttp.status !== 200) {
-            console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
-        }
-    };
-
-    xhttp.send();
-    image();
-}
-
-function imgInsert() {
-    let xhttp = new XMLHttpRequest();
-    const url = "http://localhost:8080";
-
-    const img = document.getElementById("files");
-    let files = img;
-    let formData = new FormData();
-
-    for (let value of files.files){
-        formData.append('Files', value);
-    }
-
-    xhttp.open("POST", url + `/board/upload/${b_id}`, false);
-
-    xhttp.onreadystatechange = () => {
-        if (xhttp.status !== 200) {
-            console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
-        }
-    };
-
-    xhttp.send(formData);
-}
-
 function communityModify() {
     let xhttp = new XMLHttpRequest();
-    const url = "http://localhost:8080";
+    const URL = "http://localhost:8080";
     let sHTML = oEditors.getById["ir1"].getIR();
 
-    const files = document.getElementById("files").value;
     if (confirm("게시글을 수정합니다.")) {
          if (document.getElementById("title").value.trim().length <= 0) {
             alert("제목을 작성해주세요.");
@@ -78,15 +39,15 @@ function communityModify() {
             return false;
         }
 
-        const modifyData = {
-            userId: userId,
-            b_id: b_id,
-            b_type: community.data.b_type,
+        const MODIFY_DATA = {
+            userId: USER_ID,
+            b_id: B_ID,
+            b_type: COMMUNITY.data.b_type,
             b_title: document.getElementById("title").value,
             b_content: sHTML
         };
 
-        xhttp.open("PUT", url + `/board/community/${b_id}`, false);
+        xhttp.open("PUT", URL + `/board/community/${B_ID}`, false);
 
         xhttp.onreadystatechange = () => {
             if (xhttp.status !== 200) {
@@ -96,78 +57,35 @@ function communityModify() {
         };
 
         xhttp.setRequestHeader("Content-Type", "application/json");
-        xhttp.send(JSON.stringify(modifyData));
+        xhttp.send(JSON.stringify(MODIFY_DATA));
 
-        if (files !== "") {
-            imgInsert();
-        }
-
-        location.href = `userCommunity.html?b_id=${b_id}`;
+        location.href = `userCommunity.html?b_id=${B_ID}`;
     }
 }
 
 function cancel() {
     if (confirm("수정을 취소하겠습니까?")) {
-        location.href = `userCommunity.html?b_id=${b_id}`;
+        location.href = `userCommunity.html?b_id=${B_ID}`;
     }
-}
-
-function image() {
-    let xhttp = new XMLHttpRequest();
-    const url = "http://localhost:8080";
-
-    let real_delBtn = document.getElementById("delBtn");
-    real_delBtn.innerHTML = "";
-
-    xhttp.open("GET", url + `/board/getImage/${b_id}`, false);
-
-    xhttp.onreadystatechange = () => {
-        if (xhttp.status !== 200) {
-            console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
-        }
-
-        community.image = JSON.parse(xhttp.response);
-    };
-
-    xhttp.setRequestHeader("Content-Type", "application/json");
-    xhttp.send();
-
-    if (community.image.length > 0) {
-        for (let index of community.image) {
-            real_delBtn.innerHTML +=
-                `${index.fileName}` +
-                `<img 
-                    src="../static/delete.png" 
-                    alt="delIcon" 
-                    style="width: 20px; height: 20px;" 
-                    onclick="imgDelete(${index.i_id})"
-                 />`;
-        }
-    }
-
 }
 
 (function init() {
     let xhttp = new XMLHttpRequest();
-    const url = "http://localhost:8080";
+    const URL = "http://localhost:8080";
 
-    xhttp.open("GET", url + `/board/view/${b_id}`, false);
+    xhttp.open("GET", URL + `/board/view/${B_ID}`, false);
 
     xhttp.onreadystatechange = () => {
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
         }
 
-        const array = JSON.parse(xhttp.responseText);
-
-        community.data = array;
+        COMMUNITY.data  = JSON.parse(xhttp.responseText);
     };
 
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.send();
 
-    image();
-
-    document.getElementById("title").value = community.data.b_title;
-    document.getElementById("ir1").value = community.data.b_content;
+    document.getElementById("title").value = COMMUNITY.data.b_title;
+    document.getElementById("ir1").value = COMMUNITY.data.b_content;
 })();

@@ -1,13 +1,13 @@
 function login(userId, userPw) {
     let xhttp = new XMLHttpRequest();
-    const url = "http://localhost:8080";
+    const URL = "http://localhost:8080";
 
-    let data = {
+    let DATA = {
         userId: userId.value,
         userPw: userPw.value,
     };
 
-    xhttp.open("POST", url + `/member/login`, false);
+    xhttp.open("POST", URL + `/member/login`, false);
 
     xhttp.onreadystatechange = () => {
         if (xhttp.status !== 200) {
@@ -18,24 +18,24 @@ function login(userId, userPw) {
         }
     };
     xhttp.setRequestHeader("Content-Type", "application/json");
-    xhttp.send(JSON.stringify(data));
+    xhttp.send(JSON.stringify(DATA));
 }
 
 function loginCheck() {
-    const userId = document.getElementById("userId"),
-        userPw = document.getElementById("userPw");
+    const USER_ID = document.getElementById("userId"),
+        USER_PW = document.getElementById("userPw");
 
-    if (userId.value.trim().length <= 0) {
+    if (USER_ID.value.trim().length <= 0) {
         alert("아이디을 입력해주세요.");
-        userId.focus();
+        USER_ID.focus();
         return false;
-    } else if (userPw.value.trim().length <= 0) {
+    } else if (USER_PW.value.trim().length <= 0) {
         alert("비밀번호를 입력해주세요.");
-        userPw.focus();
+        USER_PW.focus();
         return false;
     }
 
-    login(userId, userPw);
+    login(USER_ID, USER_PW);
 }
 
 
