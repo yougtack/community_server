@@ -37,4 +37,6 @@ public interface BoardService {
     ImageModel getViewImage(int i_id);
 
     Integer deleteImage(ImageModel imageModel, HttpServletRequest request);
+
+    String test(int b_id);
 }

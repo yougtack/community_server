@@ -47,4 +47,6 @@ public interface BoardDao {
     Integer check_parent_reply_id(@Param("parent_reply_id") int parent_reply_id);
 
     Integer get_max_order_no(@Param("parent_reply_id") int parent_reply_id);
+
+    String test(@Param("b_id") int b_id, @Param("a") String a, @Param("b") String b);
 }

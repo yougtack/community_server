@@ -160,4 +160,11 @@ public class BoardServiceImpl implements BoardService {
         file.delete();
         return dao.deleteImage(imageModel.getFile_name());
     }
+
+    @Override
+    public String test(int b_id){
+        String a = "<img id=\"mybtn\" class=\"image\" src=\"/static/images/";
+        String b = "<img id=\"mybtn\" class=\"image\"";
+        return dao.test(b_id, a ,b);
+    }
 }
