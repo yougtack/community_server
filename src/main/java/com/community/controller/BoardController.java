@@ -1,6 +1,5 @@
 package com.community.controller;
 
-import com.community.config.FileUpload;
 import com.community.model.*;
 import com.community.service.BoardService;
 import com.community.util.CheckUtil;
@@ -12,17 +11,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Calendar;
 import java.util.List;
 
 
@@ -163,24 +159,4 @@ public class BoardController {
         }
         return boardService.deleteImage(imageModel, request);
     }
-
-    @PostMapping(value = "/test")
-    public String fileUpload(MultipartHttpServletRequest multipartHttpServletRequest, HttpServletRequest request) throws IOException{
-        List<MultipartFile> multipartFiles = multipartHttpServletRequest.getFiles("Filedata");
-        Calendar cal = Calendar.getInstance(); //현재 시각오간 가지고온다.
-        if (!multipartFiles.isEmpty()) {
-            for (MultipartFile filePart : multipartFiles) {
-                String fileName = filePart.getOriginalFilename(); //받은 이미지의 원본 이름
-                String fileType = fileName.substring(fileName.lastIndexOf("."), fileName.length()); //이미지의 확장자 가져오기
-                String replaceName = cal.getTimeInMillis() + fileType; //이미지 이름이 중복되지 않게 이름을 바꿔줌
-
-                String path = request.getSession().getServletContext().getRealPath("/")+ File.separator+"static/images"; //이미지 저장 경로 정래줌
-                FileUpload.fileUpload(filePart, path, replaceName);
-
-            }
-        }
-
-        return "file_upload";
-    }
-
 }
