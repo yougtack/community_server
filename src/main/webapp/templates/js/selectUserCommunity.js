@@ -402,18 +402,18 @@ let cnt = 0;
         '<div class="div_border">' +
             `<p class="b_id_size" style="margin: 10px 0 0 25px; color: #999">#${community.data.b_id}</p>` +
             `<p class="title">${community.data.b_title}`;
-    if (community.image.length > 0) {
-        real_div +=
-            `<img id="myBtn" class="modal_collections" src="../static/collections.png" alt="collections_icon"/>`;
-    } else {
-        real_div +=
-            `<img 
-                id="myBtn" 
-                class="modal_collections"                
-                src="../static/collections.png" 
-                alt="collections_icon"
-             />`;
-    }
+    // if (community.image.length > 0) {
+    //     real_div +=
+    //         `<img id="myBtn" class="modal_collections" src="../static/collections.png" alt="collections_icon"/>`;
+    // } else {
+    //     real_div +=
+    //         `<img
+    //             id="myBtn"
+    //             class="modal_collections"
+    //             src="../static/collections.png"
+    //             alt="collections_icon"
+    //          />`;
+    // }
     real_div +=
             `</p>` +
             '<hr style="width: 93%; border-color: #ddd">' +
@@ -429,7 +429,6 @@ let cnt = 0;
                     `<img src="../static/left_arrow.png" alt="left_arrow" class="left_btn" onclick="leftBtn()"/>` +
                     `<div class="modal_img_div">` ;
         for (let index of community.image) {
-            console.log(index);
             if(imgOne !== 0) {
                 real_div +=
                     `<span class="imgDiv" style="display: none;">` +
