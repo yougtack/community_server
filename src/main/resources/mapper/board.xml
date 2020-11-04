@@ -290,6 +290,6 @@
             substring_index(substring_index(b_content, #{a}, 1)
         from community
         where b_id = ${b_id}
-        and b_content like '%#{b}%'
+        and b_content like #{b}
     </select>
 </mapper>
