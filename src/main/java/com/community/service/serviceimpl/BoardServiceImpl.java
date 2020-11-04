@@ -217,7 +217,6 @@ public class BoardServiceImpl implements BoardService {
         String patten1 = "<img id=\"mybtn\" width=\"200px;\" height=\"200px;\" class=\"image\" src=\"/static/images/";
         String patten2 = "<img id=\"mybtn\" width=\"200px;\" height=\"200px;\" class=\"image\"";
         int count = dao.imageCount(b_id, patten2);
-        System.out.println(count);
         for(int i = 0; i<count; i++) {
             path.add("/static/images/"+dao.getImagePath(b_id, patten1, patten2, i + 1));
         }
