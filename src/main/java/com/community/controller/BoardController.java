@@ -124,7 +124,7 @@ public class BoardController {
         return boardService.uploadImage(model, multipartHttpServletRequest, request);
     }
 
-    //게시글 수정시 사진 업로드
+    //게시글 수정시 사진 업로드 //2020.11.04 기준 사용안하고 있음
     @PutMapping("/image/{i_id}")
     @ResponseBody
     public Integer updateImage(MultipartHttpServletRequest multipartHttpServletRequest, @PathVariable int i_id, HttpServletResponse response, HttpServletRequest request) throws IOException {
@@ -134,12 +134,13 @@ public class BoardController {
         return boardService.updateImage(multipartHttpServletRequest, i_id, request);
     }
 
-    //사진가져오기
+    //사진가져오기 //2020.11.04 기준 사용안하고 있음
     @GetMapping(value = "/image/{b_id}")
     public List<ImageModel> get(@PathVariable int b_id){
         return boardService.getImages(b_id);
     }
 
+    //사진 다운로드 //2020.11.04 기준 사용안하고 있음
     @GetMapping("/download/{i_id}")
     public ResponseEntity<Resource> download(@PathVariable int i_id) throws IOException {
         ImageModel imageModel = boardService.getViewImage(i_id);
@@ -152,6 +153,7 @@ public class BoardController {
         return new ResponseEntity<>(resource, headers, HttpStatus.OK);
     }
 
+    //사진 삭제 //2020.11.04 기준 사용안하고 있음
     @DeleteMapping(value = "/image")
     public Integer deleteImage(@RequestBody ImageModel imageModel, HttpServletResponse response, HttpServletRequest request){
         if(CheckUtil.imageCheck(response, request) >= 1){
