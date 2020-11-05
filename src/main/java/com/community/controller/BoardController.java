@@ -124,9 +124,9 @@ public class BoardController {
     }
 
     //사진 다운로드
-    @GetMapping("/download")
-    public ResponseEntity<Resource> download(@RequestBody DownloadModel downloadModel) throws IOException {
-        Path path = Paths.get("./src/main/webapp/static/images/"+downloadModel.getFile_name());
+    @GetMapping("/download/{file_name}")
+    public ResponseEntity<Resource> download(@PathVariable String file_name) throws IOException {
+        Path path = Paths.get("./src/main/webapp/static/images/"+file_name);
 
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + path.getFileName().toString());

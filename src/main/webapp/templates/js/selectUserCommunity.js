@@ -30,10 +30,8 @@ const USER_ID = document.cookie.substr(7,);
     }
 })();
 
-function imageDownload(i_id) {
-    const URL = "http://localhost:8080";
-
-    location.href = URL + `/board/download/${i_id}`;
+function imageDownload(path) {
+    location.href = `http://localhost:8080/board/download/${path}`;
 }
 
 function commentInsert() {
@@ -387,14 +385,16 @@ let cnt = 0;
             `</div>` +
             '<div class="download_box">';
         for (let index of COMMUNITY.image) {
+            let image_name = index.split("s/");
             real_div +=
-                `<div><p class="download_image_name">${index.file_name} </p>`+
+                `<div>` +
+                    `<p class="download_image_name">${image_name[1]} </p>`+
                     `<img 
-                        style="width: 20px; height: 20px;" 
+                        style="width: 20px; height: 20px; cursor: pointer;" 
                         src="../static/download.png" 
                         alt="Image" 
-                        onclick="imageDownload(${index.i_id})"
-                     >` +
+                        onclick="imageDownload('${image_name[1]}')"
+                     />` +
                 `</div>`;
         }
         real_div +=
