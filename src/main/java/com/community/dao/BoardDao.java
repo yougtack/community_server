@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface BoardDao {
 
-    List<BoardModel> getBoardList();
+    List<BoardModel> getBoardList(@Param("patten_1") String patten_1);
 
     List<BoardModel> getMyBoardList(@Param("userId") String userId);
 
