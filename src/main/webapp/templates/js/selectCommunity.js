@@ -23,6 +23,32 @@ const COMMUNITY = {
     xhttp.send();
 })();
 
+function timeForToday(value) {
+    const TODAY = new Date();
+    const TIME_VALUE = new Date(value);
+
+    // Math.floor는 소수점 이하를 버림.
+    const BETWEEN_TIME = Math.floor((TODAY.getTime() - TIME_VALUE.getTime()) / 1000 / 60);
+    if (BETWEEN_TIME < 1) {
+        return '방금전';
+    }
+    if (BETWEEN_TIME < 60) {
+        return `${BETWEEN_TIME}분전`;
+    }
+
+    const BETWEEN_TIME_HOUR = Math.floor(BETWEEN_TIME / 60);
+    if (BETWEEN_TIME_HOUR < 24) {
+        return `${BETWEEN_TIME_HOUR}시간전`;
+    }
+
+    const BETWEEN_TIME_DAY = Math.floor(BETWEEN_TIME / 60 / 24);
+    if (BETWEEN_TIME_DAY < 365) {
+        return `${BETWEEN_TIME_DAY}일전`;
+    }
+
+    return `${Math.floor(BETWEEN_TIME_DAY / 365)}년전`;
+}
+
 (function printCommunity() {
     const TYPE = location.search.substr(location.search.indexOf("=") + 1);
     const TXT = document.querySelector(".txt");
@@ -44,7 +70,7 @@ const COMMUNITY = {
 
 
     for (let index of COMMUNITY.data) {
-        const TIME = new Date(index.b_date);
+        const TIME = index.b_date;
             if (TYPE === index.b_type) {
                 real_body +=
                     `<div class="index_box">`;
@@ -109,10 +135,7 @@ const COMMUNITY = {
                             `<span class="cnt_size">[${index.commentCount}]</span>` +
                         `</span>` +
                         `<span class="community_info" style="font-size: 12px;">` +
-                            `${TIME.getFullYear()}-${TIME.getMonth() + 1}-${TIME.getDate()} ` +
-                            `${TIME.getHours() < 10 ? `0${TIME.getHours()}` : TIME.getHours()}:` +
-                            `${TIME.getMinutes() < 10 ? `0${TIME.getMinutes()}` : TIME.getMinutes()}:` +
-                            `${TIME.getSeconds() < 10 ? `0${TIME.getSeconds()}` : TIME.getSeconds()}` +
+                            `${timeForToday(TIME)}` +
                         `</span>` +
                         `<span class="index_img">` +
                             `<img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${index.b_count} ` +

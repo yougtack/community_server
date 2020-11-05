@@ -32,7 +32,6 @@ public class BoardController {
     @GetMapping(value = "/boardList")
     public List<BoardModel> boardList(){
         return boardService.getBoardList();
-
     }
 
     //내가쓴 글
@@ -47,6 +46,7 @@ public class BoardController {
     public List<BoardModel> myCommentBoards(@PathVariable String userId){
         return boardService.getMyCommentBoards(userId);
     }
+
     //게시글 작성 하기
     @PostMapping(value = "/community")
     public Integer insert(@RequestBody ViewModel viewModel, HttpServletResponse response, HttpServletRequest request){
