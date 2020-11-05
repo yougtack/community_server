@@ -449,29 +449,6 @@ function addEvent() {
 	elDropArea.addEventListener("drop", drop, false);
 }
 
-function imageURL() {
-	let files = document.getElementById("uploadInputBox");
-	let formData = new FormData();
-
-	let xhttp = new XMLHttpRequest();
-	const url = "http://localhost:8080";
-
-	for (let value of files.files){
-		formData.append('Files', value);
-	}
-
-	xhttp.open("POST", url + `/board/image`, false);
-
-	xhttp.onreadystatechange = () => {
-		if (xhttp.status !== 200) {
-			console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
-		}
-		imageUrl = (JSON.parse(xhttp.responseText));
-	};
-
-	xhttp.send(formData);
-	console.log(imageUrl);
-}
 
 /**
  * jindo에 파일 업로드 사용.(iframe에 Form을 Submit하여 리프레시없이 파일을 업로드하는 컴포넌트)
@@ -495,9 +472,7 @@ function callFileUploader (){
 // 	    		}
 //  				선택된 파일의 형식이 허용되는 경우만 처리
 			if(oCustomEvent.bAllowed === true){
-				console.log("Hi");
 				// goStartMode();
-				imageURL();
 			}else{
 				goReadyMode();
 				oFileUploader.reset();
@@ -697,7 +672,31 @@ jindo.$Ajax.prototype.request = function(oData) {
 	return this;
 };
 
+function imageURL() {
+	let files = document.getElementById("uploadInputBox");
+	let formData = new FormData();
+
+	let xhttp = new XMLHttpRequest();
+	const url = "http://localhost:8080";
+
+	for (let value of files.files){
+		formData.append('Files', value);
+	}
+
+	xhttp.open("POST", url + `/board/image`, false);
+
+	xhttp.onreadystatechange = () => {
+		if (xhttp.status !== 200) {
+			console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
+		}
+		imageUrl = (JSON.parse(xhttp.responseText));
+	};
+
+	xhttp.send(formData);
+}
+
 function btnConfirmClick() {
+	imageURL();
 	setPhotoToEditor(imageUrl);
 	oFileUploader.reset();
 	window.close();
