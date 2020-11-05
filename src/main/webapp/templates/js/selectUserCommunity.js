@@ -376,12 +376,14 @@ let cnt = 0;
         '</div>';
     if (COMMUNITY.image.length > 0) {
         real_div +=
-            `<div style="text-align: right; margin: 10px 0 0 0; cursor: pointer;" onclick="download()">` +
-                `<img 
-                    src="../static/folder.png" 
-                    alt="folder" 
-                    style="width: 20px; height: 20px;"
-                 />첨부파일[${COMMUNITY.image.length}]` +
+            `<div style="text-align: right; margin: 10px 0 0 0;">` +
+                `<span style="cursor: pointer;" onclick="download()">` +
+                    `<img 
+                        src="../static/folder.png" 
+                        alt="folder" 
+                        style="width: 20px; height: 20px;"
+                     />첨부파일[${COMMUNITY.image.length}]` +
+                `</span>` +
             `</div>` +
             '<div class="download_box">';
         for (let index of COMMUNITY.image) {
