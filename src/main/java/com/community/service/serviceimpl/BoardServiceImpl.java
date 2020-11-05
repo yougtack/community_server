@@ -33,12 +33,12 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public List<BoardModel> getMyBoardList(String userId) {
-        return dao.getMyBoardList(userId);
+        return dao.getMyBoardList(userId, patten_1);
     }
 
     @Override
     public List<BoardModel> getMyCommentBoards(String userId) {
-        return dao.getMyCommentBoards(userId);
+        return dao.getMyCommentBoards(userId, patten_1);
     }
 
     @Override
@@ -125,7 +125,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public List<BoardModel> getRank() {
-        return dao.getRank();
+        return dao.getRank(patten_1);
     }
 
     @Override
