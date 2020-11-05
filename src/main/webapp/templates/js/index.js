@@ -20,7 +20,6 @@ let c_length = 0;
     };
 
     xhttp.send();
-    console.log(INDEX_DATA.rankData);
 })();
 
 (function indexInit() {
