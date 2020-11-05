@@ -9,13 +9,11 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -118,34 +116,17 @@ public class BoardController {
     //사진 업로드
     @PostMapping("/image")
     @ResponseBody
-    public String upload(Model model, MultipartHttpServletRequest multipartHttpServletRequest, HttpServletResponse response, HttpServletRequest request) throws IOException {
+    public String upload(MultipartHttpServletRequest multipartHttpServletRequest, HttpServletResponse response, HttpServletRequest request) throws IOException {
         if(CheckUtil.imageCheck(response, request) >= 1){
             return "0";
         }
-        return boardService.uploadImage(model, multipartHttpServletRequest, request);
+        return boardService.uploadImage(multipartHttpServletRequest, request);
     }
 
-    //게시글 수정시 사진 업로드 //2020.11.04 기준 사용안하고 있음
-    @PutMapping("/image/{i_id}")
-    @ResponseBody
-    public Integer updateImage(MultipartHttpServletRequest multipartHttpServletRequest, @PathVariable int i_id, HttpServletResponse response, HttpServletRequest request) throws IOException {
-        if(CheckUtil.imageCheck(response, request) >= 1){
-            return 0;
-        }
-        return boardService.updateImage(multipartHttpServletRequest, i_id, request);
-    }
-
-    //사진가져오기 //2020.11.04 기준 사용안하고 있음
-    @GetMapping(value = "/image/{b_id}")
-    public List<ImageModel> get(@PathVariable int b_id){
-        return boardService.getImages(b_id);
-    }
-
-    //사진 다운로드 //2020.11.04 기준 사용안하고 있음
-    @GetMapping("/download/{i_id}")
-    public ResponseEntity<Resource> download(@PathVariable int i_id) throws IOException {
-        ImageModel imageModel = boardService.getViewImage(i_id);
-        Path path = Paths.get("./src/main/webapp/static/images/"+imageModel.getFile_name());
+    //사진 다운로드
+    @GetMapping("/download")
+    public ResponseEntity<Resource> download(@RequestBody DownloadModel downloadModel) throws IOException {
+        Path path = Paths.get("./src/main/webapp/static/images/"+downloadModel.getFile_name());
 
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + path.getFileName().toString());
@@ -154,15 +135,7 @@ public class BoardController {
         return new ResponseEntity<>(resource, headers, HttpStatus.OK);
     }
 
-    //사진 삭제 //2020.11.04 기준 사용안하고 있음
-    @DeleteMapping(value = "/image")
-    public Integer deleteImage(@RequestBody ImageModel imageModel, HttpServletResponse response, HttpServletRequest request){
-        if(CheckUtil.imageCheck(response, request) >= 1){
-            return 0;
-        }
-        return boardService.deleteImage(imageModel, request);
-    }
-
+    //이미지 경로 가져오기
     @GetMapping(value = "/imagePath/{b_id}")
     public String imagePath(@PathVariable int b_id) throws IOException{
         return boardService.getImagePath(b_id);

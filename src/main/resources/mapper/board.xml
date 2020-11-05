@@ -189,64 +189,6 @@
         DESC
     </select>
 
-    <update id="updateImage" parameterType="int">
-        UPDATE
-            community_image
-        SET
-            file_name=#{file_name}, file_path=#{file_path}
-        WHERE
-            i_id = ${i_id}
-    </update>
-
-
-    <insert id="uploadImage" parameterType="com.community.model.ImageModel">
-        INSERT INTO
-            community_image(b_id, file_name, file_path)
-        VALUES
-            (${b_id}, #{file_name}, #{file_path})
-    </insert>
-
-    <select id="getImageInfo" resultType="com.community.model.ImageModel">
-        SELECT
-            *
-        FROM
-            community_image
-        WHERE
-            i_id = ${i_id}
-    </select>
-
-    <select id="getImages" resultType="com.community.model.ImageModel">
-        SELECT
-            i_id, b_id, file_name, file_path
-        FROM
-            community_image
-        WHERE
-            b_id = ${b_id}
-    </select>
-
-    <select id="getViewImage" resultType="com.community.model.ImageModel">
-        SELECT
-            i_id, b_id, file_name, file_path
-        FROM
-            community_image
-        WHERE
-            i_id = ${i_id}
-    </select>
-
-    <delete id="deleteImage" parameterType="String">
-        DELETE FROM
-            community_image
-        WHERE
-            file_name = #{file_name}
-    </delete>
-
-    <select id="getB_id" resultType="int">
-        SELECT
-            MAX(b_id)
-        FROM
-            community
-    </select>
-
     <update id="update_order_no" parameterType="int">
         UPDATE
             community

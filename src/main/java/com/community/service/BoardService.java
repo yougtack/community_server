@@ -1,12 +1,9 @@
 package com.community.service;
 
 import com.community.model.*;
-import org.springframework.ui.Model;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
-import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 
@@ -28,15 +25,7 @@ public interface BoardService {
     List<BoardModel> search(String word);
     List<BoardModel> getRank();
 
-    String uploadImage(Model model, MultipartHttpServletRequest multipartHttpServletRequest, HttpServletRequest request) throws IOException;
-
-    Integer updateImage(MultipartHttpServletRequest multipartHttpServletRequest, int i_id, HttpServletRequest request) throws IOException;
-
-
-    List<ImageModel> getImages(int b_id);
-    ImageModel getViewImage(int i_id);
-
-    Integer deleteImage(ImageModel imageModel, HttpServletRequest request);
+    String uploadImage(MultipartHttpServletRequest multipartHttpServletRequest, HttpServletRequest request) throws IOException;
 
     String getImagePath(int b_id) throws IOException;
 }
