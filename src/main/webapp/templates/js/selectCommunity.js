@@ -115,8 +115,13 @@ const COMMUNITY = {
                             `${TIME.getSeconds() < 10 ? `0${TIME.getSeconds()}` : TIME.getSeconds()}` +
                         `</span>` +
                         `<span class="index_img">` +
-                            `<img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${index.b_count}` +
-                        `</span>` +
+                            `<img class="index_img_size" src="../static/eye.png" alt="eyeIcon" />${index.b_count} ` +
+                        `</span>` ;
+                if(index.imageCount > 0) {
+                    real_body +=
+                        `<img class="index_img_size" src="../static/image.png" alt="image" />`;
+                }
+                real_body +=
                         '</div>' +
                     '</div>';
             }
