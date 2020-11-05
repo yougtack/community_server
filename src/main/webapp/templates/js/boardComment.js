@@ -1,3 +1,11 @@
+(function loginCheck() {
+    if (document.cookie.substr(7,) === "") {
+        alert("로그인이 필요합니다.");
+        location.href = "login.html";
+        return false;
+    }
+})();
+
 const BOARD_COMMENT = {
     data: []
 };
