@@ -74,6 +74,4 @@
         WHERE
             encode = #{encode}
     </select>
-
-
 </mapper>
