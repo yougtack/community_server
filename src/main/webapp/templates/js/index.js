@@ -20,6 +20,7 @@ let c_length = 0;
     };
 
     xhttp.send();
+    console.log(INDEX_DATA.rankData);
 })();
 
 (function indexInit() {
@@ -99,7 +100,12 @@ function timeForToday(value) {
                                 src="../static/eye.png" 
                                 alt="eyeIcon" 
                              />${value.b_count}` +
-                        `</span>` +
+                        `</span>`;
+            if(value.imageCount > 0) {
+                rank_div +=
+                    `<img class="index_img_size" src="../static/image.png" alt="image" />`;
+            }
+            rank_div +=
                     '</div>' +
                 '</div>';
         }
@@ -149,7 +155,12 @@ function timeForToday(value) {
                                             src="../static/eye.png" 
                                             alt="eyeIcon"
                                          />${value.b_count}` +
-                                    `</span>` +
+                                    `</span>`;
+                        if(value.imageCount > 0) {
+                            index_div +=
+                                `<img class="index_img_size" src="../static/image.png" alt="image" />`;
+                        }
+                        index_div +=
                                 '</div>' +
                             '</div>';
                         ++c_length;
