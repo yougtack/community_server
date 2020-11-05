@@ -402,18 +402,7 @@ let cnt = 0;
         '<div class="div_border">' +
             `<p class="b_id_size" style="margin: 10px 0 0 25px; color: #999">#${COMMUNITY.data.b_id}</p>` +
             `<p class="title">${COMMUNITY.data.b_title}`;
-    if (COMMUNITY.image.length > 0) {
-        real_div +=
-            `<img id="myBtn" class="modal_collections" src="../static/collections.png" alt="collections_icon"/>`;
-    } else {
-        real_div +=
-            `<img
-                id="myBtn"
-                class="modal_collections"
-                src="../static/collections.png"
-                alt="collections_icon"
-             />`;
-    }
+
     real_div +=
             `</p>` +
             '<hr style="width: 93%; border-color: #ddd">' +
