@@ -98,7 +98,7 @@ function timeForToday(value) {
                                 class="index_img_size" 
                                 src="../static/eye.png" 
                                 alt="eyeIcon" 
-                             />${value.b_count}` +
+                             />${value.b_count} ` +
                         `</span>`;
             if(value.imageCount > 0) {
                 rank_div +=
@@ -153,7 +153,7 @@ function timeForToday(value) {
                                             class="index_img_size" 
                                             src="../static/eye.png" 
                                             alt="eyeIcon"
-                                         />${value.b_count}` +
+                                         />${value.b_count} ` +
                                     `</span>`;
                         if(value.imageCount > 0) {
                             index_div +=
