@@ -9,9 +9,9 @@ public interface BoardDao {
 
     List<BoardModel> getBoardList(@Param("patten_1") String patten_1);
 
-    List<BoardModel> getMyBoardList(@Param("userId") String userId);
+    List<BoardModel> getMyBoardList(@Param("userId") String userId, @Param("patten_1") String patten_1);
 
-    List<BoardModel> getMyCommentBoards(@Param("userId") String userId);
+    List<BoardModel> getMyCommentBoards(@Param("userId") String userId, @Param("patten_1") String patten_1);
 
     int insert(@Param("b_type") String b_type, @Param("b_title") String b_title, @Param("b_content") String b_content, @Param("user_id") String user_id);
     int replyBoardInsert(@Param("b_type") String b_type, @Param("b_title") String b_title, @Param("b_content") String b_content,
@@ -26,7 +26,7 @@ public interface BoardDao {
     ViewModel getView(@Param("b_id") int b_id);
 
     List<BoardModel> search(@Param("word") String word);
-    List<BoardModel> getRank();
+    List<BoardModel> getRank(@Param("patten_1") String patten_1);
 
     Integer update_order_no(@Param("group_id") int group_id, @Param("order_no") int order_no);
 
