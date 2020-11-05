@@ -25,7 +25,7 @@ public interface BoardDao {
     Integer count(@Param("b_id") int b_id);
     ViewModel getView(@Param("b_id") int b_id);
 
-    List<BoardModel> search(@Param("word") String word);
+    List<BoardModel> search(@Param("word") String word, @Param("patten_1") String patten_1);
     List<BoardModel> getRank(@Param("patten_1") String patten_1);
 
     Integer update_order_no(@Param("group_id") int group_id, @Param("order_no") int order_no);

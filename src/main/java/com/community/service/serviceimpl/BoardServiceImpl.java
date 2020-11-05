@@ -120,7 +120,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public List<BoardModel> search(String word) {
-        return dao.search(word);
+        return dao.search(word, patten_1);
     }
 
     @Override
