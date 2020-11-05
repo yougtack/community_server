@@ -3,51 +3,53 @@
 <mapper namespace="com.community.dao.BoardDao">
     <resultMap id="boardMap" type="com.community.model.BoardModel">
         <id property="b_id" column="b_id"/>
-        <result property="b_type" column="b_type"></result>
-        <result property="b_title" column="b_title"></result>
-        <result property="b_date" column="b_date"></result>
-        <result property="b_count" column="b_count"></result>
-        <result property="userId" column="userId"></result>
-        <result property="group_id" column="group_id"></result>
-        <result property="parent_reply_id" column="parent_reply_id"></result>
-        <result property="depth" column="depth"></result>
-        <result property="order_no" column="order_no"></result>
-        <result property="updateCheck" column="updateCheck"></result>
-        <result property="commentCount" column="commentCount1"></result>
+        <result property="b_type" column="b_type"/>
+        <result property="b_title" column="b_title"/>
+        <result property="b_date" column="b_date"/>
+        <result property="b_count" column="b_count"/>
+        <result property="userId" column="userId"/>
+        <result property="group_id" column="group_id"/>
+        <result property="parent_reply_id" column="parent_reply_id"/>
+        <result property="depth" column="depth"/>
+        <result property="order_no" column="order_no"/>
+        <result property="updateCheck" column="updateCheck"/>
+        <result property="commentCount" column="commentCount1"/>
+        <result property="imageCount" column="imageCount"/>
     </resultMap>
 
     <resultMap id="viewMap" type="com.community.model.ViewModel">
         <id property="b_id" column="b_id"/>
-        <result property="b_type" column="b_type"></result>
-        <result property="b_title" column="b_title"></result>
-        <result property="b_content" column="b_content"></result>
-        <result property="b_date" column="b_date"></result>
-        <result property="b_count" column="b_count"></result>
-        <result property="userId" column="userId"></result>
-        <result property="group_id" column="group_id"></result>
-        <result property="parent_reply_id" column="parent_reply_id"></result>
-        <result property="depth" column="depth"></result>
-        <result property="order_no" column="order_no"></result>
+        <result property="b_type" column="b_type"/>
+        <result property="b_title" column="b_title"/>
+        <result property="b_content" column="b_content"/>
+        <result property="b_date" column="b_date"/>
+        <result property="b_count" column="b_count"/>
+        <result property="userId" column="userId"/>
+        <result property="group_id" column="group_id"/>
+        <result property="parent_reply_id" column="parent_reply_id"/>
+        <result property="depth" column="depth"/>
+        <result property="order_no" column="order_no"/>
         <result property="file_path" column="file_path"/>
         <collection property="comments" ofType="com.community.model.CommentModel">
-            <id property="c_id" column="first_c_id"></id>
-            <result property="b_id" column="first_b_id"></result>
-            <result property="userId" column="first_userId"></result>
-            <result property="c_content" column="first_c_content"></result>
-            <result property="c_date" column="first_c_date"></result>
-            <result property="updateCheck" column="first_c_updateCheck"></result>
-            <result property="file_path" column="first_profile"></result>
-            <result property="group_id" column="first_group_id"></result>
-            <result property="parent_reply_id" column="first_parent_reply_id"></result>
-            <result property="depth" column="first_depth"></result>
-            <result property="order_no" column="first_order_no"></result>
+            <id property="c_id" column="first_c_id"/>
+            <result property="b_id" column="first_b_id"/>
+            <result property="userId" column="first_userId"/>
+            <result property="c_content" column="first_c_content"/>
+            <result property="c_date" column="first_c_date"/>
+            <result property="updateCheck" column="first_c_updateCheck"/>
+            <result property="file_path" column="first_profile"/>
+            <result property="group_id" column="first_group_id"/>
+            <result property="parent_reply_id" column="first_parent_reply_id"/>
+            <result property="depth" column="first_depth"/>
+            <result property="order_no" column="first_order_no"/>
         </collection>
     </resultMap>
 
     <select id="getBoardList" resultMap="boardMap">
         SELECT
             c.b_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId, c.group_id, c.parent_reply_id, c.depth, c.order_no, c.updateCheck,
-            count(cc.c_content) AS commentCount1
+            count(cc.c_content) AS commentCount1,
+        (LENGTH(b_content) - LENGTH(replace(b_content, #{patten_1}, '')))/ LENGTH(#{patten_1}) AS imageCount
         FROM
             community AS c
 		LEFT OUTER JOIN
@@ -61,7 +63,8 @@
     <select id="getMyBoardList" resultMap="boardMap">
         SELECT
             c.b_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId, c.group_id, c.parent_reply_id, c.depth, c.order_no, c.updateCheck,
-            count(cc.c_content) AS commentCount1
+            count(cc.c_content) AS commentCount1,
+            (LENGTH(b_content) - LENGTH(replace(b_content, #{patten_1}, '')))/ LENGTH(#{patten_1}) AS imageCount
         FROM
             community AS c
 		LEFT OUTER JOIN
@@ -75,7 +78,8 @@
     <select id="getMyCommentBoards" resultMap="boardMap">
         SELECT
             c.b_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId, c.group_id, c.parent_reply_id, c.depth, c.order_no, c.updateCheck,
-            count(cc.c_content) AS commentCount1
+            count(cc.c_content) AS commentCount1,
+            (LENGTH(b_content) - LENGTH(replace(b_content, #{patten_1}, '')))/ LENGTH(#{patten_1}) AS imageCount
         FROM
             community AS c
 		LEFT OUTER JOIN
@@ -161,7 +165,8 @@
     <select id="search" resultMap="boardMap">
          SELECT
             c.b_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId, c.group_id, c.parent_reply_id, c.depth, c.order_no, c.updateCheck,
-            count(cc.c_content) AS commentCount1
+            count(cc.c_content) AS commentCount1,
+            (LENGTH(b_content) - LENGTH(replace(b_content, #{patten_1}, '')))/ LENGTH(#{patten_1}) AS imageCount
         FROM
             community AS c
 		LEFT OUTER JOIN
@@ -177,7 +182,8 @@
     <select id="getRank" resultMap="boardMap">
         SELECT
             c.b_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId, c.group_id, c.parent_reply_id, c.depth, c.order_no, c.updateCheck,
-            count(cc.c_content) AS commentCount1
+            count(cc.c_content) AS commentCount1,
+            (LENGTH(b_content) - LENGTH(replace(b_content, #{patten_1}, '')))/ LENGTH(#{patten_1}) AS imageCount
         FROM
             community AS c
 		LEFT OUTER JOIN
@@ -237,9 +243,11 @@
     </select>
 
     <select id="imageCount" resultType="int">
-        SELECT (LENGTH(b_content) - LENGTH(REPLACE(b_content, #{a}, ''))) / LENGTH(#{a})
-        FROM community
-        where
-        b_id = ${b_id};
+        SELECT
+            (LENGTH(b_content) - LENGTH(REPLACE(b_content, #{a}, ''))) / LENGTH(#{a})
+        FROM
+            community
+        WHERE
+            b_id = ${b_id}
     </select>
 </mapper>

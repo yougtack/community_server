@@ -28,7 +28,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public List<BoardModel> getBoardList() {
-        return dao.getBoardList();
+        return dao.getBoardList(patten_1);
     }
 
     @Override

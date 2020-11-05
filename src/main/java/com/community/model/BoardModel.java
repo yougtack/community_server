@@ -23,4 +23,5 @@ public class BoardModel {
     private int order_no;
     private int updateCheck;
     private int commentCount;
+    private int imageCount;
 }
