@@ -63,7 +63,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public Integer update(ViewModel model, int b_id, HttpServletRequest request) {
+    public Integer update(ViewModel model, int b_id) {
         int result = 0;
 
         int count1 = dao.imageCount(b_id, patten_2); //업데이트 전 사진 수 구하기

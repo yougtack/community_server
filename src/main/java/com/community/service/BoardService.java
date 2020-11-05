@@ -17,7 +17,7 @@ public interface BoardService {
     Integer insert(ViewModel viewModel);
     Integer replyBoardInsert(ViewModel viewModel);
 
-    Integer update(ViewModel model, int b_id, HttpServletRequest request);
+    Integer update(ViewModel model, int b_id);
     Integer delete(int b_id, HttpServletRequest request);
 
     ViewModel getView(int b_id);

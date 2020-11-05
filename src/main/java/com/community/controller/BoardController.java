@@ -80,7 +80,7 @@ public class BoardController {
         }else{
             viewModel.setUserId(status);
         }
-        return  boardService.update(viewModel, b_id, request);
+        return  boardService.update(viewModel, b_id);
     }
 
     //게시글 삭제하기
