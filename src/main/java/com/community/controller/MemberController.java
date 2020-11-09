@@ -46,16 +46,16 @@ public class MemberController {
 
     //회원프로핆
     @PutMapping(value = "/signUpProfile")
-    public Integer SignUpProfile(MultipartHttpServletRequest multipartHttpServletRequest, HttpServletRequest request) throws IOException {
-        int result =  memberService.signUpProfile(multipartHttpServletRequest, userId, request);
+    public Integer SignUpProfile(MultipartHttpServletRequest multipartHttpServletRequest) throws IOException {
+        int result =  memberService.signUpProfile(multipartHttpServletRequest, userId);
         userId = "";
         return result;
     }
 
     //회원프로핆 변경
     @PutMapping(value = "/profile/{userId}")
-    public Integer updateProfile(MultipartHttpServletRequest multipartHttpServletRequest, @PathVariable String userId, HttpServletRequest request) throws IOException {
-        return  memberService.updateProfile(multipartHttpServletRequest, userId, request);
+    public Integer updateProfile(MultipartHttpServletRequest multipartHttpServletRequest, @PathVariable String userId) throws IOException {
+        return  memberService.updateProfile(multipartHttpServletRequest, userId);
     }
 
     //로그인
