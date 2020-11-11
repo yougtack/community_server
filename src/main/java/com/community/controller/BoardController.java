@@ -56,7 +56,7 @@ public class BoardController {
         }else{
             viewModel.setUserId(status);
         }
-        return  boardService.insert(viewModel);
+        return boardService.insert(viewModel);
     }
 
     //게시글 답글 작성 하기

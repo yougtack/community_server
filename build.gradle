@@ -33,6 +33,7 @@ dependencies {
 	compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.0")
 	compile("org.mybatis:mybatis-spring")
 	compile("org.mybatis:mybatis")
+
 }
 
 test {

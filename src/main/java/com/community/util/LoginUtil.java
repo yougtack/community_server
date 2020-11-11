@@ -25,9 +25,7 @@ public class LoginUtil {
 
         if(cookies != null){
             for(int i=0; i<cookies.length; i++){
-                if(cookies[i].getName() == "userId"){
-                    cookieValue = cookies[i].getValue();
-                }
+                cookieValue = cookies[i].getValue();
             }
         }
         return cookieValue;
