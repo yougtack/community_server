@@ -53,13 +53,13 @@ function communityModify() {
             if (xhttp.status !== 200) {
                 console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
                 alert("게시글 수정 중 오류가 발생했습니다. 다시 시도해주세요.");
+            } else {
+                location.href = `userCommunity.html?b_id=${B_ID}`;
             }
         };
 
         xhttp.setRequestHeader("Content-Type", "application/json");
         xhttp.send(JSON.stringify(MODIFY_DATA));
-
-        location.href = `userCommunity.html?b_id=${B_ID}`;
     }
 }
 
