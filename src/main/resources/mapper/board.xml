@@ -49,7 +49,7 @@
         SELECT
             c.b_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId, c.group_id, c.parent_reply_id, c.depth, c.order_no, c.updateCheck,
             count(cc.c_content) AS commentCount1,
-        (LENGTH(b_content) - LENGTH(replace(b_content, #{patten_1}, '')))/ LENGTH(#{patten_1}) AS imageCount
+            (LENGTH(b_content) - LENGTH(replace(b_content, #{patten_1}, '')))/ LENGTH(#{patten_1}) AS imageCount
         FROM
             community AS c
 		LEFT OUTER JOIN

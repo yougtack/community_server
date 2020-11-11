@@ -32,7 +32,6 @@ public class BoardController {
     @GetMapping(value = "/boardList")
     public List<BoardModel> boardList(){
         return boardService.getBoardList();
-
     }
 
     //내가쓴 글
@@ -47,6 +46,7 @@ public class BoardController {
     public List<BoardModel> myCommentBoards(@PathVariable String userId){
         return boardService.getMyCommentBoards(userId);
     }
+
     //게시글 작성 하기
     @PostMapping(value = "/community")
     public Integer insert(@RequestBody ViewModel viewModel, HttpServletResponse response, HttpServletRequest request){
@@ -92,7 +92,7 @@ public class BoardController {
         }else{
             boardModel.setUserId(status);
         }
-        return boardService.delete(b_id, request);
+        return boardService.delete(b_id);
     }
 
     //게시글 상세보기
@@ -115,12 +115,11 @@ public class BoardController {
 
     //사진 업로드
     @PostMapping("/image")
-    @ResponseBody
     public String upload(MultipartHttpServletRequest multipartHttpServletRequest, HttpServletResponse response, HttpServletRequest request) throws IOException {
         if(CheckUtil.imageCheck(response, request) >= 1){
             return "0";
         }
-        return boardService.uploadImage(multipartHttpServletRequest, request);
+        return boardService.uploadImage(multipartHttpServletRequest);
     }
 
     //사진 다운로드

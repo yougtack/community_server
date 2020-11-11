@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -100,7 +99,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Transactional
     @Override
-    public Integer delete(int b_id, HttpServletRequest request) {
+    public Integer delete(int b_id) {
         int count = dao.imageCount(b_id, patten_2);
         for(int i = 0; i<count; i++){
             String file_name = dao.getImagePath(b_id, patten_1, patten_2, i+1);
@@ -129,7 +128,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public String uploadImage(MultipartHttpServletRequest multipartHttpServletRequest, HttpServletRequest request) throws IOException {
+    public String uploadImage(MultipartHttpServletRequest multipartHttpServletRequest) throws IOException {
         ArrayList<String> path = new ArrayList<>();
         List<MultipartFile> multipartFiles = multipartHttpServletRequest.getFiles("Files");
         if (!multipartFiles.isEmpty()) {

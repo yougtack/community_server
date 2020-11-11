@@ -12,7 +12,7 @@ import java.util.List;
 public interface MemberService {
     Integer signUp(MemberModel memberModel, String encode);
 
-    Integer signUpProfile(MultipartHttpServletRequest multipartHttpServletRequest, String userId, HttpServletRequest request) throws IOException;
+    Integer signUpProfile(MultipartHttpServletRequest multipartHttpServletRequest, String userId) throws IOException;
 
     LoginModel login(MemberModel member);
 
@@ -20,7 +20,7 @@ public interface MemberService {
 
     Integer kickMember(MemberModel memberModel, HttpServletRequest request);
 
-    Integer updateProfile(MultipartHttpServletRequest multipartHttpServletRequest, String userId, HttpServletRequest request) throws IOException;
+    Integer updateProfile(MultipartHttpServletRequest multipartHttpServletRequest, String userId) throws IOException;
 
     Integer updateUser(MemberModel memberModel);
 

@@ -5,6 +5,7 @@ import com.community.model.LoginModel;
 import com.community.model.MemberListModel;
 import com.community.model.MemberModel;
 import com.community.service.MemberService;
+import com.community.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,27 +29,21 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Integer signUpProfile(MultipartHttpServletRequest multipartHttpServletRequest, String userId, HttpServletRequest request) throws IOException{
+    public Integer signUpProfile(MultipartHttpServletRequest multipartHttpServletRequest, String userId) throws IOException{
         String file_path = null;
-        String filename = null;
+        String file_name = null;
         UUID uuid = UUID.randomUUID();
         List<MultipartFile>multipartFiles = multipartHttpServletRequest.getFiles("profile");
         if(!multipartFiles.isEmpty()) {
             for (MultipartFile filePart : multipartFiles) {
-                String root_path = request.getSession().getServletContext().getRealPath("/");
-                String attach_path = "member_images/";
-                filename = uuid+"_"+filePart.getOriginalFilename();
-
-                File saveFile = new File(root_path+attach_path+filename);
-                filePart.transferTo(saveFile);
-
-                file_path = "/member_images/"+filename;
+                file_name =  FileUtil.profileInsert(filePart, uuid);
+                file_path = "/member_images/"+ file_name;
             }
         }else{
+            file_name = uuid+"_default_png";
             file_path = "/member_images/default.png";
-            filename = uuid+"_default_png";
         }
-        return dao.signUpProfile(userId, file_path, filename);
+        return dao.signUpProfile(userId, file_path, file_name);
     }
     @Override
     public LoginModel login(MemberModel member){
@@ -69,37 +64,29 @@ public class MemberServiceImpl implements MemberService {
         file.delete();
 
         return dao.kickMember(memberModel.getUserId());
-
     }
 
     @Override
-    public Integer updateProfile(MultipartHttpServletRequest multipartHttpServletRequest, String userId, HttpServletRequest request) throws IOException{
+    public Integer updateProfile(MultipartHttpServletRequest multipartHttpServletRequest, String userId) throws IOException{
         String file_path = null;
-        String filename = null;
+        String file_name = null;
         UUID uuid = UUID.randomUUID();
 
         MemberModel memberModel = dao.getUserFileImage(userId);
-        String root_path = request.getSession().getServletContext().getRealPath("/");
-        String attach_path = "member_images/";
-        File file = new File(root_path+attach_path+memberModel.getFile_name());
-        file.delete();
+        FileUtil.profileDelete(memberModel.getFile_name());
 
 
         List<MultipartFile>multipartFiles = multipartHttpServletRequest.getFiles("profile");
         if(!multipartFiles.isEmpty()) {
             for (MultipartFile filePart : multipartFiles) {
-                filename = uuid+"_"+filePart.getOriginalFilename();
-                file_path = "/member_images/"+filename;
-
-                File saveFile = new File(root_path+attach_path+filename);
-                filePart.transferTo(saveFile);
-
+                file_name =  FileUtil.profileInsert(filePart, uuid);
+                file_path = "/member_images/"+ file_name;
             }
         }else{
+            file_name = uuid+"_default.png";
             file_path = "/member_images/default.png";
-            filename = uuid+"_default.png";
         }
-        return dao.signUpProfile(userId, file_path, filename);
+        return dao.signUpProfile(userId, file_path, file_name);
     }
 
     @Override
