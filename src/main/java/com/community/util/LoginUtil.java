@@ -22,10 +22,11 @@ public class LoginUtil {
     public static String getCookieUserId(HttpServletRequest request){
         Cookie[] cookies = request.getCookies();
         String cookieValue = null;
-
         if(cookies != null){
             for(int i=0; i<cookies.length; i++){
-                cookieValue = cookies[i].getValue();
+                if(cookies[i].getName().equals("userId")){
+                    cookieValue = cookies[i].getValue();
+                }
             }
         }
         return cookieValue;
