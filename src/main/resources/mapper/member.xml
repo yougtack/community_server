@@ -48,14 +48,6 @@
         WHERE
             userId = #{userId}
     </select>
-    <update id="updateProfile" parameterType="com.community.model.MemberModel">
-        UPDATE
-            community_member
-        SET
-            profile = #{profile}
-        WHERE
-            userId = #{userId}
-    </update>
 
     <update id="updateUser" parameterType="com.community.model.MemberModel">
         UPDATE

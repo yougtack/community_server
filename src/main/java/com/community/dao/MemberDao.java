@@ -18,7 +18,6 @@ public interface MemberDao {
 
     Integer kickMember(@Param("userId") String userId);
 
-    Integer updateProfile(@Param("userId") String userId, @Param("profile") byte[] profile);
     MemberModel getUserFileImage(@Param("userId") String userId);
 
     Integer updateUser(@Param("userId") String userId, @Param("userPw") String userPw);

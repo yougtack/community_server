@@ -16,8 +16,8 @@ import java.util.List;
 
 @Service
 public class BoardServiceImpl implements BoardService {
-    static final String patten_1 = "<img id=\"mybtn\" width=\"200px;\" height=\"200px;\" class=\"image\" src=\"/static/images/";
-    static final String patten_2 = "<img id=\"mybtn\" width=\"200px;\" height=\"200px;\" class=\"image\"";
+    static final String PATTEN_1 = "<img id=\"mybtn\" width=\"200px;\" height=\"200px;\" class=\"image\" src=\"/static/images/";
+    static final String PATTEN_2 = "<img id=\"mybtn\" width=\"200px;\" height=\"200px;\" class=\"image\"";
 
     @Autowired
     BoardDao dao;
@@ -27,17 +27,17 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public List<BoardModel> getBoardList() {
-        return dao.getBoardList(patten_1);
+        return dao.getBoardList(PATTEN_1);
     }
 
     @Override
     public List<BoardModel> getMyBoardList(String userId) {
-        return dao.getMyBoardList(userId, patten_1);
+        return dao.getMyBoardList(userId, PATTEN_1);
     }
 
     @Override
     public List<BoardModel> getMyCommentBoards(String userId) {
-        return dao.getMyCommentBoards(userId, patten_1);
+        return dao.getMyCommentBoards(userId, PATTEN_1);
     }
 
     @Override
@@ -65,20 +65,20 @@ public class BoardServiceImpl implements BoardService {
     public Integer update(ViewModel model, int b_id) {
         int result = 0;
 
-        int count1 = dao.imageCount(b_id, patten_2); //업데이트 전 사진 수 구하기
+        int count1 = dao.imageCount(b_id, PATTEN_2); //업데이트 전 사진 수 구하기
         String[] images_1 = new String[count1];
 
         for(int i = 0; i<count1; i++) { //구한 사진 수만큼 반복 하면서 images_1에 사진 이름(주소) 넣기
-            images_1[i] = dao.getImagePath(b_id, patten_1, patten_2, i + 1);
+            images_1[i] = dao.getImagePath(b_id, PATTEN_1, PATTEN_2, i + 1);
         }
 
         result = dao.update(model.getB_type(), model.getB_title(), model.getB_content(), b_id); //실제 업데이트 하는 곳
 
-        int count2 = dao.imageCount(b_id, patten_2); //업데이트 후 사진 수 구하기
+        int count2 = dao.imageCount(b_id, PATTEN_2); //업데이트 후 사진 수 구하기
         String[] images_2 = new String[count2];
 
         for(int i = 0; i<count2; i++) { //구한 사진 수 만큼 반복 하면서 images_2에 사진 이름(주소) 넣기
-            images_2[i] = dao.getImagePath(b_id, patten_1, patten_2, i + 1);
+            images_2[i] = dao.getImagePath(b_id, PATTEN_1, PATTEN_2, i + 1);
         }
 
         //업데이트 전 이랑 업데이트 후 랑 비교해서 중복될 때가 없으면 삭제 하기로함
@@ -90,7 +90,7 @@ public class BoardServiceImpl implements BoardService {
                 }
             }
             if(count_check == 0){
-                FileUtil.fileDelete(images_1[i]); //사진 삭제
+                FileUtil.fileDelete(images_1[i], 1); //사진 삭제
             }
             count_check=0;
         }
@@ -100,11 +100,11 @@ public class BoardServiceImpl implements BoardService {
     @Transactional
     @Override
     public Integer delete(int b_id) {
-        int count = dao.imageCount(b_id, patten_2);
+        int count = dao.imageCount(b_id, PATTEN_2);
         for(int i = 0; i<count; i++){
-            String file_name = dao.getImagePath(b_id, patten_1, patten_2, i+1);
+            String file_name = dao.getImagePath(b_id, PATTEN_1, PATTEN_2, i+1);
 
-            FileUtil.fileDelete(file_name);
+            FileUtil.fileDelete(file_name, 1);
         }
         return dao.delete(b_id);
     }
@@ -119,12 +119,12 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public List<BoardModel> search(String word) {
-        return dao.search(word, patten_1);
+        return dao.search(word, PATTEN_1);
     }
 
     @Override
     public List<BoardModel> getRank() {
-        return dao.getRank(patten_1);
+        return dao.getRank(PATTEN_1);
     }
 
     @Override
@@ -133,7 +133,7 @@ public class BoardServiceImpl implements BoardService {
         List<MultipartFile> multipartFiles = multipartHttpServletRequest.getFiles("Files");
         if (!multipartFiles.isEmpty()) {
             for (MultipartFile filePart : multipartFiles) {
-                path.add("/static/images/"+FileUtil.fileInsert(filePart));
+                path.add("/static/images/"+FileUtil.fileInsert(filePart, 1));
             }
         }
     return FileUtil.transToJson(path);
@@ -142,9 +142,9 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public String getImagePath(int b_id) throws IOException{
         ArrayList<String> path = new ArrayList<>();
-        int count = dao.imageCount(b_id, patten_2);
+        int count = dao.imageCount(b_id, PATTEN_2);
         for(int i = 0; i<count; i++) {
-            path.add("/static/images/"+dao.getImagePath(b_id, patten_1, patten_2, i + 1));
+            path.add("/static/images/"+dao.getImagePath(b_id, PATTEN_1, PATTEN_2, i + 1));
         }
     return FileUtil.transToJson(path);
     }

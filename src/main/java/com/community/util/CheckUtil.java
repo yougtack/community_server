@@ -12,6 +12,7 @@ public class CheckUtil {
 
     //board, comment 영역
     public static String loginCheck(String userId, HttpServletResponse response, HttpServletRequest request){
+        //userId = 프론트에서 보내는 쿠키값
 
         if(!LoginUtil.isApp(request)){ //web일때 false
             NOW_LOGIN_USER = LoginUtil.getCheckLogin(request);

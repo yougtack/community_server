@@ -36,7 +36,13 @@ public class MemberController {
 
     //회원가입
     @PostMapping(value = "/signUp")
-    public Integer SignUp(@RequestBody MemberModel memberModel) throws NoSuchPaddingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, UnsupportedEncodingException {
+    public Integer SignUp(@RequestBody MemberModel memberModel) throws NoSuchPaddingException,
+            InvalidAlgorithmParameterException,
+            NoSuchAlgorithmException,
+            IllegalBlockSizeException,
+            BadPaddingException,
+            InvalidKeyException,
+            UnsupportedEncodingException {
         userId = memberModel.getUserId();
         AES256Util aes256Util = new AES256Util();
         String encode = aes256Util.aesEncode(memberModel.getUserId());
@@ -44,7 +50,7 @@ public class MemberController {
         return  memberService.signUp(memberModel, encode);
     }
 
-    //회원프로핆
+    //회원프로필
     @PutMapping(value = "/signUpProfile")
     public Integer SignUpProfile(MultipartHttpServletRequest multipartHttpServletRequest) throws IOException {
         int result =  memberService.signUpProfile(multipartHttpServletRequest, userId);
@@ -60,12 +66,18 @@ public class MemberController {
 
     //로그인
     @PostMapping(value = "/login")
-    public LoginModel Login(@RequestBody MemberModel memberModel, HttpServletResponse response, HttpServletRequest request) throws NoSuchPaddingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, UnsupportedEncodingException {
-        boolean isApp = LoginUtil.isApp(request);
+    public LoginModel Login(@RequestBody MemberModel memberModel, HttpServletResponse response, HttpServletRequest request) throws NoSuchPaddingException,
+            InvalidAlgorithmParameterException,
+            NoSuchAlgorithmException,
+            IllegalBlockSizeException,
+            BadPaddingException,
+            InvalidKeyException,
+            UnsupportedEncodingException {
         LoginModel userInfo = memberService.login(memberModel);
-        AES256Util aes256Util = new AES256Util();
+        boolean isApp = LoginUtil.isApp(request);
 
         if(userInfo != null){
+            AES256Util aes256Util = new AES256Util();
             String encode = aes256Util.aesEncode(userInfo.getUserId()); //encode 안에 받아온 아이디값 넣어서 암호화 시키기
             CheckUtil.ORIGINAL_USER_ID_ENCODE = encode; //checkUtil.ENCODE 안에 암호화된 값 넣기
             CheckUtil.ORIGINAL_USER_ID_DECODE = aes256Util.aesDecode(encode); //checkUtil.DECODE 안에 복호된 값 넣기
@@ -87,12 +99,17 @@ public class MemberController {
 
     //로그아웃
     @GetMapping(value = "/logout")
-    public void logout(HttpServletResponse response){
-        Cookie cookie = new Cookie("userId", "tmp");
-        cookie.setMaxAge(0);
-        cookie.setPath("/");
+    public void logout(HttpServletResponse response, HttpServletRequest request){
+        boolean isApp = LoginUtil.isApp(request);
 
-        response.addCookie(cookie);
+        if(!isApp){
+            Cookie cookie = new Cookie("userId", "tmp");
+            cookie.setMaxAge(0);
+            cookie.setPath("/");
+            response.addCookie(cookie);
+        }else{
+            CheckUtil.NOW_LOGIN_USER = "";
+        }
     }
 
     //회원리스트가져오기

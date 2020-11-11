@@ -15,34 +15,34 @@ public class FileUtil {
     final static HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
     final static String root_path = request.getSession().getServletContext().getRealPath("/");
     final static String attach_path = "static/images/";
-    final static String attach_path_member = "member_images";
+    final static String attach_path_member = "member_images/";
 
-    public static String fileInsert(MultipartFile filePart) throws IOException{
+    public static String fileInsert(MultipartFile filePart, int type) throws IOException{
         UUID uuid = UUID.randomUUID();
+        String file_path = "";
         String exc = filePart.getOriginalFilename().substring(filePart.getOriginalFilename().lastIndexOf(".")+1);
 
-        File saveFile = new File(root_path+attach_path+uuid+"."+exc);
+        if(type == 1){
+            file_path = root_path+attach_path+uuid+"."+exc;
+        }else if(type == 2) {
+            file_path = root_path+attach_path_member+uuid+"."+exc;
+        }
+        File saveFile = new File(file_path);
         filePart.transferTo(saveFile);
 
         return uuid+"."+exc;
     }
 
-    public static String profileInsert(MultipartFile filePart, UUID uuid) throws IOException{
-        String filename = uuid+"_"+filePart.getOriginalFilename();
+    public static void fileDelete(String file_name, int type) {
+        String file_path = "";
 
-        File saveFile = new File(root_path+attach_path_member+filename);
-        filePart.transferTo(saveFile);
+        if(type == 1){
+            file_path = root_path + attach_path + file_name;
+        }else if(type == 2){
+            file_path = root_path + attach_path_member + file_name;
+        }
 
-        return filename;
-    }
-
-    public static void fileDelete(String file_name) {
-        File file = new File(root_path + attach_path + file_name);
-        file.delete();
-    }
-
-    public static void profileDelete(String file_name) {
-        File file = new File(root_path + attach_path_member + file_name);
+        File file = new File(file_path);
         file.delete();
     }
 

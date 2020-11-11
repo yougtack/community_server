@@ -4,10 +4,3 @@ spring:
     url: jdbc:mysql://apprentice.cgzz7jhrx4km.ap-northeast-2.rds.amazonaws.com:3306/BOARD?useUnicode=true&characterEncoding=utf8
     username: board
     password: boardQwer!@34%^
-
-  servlet:
-    multipart:
-      enabled: true
-      file-size-threshold: 2KB
-      max-file-size: 10MB
-      max-request-size: 10MB

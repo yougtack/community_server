@@ -32,19 +32,20 @@ public class MemberServiceImpl implements MemberService {
     public Integer signUpProfile(MultipartHttpServletRequest multipartHttpServletRequest, String userId) throws IOException{
         String file_path = null;
         String file_name = null;
-        UUID uuid = UUID.randomUUID();
+
         List<MultipartFile>multipartFiles = multipartHttpServletRequest.getFiles("profile");
         if(!multipartFiles.isEmpty()) {
             for (MultipartFile filePart : multipartFiles) {
-                file_name =  FileUtil.profileInsert(filePart, uuid);
+                file_name =  FileUtil.fileInsert(filePart, 2);
                 file_path = "/member_images/"+ file_name;
             }
         }else{
-            file_name = uuid+"_default_png";
+            file_name = "profile_default_png";
             file_path = "/member_images/default.png";
         }
         return dao.signUpProfile(userId, file_path, file_name);
     }
+
     @Override
     public LoginModel login(MemberModel member){
         return dao.login(member.getUserId(), member.getUserPw());
@@ -70,20 +71,19 @@ public class MemberServiceImpl implements MemberService {
     public Integer updateProfile(MultipartHttpServletRequest multipartHttpServletRequest, String userId) throws IOException{
         String file_path = null;
         String file_name = null;
-        UUID uuid = UUID.randomUUID();
 
         MemberModel memberModel = dao.getUserFileImage(userId);
-        FileUtil.profileDelete(memberModel.getFile_name());
+        FileUtil.fileDelete(memberModel.getFile_name(), 2);
 
 
         List<MultipartFile>multipartFiles = multipartHttpServletRequest.getFiles("profile");
         if(!multipartFiles.isEmpty()) {
             for (MultipartFile filePart : multipartFiles) {
-                file_name =  FileUtil.profileInsert(filePart, uuid);
+                file_name =  FileUtil.fileInsert(filePart, 2);
                 file_path = "/member_images/"+ file_name;
             }
         }else{
-            file_name = uuid+"_default.png";
+            file_name = "profile_default.png";
             file_path = "/member_images/default.png";
         }
         return dao.signUpProfile(userId, file_path, file_name);

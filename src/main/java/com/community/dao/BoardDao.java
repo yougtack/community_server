@@ -20,8 +20,6 @@ public interface BoardDao {
     int update(@Param("b_type") String b_type, @Param("b_title") String b_title, @Param("b_content") String b_content, @Param("b_id") int b_id);
     int delete(@Param("b_id") int b_id);
 
-
-
     Integer count(@Param("b_id") int b_id);
     ViewModel getView(@Param("b_id") int b_id);
 
@@ -36,9 +34,9 @@ public interface BoardDao {
 
     Integer get_max_order_no(@Param("parent_reply_id") int parent_reply_id);
 
-    String getImagePath(@Param("b_id") int b_id, @Param("a") String a, @Param("b") String b, @Param("i") int i);
+    String getImagePath(@Param("b_id") int b_id, @Param("patten_1") String patten_1, @Param("patten_2") String patten_2, @Param("i") int i);
 
-    int imageCount(@Param("b_id") int b_id, @Param("a") String a);
+    int imageCount(@Param("b_id") int b_id, @Param("patten_2") String patten_2);
 
 
 }

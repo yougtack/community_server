@@ -13,7 +13,7 @@
         <result property="depth" column="depth"/>
         <result property="order_no" column="order_no"/>
         <result property="updateCheck" column="updateCheck"/>
-        <result property="commentCount" column="commentCount1"/>
+        <result property="commentCount" column="commentCount"/>
         <result property="imageCount" column="imageCount"/>
     </resultMap>
 
@@ -48,7 +48,7 @@
     <select id="getBoardList" resultMap="boardMap">
         SELECT
             c.b_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId, c.group_id, c.parent_reply_id, c.depth, c.order_no, c.updateCheck,
-            count(cc.c_content) AS commentCount1,
+            count(cc.c_content) AS commentCount,
             (LENGTH(b_content) - LENGTH(replace(b_content, #{patten_1}, '')))/ LENGTH(#{patten_1}) AS imageCount
         FROM
             community AS c
@@ -63,7 +63,7 @@
     <select id="getMyBoardList" resultMap="boardMap">
         SELECT
             c.b_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId, c.group_id, c.parent_reply_id, c.depth, c.order_no, c.updateCheck,
-            count(cc.c_content) AS commentCount1,
+            count(cc.c_content) AS commentCount,
             (LENGTH(b_content) - LENGTH(replace(b_content, #{patten_1}, '')))/ LENGTH(#{patten_1}) AS imageCount
         FROM
             community AS c
@@ -78,7 +78,7 @@
     <select id="getMyCommentBoards" resultMap="boardMap">
         SELECT
             c.b_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId, c.group_id, c.parent_reply_id, c.depth, c.order_no, c.updateCheck,
-            count(cc.c_content) AS commentCount1,
+            count(cc.c_content) AS commentCount,
             (LENGTH(b_content) - LENGTH(replace(b_content, #{patten_1}, '')))/ LENGTH(#{patten_1}) AS imageCount
         FROM
             community AS c
@@ -165,7 +165,7 @@
     <select id="search" resultMap="boardMap">
          SELECT
             c.b_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId, c.group_id, c.parent_reply_id, c.depth, c.order_no, c.updateCheck,
-            count(cc.c_content) AS commentCount1,
+            count(cc.c_content) AS commentCount,
             (LENGTH(b_content) - LENGTH(replace(b_content, #{patten_1}, '')))/ LENGTH(#{patten_1}) AS imageCount
         FROM
             community AS c
@@ -182,7 +182,7 @@
     <select id="getRank" resultMap="boardMap">
         SELECT
             c.b_id, c.b_type, c.b_title, c.b_date, c.b_count, c.userId, c.group_id, c.parent_reply_id, c.depth, c.order_no, c.updateCheck,
-            count(cc.c_content) AS commentCount1,
+            count(cc.c_content) AS commentCount,
             (LENGTH(b_content) - LENGTH(replace(b_content, #{patten_1}, '')))/ LENGTH(#{patten_1}) AS imageCount
         FROM
             community AS c
@@ -235,16 +235,16 @@
 
     <select id="getImagePath" resultType="string">
         select
-            substring_index(substring_index(b_content, #{a}, -${i}), '" alt="image"', 1)
+            substring_index(substring_index(b_content, #{patten_1}, -${i}), '" alt="image"', 1)
         from
             community
         where
-            b_id = ${b_id} and b_content like CONCAT('%',#{b},'%')
+            b_id = ${b_id} and b_content like CONCAT('%',#{patten_2},'%')
     </select>
 
     <select id="imageCount" resultType="int">
         SELECT
-            (LENGTH(b_content) - LENGTH(REPLACE(b_content, #{a}, ''))) / LENGTH(#{a})
+            (LENGTH(b_content) - LENGTH(REPLACE(b_content, #{patten_2}, ''))) / LENGTH(#{patten_2})
         FROM
             community
         WHERE
