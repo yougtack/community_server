@@ -1,3 +1,7 @@
+const USER_LIST = {
+    data: []
+}
+
 function deleteUser(delete_user_id) {
     if (confirm("해당유저를 삭제시키겠습니까?")) {
         const DELETE_USER = {
@@ -24,7 +28,6 @@ function deleteUser(delete_user_id) {
     }
 }
 
-
 (function init() {
     let xhttp = new XMLHttpRequest();
     const URL = "http://localhost:8080";
@@ -35,7 +38,11 @@ function deleteUser(delete_user_id) {
         if (xhttp.status !== 200) {
             console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
         }
+        const array = JSON.parse(xhttp.responseText);
 
+        for (let index of array) {
+            USER_LIST.data = array;
+        }
     };
 
     xhttp.send();
@@ -47,7 +54,7 @@ function deleteUser(delete_user_id) {
         `<p style="font-size: 24px; margin: 60px 0 0 0;">유저명단</p>` +
         `<br>` +
         `<div style="margin: 30px 0 0 70px;">`;
-    for (let index of userInfo.data) {
+    for (let index of USER_LIST.data) {
         if(index.userId !== "admin") {
             real_table +=
                     `<div class="admin_div">` +
