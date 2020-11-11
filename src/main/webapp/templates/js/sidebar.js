@@ -1,30 +1,8 @@
 const userInfo = {
-    data: [],
     user:[]
 };
 
 const userCookie = document.cookie.substr(7,);
-
-(function init() {
-    let xhttp = new XMLHttpRequest();
-    const url = "http://localhost:8080";
-
-    xhttp.open("GET", url + "/member/memberList", false);
-
-    xhttp.onreadystatechange = () => {
-        if (xhttp.status !== 200) {
-            console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
-        }
-
-        const array = JSON.parse(xhttp.responseText);
-
-        for (let index of array) {
-            userInfo.data = array;
-        }
-    };
-
-    xhttp.send();
-})();
 
 (function userCookieId() {
     if(userCookie !== "") {
