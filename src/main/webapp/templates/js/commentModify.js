@@ -2,7 +2,7 @@ const COMMUNITY = {
     data: []
 };
 
-const C_ID = location.search.substr(6, 2).split("&");
+const C_ID = location.search.substr(6, ).split("&");
 const B_ID = location.search.substr(location.search.indexOf("b_id=") + 5);
 const USER_ID = document.cookie.substr(7,);
 
