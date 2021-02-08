@@ -22,6 +22,7 @@ public class LoginUtil {
     public static String getCookieUserId(HttpServletRequest request){
         Cookie[] cookies = request.getCookies();
         String cookieValue = null;
+
         if(cookies != null){
             for(int i=0; i<cookies.length; i++){
                 if(cookies[i].getName().equals("userId")){
@@ -43,4 +44,6 @@ public class LoginUtil {
         }
         return userId;
     }
+
+
 }

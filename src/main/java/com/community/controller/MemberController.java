@@ -73,6 +73,7 @@ public class MemberController {
             BadPaddingException,
             InvalidKeyException,
             UnsupportedEncodingException {
+
         LoginModel userInfo = memberService.login(memberModel);
         boolean isApp = LoginUtil.isApp(request);
 
@@ -145,5 +146,11 @@ public class MemberController {
     @PostMapping(value = "/userInfo")
     public LoginModel getUserInfo(@RequestBody MemberModel memberModel){
         return memberService.getUserInfo(memberModel);
+    }
+
+    @GetMapping(value = "/test")
+    public void test(HttpServletRequest req){
+        System.out.println("cookie!/1:"+LoginUtil.getCookieUserId(req));
+        System.out.println("cookie!/2:"+LoginUtil.getCheckLogin(req));
     }
 }
