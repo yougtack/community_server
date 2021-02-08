@@ -7,13 +7,13 @@ const userCookie = document.cookie.substr(7,);
 (function userCookieId() {
     if(userCookie !== "") {
         let xhttp = new XMLHttpRequest();
-        const url = "http://3.133.28.138:8080";
+        const URL = "http://3.133.28.138:8080";
 
         const data = {
             encode: userCookie
         }
 
-        xhttp.open("POST", url + `/member/userInfo`, false);
+        xhttp.open("POST", URL + `/member/userInfo`, false);
 
         xhttp.onreadystatechange = () => {
             if (xhttp.status !== 200) {
@@ -35,9 +35,9 @@ function sideSearchEnter() {
 
 function logout() {
     let xhttp = new XMLHttpRequest();
-    const url = "http://localhost:8080";
+    const URL = "http://localhost:8080";
 
-    xhttp.open("GET", url + `/member/logout`, false);
+    xhttp.open("GET", URL + `/member/logout`, false);
 
     xhttp.onreadystatechange = () => {
         if (xhttp.status !== 200) {

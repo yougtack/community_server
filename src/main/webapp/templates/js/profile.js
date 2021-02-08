@@ -12,7 +12,7 @@ function enter() {
 (function userCookieId() {
     if(userCookie !== "") {
         let xhttp = new XMLHttpRequest();
-        const url = "http://3.133.28.138:8080";
+        const URL = "http://3.133.28.138:8080";
 
         const DATA = {
             encode: userCookie
@@ -35,7 +35,7 @@ function enter() {
 function passwordChange(user_password) {
     if(confirm("비밀번호를 변경하시겠습니까?")) {
         let xhttp = new XMLHttpRequest();
-        const url = "http://3.133.28.138:8080";
+        const URL = "http://3.133.28.138:8080";
 
         const PASSWORD_DATA = {
             userId: userCookie,
@@ -85,7 +85,7 @@ function passwordCheck(){
 function profileChange() {
     if(confirm("프로필 사진을 변경하시겠습니까?")) {
         let xhttp = new XMLHttpRequest();
-        const url = "http://3.133.28.138:8080";
+        const URL = "http://3.133.28.138:8080";
 
         let files = document.getElementById("user_profile");
         let formData = new FormData();
@@ -120,7 +120,7 @@ function profileChange() {
          />`;
 
     let xhttp = new XMLHttpRequest();
-    const url = "http://3.133.28.138:8080";
+    const URL = "http://3.133.28.138:8080";
 
     xhttp.open("GET", URL + `/board/myBoardList/${MY_BOARD.userId.userId}`, false);
 
@@ -137,7 +137,7 @@ function profileChange() {
 
 (function myCommentInit(){
     let xhttp = new XMLHttpRequest();
-    const url = "http://3.133.28.138:8080";
+    const URL = "http://3.133.28.138:8080";
 
     xhttp.open("GET", URL + `/board/myCommentBoards/${MY_BOARD.userId.userId}`, false);
 

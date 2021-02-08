@@ -31,7 +31,7 @@ nhn.husky.EZCreator.createInIFrame({
 
 function boardCommentInsert(title,content) {
     let xhttp = new XMLHttpRequest();
-    const url = "http://3.133.28.138:8080";
+    const URL = "http://3.133.28.138:8080";
 
     const BOARD_COMMENT_DATA = {
         b_type: BOARD_COMMENT.data.b_type,
@@ -85,7 +85,7 @@ function valueCheck() {
 
 (function init() {
     let xhttp = new XMLHttpRequest();
-    const url = "http://3.133.28.138:8080";
+    const URL = "http://3.133.28.138:8080";
 
     xhttp.open("GET", URL + `/board/view/${B_ID}`, false);
 

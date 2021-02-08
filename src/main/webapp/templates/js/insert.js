@@ -25,7 +25,7 @@ nhn.husky.EZCreator.createInIFrame({
 
 function insert(title, content) {
     let xhttp = new XMLHttpRequest();
-    const url = "http://3.133.28.138:8080";
+    const URL = "http://3.133.28.138:8080";
 
     const DATA = {
         b_type: location.search.substr(location.search.indexOf("=") + 1),

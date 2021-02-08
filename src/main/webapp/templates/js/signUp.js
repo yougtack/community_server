@@ -8,7 +8,7 @@ function profile() {
     formData.append('profile', files.files[0]);
 
     let xhttp = new XMLHttpRequest();
-    const url = "http://3.133.28.138:8080";
+    const URL = "http://3.133.28.138:8080";
 
     xhttp.open("PUT", URL + `/member/signUpProfile`, false);
 
@@ -24,7 +24,7 @@ function profile() {
 function signUp(userId, userPw) {
     let xhttp = new XMLHttpRequest();
 
-    const url = "http://3.133.28.138:8080";
+    const URL = "http://3.133.28.138:8080";
     const DATA = {
         userId: userId.value,
         userPw: userPw.value
@@ -98,7 +98,7 @@ function enter() {
 
 (function init() {
     let xhttp = new XMLHttpRequest();
-    const url = "http://3.133.28.138:8080";
+    const URL = "http://3.133.28.138:8080";
 
     xhttp.open("GET", URL + `/member/memberList`, false);
 

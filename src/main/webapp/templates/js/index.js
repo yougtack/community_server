@@ -26,7 +26,7 @@ let c_length = 0;
     let xhttp = new XMLHttpRequest();
     const url = "http://3.133.28.138:8080";
 
-    xhttp.open("GET", URL + "/board/boardList", false);
+    xhttp.open("GET", url + "/board/boardList", false);
 
     xhttp.onreadystatechange = () => {
         if (xhttp.status !== 200) {

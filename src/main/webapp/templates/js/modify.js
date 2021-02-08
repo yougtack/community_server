@@ -25,7 +25,7 @@ nhn.husky.EZCreator.createInIFrame({
 
 function communityModify() {
     let xhttp = new XMLHttpRequest();
-    const url = "http://3.133.28.138:8080";
+    const URL = "http://3.133.28.138:8080";
     let sHTML = oEditors.getById["ir1"].getIR();
 
     if (confirm("게시글을 수정합니다.")) {
@@ -71,7 +71,7 @@ function cancel() {
 
 (function init() {
     let xhttp = new XMLHttpRequest();
-    const url = "http://3.133.28.138:8080";
+    const URL = "http://3.133.28.138:8080";
 
     xhttp.open("GET", URL + `/board/view/${B_ID}`, false);
 

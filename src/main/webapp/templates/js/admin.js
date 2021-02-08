@@ -11,7 +11,7 @@ function deleteUser(delete_user_id) {
         let xhttp = new XMLHttpRequest();
         const url = "http://3.133.28.138:8080";
 
-        xhttp.open("DELETE", URL + `/member`, false);
+        xhttp.open("DELETE", url + `/member`, false);
 
         xhttp.onreadystatechange = () => {
             if (xhttp.status !== 200) {

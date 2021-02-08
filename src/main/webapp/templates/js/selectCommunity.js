@@ -4,7 +4,7 @@ const COMMUNITY = {
 
 (function init() {
     let xhttp = new XMLHttpRequest();
-    const url = "http://3.133.28.138:8080";
+    const URL = "http://3.133.28.138:8080";
 
     xhttp.open("GET", URL + "/board/boardList", false);
 
