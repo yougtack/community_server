@@ -683,7 +683,7 @@ function imageURL() {
 		formData.append('Files', value);
 	}
 
-	xhttp.open("POST", url + `/board/image`, false);
+	xhttp.open("POST", URL + `/board/image`, false);
 
 	xhttp.onreadystatechange = () => {
 		if (xhttp.status !== 200) {
