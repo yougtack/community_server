@@ -677,7 +677,7 @@ function imageURL() {
 	let formData = new FormData();
 
 	let xhttp = new XMLHttpRequest();
-	const url = "http://localhost:8080";
+	const URL = "http://3.133.28.138:8080";
 
 	for (let value of files.files){
 		formData.append('Files', value);
