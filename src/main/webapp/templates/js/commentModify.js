@@ -8,7 +8,7 @@ const USER_ID = document.cookie.substr(7,);
 
 function commentModify() {
     let xhttp = new XMLHttpRequest();
-    const URL = "http://localhost:8080";
+    const url = "http://3.133.28.138:8080";
 
     if (confirm("댓글을 수정합니다.")) {
         if (document.getElementById("c_content").value.trim().length <= 0) {
@@ -48,7 +48,7 @@ function cancel() {
 
 (function init() {
     let xhttp = new XMLHttpRequest();
-    const URL = "http://localhost:8080";
+    const url = "http://3.133.28.138:8080";
 
     xhttp.open("GET", URL + `/board/view/${B_ID}`, false);
 

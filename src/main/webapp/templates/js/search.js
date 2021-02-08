@@ -6,7 +6,7 @@ const WORD = location.search.substr(location.search.indexOf("=") + 1);
 
 (function init() {
     let xhttp = new XMLHttpRequest();
-    const URL = "http://localhost:8080";
+    const url = "http://3.133.28.138:8080";
 
     xhttp.open("GET", URL + `/board/search/${WORD}`, false);
 

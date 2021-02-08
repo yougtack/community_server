@@ -9,7 +9,7 @@ function deleteUser(delete_user_id) {
         };
 
         let xhttp = new XMLHttpRequest();
-        const URL = "http://localhost:8080";
+        const url = "http://3.133.28.138:8080";
 
         xhttp.open("DELETE", URL + `/member`, false);
 

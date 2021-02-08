@@ -1,6 +1,6 @@
 function login(userId, userPw) {
     let xhttp = new XMLHttpRequest();
-    const URL = "http://localhost:8080";
+    const url = "http://3.133.28.138:8080";
 
     let DATA = {
         userId: userId.value,

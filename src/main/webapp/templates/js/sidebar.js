@@ -7,7 +7,7 @@ const userCookie = document.cookie.substr(7,);
 (function userCookieId() {
     if(userCookie !== "") {
         let xhttp = new XMLHttpRequest();
-        const url = "http://localhost:8080";
+        const url = "http://3.133.28.138:8080";
 
         const data = {
             encode: userCookie

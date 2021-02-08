@@ -10,7 +10,7 @@ const USER_ID = document.cookie.substr(7,);
 (function userId() {
     if(userCookie !== "") {
         let xhttp = new XMLHttpRequest();
-        const URL = "http://localhost:8080";
+        const url = "http://3.133.28.138:8080";
 
         const DATA = {
             encode: userCookie
@@ -31,7 +31,7 @@ const USER_ID = document.cookie.substr(7,);
 })();
 
 function imageDownload(path) {
-    location.href = `http://localhost:8080/board/download/${path}`;
+    location.href = `http://3.133.28.138:8080/board/download/${path}`;
 }
 
 function commentInsert() {
@@ -46,7 +46,7 @@ function commentInsert() {
     }
 
     let xhttp = new XMLHttpRequest();
-    const URL = "http://localhost:8080";
+    const url = "http://3.133.28.138:8080";
 
     const COMMENT_DATA = {
         userId: USER_ID,
@@ -72,7 +72,7 @@ function commentInsert() {
 function communityDelete() {
     if (confirm("해당 게시글을 삭제하시겠습니까?")) {
         let xhttp = new XMLHttpRequest();
-        const URL = "http://localhost:8080";
+        const url = "http://3.133.28.138:8080";
         const DELETE_DATA = {
             userId: USER_ID,
             b_id: COMMUNITY.data.b_id
@@ -98,7 +98,7 @@ function communityDelete() {
 function secondDelete(c_id) {
     if (confirm("해당 댓글을 삭제하시겠습니까?")) {
         let xhttp = new XMLHttpRequest();
-        const URL = "http://localhost:8080";
+        const url = "http://3.133.28.138:8080";
         const DELETE_DATA = {
             c_id: c_id,
             userId: USER_ID
@@ -124,7 +124,7 @@ function secondDelete(c_id) {
 function commentDelete(c_id) {
     if (confirm("해당 댓글을 삭제하시겠습니까?")) {
         let xhttp = new XMLHttpRequest();
-        const URL = "http://localhost:8080";
+        const url = "http://3.133.28.138:8080";
         const DELETE_DATA = {
             c_id: c_id,
             userId: USER_ID
@@ -179,7 +179,7 @@ function secondInsert(c_id) {
     }
 
     let xhttp = new XMLHttpRequest();
-    const URL = "http://localhost:8080";
+    const url = "http://3.133.28.138:8080";
     const SECOND_DATA = {
         b_id: B_ID,
         userId: USER_ID,
@@ -236,7 +236,7 @@ function secondBox(c_id){
 
 (function init() {
     let xhttp = new XMLHttpRequest();
-    const URL = "http://localhost:8080";
+    const url = "http://3.133.28.138:8080";
 
     xhttp.open("GET", URL + `/board/view/${B_ID}`, false);
 
@@ -253,7 +253,7 @@ function secondBox(c_id){
 
 (function image() {
     let xhttp = new XMLHttpRequest();
-    const URL = "http://localhost:8080";
+    const url = "http://3.133.28.138:8080";
     xhttp.open("GET", URL + `/board/imagePath/${B_ID}`, false);
 
     xhttp.onreadystatechange = () => {

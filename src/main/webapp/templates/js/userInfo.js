@@ -7,7 +7,7 @@ const USER_ID = location.search.substr(location.search.indexOf("=") + 1);
 
 (function myBoardInit() {
     let xhttp = new XMLHttpRequest();
-    const URL = "http://localhost:8080";
+    const url = "http://3.133.28.138:8080";
 
     xhttp.open("GET", URL + `/board/myBoardList/${USER_ID}`, false);
 
@@ -50,7 +50,7 @@ function timeForToday(value) {
 
 (function myCommentInit(){
     let xhttp = new XMLHttpRequest();
-    const URL = "http://localhost:8080";
+    const url = "http://3.133.28.138:8080";
 
     xhttp.open("GET", URL + `/board/myCommentBoards/${USER_ID}`, false);
 
