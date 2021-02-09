@@ -68,6 +68,7 @@ function timeForToday(value) {
 (function info() {
     const USER_PROFILE = document.getElementById("user_profile_view");
 
+    console.log(userInfo.user);
     for (let profile of userInfo.user) {
         if(profile.userId === USER_ID) {
             USER_PROFILE.innerHTML =
