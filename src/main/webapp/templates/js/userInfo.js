@@ -65,17 +65,40 @@ function timeForToday(value) {
     xhttp.send();
 })();
 
+const USER_TEST = {
+  data: []
+};
+
+(function test12() {
+    let xhttp = new XMLHttpRequest();
+    const URL = "http://localhost:8080";
+
+    xhttp.open("GET", URL + "/member/memberList", false);
+
+    xhttp.onreadystatechange = () => {
+        if (xhttp.status !== 200) {
+            console.log("HTTP ERROR", xhttp.status, xhttp.statusText);
+        }
+        const array = JSON.parse(xhttp.responseText);
+
+        for (let index of array) {
+            USER_TEST.data = array;
+        }
+    };
+
+    xhttp.send();
+})();
+
 (function info() {
     const USER_PROFILE = document.getElementById("user_profile_view");
 
-    console.log(userInfo.user);
-    // for (let profile of userInfo.user) {
-    //     if(profile.userId === USER_ID) {
-    //         USER_PROFILE.innerHTML =
-    //             `<img style="width: 150px; height: 150px; border-radius: 80px; border:1px solid #ddd;"
-    //                     src="${profile.file_path}" alt="profile" />`;
-    //     }
-    // }
+    for (let profile of USER_TEST.data) {
+        if(profile.userId === USER_ID) {
+            USER_PROFILE.innerHTML =
+                `<img style="width: 150px; height: 150px; border-radius: 80px; border:1px solid #ddd;"
+                        src="${profile.file_path}" alt="profile" />`;
+        }
+    }
 
     const USER_INFO_USERID = document.querySelector(".user_info_userId");
     USER_INFO_USERID.innerText = USER_ID;
