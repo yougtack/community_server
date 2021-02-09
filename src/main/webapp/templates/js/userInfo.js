@@ -71,7 +71,7 @@ const USER_TEST = {
 
 (function test12() {
     let xhttp = new XMLHttpRequest();
-    const URL = "http://localhost:8080";
+    const URL = "http://3.133.28.138:8080";
 
     xhttp.open("GET", URL + "/member/memberList", false);
 
