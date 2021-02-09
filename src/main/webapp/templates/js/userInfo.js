@@ -68,8 +68,7 @@ function timeForToday(value) {
 (function info() {
     const USER_PROFILE = document.getElementById("user_profile_view");
 
-    console.log(userInfo);
-    for (let profile of userInfo.data) {
+    for (let profile of userInfo.user) {
         if(profile.userId === USER_ID) {
             USER_PROFILE.innerHTML =
                 `<img style="width: 150px; height: 150px; border-radius: 80px; border:1px solid #ddd;"
