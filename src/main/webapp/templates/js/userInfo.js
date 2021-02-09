@@ -69,13 +69,13 @@ function timeForToday(value) {
     const USER_PROFILE = document.getElementById("user_profile_view");
 
     console.log(userInfo.user);
-    for (let profile of userInfo.user) {
-        if(profile.userId === USER_ID) {
-            USER_PROFILE.innerHTML =
-                `<img style="width: 150px; height: 150px; border-radius: 80px; border:1px solid #ddd;"
-                        src="${profile.file_path}" alt="profile" />`;
-        }
-    }
+    // for (let profile of userInfo.user) {
+    //     if(profile.userId === USER_ID) {
+    //         USER_PROFILE.innerHTML =
+    //             `<img style="width: 150px; height: 150px; border-radius: 80px; border:1px solid #ddd;"
+    //                     src="${profile.file_path}" alt="profile" />`;
+    //     }
+    // }
 
     const USER_INFO_USERID = document.querySelector(".user_info_userId");
     USER_INFO_USERID.innerText = USER_ID;
